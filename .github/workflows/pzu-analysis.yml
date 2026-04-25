@@ -1,0 +1,36 @@
+name: PZU analysis
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "*.PZU"
+      - "scripts/pzu_common.py"
+      - "scripts/validate_pzu.py"
+      - "scripts/firmware_manifest.py"
+      - "scripts/family_matrix.py"
+      - "scripts/xdata_xref.py"
+
+jobs:
+  analyze:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Validate and generate reports
+        run: |
+          python3 scripts/validate_pzu.py
+          python3 scripts/firmware_manifest.py
+          python3 scripts/family_matrix.py
+          python3 scripts/xdata_xref.py
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: pzu-analysis
+          path: |
+            docs/firmware_manifest.json
+            docs/firmware_inventory.csv
+            docs/firmware_family_matrix.csv
+            docs/xdata_xref.csv

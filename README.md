@@ -20,8 +20,14 @@
 
 ## Исходные образы
 
+- `90CYE02_27 DKS.PZU`
+- `90CYE03_19_2 v2_1.PZU`
+- `90CYE03_19_DKS.PZU`
+- `90CYE04_19_2 v2_1.PZU`
+- `90CYE04_19_DKS.PZU`
 - `A03_26.PZU`
 - `A04_28.PZU`
+- `ppkp2001 90cye01.PZU`
 - `ppkp2012 a01.PZU`
 - `ppkp2019 a02.PZU`
 
