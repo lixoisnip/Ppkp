@@ -1,0 +1,190 @@
+file,branch,function_addr,entry_evidence,incoming_lcalls,incoming_ljmps,incoming_sjmps,size_estimate,ret_count,call_count,xdata_read_count,xdata_write_count,movc_count,role_candidate,confidence
+90CYE02_27 DKS.PZU,90CYE_shifted_DKS,0x4100,entry_vector,0,0,0,95,0,1,1,0,0,unknown,unknown
+90CYE02_27 DKS.PZU,90CYE_shifted_DKS,0x415F,jump_target,0,1,0,23,1,0,0,0,0,unknown,hypothesis
+90CYE02_27 DKS.PZU,90CYE_shifted_DKS,0x4176,entry_vector,0,0,0,87,0,1,5,0,0,state_reader_or_packet_builder,unknown
+90CYE02_27 DKS.PZU,90CYE_shifted_DKS,0x41CD,jump_target,0,1,0,3,1,0,0,0,0,unknown,hypothesis
+90CYE02_27 DKS.PZU,90CYE_shifted_DKS,0x41D0,entry_vector,0,0,0,24,1,1,1,0,0,unknown,unknown
+90CYE02_27 DKS.PZU,90CYE_shifted_DKS,0x41E8,call_target,1,0,0,1867,0,3,0,0,0,unknown,hypothesis
+90CYE02_27 DKS.PZU,90CYE_shifted_DKS,0x4933,entry_vector,0,0,0,38,1,0,1,0,0,unknown,unknown
+90CYE02_27 DKS.PZU,90CYE_shifted_DKS,0x4959,entry_vector,0,0,0,38,1,0,1,0,0,unknown,unknown
+90CYE02_27 DKS.PZU,90CYE_shifted_DKS,0x497F,entry_vector,0,0,0,4981,1,0,1,0,0,unknown,unknown
+90CYE02_27 DKS.PZU,90CYE_shifted_DKS,0x5CF4,jump_target,0,1,0,7902,0,1,155,66,7,code_table_or_ui_worker,probable
+90CYE02_27 DKS.PZU,90CYE_shifted_DKS,0x7BD2,call_target,1,0,0,116,1,0,0,0,0,unknown,hypothesis
+90CYE02_27 DKS.PZU,90CYE_shifted_DKS,0x7C46,call_target,1,0,0,892,1,0,40,6,0,state_update_worker,probable
+90CYE02_27 DKS.PZU,90CYE_shifted_DKS,0x7FC2,call_target,1,0,0,25,0,0,1,0,0,unknown,probable
+90CYE02_27 DKS.PZU,90CYE_shifted_DKS,0x7FDB,jump_target,0,0,1,2962,0,1,49,9,0,state_update_worker,probable
+90CYE02_27 DKS.PZU,90CYE_shifted_DKS,0x8B6D,jump_target,0,1,0,17,1,1,2,0,0,unknown,probable
+90CYE03_19_2 v2_1.PZU,90CYE_v2_1,0x4100,entry_vector,0,0,0,95,0,1,1,0,0,unknown,unknown
+90CYE03_19_2 v2_1.PZU,90CYE_v2_1,0x415F,jump_target,0,1,0,23,1,0,0,0,0,unknown,hypothesis
+90CYE03_19_2 v2_1.PZU,90CYE_v2_1,0x4176,entry_vector,0,0,0,87,0,1,5,0,0,state_reader_or_packet_builder,unknown
+90CYE03_19_2 v2_1.PZU,90CYE_v2_1,0x41CD,jump_target,0,1,0,3,1,0,0,0,0,unknown,hypothesis
+90CYE03_19_2 v2_1.PZU,90CYE_v2_1,0x41D0,entry_vector,0,0,0,24,1,1,1,0,0,unknown,unknown
+90CYE03_19_2 v2_1.PZU,90CYE_v2_1,0x41E8,call_target,1,0,0,1867,0,3,0,0,0,unknown,hypothesis
+90CYE03_19_2 v2_1.PZU,90CYE_v2_1,0x4933,entry_vector,0,0,0,38,1,0,1,0,0,unknown,unknown
+90CYE03_19_2 v2_1.PZU,90CYE_v2_1,0x4959,entry_vector,0,0,0,38,1,0,1,0,0,unknown,unknown
+90CYE03_19_2 v2_1.PZU,90CYE_v2_1,0x497F,entry_vector,0,0,0,9469,1,0,1,0,0,unknown,unknown
+90CYE03_19_2 v2_1.PZU,90CYE_v2_1,0x6E7C,jump_target,0,1,0,1072,0,1,12,9,0,state_update_worker,probable
+90CYE03_19_2 v2_1.PZU,90CYE_v2_1,0x72AC,call_target,1,0,0,7448,1,0,157,30,8,code_table_or_ui_worker,probable
+90CYE03_19_2 v2_1.PZU,90CYE_v2_1,0x8FC4,call_target,1,0,0,2814,1,0,61,17,3,code_table_or_ui_worker,probable
+90CYE03_19_2 v2_1.PZU,90CYE_v2_1,0x9AC2,call_target,1,0,0,96,1,0,0,0,0,unknown,hypothesis
+90CYE03_19_2 v2_1.PZU,90CYE_v2_1,0x9B22,call_target,1,0,0,2695,1,0,88,12,0,state_update_worker,probable
+90CYE03_19_2 v2_1.PZU,90CYE_v2_1,0xA5A9,call_target,1,0,0,1681,1,2,39,1,6,code_table_or_ui_worker,probable
+90CYE03_19_2 v2_1.PZU,90CYE_v2_1,0xAC3A,jump_target,0,1,0,160,0,2,4,0,0,state_reader_or_packet_builder,probable
+90CYE03_19_2 v2_1.PZU,90CYE_v2_1,0xACDA,jump_target,0,1,0,13,1,0,1,0,0,unknown,probable
+90CYE03_19_DKS.PZU,90CYE_DKS,0x4100,entry_vector,0,0,0,95,0,1,1,0,0,unknown,unknown
+90CYE03_19_DKS.PZU,90CYE_DKS,0x415F,jump_target,0,1,0,23,1,0,0,0,0,unknown,hypothesis
+90CYE03_19_DKS.PZU,90CYE_DKS,0x4176,entry_vector,0,0,0,87,0,1,5,0,0,state_reader_or_packet_builder,unknown
+90CYE03_19_DKS.PZU,90CYE_DKS,0x41CD,jump_target,0,1,0,3,1,0,0,0,0,unknown,hypothesis
+90CYE03_19_DKS.PZU,90CYE_DKS,0x41D0,entry_vector,0,0,0,24,1,1,1,0,0,unknown,unknown
+90CYE03_19_DKS.PZU,90CYE_DKS,0x41E8,call_target,1,0,0,1862,0,3,0,0,0,unknown,hypothesis
+90CYE03_19_DKS.PZU,90CYE_DKS,0x492E,entry_vector,0,0,0,38,1,0,1,0,0,unknown,unknown
+90CYE03_19_DKS.PZU,90CYE_DKS,0x4954,entry_vector,0,0,0,38,1,0,1,0,0,unknown,unknown
+90CYE03_19_DKS.PZU,90CYE_DKS,0x497A,entry_vector,0,0,0,2882,1,0,1,0,0,unknown,unknown
+90CYE03_19_DKS.PZU,90CYE_DKS,0x54BC,jump_target,0,1,0,9286,0,3,259,104,11,code_table_or_ui_worker,probable
+90CYE03_19_DKS.PZU,90CYE_DKS,0x7902,call_target,1,0,0,32,1,0,0,0,0,unknown,hypothesis
+90CYE03_19_DKS.PZU,90CYE_DKS,0x7922,call_target,1,0,0,6,1,0,0,0,0,unknown,hypothesis
+90CYE03_19_DKS.PZU,90CYE_DKS,0x7928,call_target,1,0,0,6,1,0,0,0,0,unknown,hypothesis
+90CYE03_19_DKS.PZU,90CYE_DKS,0x792E,call_target,1,0,0,3180,1,0,104,14,1,state_update_worker,probable
+90CYE03_19_DKS.PZU,90CYE_DKS,0x859A,jump_target,0,1,0,147,0,1,5,0,0,state_reader_or_packet_builder,probable
+90CYE03_19_DKS.PZU,90CYE_DKS,0x862D,jump_target,0,1,0,11,1,0,1,0,0,unknown,probable
+90CYE04_19_2 v2_1.PZU,90CYE_v2_1,0x4100,entry_vector,0,0,0,95,0,1,1,0,0,unknown,unknown
+90CYE04_19_2 v2_1.PZU,90CYE_v2_1,0x415F,jump_target,0,1,0,23,1,0,0,0,0,unknown,hypothesis
+90CYE04_19_2 v2_1.PZU,90CYE_v2_1,0x4176,entry_vector,0,0,0,87,0,1,5,0,0,state_reader_or_packet_builder,unknown
+90CYE04_19_2 v2_1.PZU,90CYE_v2_1,0x41CD,jump_target,0,1,0,3,1,0,0,0,0,unknown,hypothesis
+90CYE04_19_2 v2_1.PZU,90CYE_v2_1,0x41D0,entry_vector,0,0,0,24,1,1,1,0,0,unknown,unknown
+90CYE04_19_2 v2_1.PZU,90CYE_v2_1,0x41E8,call_target,1,0,0,1867,0,3,0,0,0,unknown,hypothesis
+90CYE04_19_2 v2_1.PZU,90CYE_v2_1,0x4933,entry_vector,0,0,0,38,1,0,1,0,0,unknown,unknown
+90CYE04_19_2 v2_1.PZU,90CYE_v2_1,0x4959,entry_vector,0,0,0,38,1,0,1,0,0,unknown,unknown
+90CYE04_19_2 v2_1.PZU,90CYE_v2_1,0x497F,entry_vector,0,0,0,9469,1,0,1,0,0,unknown,unknown
+90CYE04_19_2 v2_1.PZU,90CYE_v2_1,0x6E7C,jump_target,0,1,0,1072,0,1,12,9,0,state_update_worker,probable
+90CYE04_19_2 v2_1.PZU,90CYE_v2_1,0x72AC,call_target,1,0,0,7448,1,0,157,30,8,code_table_or_ui_worker,probable
+90CYE04_19_2 v2_1.PZU,90CYE_v2_1,0x8FC4,call_target,1,0,0,2814,1,0,61,17,3,code_table_or_ui_worker,probable
+90CYE04_19_2 v2_1.PZU,90CYE_v2_1,0x9AC2,call_target,1,0,0,96,1,0,0,0,0,unknown,hypothesis
+90CYE04_19_2 v2_1.PZU,90CYE_v2_1,0x9B22,call_target,1,0,0,2695,1,0,88,12,0,state_update_worker,probable
+90CYE04_19_2 v2_1.PZU,90CYE_v2_1,0xA5A9,call_target,1,0,0,1681,1,2,39,1,6,code_table_or_ui_worker,probable
+90CYE04_19_2 v2_1.PZU,90CYE_v2_1,0xAC3A,jump_target,0,1,0,160,0,2,4,0,0,state_reader_or_packet_builder,probable
+90CYE04_19_2 v2_1.PZU,90CYE_v2_1,0xACDA,jump_target,0,1,0,13,1,0,1,0,0,unknown,probable
+90CYE04_19_DKS.PZU,90CYE_DKS,0x4100,entry_vector,0,0,0,95,0,1,1,0,0,unknown,unknown
+90CYE04_19_DKS.PZU,90CYE_DKS,0x415F,jump_target,0,1,0,23,1,0,0,0,0,unknown,hypothesis
+90CYE04_19_DKS.PZU,90CYE_DKS,0x4176,entry_vector,0,0,0,87,0,1,5,0,0,state_reader_or_packet_builder,unknown
+90CYE04_19_DKS.PZU,90CYE_DKS,0x41CD,jump_target,0,1,0,3,1,0,0,0,0,unknown,hypothesis
+90CYE04_19_DKS.PZU,90CYE_DKS,0x41D0,entry_vector,0,0,0,24,1,1,1,0,0,unknown,unknown
+90CYE04_19_DKS.PZU,90CYE_DKS,0x41E8,call_target,1,0,0,1862,0,3,0,0,0,unknown,hypothesis
+90CYE04_19_DKS.PZU,90CYE_DKS,0x492E,entry_vector,0,0,0,38,1,0,1,0,0,unknown,unknown
+90CYE04_19_DKS.PZU,90CYE_DKS,0x4954,entry_vector,0,0,0,38,1,0,1,0,0,unknown,unknown
+90CYE04_19_DKS.PZU,90CYE_DKS,0x497A,entry_vector,0,0,0,2882,1,0,1,0,0,unknown,unknown
+90CYE04_19_DKS.PZU,90CYE_DKS,0x54BC,jump_target,0,1,0,9286,0,3,259,104,11,code_table_or_ui_worker,probable
+90CYE04_19_DKS.PZU,90CYE_DKS,0x7902,call_target,1,0,0,32,1,0,0,0,0,unknown,hypothesis
+90CYE04_19_DKS.PZU,90CYE_DKS,0x7922,call_target,1,0,0,6,1,0,0,0,0,unknown,hypothesis
+90CYE04_19_DKS.PZU,90CYE_DKS,0x7928,call_target,1,0,0,6,1,0,0,0,0,unknown,hypothesis
+90CYE04_19_DKS.PZU,90CYE_DKS,0x792E,call_target,1,0,0,3180,1,0,104,14,1,state_update_worker,probable
+90CYE04_19_DKS.PZU,90CYE_DKS,0x859A,jump_target,0,1,0,147,0,1,5,0,0,state_reader_or_packet_builder,probable
+90CYE04_19_DKS.PZU,90CYE_DKS,0x862D,jump_target,0,1,0,11,1,0,1,0,0,unknown,probable
+A03_26.PZU,A03_A04,0x4100,entry_vector,0,0,0,95,0,1,1,0,0,unknown,unknown
+A03_26.PZU,A03_A04,0x415F,jump_target,0,1,0,23,1,0,0,0,0,unknown,hypothesis
+A03_26.PZU,A03_A04,0x4176,entry_vector,0,0,0,87,0,1,5,0,0,state_reader_or_packet_builder,unknown
+A03_26.PZU,A03_A04,0x41CD,jump_target,0,1,0,3,1,0,0,0,0,unknown,hypothesis
+A03_26.PZU,A03_A04,0x41D0,entry_vector,0,0,0,24,1,1,1,0,0,unknown,unknown
+A03_26.PZU,A03_A04,0x41E8,call_target,1,0,0,1862,0,3,0,0,0,unknown,hypothesis
+A03_26.PZU,A03_A04,0x492E,entry_vector,0,0,0,38,1,0,1,0,0,unknown,unknown
+A03_26.PZU,A03_A04,0x4954,entry_vector,0,0,0,38,1,0,1,0,0,unknown,unknown
+A03_26.PZU,A03_A04,0x497A,entry_vector,0,0,0,6799,1,0,1,0,0,unknown,unknown
+A03_26.PZU,A03_A04,0x6409,jump_target,0,1,0,1051,0,1,7,5,0,state_update_worker,probable
+A03_26.PZU,A03_A04,0x6824,jump_target,0,1,0,16,0,0,0,0,0,unknown,hypothesis
+A03_26.PZU,A03_A04,0x6834,call_target,1,0,0,11,0,0,0,0,0,unknown,hypothesis
+A03_26.PZU,A03_A04,0x683F,call_target,16,0,0,167,1,0,0,0,0,unknown,hypothesis
+A03_26.PZU,A03_A04,0x68E6,call_target,1,0,0,85,1,0,1,0,0,unknown,probable
+A03_26.PZU,A03_A04,0x693B,call_target,1,0,0,19,1,0,0,0,0,unknown,hypothesis
+A03_26.PZU,A03_A04,0x694E,mixed,14,2,0,78,1,0,0,0,0,unknown,hypothesis
+A03_26.PZU,A03_A04,0x699C,call_target,2,0,0,7,0,0,0,0,0,unknown,hypothesis
+A03_26.PZU,A03_A04,0x69A3,call_target,1,0,0,9,1,1,0,0,0,unknown,hypothesis
+A03_26.PZU,A03_A04,0x69AC,jump_target,0,0,1,11,1,1,0,0,0,unknown,hypothesis
+A03_26.PZU,A03_A04,0x69B7,call_target,1,0,0,79,0,1,0,0,0,unknown,hypothesis
+A03_26.PZU,A03_A04,0x6A06,call_target,2,0,0,412,1,0,2,0,0,unknown,probable
+A03_26.PZU,A03_A04,0x6BA2,call_target,1,0,0,25,0,0,1,0,0,unknown,probable
+A03_26.PZU,A03_A04,0x6BBB,jump_target,0,0,1,371,0,1,7,0,1,state_reader_or_packet_builder,probable
+A03_26.PZU,A03_A04,0x6D2E,call_target,2,0,0,10,1,0,0,0,0,unknown,hypothesis
+A03_26.PZU,A03_A04,0x6D38,call_target,1,0,0,9959,1,0,194,50,7,code_table_or_ui_worker,probable
+A03_26.PZU,A03_A04,0x941F,call_target,1,0,0,2873,1,0,5,0,0,state_reader_or_packet_builder,probable
+A03_26.PZU,A03_A04,0x9F58,call_target,1,0,0,86,0,5,3,1,0,dispatcher_or_router,probable
+A03_26.PZU,A03_A04,0x9FAE,jump_target,0,0,1,42,0,14,0,0,0,dispatcher_or_router,hypothesis
+A03_26.PZU,A03_A04,0x9FD8,call_target,7,0,0,617,0,8,4,0,0,service_or_runtime_worker,probable
+A03_26.PZU,A03_A04,0xA241,call_target,7,0,0,7,1,0,1,0,0,unknown,probable
+A03_26.PZU,A03_A04,0xA248,call_target,1,0,0,38,1,0,1,0,0,unknown,probable
+A03_26.PZU,A03_A04,0xA26E,call_target,1,0,0,135,0,16,1,0,0,dispatcher_or_router,probable
+A03_26.PZU,A03_A04,0xA2F5,call_target,1,0,0,2793,0,16,28,3,0,dispatcher_or_router,probable
+A03_26.PZU,A03_A04,0xADDE,jump_target,0,1,0,187,0,4,8,0,0,dispatcher_or_router,probable
+A03_26.PZU,A03_A04,0xAE99,jump_target,0,1,0,11,1,0,1,0,0,unknown,probable
+A04_28.PZU,A03_A04,0x4100,entry_vector,0,0,0,95,0,1,1,0,0,unknown,unknown
+A04_28.PZU,A03_A04,0x415F,jump_target,0,1,0,23,1,0,0,0,0,unknown,hypothesis
+A04_28.PZU,A03_A04,0x4176,entry_vector,0,0,0,87,0,1,5,0,0,state_reader_or_packet_builder,unknown
+A04_28.PZU,A03_A04,0x41CD,jump_target,0,1,0,3,1,0,0,0,0,unknown,hypothesis
+A04_28.PZU,A03_A04,0x41D0,entry_vector,0,0,0,24,1,1,1,0,0,unknown,unknown
+A04_28.PZU,A03_A04,0x41E8,call_target,1,0,0,1862,0,3,0,0,0,unknown,hypothesis
+A04_28.PZU,A03_A04,0x492E,entry_vector,0,0,0,38,1,0,1,0,0,unknown,unknown
+A04_28.PZU,A03_A04,0x4954,entry_vector,0,0,0,38,1,0,1,0,0,unknown,unknown
+A04_28.PZU,A03_A04,0x497A,entry_vector,0,0,0,6410,1,0,1,0,0,unknown,unknown
+A04_28.PZU,A03_A04,0x6284,jump_target,0,1,0,1144,0,1,7,5,0,state_update_worker,probable
+A04_28.PZU,A03_A04,0x66FC,jump_target,0,1,0,16,0,0,0,0,0,unknown,hypothesis
+A04_28.PZU,A03_A04,0x670C,call_target,1,0,0,11,0,0,0,0,0,unknown,hypothesis
+A04_28.PZU,A03_A04,0x6717,call_target,15,0,0,167,1,0,0,0,0,unknown,hypothesis
+A04_28.PZU,A03_A04,0x67BE,call_target,1,0,0,85,1,0,1,0,0,unknown,probable
+A04_28.PZU,A03_A04,0x6813,call_target,1,0,0,19,1,0,0,0,0,unknown,hypothesis
+A04_28.PZU,A03_A04,0x6826,mixed,14,2,0,78,1,0,0,0,0,unknown,hypothesis
+A04_28.PZU,A03_A04,0x6874,call_target,2,0,0,7,0,0,0,0,0,unknown,hypothesis
+A04_28.PZU,A03_A04,0x687B,call_target,1,0,0,9,1,1,0,0,0,unknown,hypothesis
+A04_28.PZU,A03_A04,0x6884,jump_target,0,0,1,11,1,1,0,0,0,unknown,hypothesis
+A04_28.PZU,A03_A04,0x688F,call_target,1,0,0,79,0,1,0,0,0,unknown,hypothesis
+A04_28.PZU,A03_A04,0x68DE,call_target,2,0,0,412,1,0,2,0,0,unknown,probable
+A04_28.PZU,A03_A04,0x6A7A,call_target,1,0,0,25,0,0,1,0,0,unknown,probable
+A04_28.PZU,A03_A04,0x6A93,jump_target,0,0,1,372,0,1,7,0,1,state_reader_or_packet_builder,probable
+A04_28.PZU,A03_A04,0x6C07,call_target,2,0,0,10,1,0,0,0,0,unknown,hypothesis
+A04_28.PZU,A03_A04,0x6C11,call_target,1,0,0,10321,1,0,201,50,7,code_table_or_ui_worker,probable
+A04_28.PZU,A03_A04,0x9462,call_target,1,0,0,3591,1,0,35,6,0,state_update_worker,probable
+A04_28.PZU,A03_A04,0xA269,call_target,1,0,0,121,0,30,3,1,0,dispatcher_or_router,probable
+A04_28.PZU,A03_A04,0xA2E2,call_target,13,0,0,835,0,8,5,0,0,service_or_runtime_worker,probable
+A04_28.PZU,A03_A04,0xA625,call_target,13,0,0,7,1,0,1,0,0,unknown,probable
+A04_28.PZU,A03_A04,0xA62C,call_target,1,0,0,38,1,0,1,0,0,unknown,probable
+A04_28.PZU,A03_A04,0xA652,call_target,1,0,0,135,0,15,1,0,0,dispatcher_or_router,probable
+A04_28.PZU,A03_A04,0xA6D9,call_target,1,0,0,3320,0,16,37,4,0,dispatcher_or_router,probable
+A04_28.PZU,A03_A04,0xB3D1,jump_target,0,1,0,192,0,4,8,0,0,dispatcher_or_router,probable
+A04_28.PZU,A03_A04,0xB491,jump_target,0,1,0,11,1,0,1,0,0,unknown,probable
+ppkp2001 90cye01.PZU,RTOS_service,0x4100,entry_vector,0,0,0,95,0,1,1,0,0,unknown,unknown
+ppkp2001 90cye01.PZU,RTOS_service,0x415F,jump_target,0,1,0,23,1,0,0,0,0,unknown,hypothesis
+ppkp2001 90cye01.PZU,RTOS_service,0x4176,entry_vector,0,0,0,87,0,1,5,0,0,state_reader_or_packet_builder,unknown
+ppkp2001 90cye01.PZU,RTOS_service,0x41CD,jump_target,0,1,0,3,1,0,0,0,0,unknown,hypothesis
+ppkp2001 90cye01.PZU,RTOS_service,0x41D0,entry_vector,0,0,0,24,1,1,1,0,0,unknown,unknown
+ppkp2001 90cye01.PZU,RTOS_service,0x41E8,call_target,1,0,0,27059,0,2,484,98,9,code_table_or_ui_worker,probable
+ppkp2001 90cye01.PZU,RTOS_service,0xAB9B,jump_target,0,1,0,203,0,1,6,0,0,state_reader_or_packet_builder,probable
+ppkp2001 90cye01.PZU,RTOS_service,0xAC66,jump_target,0,1,0,15,0,0,1,0,0,unknown,probable
+ppkp2001 90cye01.PZU,RTOS_service,0xAC75,jump_target,0,0,1,132,0,4,0,0,0,dispatcher_or_router,hypothesis
+ppkp2001 90cye01.PZU,RTOS_service,0xACF9,call_target,1,0,0,1692,1,0,0,0,0,unknown,hypothesis
+ppkp2001 90cye01.PZU,RTOS_service,0xB395,entry_vector,0,0,0,38,1,0,1,0,0,unknown,unknown
+ppkp2001 90cye01.PZU,RTOS_service,0xB3BB,entry_vector,0,0,0,38,1,0,1,0,0,unknown,unknown
+ppkp2001 90cye01.PZU,RTOS_service,0xB3E1,entry_vector,0,0,0,21,1,0,1,0,0,unknown,unknown
+ppkp2012 a01.PZU,RTOS_service,0x4100,entry_vector,0,0,0,95,0,1,1,0,0,unknown,unknown
+ppkp2012 a01.PZU,RTOS_service,0x415F,jump_target,0,1,0,23,1,0,0,0,0,unknown,hypothesis
+ppkp2012 a01.PZU,RTOS_service,0x4176,entry_vector,0,0,0,87,0,1,5,0,0,state_reader_or_packet_builder,unknown
+ppkp2012 a01.PZU,RTOS_service,0x41CD,jump_target,0,1,0,3,1,0,0,0,0,unknown,hypothesis
+ppkp2012 a01.PZU,RTOS_service,0x41D0,entry_vector,0,0,0,24,1,1,1,0,0,unknown,unknown
+ppkp2012 a01.PZU,RTOS_service,0x41E8,call_target,1,0,0,29791,0,2,511,107,9,code_table_or_ui_worker,probable
+ppkp2012 a01.PZU,RTOS_service,0xB647,jump_target,0,1,0,251,0,1,6,0,0,state_reader_or_packet_builder,probable
+ppkp2012 a01.PZU,RTOS_service,0xB742,jump_target,0,1,0,15,0,0,1,0,0,unknown,probable
+ppkp2012 a01.PZU,RTOS_service,0xB751,jump_target,0,0,1,132,0,4,0,0,0,dispatcher_or_router,hypothesis
+ppkp2012 a01.PZU,RTOS_service,0xB7D5,call_target,1,0,0,1692,1,0,0,0,0,unknown,hypothesis
+ppkp2012 a01.PZU,RTOS_service,0xBE71,entry_vector,0,0,0,38,1,0,1,0,0,unknown,unknown
+ppkp2012 a01.PZU,RTOS_service,0xBE97,entry_vector,0,0,0,38,1,0,1,0,0,unknown,unknown
+ppkp2012 a01.PZU,RTOS_service,0xBEBD,entry_vector,0,0,0,21,1,0,1,0,0,unknown,unknown
+ppkp2019 a02.PZU,RTOS_service,0x4100,entry_vector,0,0,0,95,0,1,1,0,0,unknown,unknown
+ppkp2019 a02.PZU,RTOS_service,0x415F,jump_target,0,1,0,23,1,0,0,0,0,unknown,hypothesis
+ppkp2019 a02.PZU,RTOS_service,0x4176,entry_vector,0,0,0,87,0,1,5,0,0,state_reader_or_packet_builder,unknown
+ppkp2019 a02.PZU,RTOS_service,0x41CD,jump_target,0,1,0,3,1,0,0,0,0,unknown,hypothesis
+ppkp2019 a02.PZU,RTOS_service,0x41D0,entry_vector,0,0,0,24,1,1,1,0,0,unknown,unknown
+ppkp2019 a02.PZU,RTOS_service,0x41E8,call_target,1,0,0,28113,0,2,444,112,21,code_table_or_ui_worker,probable
+ppkp2019 a02.PZU,RTOS_service,0xAFB9,jump_target,0,1,0,221,0,1,7,0,0,state_reader_or_packet_builder,probable
+ppkp2019 a02.PZU,RTOS_service,0xB096,jump_target,0,1,0,15,0,0,1,0,0,unknown,probable
+ppkp2019 a02.PZU,RTOS_service,0xB0A5,jump_target,0,0,1,132,0,4,0,0,0,dispatcher_or_router,hypothesis
+ppkp2019 a02.PZU,RTOS_service,0xB129,call_target,1,0,0,1692,1,0,0,0,0,unknown,hypothesis
+ppkp2019 a02.PZU,RTOS_service,0xB7C5,entry_vector,0,0,0,38,1,0,1,0,0,unknown,unknown
+ppkp2019 a02.PZU,RTOS_service,0xB7EB,entry_vector,0,0,0,38,1,0,1,0,0,unknown,unknown
+ppkp2019 a02.PZU,RTOS_service,0xB811,entry_vector,0,0,0,21,1,0,1,0,0,unknown,unknown
