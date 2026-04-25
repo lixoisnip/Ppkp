@@ -7,13 +7,10 @@ import csv
 from collections import defaultdict
 
 from pzu_common import discover_pzu_files, infer_branch, load_intel_hex
+from disasm_8051 import CODE_END, CODE_START, disassemble_reachable
 
 
-CODE_START = 0x4000
-CODE_END = 0xC000
-
-
-def extract_calls(mem: bytearray, start: int = CODE_START, end: int = CODE_END) -> list[tuple[int, str, int]]:
+def extract_calls_legacy(mem: bytearray, start: int = CODE_START, end: int = CODE_END) -> list[tuple[int, str, int]]:
     rows: list[tuple[int, str, int]] = []
     for addr in range(start, end - 2):
         op = mem[addr]
@@ -50,6 +47,7 @@ def main() -> int:
     p = argparse.ArgumentParser(description="Generate global call cross-reference tables for *.PZU images.")
     p.add_argument("--root", type=Path, default=Path("."))
     p.add_argument("--out", type=Path, default=Path("docs/call_xref.csv"))
+    p.add_argument("--legacy-out", type=Path, default=Path("docs/call_xref_legacy.csv"))
     p.add_argument("--summary", type=Path, default=Path("docs/call_targets_summary.csv"))
     args = p.parse_args()
 
@@ -60,25 +58,83 @@ def main() -> int:
         lambda: {"lcall_count": 0, "ljmp_count": 0, "files": set()}
     )
 
-    with args.out.open("w", newline="", encoding="utf-8") as f:
+    with args.legacy_out.open("w", newline="", encoding="utf-8") as f:
         w = csv.writer(f)
         w.writerow(["file", "branch", "code_addr", "call_type", "target_addr"])
+        for path in files:
+            mem, _st = load_intel_hex(path)
+            branch = infer_branch(path.name)
+            for code_addr, call_type, target_addr in extract_calls_legacy(mem):
+                w.writerow([path.name, branch, f"0x{code_addr:04X}", call_type, f"0x{target_addr:04X}"])
+
+    with args.out.open("w", newline="", encoding="utf-8") as f:
+        w = csv.writer(f)
+        w.writerow(
+            [
+                "file",
+                "branch",
+                "code_addr",
+                "call_type",
+                "target_addr",
+                "is_reachable",
+                "target_in_code_range",
+                "target_known_function",
+                "confidence",
+            ]
+        )
 
         for path in files:
             mem, _st = load_intel_hex(path)
             branch = infer_branch(path.name)
-            for code_addr, call_type, target_addr in extract_calls(mem):
-                w.writerow([path.name, branch, f"0x{code_addr:04X}", call_type, f"0x{target_addr:04X}"])
+            disasm_rows = disassemble_reachable(mem)
+            known_code_addrs = {int(row["code_addr"], 16) for row in disasm_rows}
+            for row in disasm_rows:
+                call_type = row["mnemonic"]
+                if call_type not in {"LCALL", "LJMP", "SJMP"}:
+                    continue
+                if not row["target_addr"]:
+                    continue
+                code_addr = int(row["code_addr"], 16)
+                target_addr = int(row["target_addr"], 16)
+                target_in_code_range = CODE_START <= target_addr < CODE_END
+                target_known_function: str = ""
+                if target_in_code_range:
+                    target_known_function = "true" if target_addr in known_code_addrs else "false"
+
+                w.writerow(
+                    [
+                        path.name,
+                        branch,
+                        f"0x{code_addr:04X}",
+                        call_type,
+                        f"0x{target_addr:04X}",
+                        "true",
+                        "true" if target_in_code_range else "false",
+                        target_known_function,
+                        row["confidence"].lower(),
+                    ]
+                )
                 item = summary[(branch, target_addr)]
                 item["files"].add(path.name)
                 if call_type == "LCALL":
                     item["lcall_count"] += 1
-                else:
+                elif call_type == "LJMP":
                     item["ljmp_count"] += 1
 
     with args.summary.open("w", newline="", encoding="utf-8") as f:
         w = csv.writer(f)
-        w.writerow(["branch", "target_addr", "lcall_count", "ljmp_count", "files", "role_candidate", "confidence"])
+        w.writerow(
+            [
+                "branch",
+                "target_addr",
+                "lcall_count",
+                "ljmp_count",
+                "files",
+                "role_candidate",
+                "confidence",
+                "evidence_source",
+            ]
+        )
         for (branch, target_addr), item in sorted(summary.items(), key=lambda x: (x[0][0], x[0][1])):
             files_sorted = sorted(item["files"])
             role, confidence = infer_role_candidate(item["lcall_count"], item["ljmp_count"], len(files_sorted))
@@ -91,10 +147,12 @@ def main() -> int:
                     ";".join(files_sorted),
                     role,
                     confidence,
+                    "reachable_disasm",
                 ]
             )
 
     print(f"Generated: {args.out}")
+    print(f"Generated: {args.legacy_out}")
     print(f"Generated: {args.summary}")
     return 0
 

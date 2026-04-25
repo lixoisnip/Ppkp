@@ -17,6 +17,7 @@
 - Сценарии стендового replay: `docs/replay_scenarios.md`
 - Карта XDATA (CSV): `docs/xdata_map.csv`
 - `docs/disassembly_index.csv` — минимальный reachable 8051 disassembly index.
+- `docs/call_xref_legacy.csv` — legacy byte-scan call reference for comparison.
 - Предыдущий файл анализа/журнал: `PZU_ANALYSIS.md`
 
 ## Исходные образы
