@@ -16,6 +16,7 @@
 - Карта вариантных окон A03/A04: `docs/variant_windows_map.md`
 - Сценарии стендового replay: `docs/replay_scenarios.md`
 - Карта XDATA (CSV): `docs/xdata_map.csv`
+- `docs/disassembly_index.csv` — минимальный reachable 8051 disassembly index.
 - Предыдущий файл анализа/журнал: `PZU_ANALYSIS.md`
 
 ## Исходные образы
