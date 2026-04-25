@@ -1,0 +1,121 @@
+file,branch,code_addr,dptr_addr,evidence_type,next_bytes,confidence
+90CYE02_27 DKS.PZU,90CYE_shifted_DKS,0x616D,0x60FC,code_table_or_string_candidate,93,medium
+90CYE02_27 DKS.PZU,90CYE_shifted_DKS,0x6D26,0x6D07,code_table_or_string_candidate,93,medium
+90CYE02_27 DKS.PZU,90CYE_shifted_DKS,0x6DC3,0x6DB2,code_table_or_string_candidate,93,medium
+90CYE02_27 DKS.PZU,90CYE_shifted_DKS,0x6E10,0x6DB2,code_table_or_string_candidate,93,medium
+90CYE02_27 DKS.PZU,90CYE_shifted_DKS,0x736F,0x732A,code_table_or_string_candidate,93,medium
+90CYE02_27 DKS.PZU,90CYE_shifted_DKS,0x743F,0x73F0,code_table_or_string_candidate,93,medium
+90CYE02_27 DKS.PZU,90CYE_shifted_DKS,0x74E9,0x73E8,code_table_or_string_candidate,93,medium
+90CYE03_19_2 v2_1.PZU,90CYE_v2_1,0x73EC,0x736B,code_table_or_string_candidate,93,medium
+90CYE03_19_2 v2_1.PZU,90CYE_v2_1,0x81D7,0x81B8,code_table_or_string_candidate,93,medium
+90CYE03_19_2 v2_1.PZU,90CYE_v2_1,0x8280,0x826F,code_table_or_string_candidate,93,medium
+90CYE03_19_2 v2_1.PZU,90CYE_v2_1,0x82CD,0x826F,code_table_or_string_candidate,93,medium
+90CYE03_19_2 v2_1.PZU,90CYE_v2_1,0x85C9,0x76E8,code_table_or_string_candidate,93,medium
+90CYE03_19_2 v2_1.PZU,90CYE_v2_1,0x8B07,0x8AC6,code_table_or_string_candidate,93,medium
+90CYE03_19_2 v2_1.PZU,90CYE_v2_1,0x8BCA,0x8B7F,code_table_or_string_candidate,93,medium
+90CYE03_19_2 v2_1.PZU,90CYE_v2_1,0x8C74,0x8B77,code_table_or_string_candidate,93,medium
+90CYE03_19_2 v2_1.PZU,90CYE_v2_1,0x96CD,0x96B0,code_table_or_string_candidate,93,medium
+90CYE03_19_2 v2_1.PZU,90CYE_v2_1,0x96F9,0x76E8,code_table_or_string_candidate,93,medium
+90CYE03_19_2 v2_1.PZU,90CYE_v2_1,0x99E8,0x76E8,code_table_or_string_candidate,93,medium
+90CYE03_19_2 v2_1.PZU,90CYE_v2_1,0xA804,0xA77B,code_table_or_string_candidate,93,medium
+90CYE03_19_2 v2_1.PZU,90CYE_v2_1,0xA905,0x76E8,code_table_or_string_candidate,93,medium
+90CYE03_19_2 v2_1.PZU,90CYE_v2_1,0xA927,0x76F8,code_table_or_string_candidate,93,medium
+90CYE03_19_2 v2_1.PZU,90CYE_v2_1,0xA97C,0x76F8,code_table_or_string_candidate,93,medium
+90CYE03_19_2 v2_1.PZU,90CYE_v2_1,0xA9AD,0x76D5,code_table_or_string_candidate,93,medium
+90CYE03_19_2 v2_1.PZU,90CYE_v2_1,0xA9E4,0x76F8,code_table_or_string_candidate,93,medium
+90CYE03_19_DKS.PZU,90CYE_DKS,0x59F3,0x599D,code_table_or_string_candidate,93,medium
+90CYE03_19_DKS.PZU,90CYE_DKS,0x5A0B,0x5999,code_table_or_string_candidate,93,medium
+90CYE03_19_DKS.PZU,90CYE_DKS,0x61DA,0x62CF,code_table_or_string_candidate,93,medium
+90CYE03_19_DKS.PZU,90CYE_DKS,0x61F6,0x62CF,code_table_or_string_candidate,93,medium
+90CYE03_19_DKS.PZU,90CYE_DKS,0x654F,0x6530,code_table_or_string_candidate,93,medium
+90CYE03_19_DKS.PZU,90CYE_DKS,0x6D65,0x6D3A,code_table_or_string_candidate,93,medium
+90CYE03_19_DKS.PZU,90CYE_DKS,0x6DCD,0x6D75,code_table_or_string_candidate,93,medium
+90CYE03_19_DKS.PZU,90CYE_DKS,0x6E17,0x6DE4,code_table_or_string_candidate,93,medium
+90CYE03_19_DKS.PZU,90CYE_DKS,0x6E79,0x6DDD,code_table_or_string_candidate,93,medium
+90CYE03_19_DKS.PZU,90CYE_DKS,0x7397,0x7378,code_table_or_string_candidate,93,medium
+90CYE03_19_DKS.PZU,90CYE_DKS,0x75C7,0x75B0,code_table_or_string_candidate,93,medium
+90CYE03_19_DKS.PZU,90CYE_DKS,0x7E1D,0x7E03,code_table_or_string_candidate,93,medium
+90CYE04_19_2 v2_1.PZU,90CYE_v2_1,0x73EC,0x736B,code_table_or_string_candidate,93,medium
+90CYE04_19_2 v2_1.PZU,90CYE_v2_1,0x81D7,0x81B8,code_table_or_string_candidate,93,medium
+90CYE04_19_2 v2_1.PZU,90CYE_v2_1,0x8280,0x826F,code_table_or_string_candidate,93,medium
+90CYE04_19_2 v2_1.PZU,90CYE_v2_1,0x82CD,0x826F,code_table_or_string_candidate,93,medium
+90CYE04_19_2 v2_1.PZU,90CYE_v2_1,0x85C9,0x76E8,code_table_or_string_candidate,93,medium
+90CYE04_19_2 v2_1.PZU,90CYE_v2_1,0x8B07,0x8AC6,code_table_or_string_candidate,93,medium
+90CYE04_19_2 v2_1.PZU,90CYE_v2_1,0x8BCA,0x8B7F,code_table_or_string_candidate,93,medium
+90CYE04_19_2 v2_1.PZU,90CYE_v2_1,0x8C74,0x8B77,code_table_or_string_candidate,93,medium
+90CYE04_19_2 v2_1.PZU,90CYE_v2_1,0x96CD,0x96B0,code_table_or_string_candidate,93,medium
+90CYE04_19_2 v2_1.PZU,90CYE_v2_1,0x96F9,0x76E8,code_table_or_string_candidate,93,medium
+90CYE04_19_2 v2_1.PZU,90CYE_v2_1,0x99E8,0x76E8,code_table_or_string_candidate,93,medium
+90CYE04_19_2 v2_1.PZU,90CYE_v2_1,0xA804,0xA77B,code_table_or_string_candidate,93,medium
+90CYE04_19_2 v2_1.PZU,90CYE_v2_1,0xA905,0x76E8,code_table_or_string_candidate,93,medium
+90CYE04_19_2 v2_1.PZU,90CYE_v2_1,0xA927,0x76F8,code_table_or_string_candidate,93,medium
+90CYE04_19_2 v2_1.PZU,90CYE_v2_1,0xA97C,0x76F8,code_table_or_string_candidate,93,medium
+90CYE04_19_2 v2_1.PZU,90CYE_v2_1,0xA9AD,0x76D5,code_table_or_string_candidate,93,medium
+90CYE04_19_2 v2_1.PZU,90CYE_v2_1,0xA9E4,0x76F8,code_table_or_string_candidate,93,medium
+90CYE04_19_DKS.PZU,90CYE_DKS,0x59F3,0x599D,code_table_or_string_candidate,93,medium
+90CYE04_19_DKS.PZU,90CYE_DKS,0x5A0B,0x5999,code_table_or_string_candidate,93,medium
+90CYE04_19_DKS.PZU,90CYE_DKS,0x61DA,0x62CF,code_table_or_string_candidate,93,medium
+90CYE04_19_DKS.PZU,90CYE_DKS,0x61F6,0x62CF,code_table_or_string_candidate,93,medium
+90CYE04_19_DKS.PZU,90CYE_DKS,0x654F,0x6530,code_table_or_string_candidate,93,medium
+90CYE04_19_DKS.PZU,90CYE_DKS,0x6D65,0x6D3A,code_table_or_string_candidate,93,medium
+90CYE04_19_DKS.PZU,90CYE_DKS,0x6DCD,0x6D75,code_table_or_string_candidate,93,medium
+90CYE04_19_DKS.PZU,90CYE_DKS,0x6E17,0x6DE4,code_table_or_string_candidate,93,medium
+90CYE04_19_DKS.PZU,90CYE_DKS,0x6E79,0x6DDD,code_table_or_string_candidate,93,medium
+90CYE04_19_DKS.PZU,90CYE_DKS,0x7397,0x7378,code_table_or_string_candidate,93,medium
+90CYE04_19_DKS.PZU,90CYE_DKS,0x75C7,0x75B0,code_table_or_string_candidate,93,medium
+90CYE04_19_DKS.PZU,90CYE_DKS,0x7E1D,0x7E03,code_table_or_string_candidate,93,medium
+A03_26.PZU,A03_A04,0x6CE7,0x6C74,code_table_or_string_candidate,93,medium
+A03_26.PZU,A03_A04,0x7777,0x7758,code_table_or_string_candidate,93,medium
+A03_26.PZU,A03_A04,0x794B,0x793A,code_table_or_string_candidate,93,medium
+A03_26.PZU,A03_A04,0x799F,0x793A,code_table_or_string_candidate,93,medium
+A03_26.PZU,A03_A04,0x7EEC,0x7E97,code_table_or_string_candidate,93,medium
+A03_26.PZU,A03_A04,0x7F84,0x7EFC,code_table_or_string_candidate,93,medium
+A03_26.PZU,A03_A04,0x7FF0,0x7F9C,code_table_or_string_candidate,93,medium
+A03_26.PZU,A03_A04,0x8094,0x7F94,code_table_or_string_candidate,93,medium
+A04_28.PZU,A03_A04,0x6BC0,0x6B4D,code_table_or_string_candidate,93,medium
+A04_28.PZU,A03_A04,0x76A5,0x7686,code_table_or_string_candidate,93,medium
+A04_28.PZU,A03_A04,0x7879,0x7867,code_table_or_string_candidate,93,medium
+A04_28.PZU,A03_A04,0x78CD,0x7867,code_table_or_string_candidate,93,medium
+A04_28.PZU,A03_A04,0x7E2E,0x7DD3,code_table_or_string_candidate,93,medium
+A04_28.PZU,A03_A04,0x7ECE,0x7E3E,code_table_or_string_candidate,93,medium
+A04_28.PZU,A03_A04,0x7F40,0x7EE6,code_table_or_string_candidate,93,medium
+A04_28.PZU,A03_A04,0x7FE4,0x7EDE,code_table_or_string_candidate,93,medium
+ppkp2001 90cye01.PZU,RTOS_service,0x42B3,0x42D3,code_table_or_string_candidate,93,medium
+ppkp2001 90cye01.PZU,RTOS_service,0x4533,0x4574,code_table_or_string_candidate,93,medium
+ppkp2001 90cye01.PZU,RTOS_service,0x4592,0x45A2,code_table_or_string_candidate,93,medium
+ppkp2001 90cye01.PZU,RTOS_service,0x5840,0x58A9,code_table_or_string_candidate,93,medium
+ppkp2001 90cye01.PZU,RTOS_service,0x66CE,0x4F02,code_table_or_string_candidate,93,medium
+ppkp2001 90cye01.PZU,RTOS_service,0x6BB3,0x6BD0,code_table_or_string_candidate,93,medium
+ppkp2001 90cye01.PZU,RTOS_service,0x7B9D,0x7C52,code_table_or_string_candidate,93,medium
+ppkp2001 90cye01.PZU,RTOS_service,0x939E,0x93B9,code_table_or_string_candidate,93,medium
+ppkp2001 90cye01.PZU,RTOS_service,0xA6C0,0xA714,code_table_or_string_candidate,93,medium
+ppkp2012 a01.PZU,RTOS_service,0x42B3,0x42D3,code_table_or_string_candidate,93,medium
+ppkp2012 a01.PZU,RTOS_service,0x4540,0x4581,code_table_or_string_candidate,93,medium
+ppkp2012 a01.PZU,RTOS_service,0x459F,0x45AF,code_table_or_string_candidate,93,medium
+ppkp2012 a01.PZU,RTOS_service,0x5890,0x58F9,code_table_or_string_candidate,93,medium
+ppkp2012 a01.PZU,RTOS_service,0x677B,0x4F65,code_table_or_string_candidate,93,medium
+ppkp2012 a01.PZU,RTOS_service,0x6C37,0x6C54,code_table_or_string_candidate,93,medium
+ppkp2012 a01.PZU,RTOS_service,0x80E6,0x820B,code_table_or_string_candidate,93,medium
+ppkp2012 a01.PZU,RTOS_service,0x9AE6,0x9B01,code_table_or_string_candidate,93,medium
+ppkp2012 a01.PZU,RTOS_service,0xAE84,0xAED8,code_table_or_string_candidate,93,medium
+ppkp2019 a02.PZU,RTOS_service,0x42FE,0x431E,code_table_or_string_candidate,93,medium
+ppkp2019 a02.PZU,RTOS_service,0x45E9,0x462A,code_table_or_string_candidate,93,medium
+ppkp2019 a02.PZU,RTOS_service,0x4648,0x4658,code_table_or_string_candidate,93,medium
+ppkp2019 a02.PZU,RTOS_service,0x58F2,0x5153,code_table_or_string_candidate,93,medium
+ppkp2019 a02.PZU,RTOS_service,0x5900,0x5163,code_table_or_string_candidate,93,medium
+ppkp2019 a02.PZU,RTOS_service,0x590E,0x5173,code_table_or_string_candidate,93,medium
+ppkp2019 a02.PZU,RTOS_service,0x5C8A,0x5CF3,code_table_or_string_candidate,93,medium
+ppkp2019 a02.PZU,RTOS_service,0x6A08,0x6A2D,code_table_or_string_candidate,93,medium
+ppkp2019 a02.PZU,RTOS_service,0x6B91,0x6A2D,code_table_or_string_candidate,93,medium
+ppkp2019 a02.PZU,RTOS_service,0x6C67,0x513E,code_table_or_string_candidate,93,medium
+ppkp2019 a02.PZU,RTOS_service,0x6FA6,0x5153,code_table_or_string_candidate,93,medium
+ppkp2019 a02.PZU,RTOS_service,0x6FC5,0x6FE2,code_table_or_string_candidate,93,medium
+ppkp2019 a02.PZU,RTOS_service,0x7D63,0x7F93,code_table_or_string_candidate,93,medium
+ppkp2019 a02.PZU,RTOS_service,0x7D69,0x7F9F,code_table_or_string_candidate,93,medium
+ppkp2019 a02.PZU,RTOS_service,0x7D82,0x7FAB,code_table_or_string_candidate,93,medium
+ppkp2019 a02.PZU,RTOS_service,0xA7CE,0x5153,code_table_or_string_candidate,93,medium
+ppkp2019 a02.PZU,RTOS_service,0xA82D,0xE912,code_table_or_string_candidate,93,medium
+ppkp2019 a02.PZU,RTOS_service,0xA87D,0x5183,code_table_or_string_candidate,93,medium
+ppkp2019 a02.PZU,RTOS_service,0xA8B1,0x5163,code_table_or_string_candidate,93,medium
+ppkp2019 a02.PZU,RTOS_service,0xA8E9,0x5173,code_table_or_string_candidate,93,medium
+ppkp2019 a02.PZU,RTOS_service,0xAC5B,0xACAF,code_table_or_string_candidate,93,medium

@@ -49,6 +49,7 @@ file,branch,code_addr,dptr_addr,access_type,next_bytes,confidence
 90CYE02_27 DKS.PZU,90CYE_shifted_DKS,0x6129,0x317B,read,E0,high
 90CYE02_27 DKS.PZU,90CYE_shifted_DKS,0x6145,0x4575,read,E0,high
 90CYE02_27 DKS.PZU,90CYE_shifted_DKS,0x6167,0x32B2,read,E0,high
+90CYE02_27 DKS.PZU,90CYE_shifted_DKS,0x616D,0x60FC,movc,93,medium
 90CYE02_27 DKS.PZU,90CYE_shifted_DKS,0x6173,0x4575,read,E0,high
 90CYE02_27 DKS.PZU,90CYE_shifted_DKS,0x61C9,0x30B2,read,E0,high
 90CYE02_27 DKS.PZU,90CYE_shifted_DKS,0x61F3,0x4578,read,E0,high
@@ -222,12 +223,15 @@ file,branch,code_addr,dptr_addr,access_type,next_bytes,confidence
 90CYE02_27 DKS.PZU,90CYE_shifted_DKS,0x6CDF,0x306C,lcall,12 6D6E,medium
 90CYE02_27 DKS.PZU,90CYE_shifted_DKS,0x6CFD,0x30B1,read,E0,high
 90CYE02_27 DKS.PZU,90CYE_shifted_DKS,0x6D01,0x3060,ljmp,02 604B,medium
+90CYE02_27 DKS.PZU,90CYE_shifted_DKS,0x6D26,0x6D07,movc,93,medium
 90CYE02_27 DKS.PZU,90CYE_shifted_DKS,0x6DB8,0x30A5,read,E0,high
 90CYE02_27 DKS.PZU,90CYE_shifted_DKS,0x6DBC,0x310B,lcall,12 604B,medium
+90CYE02_27 DKS.PZU,90CYE_shifted_DKS,0x6DC3,0x6DB2,movc,93,medium
 90CYE02_27 DKS.PZU,90CYE_shifted_DKS,0x6DC7,0x30B2,write,F0,high
 90CYE02_27 DKS.PZU,90CYE_shifted_DKS,0x6DD1,0x6DDD,lcall,12 72D5,medium
 90CYE02_27 DKS.PZU,90CYE_shifted_DKS,0x6DD7,0x62C3,ljmp,02 72C6,medium
 90CYE02_27 DKS.PZU,90CYE_shifted_DKS,0x6E05,0x3103,read,E0,high
+90CYE02_27 DKS.PZU,90CYE_shifted_DKS,0x6E10,0x6DB2,movc,93,medium
 90CYE02_27 DKS.PZU,90CYE_shifted_DKS,0x6E14,0x30B2,write,F0,high
 90CYE02_27 DKS.PZU,90CYE_shifted_DKS,0x6E32,0x5412,lcall,12 655F,medium
 90CYE02_27 DKS.PZU,90CYE_shifted_DKS,0x6E4E,0x30CD,read,E0,high
@@ -291,6 +295,8 @@ file,branch,code_addr,dptr_addr,access_type,next_bytes,confidence
 90CYE02_27 DKS.PZU,90CYE_shifted_DKS,0x7269,0x312D,read,E0,high
 90CYE02_27 DKS.PZU,90CYE_shifted_DKS,0x727D,0x312D,read,E0,high
 90CYE02_27 DKS.PZU,90CYE_shifted_DKS,0x7289,0x31D1,write,F0,high
+90CYE02_27 DKS.PZU,90CYE_shifted_DKS,0x736F,0x732A,movc,93,medium
+90CYE02_27 DKS.PZU,90CYE_shifted_DKS,0x743F,0x73F0,movc,93,medium
 90CYE02_27 DKS.PZU,90CYE_shifted_DKS,0x745A,0x30AF,read,E0,high
 90CYE02_27 DKS.PZU,90CYE_shifted_DKS,0x745F,0x31DD,lcall,12 6067,medium
 90CYE02_27 DKS.PZU,90CYE_shifted_DKS,0x748E,0x732A,lcall,12 64B6,medium
@@ -300,6 +306,7 @@ file,branch,code_addr,dptr_addr,access_type,next_bytes,confidence
 90CYE02_27 DKS.PZU,90CYE_shifted_DKS,0x74B1,0x46A0,lcall,12 7C0A,medium
 90CYE02_27 DKS.PZU,90CYE_shifted_DKS,0x74CD,0x737F,lcall,12 64B6,medium
 90CYE02_27 DKS.PZU,90CYE_shifted_DKS,0x74D8,0x30B0,read,E0,high
+90CYE02_27 DKS.PZU,90CYE_shifted_DKS,0x74E9,0x73E8,movc,93,medium
 90CYE02_27 DKS.PZU,90CYE_shifted_DKS,0x74ED,0x3104,write,F0,high
 90CYE02_27 DKS.PZU,90CYE_shifted_DKS,0x74F1,0x30AF,read,E0,high
 90CYE02_27 DKS.PZU,90CYE_shifted_DKS,0x74F5,0x30B2,write,F0,high
@@ -621,6 +628,7 @@ file,branch,code_addr,dptr_addr,access_type,next_bytes,confidence
 90CYE03_19_2 v2_1.PZU,90CYE_v2_1,0x73B7,0x462D,read,E0,high
 90CYE03_19_2 v2_1.PZU,90CYE_v2_1,0x73DA,0x315B,read,E0,high
 90CYE03_19_2 v2_1.PZU,90CYE_v2_1,0x73E6,0x337B,read,E0,high
+90CYE03_19_2 v2_1.PZU,90CYE_v2_1,0x73EC,0x736B,movc,93,medium
 90CYE03_19_2 v2_1.PZU,90CYE_v2_1,0x73F2,0x462D,read,E0,high
 90CYE03_19_2 v2_1.PZU,90CYE_v2_1,0x740B,0x4460,read,E0,high
 90CYE03_19_2 v2_1.PZU,90CYE_v2_1,0x7415,0x4465,read,E0,high
@@ -806,12 +814,15 @@ file,branch,code_addr,dptr_addr,access_type,next_bytes,confidence
 90CYE03_19_2 v2_1.PZU,90CYE_v2_1,0x8190,0x30AC,lcall,12 821F,medium
 90CYE03_19_2 v2_1.PZU,90CYE_v2_1,0x81AE,0x3178,read,E0,high
 90CYE03_19_2 v2_1.PZU,90CYE_v2_1,0x81B2,0x30A0,ljmp,02 72AC,medium
+90CYE03_19_2 v2_1.PZU,90CYE_v2_1,0x81D7,0x81B8,movc,93,medium
 90CYE03_19_2 v2_1.PZU,90CYE_v2_1,0x8275,0x315D,read,E0,high
 90CYE03_19_2 v2_1.PZU,90CYE_v2_1,0x8279,0x32AD,lcall,12 72AC,medium
+90CYE03_19_2 v2_1.PZU,90CYE_v2_1,0x8280,0x826F,movc,93,medium
 90CYE03_19_2 v2_1.PZU,90CYE_v2_1,0x8284,0x3179,write,F0,high
 90CYE03_19_2 v2_1.PZU,90CYE_v2_1,0x828E,0x829A,lcall,12 8A77,medium
 90CYE03_19_2 v2_1.PZU,90CYE_v2_1,0x8294,0x7551,ljmp,02 8A68,medium
 90CYE03_19_2 v2_1.PZU,90CYE_v2_1,0x82C2,0x32A5,read,E0,high
+90CYE03_19_2 v2_1.PZU,90CYE_v2_1,0x82CD,0x826F,movc,93,medium
 90CYE03_19_2 v2_1.PZU,90CYE_v2_1,0x82D1,0x3179,write,F0,high
 90CYE03_19_2 v2_1.PZU,90CYE_v2_1,0x82FD,0x460D,lcall,12 72AC,medium
 90CYE03_19_2 v2_1.PZU,90CYE_v2_1,0x8322,0x740C,read,E0,high
@@ -852,6 +863,7 @@ file,branch,code_addr,dptr_addr,access_type,next_bytes,confidence
 90CYE03_19_2 v2_1.PZU,90CYE_v2_1,0x85A9,0x326F,read,E0,high
 90CYE03_19_2 v2_1.PZU,90CYE_v2_1,0x85B3,0x740C,read,E0,high
 90CYE03_19_2 v2_1.PZU,90CYE_v2_1,0x85C2,0x3353,lcall,12 72AB,medium
+90CYE03_19_2 v2_1.PZU,90CYE_v2_1,0x85C9,0x76E8,movc,93,medium
 90CYE03_19_2 v2_1.PZU,90CYE_v2_1,0x85CF,0x4457,lcall,12 9AEC,medium
 90CYE03_19_2 v2_1.PZU,90CYE_v2_1,0x85E2,0x3353,lcall,12 72AC,medium
 90CYE03_19_2 v2_1.PZU,90CYE_v2_1,0x85EC,0x7460,lcall,12 72AC,medium
@@ -937,6 +949,8 @@ file,branch,code_addr,dptr_addr,access_type,next_bytes,confidence
 90CYE03_19_2 v2_1.PZU,90CYE_v2_1,0x8A0F,0x44A3,lcall,12 8D10,medium
 90CYE03_19_2 v2_1.PZU,90CYE_v2_1,0x8A22,0x3195,read,E0,high
 90CYE03_19_2 v2_1.PZU,90CYE_v2_1,0x8A26,0x31A0,lcall,12 72AC,medium
+90CYE03_19_2 v2_1.PZU,90CYE_v2_1,0x8B07,0x8AC6,movc,93,medium
+90CYE03_19_2 v2_1.PZU,90CYE_v2_1,0x8BCA,0x8B7F,movc,93,medium
 90CYE03_19_2 v2_1.PZU,90CYE_v2_1,0x8BE5,0x3173,read,E0,high
 90CYE03_19_2 v2_1.PZU,90CYE_v2_1,0x8BEA,0x3313,lcall,12 72C8,medium
 90CYE03_19_2 v2_1.PZU,90CYE_v2_1,0x8C19,0x8AC6,lcall,12 783F,medium
@@ -946,6 +960,7 @@ file,branch,code_addr,dptr_addr,access_type,next_bytes,confidence
 90CYE03_19_2 v2_1.PZU,90CYE_v2_1,0x8C3C,0x4744,lcall,12 9AD5,medium
 90CYE03_19_2 v2_1.PZU,90CYE_v2_1,0x8C58,0x8B17,lcall,12 783F,medium
 90CYE03_19_2 v2_1.PZU,90CYE_v2_1,0x8C63,0x3174,read,E0,high
+90CYE03_19_2 v2_1.PZU,90CYE_v2_1,0x8C74,0x8B77,movc,93,medium
 90CYE03_19_2 v2_1.PZU,90CYE_v2_1,0x8C78,0x32A6,write,F0,high
 90CYE03_19_2 v2_1.PZU,90CYE_v2_1,0x8C7C,0x3173,read,E0,high
 90CYE03_19_2 v2_1.PZU,90CYE_v2_1,0x8C80,0x3179,write,F0,high
@@ -1069,8 +1084,10 @@ file,branch,code_addr,dptr_addr,access_type,next_bytes,confidence
 90CYE03_19_2 v2_1.PZU,90CYE_v2_1,0x969A,0x4744,lcall,12 9AEC,medium
 90CYE03_19_2 v2_1.PZU,90CYE_v2_1,0x96A8,0x4641,read,E0,high
 90CYE03_19_2 v2_1.PZU,90CYE_v2_1,0x96C2,0x4457,read,E0,high
+90CYE03_19_2 v2_1.PZU,90CYE_v2_1,0x96CD,0x96B0,movc,93,medium
 90CYE03_19_2 v2_1.PZU,90CYE_v2_1,0x96D6,0x453D,lcall,12 72AC,medium
 90CYE03_19_2 v2_1.PZU,90CYE_v2_1,0x96E7,0x4641,read,E0,high
+90CYE03_19_2 v2_1.PZU,90CYE_v2_1,0x96F9,0x76E8,movc,93,medium
 90CYE03_19_2 v2_1.PZU,90CYE_v2_1,0x9700,0x315A,lcall,12 72C8,medium
 90CYE03_19_2 v2_1.PZU,90CYE_v2_1,0x9713,0x4744,lcall,12 9B0E,medium
 90CYE03_19_2 v2_1.PZU,90CYE_v2_1,0x971C,0x4744,lcall,12 9AEC,medium
@@ -1104,6 +1121,7 @@ file,branch,code_addr,dptr_addr,access_type,next_bytes,confidence
 90CYE03_19_2 v2_1.PZU,90CYE_v2_1,0x9910,0x3363,lcall,12 72AC,medium
 90CYE03_19_2 v2_1.PZU,90CYE_v2_1,0x991B,0x9921,ljmp,02 8A58,medium
 90CYE03_19_2 v2_1.PZU,90CYE_v2_1,0x9958,0x995E,ljmp,02 8A58,medium
+90CYE03_19_2 v2_1.PZU,90CYE_v2_1,0x99E8,0x76E8,movc,93,medium
 90CYE03_19_2 v2_1.PZU,90CYE_v2_1,0x99EE,0x740C,read,E0,high
 90CYE03_19_2 v2_1.PZU,90CYE_v2_1,0x99FB,0x32CC,lcall,12 72C8,medium
 90CYE03_19_2 v2_1.PZU,90CYE_v2_1,0x9A04,0x32CC,lcall,12 72E4,medium
@@ -1281,17 +1299,23 @@ file,branch,code_addr,dptr_addr,access_type,next_bytes,confidence
 90CYE03_19_2 v2_1.PZU,90CYE_v2_1,0xA738,0x4473,lcall,12 9A34,medium
 90CYE03_19_2 v2_1.PZU,90CYE_v2_1,0xA73E,0x4463,ljmp,02 9B35,medium
 90CYE03_19_2 v2_1.PZU,90CYE_v2_1,0xA744,0x4513,lcall,12 72AB,medium
+90CYE03_19_2 v2_1.PZU,90CYE_v2_1,0xA804,0xA77B,movc,93,medium
 90CYE03_19_2 v2_1.PZU,90CYE_v2_1,0xA83F,0x315E,read,E0,high
 90CYE03_19_2 v2_1.PZU,90CYE_v2_1,0xA848,0x7510,lcall,12 72AC,medium
 90CYE03_19_2 v2_1.PZU,90CYE_v2_1,0xA852,0xA858,ljmp,02 8A58,medium
 90CYE03_19_2 v2_1.PZU,90CYE_v2_1,0xA87C,0x336A,read,E0,high
 90CYE03_19_2 v2_1.PZU,90CYE_v2_1,0xA888,0x3372,read,E0,high
+90CYE03_19_2 v2_1.PZU,90CYE_v2_1,0xA905,0x76E8,movc,93,medium
+90CYE03_19_2 v2_1.PZU,90CYE_v2_1,0xA927,0x76F8,movc,93,medium
 90CYE03_19_2 v2_1.PZU,90CYE_v2_1,0xA95B,0x32D9,read,E0,high
 90CYE03_19_2 v2_1.PZU,90CYE_v2_1,0xA963,0x3307,ljmp,02 72DC,medium
 90CYE03_19_2 v2_1.PZU,90CYE_v2_1,0xA969,0x3013,read,E0,high
 90CYE03_19_2 v2_1.PZU,90CYE_v2_1,0xA972,0x4641,read,E0,high
+90CYE03_19_2 v2_1.PZU,90CYE_v2_1,0xA97C,0x76F8,movc,93,medium
+90CYE03_19_2 v2_1.PZU,90CYE_v2_1,0xA9AD,0x76D5,movc,93,medium
 90CYE03_19_2 v2_1.PZU,90CYE_v2_1,0xA9C0,0x32D9,read,E0,high
 90CYE03_19_2 v2_1.PZU,90CYE_v2_1,0xA9CB,0x3307,ljmp,02 72DC,medium
+90CYE03_19_2 v2_1.PZU,90CYE_v2_1,0xA9E4,0x76F8,movc,93,medium
 90CYE03_19_2 v2_1.PZU,90CYE_v2_1,0xA9FC,0x315E,read,E0,high
 90CYE03_19_2 v2_1.PZU,90CYE_v2_1,0xAA09,0x3308,read,E0,high
 90CYE03_19_2 v2_1.PZU,90CYE_v2_1,0xAA19,0xFF81,lcall,12 8D10,medium
@@ -1418,8 +1442,10 @@ file,branch,code_addr,dptr_addr,access_type,next_bytes,confidence
 90CYE03_19_DKS.PZU,90CYE_DKS,0x59C3,0x317F,read,E0,high
 90CYE03_19_DKS.PZU,90CYE_DKS,0x59E7,0x30A5,read,E0,high
 90CYE03_19_DKS.PZU,90CYE_DKS,0x59ED,0x3208,read,E0,high
+90CYE03_19_DKS.PZU,90CYE_DKS,0x59F3,0x599D,movc,93,medium
 90CYE03_19_DKS.PZU,90CYE_DKS,0x59FE,0x36F2,read,E0,high
 90CYE03_19_DKS.PZU,90CYE_DKS,0x5A02,0x31BF,lcall,12 5A7F,medium
+90CYE03_19_DKS.PZU,90CYE_DKS,0x5A0B,0x5999,movc,93,medium
 90CYE03_19_DKS.PZU,90CYE_DKS,0x5A11,0x36D3,read,E0,high
 90CYE03_19_DKS.PZU,90CYE_DKS,0x5A9F,0x30EB,read,E0,high
 90CYE03_19_DKS.PZU,90CYE_DKS,0x5AC4,0x36D6,read,E0,high
@@ -1547,8 +1573,10 @@ file,branch,code_addr,dptr_addr,access_type,next_bytes,confidence
 90CYE03_19_DKS.PZU,90CYE_DKS,0x61C5,0x315B,read,E0,high
 90CYE03_19_DKS.PZU,90CYE_DKS,0x61CF,0x30A7,write,F0,high
 90CYE03_19_DKS.PZU,90CYE_DKS,0x61D5,0x30A7,read,E0,high
+90CYE03_19_DKS.PZU,90CYE_DKS,0x61DA,0x62CF,movc,93,medium
 90CYE03_19_DKS.PZU,90CYE_DKS,0x61E2,0x3165,lcall,12 5A7F,medium
 90CYE03_19_DKS.PZU,90CYE_DKS,0x61F1,0x30A7,read,E0,high
+90CYE03_19_DKS.PZU,90CYE_DKS,0x61F6,0x62CF,movc,93,medium
 90CYE03_19_DKS.PZU,90CYE_DKS,0x61FE,0x3165,lcall,12 5A7F,medium
 90CYE03_19_DKS.PZU,90CYE_DKS,0x620D,0x36D3,read,E0,high
 90CYE03_19_DKS.PZU,90CYE_DKS,0x6214,0x30A7,read,E0,high
@@ -1609,6 +1637,7 @@ file,branch,code_addr,dptr_addr,access_type,next_bytes,confidence
 90CYE03_19_DKS.PZU,90CYE_DKS,0x6509,0x306C,lcall,12 6597,medium
 90CYE03_19_DKS.PZU,90CYE_DKS,0x6526,0x30EA,read,E0,high
 90CYE03_19_DKS.PZU,90CYE_DKS,0x652A,0x3060,ljmp,02 5A7F,medium
+90CYE03_19_DKS.PZU,90CYE_DKS,0x654F,0x6530,movc,93,medium
 90CYE03_19_DKS.PZU,90CYE_DKS,0x65D5,0x36EE,read,E0,high
 90CYE03_19_DKS.PZU,90CYE_DKS,0x65D9,0x30EB,write,F0,high
 90CYE03_19_DKS.PZU,90CYE_DKS,0x65DD,0x6602,lcall,12 6CEC,medium
@@ -1722,10 +1751,14 @@ file,branch,code_addr,dptr_addr,access_type,next_bytes,confidence
 90CYE03_19_DKS.PZU,90CYE_DKS,0x6C7F,0x30F9,read,E0,high
 90CYE03_19_DKS.PZU,90CYE_DKS,0x6C97,0x30F9,read,E0,high
 90CYE03_19_DKS.PZU,90CYE_DKS,0x6C9B,0x30FE,lcall,12 5A7F,medium
+90CYE03_19_DKS.PZU,90CYE_DKS,0x6D65,0x6D3A,movc,93,medium
+90CYE03_19_DKS.PZU,90CYE_DKS,0x6DCD,0x6D75,movc,93,medium
+90CYE03_19_DKS.PZU,90CYE_DKS,0x6E17,0x6DE4,movc,93,medium
 90CYE03_19_DKS.PZU,90CYE_DKS,0x6E32,0x30E3,read,E0,high
 90CYE03_19_DKS.PZU,90CYE_DKS,0x6E36,0x31BF,lcall,12 5A7F,medium
 90CYE03_19_DKS.PZU,90CYE_DKS,0x6E4B,0x3600,lcall,12 7902,medium
 90CYE03_19_DKS.PZU,90CYE_DKS,0x6E5D,0x30E4,read,E0,high
+90CYE03_19_DKS.PZU,90CYE_DKS,0x6E79,0x6DDD,movc,93,medium
 90CYE03_19_DKS.PZU,90CYE_DKS,0x6E7D,0x315D,write,F0,high
 90CYE03_19_DKS.PZU,90CYE_DKS,0x6E81,0x30E3,read,E0,high
 90CYE03_19_DKS.PZU,90CYE_DKS,0x6E85,0x30EB,write,F0,high
@@ -1816,6 +1849,7 @@ file,branch,code_addr,dptr_addr,access_type,next_bytes,confidence
 90CYE03_19_DKS.PZU,90CYE_DKS,0x736F,0x30E8,lcall,12 5935,medium
 90CYE03_19_DKS.PZU,90CYE_DKS,0x737C,0x31BF,read,E0,high
 90CYE03_19_DKS.PZU,90CYE_DKS,0x7381,0x36EC,read,E0,high
+90CYE03_19_DKS.PZU,90CYE_DKS,0x7397,0x7378,movc,93,medium
 90CYE03_19_DKS.PZU,90CYE_DKS,0x73BA,0x3014,write,F0,high
 90CYE03_19_DKS.PZU,90CYE_DKS,0x73C8,0x31BF,lcall,12 5A7F,medium
 90CYE03_19_DKS.PZU,90CYE_DKS,0x73DB,0x31BF,lcall,12 5A7F,medium
@@ -1844,6 +1878,7 @@ file,branch,code_addr,dptr_addr,access_type,next_bytes,confidence
 90CYE03_19_DKS.PZU,90CYE_DKS,0x74D1,0x36D5,write,F0,high
 90CYE03_19_DKS.PZU,90CYE_DKS,0x74D9,0x3600,lcall,12 7902,medium
 90CYE03_19_DKS.PZU,90CYE_DKS,0x7567,0x7108,lcall,12 7922,medium
+90CYE03_19_DKS.PZU,90CYE_DKS,0x75C7,0x75B0,movc,93,medium
 90CYE03_19_DKS.PZU,90CYE_DKS,0x75D0,0x364B,lcall,12 5A7F,medium
 90CYE03_19_DKS.PZU,90CYE_DKS,0x75D9,0x30A4,read,E0,high
 90CYE03_19_DKS.PZU,90CYE_DKS,0x75EA,0x30A4,lcall,12 5935,medium
@@ -1954,6 +1989,7 @@ file,branch,code_addr,dptr_addr,access_type,next_bytes,confidence
 90CYE03_19_DKS.PZU,90CYE_DKS,0x7D91,0x0001,read,E0,high
 90CYE03_19_DKS.PZU,90CYE_DKS,0x7DDA,0x0001,read,E0,high
 90CYE03_19_DKS.PZU,90CYE_DKS,0x7E15,0x3127,read,E0,high
+90CYE03_19_DKS.PZU,90CYE_DKS,0x7E1D,0x7E03,movc,93,medium
 90CYE03_19_DKS.PZU,90CYE_DKS,0x7E23,0x3125,read,E0,high
 90CYE03_19_DKS.PZU,90CYE_DKS,0x7E2F,0x7E8A,lcall,12 6CEC,medium
 90CYE03_19_DKS.PZU,90CYE_DKS,0x7E35,0x7E5E,lcall,12 6CDD,medium
@@ -2145,6 +2181,7 @@ file,branch,code_addr,dptr_addr,access_type,next_bytes,confidence
 90CYE04_19_2 v2_1.PZU,90CYE_v2_1,0x73B7,0x462D,read,E0,high
 90CYE04_19_2 v2_1.PZU,90CYE_v2_1,0x73DA,0x315B,read,E0,high
 90CYE04_19_2 v2_1.PZU,90CYE_v2_1,0x73E6,0x337B,read,E0,high
+90CYE04_19_2 v2_1.PZU,90CYE_v2_1,0x73EC,0x736B,movc,93,medium
 90CYE04_19_2 v2_1.PZU,90CYE_v2_1,0x73F2,0x462D,read,E0,high
 90CYE04_19_2 v2_1.PZU,90CYE_v2_1,0x740B,0x4460,read,E0,high
 90CYE04_19_2 v2_1.PZU,90CYE_v2_1,0x7415,0x4465,read,E0,high
@@ -2330,12 +2367,15 @@ file,branch,code_addr,dptr_addr,access_type,next_bytes,confidence
 90CYE04_19_2 v2_1.PZU,90CYE_v2_1,0x8190,0x30AC,lcall,12 821F,medium
 90CYE04_19_2 v2_1.PZU,90CYE_v2_1,0x81AE,0x3178,read,E0,high
 90CYE04_19_2 v2_1.PZU,90CYE_v2_1,0x81B2,0x30A0,ljmp,02 72AC,medium
+90CYE04_19_2 v2_1.PZU,90CYE_v2_1,0x81D7,0x81B8,movc,93,medium
 90CYE04_19_2 v2_1.PZU,90CYE_v2_1,0x8275,0x315D,read,E0,high
 90CYE04_19_2 v2_1.PZU,90CYE_v2_1,0x8279,0x32AD,lcall,12 72AC,medium
+90CYE04_19_2 v2_1.PZU,90CYE_v2_1,0x8280,0x826F,movc,93,medium
 90CYE04_19_2 v2_1.PZU,90CYE_v2_1,0x8284,0x3179,write,F0,high
 90CYE04_19_2 v2_1.PZU,90CYE_v2_1,0x828E,0x829A,lcall,12 8A77,medium
 90CYE04_19_2 v2_1.PZU,90CYE_v2_1,0x8294,0x7551,ljmp,02 8A68,medium
 90CYE04_19_2 v2_1.PZU,90CYE_v2_1,0x82C2,0x32A5,read,E0,high
+90CYE04_19_2 v2_1.PZU,90CYE_v2_1,0x82CD,0x826F,movc,93,medium
 90CYE04_19_2 v2_1.PZU,90CYE_v2_1,0x82D1,0x3179,write,F0,high
 90CYE04_19_2 v2_1.PZU,90CYE_v2_1,0x82FD,0x460D,lcall,12 72AC,medium
 90CYE04_19_2 v2_1.PZU,90CYE_v2_1,0x8322,0x740C,read,E0,high
@@ -2376,6 +2416,7 @@ file,branch,code_addr,dptr_addr,access_type,next_bytes,confidence
 90CYE04_19_2 v2_1.PZU,90CYE_v2_1,0x85A9,0x326F,read,E0,high
 90CYE04_19_2 v2_1.PZU,90CYE_v2_1,0x85B3,0x740C,read,E0,high
 90CYE04_19_2 v2_1.PZU,90CYE_v2_1,0x85C2,0x3353,lcall,12 72AB,medium
+90CYE04_19_2 v2_1.PZU,90CYE_v2_1,0x85C9,0x76E8,movc,93,medium
 90CYE04_19_2 v2_1.PZU,90CYE_v2_1,0x85CF,0x4457,lcall,12 9AEC,medium
 90CYE04_19_2 v2_1.PZU,90CYE_v2_1,0x85E2,0x3353,lcall,12 72AC,medium
 90CYE04_19_2 v2_1.PZU,90CYE_v2_1,0x85EC,0x7460,lcall,12 72AC,medium
@@ -2461,6 +2502,8 @@ file,branch,code_addr,dptr_addr,access_type,next_bytes,confidence
 90CYE04_19_2 v2_1.PZU,90CYE_v2_1,0x8A0F,0x44A3,lcall,12 8D10,medium
 90CYE04_19_2 v2_1.PZU,90CYE_v2_1,0x8A22,0x3195,read,E0,high
 90CYE04_19_2 v2_1.PZU,90CYE_v2_1,0x8A26,0x31A0,lcall,12 72AC,medium
+90CYE04_19_2 v2_1.PZU,90CYE_v2_1,0x8B07,0x8AC6,movc,93,medium
+90CYE04_19_2 v2_1.PZU,90CYE_v2_1,0x8BCA,0x8B7F,movc,93,medium
 90CYE04_19_2 v2_1.PZU,90CYE_v2_1,0x8BE5,0x3173,read,E0,high
 90CYE04_19_2 v2_1.PZU,90CYE_v2_1,0x8BEA,0x3313,lcall,12 72C8,medium
 90CYE04_19_2 v2_1.PZU,90CYE_v2_1,0x8C19,0x8AC6,lcall,12 783F,medium
@@ -2470,6 +2513,7 @@ file,branch,code_addr,dptr_addr,access_type,next_bytes,confidence
 90CYE04_19_2 v2_1.PZU,90CYE_v2_1,0x8C3C,0x4744,lcall,12 9AD5,medium
 90CYE04_19_2 v2_1.PZU,90CYE_v2_1,0x8C58,0x8B17,lcall,12 783F,medium
 90CYE04_19_2 v2_1.PZU,90CYE_v2_1,0x8C63,0x3174,read,E0,high
+90CYE04_19_2 v2_1.PZU,90CYE_v2_1,0x8C74,0x8B77,movc,93,medium
 90CYE04_19_2 v2_1.PZU,90CYE_v2_1,0x8C78,0x32A6,write,F0,high
 90CYE04_19_2 v2_1.PZU,90CYE_v2_1,0x8C7C,0x3173,read,E0,high
 90CYE04_19_2 v2_1.PZU,90CYE_v2_1,0x8C80,0x3179,write,F0,high
@@ -2593,8 +2637,10 @@ file,branch,code_addr,dptr_addr,access_type,next_bytes,confidence
 90CYE04_19_2 v2_1.PZU,90CYE_v2_1,0x969A,0x4744,lcall,12 9AEC,medium
 90CYE04_19_2 v2_1.PZU,90CYE_v2_1,0x96A8,0x4641,read,E0,high
 90CYE04_19_2 v2_1.PZU,90CYE_v2_1,0x96C2,0x4457,read,E0,high
+90CYE04_19_2 v2_1.PZU,90CYE_v2_1,0x96CD,0x96B0,movc,93,medium
 90CYE04_19_2 v2_1.PZU,90CYE_v2_1,0x96D6,0x453D,lcall,12 72AC,medium
 90CYE04_19_2 v2_1.PZU,90CYE_v2_1,0x96E7,0x4641,read,E0,high
+90CYE04_19_2 v2_1.PZU,90CYE_v2_1,0x96F9,0x76E8,movc,93,medium
 90CYE04_19_2 v2_1.PZU,90CYE_v2_1,0x9700,0x315A,lcall,12 72C8,medium
 90CYE04_19_2 v2_1.PZU,90CYE_v2_1,0x9713,0x4744,lcall,12 9B0E,medium
 90CYE04_19_2 v2_1.PZU,90CYE_v2_1,0x971C,0x4744,lcall,12 9AEC,medium
@@ -2628,6 +2674,7 @@ file,branch,code_addr,dptr_addr,access_type,next_bytes,confidence
 90CYE04_19_2 v2_1.PZU,90CYE_v2_1,0x9910,0x3363,lcall,12 72AC,medium
 90CYE04_19_2 v2_1.PZU,90CYE_v2_1,0x991B,0x9921,ljmp,02 8A58,medium
 90CYE04_19_2 v2_1.PZU,90CYE_v2_1,0x9958,0x995E,ljmp,02 8A58,medium
+90CYE04_19_2 v2_1.PZU,90CYE_v2_1,0x99E8,0x76E8,movc,93,medium
 90CYE04_19_2 v2_1.PZU,90CYE_v2_1,0x99EE,0x740C,read,E0,high
 90CYE04_19_2 v2_1.PZU,90CYE_v2_1,0x99FB,0x32CC,lcall,12 72C8,medium
 90CYE04_19_2 v2_1.PZU,90CYE_v2_1,0x9A04,0x32CC,lcall,12 72E4,medium
@@ -2805,17 +2852,23 @@ file,branch,code_addr,dptr_addr,access_type,next_bytes,confidence
 90CYE04_19_2 v2_1.PZU,90CYE_v2_1,0xA738,0x4473,lcall,12 9A34,medium
 90CYE04_19_2 v2_1.PZU,90CYE_v2_1,0xA73E,0x4463,ljmp,02 9B35,medium
 90CYE04_19_2 v2_1.PZU,90CYE_v2_1,0xA744,0x4513,lcall,12 72AB,medium
+90CYE04_19_2 v2_1.PZU,90CYE_v2_1,0xA804,0xA77B,movc,93,medium
 90CYE04_19_2 v2_1.PZU,90CYE_v2_1,0xA83F,0x315E,read,E0,high
 90CYE04_19_2 v2_1.PZU,90CYE_v2_1,0xA848,0x7510,lcall,12 72AC,medium
 90CYE04_19_2 v2_1.PZU,90CYE_v2_1,0xA852,0xA858,ljmp,02 8A58,medium
 90CYE04_19_2 v2_1.PZU,90CYE_v2_1,0xA87C,0x336A,read,E0,high
 90CYE04_19_2 v2_1.PZU,90CYE_v2_1,0xA888,0x3372,read,E0,high
+90CYE04_19_2 v2_1.PZU,90CYE_v2_1,0xA905,0x76E8,movc,93,medium
+90CYE04_19_2 v2_1.PZU,90CYE_v2_1,0xA927,0x76F8,movc,93,medium
 90CYE04_19_2 v2_1.PZU,90CYE_v2_1,0xA95B,0x32D9,read,E0,high
 90CYE04_19_2 v2_1.PZU,90CYE_v2_1,0xA963,0x3307,ljmp,02 72DC,medium
 90CYE04_19_2 v2_1.PZU,90CYE_v2_1,0xA969,0x3013,read,E0,high
 90CYE04_19_2 v2_1.PZU,90CYE_v2_1,0xA972,0x4641,read,E0,high
+90CYE04_19_2 v2_1.PZU,90CYE_v2_1,0xA97C,0x76F8,movc,93,medium
+90CYE04_19_2 v2_1.PZU,90CYE_v2_1,0xA9AD,0x76D5,movc,93,medium
 90CYE04_19_2 v2_1.PZU,90CYE_v2_1,0xA9C0,0x32D9,read,E0,high
 90CYE04_19_2 v2_1.PZU,90CYE_v2_1,0xA9CB,0x3307,ljmp,02 72DC,medium
+90CYE04_19_2 v2_1.PZU,90CYE_v2_1,0xA9E4,0x76F8,movc,93,medium
 90CYE04_19_2 v2_1.PZU,90CYE_v2_1,0xA9FC,0x315E,read,E0,high
 90CYE04_19_2 v2_1.PZU,90CYE_v2_1,0xAA09,0x3308,read,E0,high
 90CYE04_19_2 v2_1.PZU,90CYE_v2_1,0xAA19,0xFF81,lcall,12 8D10,medium
@@ -2942,8 +2995,10 @@ file,branch,code_addr,dptr_addr,access_type,next_bytes,confidence
 90CYE04_19_DKS.PZU,90CYE_DKS,0x59C3,0x317F,read,E0,high
 90CYE04_19_DKS.PZU,90CYE_DKS,0x59E7,0x30A5,read,E0,high
 90CYE04_19_DKS.PZU,90CYE_DKS,0x59ED,0x3208,read,E0,high
+90CYE04_19_DKS.PZU,90CYE_DKS,0x59F3,0x599D,movc,93,medium
 90CYE04_19_DKS.PZU,90CYE_DKS,0x59FE,0x36F2,read,E0,high
 90CYE04_19_DKS.PZU,90CYE_DKS,0x5A02,0x31BF,lcall,12 5A7F,medium
+90CYE04_19_DKS.PZU,90CYE_DKS,0x5A0B,0x5999,movc,93,medium
 90CYE04_19_DKS.PZU,90CYE_DKS,0x5A11,0x36D3,read,E0,high
 90CYE04_19_DKS.PZU,90CYE_DKS,0x5A9F,0x30EB,read,E0,high
 90CYE04_19_DKS.PZU,90CYE_DKS,0x5AC4,0x36D6,read,E0,high
@@ -3071,8 +3126,10 @@ file,branch,code_addr,dptr_addr,access_type,next_bytes,confidence
 90CYE04_19_DKS.PZU,90CYE_DKS,0x61C5,0x315B,read,E0,high
 90CYE04_19_DKS.PZU,90CYE_DKS,0x61CF,0x30A7,write,F0,high
 90CYE04_19_DKS.PZU,90CYE_DKS,0x61D5,0x30A7,read,E0,high
+90CYE04_19_DKS.PZU,90CYE_DKS,0x61DA,0x62CF,movc,93,medium
 90CYE04_19_DKS.PZU,90CYE_DKS,0x61E2,0x3165,lcall,12 5A7F,medium
 90CYE04_19_DKS.PZU,90CYE_DKS,0x61F1,0x30A7,read,E0,high
+90CYE04_19_DKS.PZU,90CYE_DKS,0x61F6,0x62CF,movc,93,medium
 90CYE04_19_DKS.PZU,90CYE_DKS,0x61FE,0x3165,lcall,12 5A7F,medium
 90CYE04_19_DKS.PZU,90CYE_DKS,0x620D,0x36D3,read,E0,high
 90CYE04_19_DKS.PZU,90CYE_DKS,0x6214,0x30A7,read,E0,high
@@ -3133,6 +3190,7 @@ file,branch,code_addr,dptr_addr,access_type,next_bytes,confidence
 90CYE04_19_DKS.PZU,90CYE_DKS,0x6509,0x306C,lcall,12 6597,medium
 90CYE04_19_DKS.PZU,90CYE_DKS,0x6526,0x30EA,read,E0,high
 90CYE04_19_DKS.PZU,90CYE_DKS,0x652A,0x3060,ljmp,02 5A7F,medium
+90CYE04_19_DKS.PZU,90CYE_DKS,0x654F,0x6530,movc,93,medium
 90CYE04_19_DKS.PZU,90CYE_DKS,0x65D5,0x36EE,read,E0,high
 90CYE04_19_DKS.PZU,90CYE_DKS,0x65D9,0x30EB,write,F0,high
 90CYE04_19_DKS.PZU,90CYE_DKS,0x65DD,0x6602,lcall,12 6CEC,medium
@@ -3246,10 +3304,14 @@ file,branch,code_addr,dptr_addr,access_type,next_bytes,confidence
 90CYE04_19_DKS.PZU,90CYE_DKS,0x6C7F,0x30F9,read,E0,high
 90CYE04_19_DKS.PZU,90CYE_DKS,0x6C97,0x30F9,read,E0,high
 90CYE04_19_DKS.PZU,90CYE_DKS,0x6C9B,0x30FE,lcall,12 5A7F,medium
+90CYE04_19_DKS.PZU,90CYE_DKS,0x6D65,0x6D3A,movc,93,medium
+90CYE04_19_DKS.PZU,90CYE_DKS,0x6DCD,0x6D75,movc,93,medium
+90CYE04_19_DKS.PZU,90CYE_DKS,0x6E17,0x6DE4,movc,93,medium
 90CYE04_19_DKS.PZU,90CYE_DKS,0x6E32,0x30E3,read,E0,high
 90CYE04_19_DKS.PZU,90CYE_DKS,0x6E36,0x31BF,lcall,12 5A7F,medium
 90CYE04_19_DKS.PZU,90CYE_DKS,0x6E4B,0x3600,lcall,12 7902,medium
 90CYE04_19_DKS.PZU,90CYE_DKS,0x6E5D,0x30E4,read,E0,high
+90CYE04_19_DKS.PZU,90CYE_DKS,0x6E79,0x6DDD,movc,93,medium
 90CYE04_19_DKS.PZU,90CYE_DKS,0x6E7D,0x315D,write,F0,high
 90CYE04_19_DKS.PZU,90CYE_DKS,0x6E81,0x30E3,read,E0,high
 90CYE04_19_DKS.PZU,90CYE_DKS,0x6E85,0x30EB,write,F0,high
@@ -3340,6 +3402,7 @@ file,branch,code_addr,dptr_addr,access_type,next_bytes,confidence
 90CYE04_19_DKS.PZU,90CYE_DKS,0x736F,0x30E8,lcall,12 5935,medium
 90CYE04_19_DKS.PZU,90CYE_DKS,0x737C,0x31BF,read,E0,high
 90CYE04_19_DKS.PZU,90CYE_DKS,0x7381,0x36EC,read,E0,high
+90CYE04_19_DKS.PZU,90CYE_DKS,0x7397,0x7378,movc,93,medium
 90CYE04_19_DKS.PZU,90CYE_DKS,0x73BA,0x3014,write,F0,high
 90CYE04_19_DKS.PZU,90CYE_DKS,0x73C8,0x31BF,lcall,12 5A7F,medium
 90CYE04_19_DKS.PZU,90CYE_DKS,0x73DB,0x31BF,lcall,12 5A7F,medium
@@ -3368,6 +3431,7 @@ file,branch,code_addr,dptr_addr,access_type,next_bytes,confidence
 90CYE04_19_DKS.PZU,90CYE_DKS,0x74D1,0x36D5,write,F0,high
 90CYE04_19_DKS.PZU,90CYE_DKS,0x74D9,0x3600,lcall,12 7902,medium
 90CYE04_19_DKS.PZU,90CYE_DKS,0x7567,0x7108,lcall,12 7922,medium
+90CYE04_19_DKS.PZU,90CYE_DKS,0x75C7,0x75B0,movc,93,medium
 90CYE04_19_DKS.PZU,90CYE_DKS,0x75D0,0x364B,lcall,12 5A7F,medium
 90CYE04_19_DKS.PZU,90CYE_DKS,0x75D9,0x30A4,read,E0,high
 90CYE04_19_DKS.PZU,90CYE_DKS,0x75EA,0x30A4,lcall,12 5935,medium
@@ -3478,6 +3542,7 @@ file,branch,code_addr,dptr_addr,access_type,next_bytes,confidence
 90CYE04_19_DKS.PZU,90CYE_DKS,0x7D91,0x0001,read,E0,high
 90CYE04_19_DKS.PZU,90CYE_DKS,0x7DDA,0x0001,read,E0,high
 90CYE04_19_DKS.PZU,90CYE_DKS,0x7E15,0x3127,read,E0,high
+90CYE04_19_DKS.PZU,90CYE_DKS,0x7E1D,0x7E03,movc,93,medium
 90CYE04_19_DKS.PZU,90CYE_DKS,0x7E23,0x3125,read,E0,high
 90CYE04_19_DKS.PZU,90CYE_DKS,0x7E2F,0x7E8A,lcall,12 6CEC,medium
 90CYE04_19_DKS.PZU,90CYE_DKS,0x7E35,0x7E5E,lcall,12 6CDD,medium
@@ -3666,6 +3731,7 @@ A03_26.PZU,A03_A04,0x6C85,0x4FCE,read,E0,high
 A03_26.PZU,A03_A04,0x6CA1,0x4DB5,read,E0,high
 A03_26.PZU,A03_A04,0x6CBD,0x4FCE,read,E0,high
 A03_26.PZU,A03_A04,0x6CE1,0x3415,read,E0,high
+A03_26.PZU,A03_A04,0x6CE7,0x6C74,movc,93,medium
 A03_26.PZU,A03_A04,0x6CED,0x4FCE,read,E0,high
 A03_26.PZU,A03_A04,0x6D59,0x3293,read,E0,high
 A03_26.PZU,A03_A04,0x6D92,0x7FF6,read,E0,high
@@ -3790,6 +3856,7 @@ A03_26.PZU,A03_A04,0x772B,0x3292,write,F0,high
 A03_26.PZU,A03_A04,0x7731,0x30CC,lcall,12 77BF,medium
 A03_26.PZU,A03_A04,0x774E,0x3292,read,E0,high
 A03_26.PZU,A03_A04,0x7752,0x30C0,ljmp,02 6D2E,medium
+A03_26.PZU,A03_A04,0x7777,0x7758,movc,93,medium
 A03_26.PZU,A03_A04,0x77F3,0x4FCE,read,E0,high
 A03_26.PZU,A03_A04,0x77FA,0x7865,lcall,12 67D9,medium
 A03_26.PZU,A03_A04,0x7800,0x780C,lcall,12 67CA,medium
@@ -3805,11 +3872,13 @@ A03_26.PZU,A03_A04,0x78B1,0x3293,read,E0,high
 A03_26.PZU,A03_A04,0x78ED,0x3293,read,E0,high
 A03_26.PZU,A03_A04,0x7940,0x3282,read,E0,high
 A03_26.PZU,A03_A04,0x7944,0x3100,lcall,12 6D2E,medium
+A03_26.PZU,A03_A04,0x794B,0x793A,movc,93,medium
 A03_26.PZU,A03_A04,0x794F,0x3293,write,F0,high
 A03_26.PZU,A03_A04,0x7959,0x796C,lcall,12 67D9,medium
 A03_26.PZU,A03_A04,0x795F,0x6E0E,lcall,12 67CA,medium
 A03_26.PZU,A03_A04,0x7965,0x3293,read,E0,high
 A03_26.PZU,A03_A04,0x7994,0x329C,read,E0,high
+A03_26.PZU,A03_A04,0x799F,0x793A,movc,93,medium
 A03_26.PZU,A03_A04,0x79A3,0x3293,write,F0,high
 A03_26.PZU,A03_A04,0x79BB,0x83EC,ljmp,02 6824,medium
 A03_26.PZU,A03_A04,0x79C1,0x3293,read,E0,high
@@ -3860,6 +3929,9 @@ A03_26.PZU,A03_A04,0x7DF9,0x4FCE,read,E0,high
 A03_26.PZU,A03_A04,0x7E2F,0x329C,read,E0,high
 A03_26.PZU,A03_A04,0x7E34,0x5E7D,lcall,12 6FA7,medium
 A03_26.PZU,A03_A04,0x7E40,0x4FCE,read,E0,high
+A03_26.PZU,A03_A04,0x7EEC,0x7E97,movc,93,medium
+A03_26.PZU,A03_A04,0x7F84,0x7EFC,movc,93,medium
+A03_26.PZU,A03_A04,0x7FF0,0x7F9C,movc,93,medium
 A03_26.PZU,A03_A04,0x800B,0x3290,read,E0,high
 A03_26.PZU,A03_A04,0x8010,0x4DBC,lcall,12 69A3,medium
 A03_26.PZU,A03_A04,0x803F,0x7E97,lcall,12 7099,medium
@@ -3867,6 +3939,7 @@ A03_26.PZU,A03_A04,0x8046,0x3295,read,E0,high
 A03_26.PZU,A03_A04,0x8053,0x4E0E,lcall,12 68E6,medium
 A03_26.PZU,A03_A04,0x8078,0x7EFC,lcall,12 7099,medium
 A03_26.PZU,A03_A04,0x8083,0x3291,read,E0,high
+A03_26.PZU,A03_A04,0x8094,0x7F94,movc,93,medium
 A03_26.PZU,A03_A04,0x8098,0x329E,write,F0,high
 A03_26.PZU,A03_A04,0x809C,0x3290,read,E0,high
 A03_26.PZU,A03_A04,0x80A0,0x3293,write,F0,high
@@ -4350,6 +4423,7 @@ A04_28.PZU,A03_A04,0x6B5E,0x5003,read,E0,high
 A04_28.PZU,A03_A04,0x6B7A,0x4DAB,read,E0,high
 A04_28.PZU,A03_A04,0x6B96,0x5003,read,E0,high
 A04_28.PZU,A03_A04,0x6BBA,0x3417,read,E0,high
+A04_28.PZU,A03_A04,0x6BC0,0x6B4D,movc,93,medium
 A04_28.PZU,A03_A04,0x6BC6,0x5003,read,E0,high
 A04_28.PZU,A03_A04,0x6C32,0x3298,read,E0,high
 A04_28.PZU,A03_A04,0x6C6B,0x7FF6,read,E0,high
@@ -4469,6 +4543,7 @@ A04_28.PZU,A03_A04,0x7659,0x3297,write,F0,high
 A04_28.PZU,A03_A04,0x765F,0x30CC,lcall,12 76ED,medium
 A04_28.PZU,A03_A04,0x767C,0x3297,read,E0,high
 A04_28.PZU,A03_A04,0x7680,0x30C0,ljmp,02 6C07,medium
+A04_28.PZU,A03_A04,0x76A5,0x7686,movc,93,medium
 A04_28.PZU,A03_A04,0x7721,0x5003,read,E0,high
 A04_28.PZU,A03_A04,0x7728,0x7792,lcall,12 66B1,medium
 A04_28.PZU,A03_A04,0x772E,0x773A,lcall,12 66A2,medium
@@ -4484,11 +4559,13 @@ A04_28.PZU,A03_A04,0x77DE,0x3298,read,E0,high
 A04_28.PZU,A03_A04,0x781A,0x3298,read,E0,high
 A04_28.PZU,A03_A04,0x786E,0x3282,read,E0,high
 A04_28.PZU,A03_A04,0x7872,0x3100,lcall,12 6C07,medium
+A04_28.PZU,A03_A04,0x7879,0x7867,movc,93,medium
 A04_28.PZU,A03_A04,0x787D,0x3298,write,F0,high
 A04_28.PZU,A03_A04,0x7887,0x789A,lcall,12 66B1,medium
 A04_28.PZU,A03_A04,0x788D,0x6CED,lcall,12 66A2,medium
 A04_28.PZU,A03_A04,0x7893,0x3298,read,E0,high
 A04_28.PZU,A03_A04,0x78C2,0x32A0,read,E0,high
+A04_28.PZU,A03_A04,0x78CD,0x7867,movc,93,medium
 A04_28.PZU,A03_A04,0x78D1,0x3298,write,F0,high
 A04_28.PZU,A03_A04,0x78E9,0x835B,ljmp,02 66FC,medium
 A04_28.PZU,A03_A04,0x78EF,0x3298,read,E0,high
@@ -4539,6 +4616,9 @@ A04_28.PZU,A03_A04,0x7D33,0x5003,read,E0,high
 A04_28.PZU,A03_A04,0x7D69,0x32A0,read,E0,high
 A04_28.PZU,A03_A04,0x7D6E,0x5CF8,lcall,12 6E89,medium
 A04_28.PZU,A03_A04,0x7D7A,0x5003,read,E0,high
+A04_28.PZU,A03_A04,0x7E2E,0x7DD3,movc,93,medium
+A04_28.PZU,A03_A04,0x7ECE,0x7E3E,movc,93,medium
+A04_28.PZU,A03_A04,0x7F40,0x7EE6,movc,93,medium
 A04_28.PZU,A03_A04,0x7F5B,0x3295,read,E0,high
 A04_28.PZU,A03_A04,0x7F60,0x4DB2,lcall,12 687B,medium
 A04_28.PZU,A03_A04,0x7F8F,0x7DD3,lcall,12 6F6A,medium
@@ -4546,6 +4626,7 @@ A04_28.PZU,A03_A04,0x7F96,0x329A,read,E0,high
 A04_28.PZU,A03_A04,0x7FA3,0x4E03,lcall,12 67BE,medium
 A04_28.PZU,A03_A04,0x7FC8,0x7E3E,lcall,12 6F6A,medium
 A04_28.PZU,A03_A04,0x7FD3,0x3296,read,E0,high
+A04_28.PZU,A03_A04,0x7FE4,0x7EDE,movc,93,medium
 A04_28.PZU,A03_A04,0x7FE8,0x32A2,write,F0,high
 A04_28.PZU,A03_A04,0x7FEC,0x3295,read,E0,high
 A04_28.PZU,A03_A04,0x7FF0,0x3298,write,F0,high
@@ -5086,6 +5167,7 @@ ppkp2001 90cye01.PZU,RTOS_service,0x4228,0x66EA,read,E0,high
 ppkp2001 90cye01.PZU,RTOS_service,0x4265,0x66E8,read,E0,high
 ppkp2001 90cye01.PZU,RTOS_service,0x4289,0x67E4,read,E0,high
 ppkp2001 90cye01.PZU,RTOS_service,0x42AD,0x67C5,read,E0,high
+ppkp2001 90cye01.PZU,RTOS_service,0x42B3,0x42D3,movc,93,medium
 ppkp2001 90cye01.PZU,RTOS_service,0x42C4,0x78E4,read,E0,high
 ppkp2001 90cye01.PZU,RTOS_service,0x430C,0x67BF,lcall,12 8F8C,medium
 ppkp2001 90cye01.PZU,RTOS_service,0x434D,0x67BF,lcall,12 8F8C,medium
@@ -5117,6 +5199,7 @@ ppkp2001 90cye01.PZU,RTOS_service,0x44A2,0x6419,read,E0,high
 ppkp2001 90cye01.PZU,RTOS_service,0x44F1,0x75A9,read,E0,high
 ppkp2001 90cye01.PZU,RTOS_service,0x44F5,0x6700,lcall,12 8F8C,medium
 ppkp2001 90cye01.PZU,RTOS_service,0x451D,0x66EB,read,E0,high
+ppkp2001 90cye01.PZU,RTOS_service,0x4533,0x4574,movc,93,medium
 ppkp2001 90cye01.PZU,RTOS_service,0x4537,0x762E,write,F0,high
 ppkp2001 90cye01.PZU,RTOS_service,0x453B,0x75A9,read,E0,high
 ppkp2001 90cye01.PZU,RTOS_service,0x453F,0x75A7,write,F0,high
@@ -5126,6 +5209,7 @@ ppkp2001 90cye01.PZU,RTOS_service,0x455E,0x66E9,read,E0,high
 ppkp2001 90cye01.PZU,RTOS_service,0x4562,0x66E8,write,F0,high
 ppkp2001 90cye01.PZU,RTOS_service,0x4567,0x66E9,write,F0,high
 ppkp2001 90cye01.PZU,RTOS_service,0x456F,0x75A9,write,F0,high
+ppkp2001 90cye01.PZU,RTOS_service,0x4592,0x45A2,movc,93,medium
 ppkp2001 90cye01.PZU,RTOS_service,0x45FF,0x0010,read,E0,high
 ppkp2001 90cye01.PZU,RTOS_service,0x4605,0x765C,lcall,12 4641,medium
 ppkp2001 90cye01.PZU,RTOS_service,0x4615,0x66EA,read,E0,high
@@ -5274,6 +5358,7 @@ ppkp2001 90cye01.PZU,RTOS_service,0x57F2,0x759C,read,E0,high
 ppkp2001 90cye01.PZU,RTOS_service,0x57F6,0x7648,lcall,12 8F8C,medium
 ppkp2001 90cye01.PZU,RTOS_service,0x57FE,0x759C,read,E0,high
 ppkp2001 90cye01.PZU,RTOS_service,0x5814,0x7648,read,E0,high
+ppkp2001 90cye01.PZU,RTOS_service,0x5840,0x58A9,movc,93,medium
 ppkp2001 90cye01.PZU,RTOS_service,0x5854,0x764E,read,E0,high
 ppkp2001 90cye01.PZU,RTOS_service,0x588D,0x641E,write,F0,high
 ppkp2001 90cye01.PZU,RTOS_service,0x5892,0x641D,write,F0,high
@@ -5478,6 +5563,7 @@ ppkp2001 90cye01.PZU,RTOS_service,0x669B,0x66EA,read,E0,high
 ppkp2001 90cye01.PZU,RTOS_service,0x66AA,0x66E4,lcall,12 8F8C,medium
 ppkp2001 90cye01.PZU,RTOS_service,0x66B3,0x66E6,lcall,12 8F8C,medium
 ppkp2001 90cye01.PZU,RTOS_service,0x66C5,0x66E5,lcall,12 8F8C,medium
+ppkp2001 90cye01.PZU,RTOS_service,0x66CE,0x4F02,movc,93,medium
 ppkp2001 90cye01.PZU,RTOS_service,0x66F5,0x7448,lcall,12 90D1,medium
 ppkp2001 90cye01.PZU,RTOS_service,0x66FF,0x7448,lcall,12 90D1,medium
 ppkp2001 90cye01.PZU,RTOS_service,0x6717,0x6463,read,E0,high
@@ -5524,6 +5610,7 @@ ppkp2001 90cye01.PZU,RTOS_service,0x6AB2,0x6700,lcall,12 8F8C,medium
 ppkp2001 90cye01.PZU,RTOS_service,0x6ABE,0x67E7,lcall,12 90D1,medium
 ppkp2001 90cye01.PZU,RTOS_service,0x6B38,0x6700,lcall,12 8F8C,medium
 ppkp2001 90cye01.PZU,RTOS_service,0x6BAF,0x75A6,read,E0,high
+ppkp2001 90cye01.PZU,RTOS_service,0x6BB3,0x6BD0,movc,93,medium
 ppkp2001 90cye01.PZU,RTOS_service,0x6BBB,0x6BD6,lcall,12 9143,medium
 ppkp2001 90cye01.PZU,RTOS_service,0x6BC3,0x75A7,write,F0,high
 ppkp2001 90cye01.PZU,RTOS_service,0x6BC7,0x6BFE,lcall,12 9134,medium
@@ -5664,6 +5751,7 @@ ppkp2001 90cye01.PZU,RTOS_service,0x7B13,0x6406,read,E0,high
 ppkp2001 90cye01.PZU,RTOS_service,0x7B20,0x63FD,read,E0,high
 ppkp2001 90cye01.PZU,RTOS_service,0x7B86,0x6406,read,E0,high
 ppkp2001 90cye01.PZU,RTOS_service,0x7B96,0x6700,lcall,12 8F8C,medium
+ppkp2001 90cye01.PZU,RTOS_service,0x7B9D,0x7C52,movc,93,medium
 ppkp2001 90cye01.PZU,RTOS_service,0x7BB8,0x63AD,lcall,12 8F8C,medium
 ppkp2001 90cye01.PZU,RTOS_service,0x7BCC,0x6406,read,E0,high
 ppkp2001 90cye01.PZU,RTOS_service,0x7BD6,0x63AD,lcall,12 8F8C,medium
@@ -5831,6 +5919,7 @@ ppkp2001 90cye01.PZU,RTOS_service,0x9348,0x785E,lcall,12 8F8C,medium
 ppkp2001 90cye01.PZU,RTOS_service,0x9358,0x4E7A,lcall,12 8F8C,medium
 ppkp2001 90cye01.PZU,RTOS_service,0x9370,0x4E7A,lcall,12 8F8C,medium
 ppkp2001 90cye01.PZU,RTOS_service,0x9388,0x4E7A,lcall,12 8F8C,medium
+ppkp2001 90cye01.PZU,RTOS_service,0x939E,0x93B9,movc,93,medium
 ppkp2001 90cye01.PZU,RTOS_service,0x93D8,0x66FF,lcall,12 8F8C,medium
 ppkp2001 90cye01.PZU,RTOS_service,0x9407,0x6480,read,E0,high
 ppkp2001 90cye01.PZU,RTOS_service,0x9418,0x0A76,read,E0,high
@@ -5994,6 +6083,7 @@ ppkp2001 90cye01.PZU,RTOS_service,0xA681,0x66E8,read,E0,high
 ppkp2001 90cye01.PZU,RTOS_service,0xA68E,0x67C5,read,E0,high
 ppkp2001 90cye01.PZU,RTOS_service,0xA695,0x4EFA,ljmp,02 A6A1,medium
 ppkp2001 90cye01.PZU,RTOS_service,0xA6AD,0x6700,lcall,12 8F8C,medium
+ppkp2001 90cye01.PZU,RTOS_service,0xA6C0,0xA714,movc,93,medium
 ppkp2001 90cye01.PZU,RTOS_service,0xA6F1,0x4DB0,lcall,12 8F8C,medium
 ppkp2001 90cye01.PZU,RTOS_service,0xA746,0x67E3,lcall,12 90D1,medium
 ppkp2001 90cye01.PZU,RTOS_service,0xA75B,0x677F,lcall,12 8F8C,medium
@@ -6053,6 +6143,7 @@ ppkp2012 a01.PZU,RTOS_service,0x4228,0x66ED,read,E0,high
 ppkp2012 a01.PZU,RTOS_service,0x4265,0x66EB,read,E0,high
 ppkp2012 a01.PZU,RTOS_service,0x4289,0x67E7,read,E0,high
 ppkp2012 a01.PZU,RTOS_service,0x42AD,0x67CC,read,E0,high
+ppkp2012 a01.PZU,RTOS_service,0x42B3,0x42D3,movc,93,medium
 ppkp2012 a01.PZU,RTOS_service,0x42C4,0x7A67,read,E0,high
 ppkp2012 a01.PZU,RTOS_service,0x430C,0x67C2,lcall,12 95B0,medium
 ppkp2012 a01.PZU,RTOS_service,0x434D,0x67C2,lcall,12 95B0,medium
@@ -6084,6 +6175,7 @@ ppkp2012 a01.PZU,RTOS_service,0x44AF,0x6419,read,E0,high
 ppkp2012 a01.PZU,RTOS_service,0x44FE,0x75AC,read,E0,high
 ppkp2012 a01.PZU,RTOS_service,0x4502,0x6703,lcall,12 95B0,medium
 ppkp2012 a01.PZU,RTOS_service,0x452A,0x66EE,read,E0,high
+ppkp2012 a01.PZU,RTOS_service,0x4540,0x4581,movc,93,medium
 ppkp2012 a01.PZU,RTOS_service,0x4544,0x7631,write,F0,high
 ppkp2012 a01.PZU,RTOS_service,0x4548,0x75AC,read,E0,high
 ppkp2012 a01.PZU,RTOS_service,0x454C,0x75AA,write,F0,high
@@ -6093,6 +6185,7 @@ ppkp2012 a01.PZU,RTOS_service,0x456B,0x66EC,read,E0,high
 ppkp2012 a01.PZU,RTOS_service,0x456F,0x66EB,write,F0,high
 ppkp2012 a01.PZU,RTOS_service,0x4574,0x66EC,write,F0,high
 ppkp2012 a01.PZU,RTOS_service,0x457C,0x75AC,write,F0,high
+ppkp2012 a01.PZU,RTOS_service,0x459F,0x45AF,movc,93,medium
 ppkp2012 a01.PZU,RTOS_service,0x460C,0x0010,read,E0,high
 ppkp2012 a01.PZU,RTOS_service,0x4612,0x765F,lcall,12 464E,medium
 ppkp2012 a01.PZU,RTOS_service,0x4622,0x66ED,read,E0,high
@@ -6240,6 +6333,7 @@ ppkp2012 a01.PZU,RTOS_service,0x5842,0x759F,read,E0,high
 ppkp2012 a01.PZU,RTOS_service,0x5846,0x764B,lcall,12 95B0,medium
 ppkp2012 a01.PZU,RTOS_service,0x584E,0x759F,read,E0,high
 ppkp2012 a01.PZU,RTOS_service,0x5864,0x764B,read,E0,high
+ppkp2012 a01.PZU,RTOS_service,0x5890,0x58F9,movc,93,medium
 ppkp2012 a01.PZU,RTOS_service,0x58A4,0x7651,read,E0,high
 ppkp2012 a01.PZU,RTOS_service,0x58DD,0x641E,write,F0,high
 ppkp2012 a01.PZU,RTOS_service,0x58E2,0x641D,write,F0,high
@@ -6450,6 +6544,7 @@ ppkp2012 a01.PZU,RTOS_service,0x6745,0x66ED,read,E0,high
 ppkp2012 a01.PZU,RTOS_service,0x6754,0x66DB,lcall,12 95B0,medium
 ppkp2012 a01.PZU,RTOS_service,0x675D,0x66E3,lcall,12 95B0,medium
 ppkp2012 a01.PZU,RTOS_service,0x6772,0x66DC,lcall,12 95B0,medium
+ppkp2012 a01.PZU,RTOS_service,0x677B,0x4F65,movc,93,medium
 ppkp2012 a01.PZU,RTOS_service,0x67A2,0x748B,lcall,12 97E5,medium
 ppkp2012 a01.PZU,RTOS_service,0x67AC,0x748B,lcall,12 97E5,medium
 ppkp2012 a01.PZU,RTOS_service,0x67D5,0x67CC,read,E0,high
@@ -6488,6 +6583,7 @@ ppkp2012 a01.PZU,RTOS_service,0x6B36,0x6703,lcall,12 95B0,medium
 ppkp2012 a01.PZU,RTOS_service,0x6B42,0x67EA,lcall,12 97E5,medium
 ppkp2012 a01.PZU,RTOS_service,0x6BBC,0x6703,lcall,12 95B0,medium
 ppkp2012 a01.PZU,RTOS_service,0x6C33,0x75A9,read,E0,high
+ppkp2012 a01.PZU,RTOS_service,0x6C37,0x6C54,movc,93,medium
 ppkp2012 a01.PZU,RTOS_service,0x6C3F,0x6C5A,lcall,12 9857,medium
 ppkp2012 a01.PZU,RTOS_service,0x6C47,0x75AA,write,F0,high
 ppkp2012 a01.PZU,RTOS_service,0x6C4B,0x6C82,lcall,12 9848,medium
@@ -6640,6 +6736,7 @@ ppkp2012 a01.PZU,RTOS_service,0x7F8C,0x6403,read,E0,high
 ppkp2012 a01.PZU,RTOS_service,0x7FFC,0x6404,read,E0,high
 ppkp2012 a01.PZU,RTOS_service,0x806C,0x6405,read,E0,high
 ppkp2012 a01.PZU,RTOS_service,0x80DF,0x6703,lcall,12 95B0,medium
+ppkp2012 a01.PZU,RTOS_service,0x80E6,0x820B,movc,93,medium
 ppkp2012 a01.PZU,RTOS_service,0x8101,0x63AD,lcall,12 95B0,medium
 ppkp2012 a01.PZU,RTOS_service,0x811C,0x63AD,lcall,12 95B0,medium
 ppkp2012 a01.PZU,RTOS_service,0x813A,0x66DB,read,E0,high
@@ -6814,6 +6911,7 @@ ppkp2012 a01.PZU,RTOS_service,0x9A85,0x7961,lcall,12 95B0,medium
 ppkp2012 a01.PZU,RTOS_service,0x9AA0,0x4EDD,lcall,12 95B0,medium
 ppkp2012 a01.PZU,RTOS_service,0x9AB8,0x4EDD,lcall,12 95B0,medium
 ppkp2012 a01.PZU,RTOS_service,0x9AD0,0x4EDD,lcall,12 95B0,medium
+ppkp2012 a01.PZU,RTOS_service,0x9AE6,0x9B01,movc,93,medium
 ppkp2012 a01.PZU,RTOS_service,0x9B20,0x6702,lcall,12 95B0,medium
 ppkp2012 a01.PZU,RTOS_service,0x9B4F,0x6477,read,E0,high
 ppkp2012 a01.PZU,RTOS_service,0x9B60,0x0A76,read,E0,high
@@ -6980,6 +7078,7 @@ ppkp2012 a01.PZU,RTOS_service,0xAE1B,0x66EB,read,E0,high
 ppkp2012 a01.PZU,RTOS_service,0xAE34,0x67CC,read,E0,high
 ppkp2012 a01.PZU,RTOS_service,0xAE3B,0x4F5D,ljmp,02 AE47,medium
 ppkp2012 a01.PZU,RTOS_service,0xAE71,0x6703,lcall,12 95B0,medium
+ppkp2012 a01.PZU,RTOS_service,0xAE84,0xAED8,movc,93,medium
 ppkp2012 a01.PZU,RTOS_service,0xAEB5,0x4E13,lcall,12 95B0,medium
 ppkp2012 a01.PZU,RTOS_service,0xAF0A,0x67E6,lcall,12 97E5,medium
 ppkp2012 a01.PZU,RTOS_service,0xAF1F,0x6782,lcall,12 95B0,medium
@@ -7057,6 +7156,7 @@ ppkp2019 a02.PZU,RTOS_service,0x4228,0x6894,read,E0,high
 ppkp2019 a02.PZU,RTOS_service,0x4265,0x6892,read,E0,high
 ppkp2019 a02.PZU,RTOS_service,0x4273,0x6984,read,E0,high
 ppkp2019 a02.PZU,RTOS_service,0x42F8,0x696D,read,E0,high
+ppkp2019 a02.PZU,RTOS_service,0x42FE,0x431E,movc,93,medium
 ppkp2019 a02.PZU,RTOS_service,0x430F,0x777D,read,E0,high
 ppkp2019 a02.PZU,RTOS_service,0x4354,0x6969,lcall,12 92EF,medium
 ppkp2019 a02.PZU,RTOS_service,0x4392,0x6961,lcall,12 92EF,medium
@@ -7097,6 +7197,7 @@ ppkp2019 a02.PZU,RTOS_service,0x4558,0x6419,read,E0,high
 ppkp2019 a02.PZU,RTOS_service,0x45A7,0x76A9,read,E0,high
 ppkp2019 a02.PZU,RTOS_service,0x45AB,0x68AA,lcall,12 92EF,medium
 ppkp2019 a02.PZU,RTOS_service,0x45D3,0x6895,read,E0,high
+ppkp2019 a02.PZU,RTOS_service,0x45E9,0x462A,movc,93,medium
 ppkp2019 a02.PZU,RTOS_service,0x45ED,0x7731,write,F0,high
 ppkp2019 a02.PZU,RTOS_service,0x45F1,0x76A9,read,E0,high
 ppkp2019 a02.PZU,RTOS_service,0x45F5,0x76A7,write,F0,high
@@ -7106,6 +7207,7 @@ ppkp2019 a02.PZU,RTOS_service,0x4614,0x6893,read,E0,high
 ppkp2019 a02.PZU,RTOS_service,0x4618,0x6892,write,F0,high
 ppkp2019 a02.PZU,RTOS_service,0x461D,0x6893,write,F0,high
 ppkp2019 a02.PZU,RTOS_service,0x4625,0x76A9,write,F0,high
+ppkp2019 a02.PZU,RTOS_service,0x4648,0x4658,movc,93,medium
 ppkp2019 a02.PZU,RTOS_service,0x46F8,0x0010,read,E0,high
 ppkp2019 a02.PZU,RTOS_service,0x46FE,0x775F,lcall,12 473A,medium
 ppkp2019 a02.PZU,RTOS_service,0x470E,0x6894,read,E0,high
@@ -7221,8 +7323,11 @@ ppkp2019 a02.PZU,RTOS_service,0x58D3,0x654A,read,E0,high
 ppkp2019 a02.PZU,RTOS_service,0x58D7,0x5944,lcall,12 94EA,medium
 ppkp2019 a02.PZU,RTOS_service,0x58E1,0x5927,lcall,12 94D6,medium
 ppkp2019 a02.PZU,RTOS_service,0x58EB,0x592A,lcall,12 94D6,medium
+ppkp2019 a02.PZU,RTOS_service,0x58F2,0x5153,movc,93,medium
 ppkp2019 a02.PZU,RTOS_service,0x58F9,0x592D,lcall,12 94D6,medium
+ppkp2019 a02.PZU,RTOS_service,0x5900,0x5163,movc,93,medium
 ppkp2019 a02.PZU,RTOS_service,0x5907,0x5930,lcall,12 94D6,medium
+ppkp2019 a02.PZU,RTOS_service,0x590E,0x5173,movc,93,medium
 ppkp2019 a02.PZU,RTOS_service,0x597C,0x76B2,read,E0,high
 ppkp2019 a02.PZU,RTOS_service,0x5980,0x598F,lcall,12 94EA,medium
 ppkp2019 a02.PZU,RTOS_service,0x5989,0x59A1,ljmp,02 942E,medium
@@ -7278,6 +7383,7 @@ ppkp2019 a02.PZU,RTOS_service,0x5C3C,0x769C,read,E0,high
 ppkp2019 a02.PZU,RTOS_service,0x5C40,0x774B,lcall,12 92EF,medium
 ppkp2019 a02.PZU,RTOS_service,0x5C48,0x769C,read,E0,high
 ppkp2019 a02.PZU,RTOS_service,0x5C5E,0x774B,read,E0,high
+ppkp2019 a02.PZU,RTOS_service,0x5C8A,0x5CF3,movc,93,medium
 ppkp2019 a02.PZU,RTOS_service,0x5C9E,0x7751,read,E0,high
 ppkp2019 a02.PZU,RTOS_service,0x5CD7,0x641E,write,F0,high
 ppkp2019 a02.PZU,RTOS_service,0x5CDC,0x641D,write,F0,high
@@ -7459,8 +7565,10 @@ ppkp2019 a02.PZU,RTOS_service,0x6847,0x653C,read,E0,high
 ppkp2019 a02.PZU,RTOS_service,0x685E,0x656F,ljmp,02 92EF,medium
 ppkp2019 a02.PZU,RTOS_service,0x6871,0x6894,read,E0,high
 ppkp2019 a02.PZU,RTOS_service,0x68E6,0x6894,read,E0,high
+ppkp2019 a02.PZU,RTOS_service,0x6A08,0x6A2D,movc,93,medium
 ppkp2019 a02.PZU,RTOS_service,0x6A3F,0x65BF,ljmp,02 92EF,medium
 ppkp2019 a02.PZU,RTOS_service,0x6A48,0x6972,lcall,12 92EF,medium
+ppkp2019 a02.PZU,RTOS_service,0x6B91,0x6A2D,movc,93,medium
 ppkp2019 a02.PZU,RTOS_service,0x6BB7,0x696D,read,E0,high
 ppkp2019 a02.PZU,RTOS_service,0x6BBF,0x652C,write,F0,high
 ppkp2019 a02.PZU,RTOS_service,0x6BC3,0x0001,read,E0,high
@@ -7476,6 +7584,7 @@ ppkp2019 a02.PZU,RTOS_service,0x6C0A,0x652F,read,E0,high
 ppkp2019 a02.PZU,RTOS_service,0x6C4B,0x0001,read,E0,high
 ppkp2019 a02.PZU,RTOS_service,0x6C53,0x7762,read,E0,high
 ppkp2019 a02.PZU,RTOS_service,0x6C5E,0x655F,lcall,12 92EF,medium
+ppkp2019 a02.PZU,RTOS_service,0x6C67,0x513E,movc,93,medium
 ppkp2019 a02.PZU,RTOS_service,0x6C6B,0x68E9,lcall,12 92EF,medium
 ppkp2019 a02.PZU,RTOS_service,0x6C8C,0x695A,lcall,12 92EF,medium
 ppkp2019 a02.PZU,RTOS_service,0x6C9A,0x7763,read,E0,high
@@ -7507,8 +7616,10 @@ ppkp2019 a02.PZU,RTOS_service,0x6EDA,0x68E9,lcall,12 92EF,medium
 ppkp2019 a02.PZU,RTOS_service,0x6EEE,0x7764,read,E0,high
 ppkp2019 a02.PZU,RTOS_service,0x6EFB,0x507E,lcall,12 92EF,medium
 ppkp2019 a02.PZU,RTOS_service,0x6F17,0x690A,lcall,12 92EF,medium
+ppkp2019 a02.PZU,RTOS_service,0x6FA6,0x5153,movc,93,medium
 ppkp2019 a02.PZU,RTOS_service,0x6FAC,0x6D7B,lcall,12 93BC,medium
 ppkp2019 a02.PZU,RTOS_service,0x6FC1,0x76A6,read,E0,high
+ppkp2019 a02.PZU,RTOS_service,0x6FC5,0x6FE2,movc,93,medium
 ppkp2019 a02.PZU,RTOS_service,0x6FCD,0x6FE9,lcall,12 942E,medium
 ppkp2019 a02.PZU,RTOS_service,0x6FD5,0x76A7,write,F0,high
 ppkp2019 a02.PZU,RTOS_service,0x6FD9,0x7011,lcall,12 941F,medium
@@ -7626,6 +7737,9 @@ ppkp2019 a02.PZU,RTOS_service,0x7C08,0x63F7,read,E0,high
 ppkp2019 a02.PZU,RTOS_service,0x7C78,0x63F8,read,E0,high
 ppkp2019 a02.PZU,RTOS_service,0x7CE8,0x63F9,read,E0,high
 ppkp2019 a02.PZU,RTOS_service,0x7D5B,0x68AA,lcall,12 92EF,medium
+ppkp2019 a02.PZU,RTOS_service,0x7D63,0x7F93,movc,93,medium
+ppkp2019 a02.PZU,RTOS_service,0x7D69,0x7F9F,movc,93,medium
+ppkp2019 a02.PZU,RTOS_service,0x7D82,0x7FAB,movc,93,medium
 ppkp2019 a02.PZU,RTOS_service,0x7DFF,0x6882,read,E0,high
 ppkp2019 a02.PZU,RTOS_service,0x7E04,0x6888,read,E0,high
 ppkp2019 a02.PZU,RTOS_service,0x7E0A,0x63F3,read,E0,high
@@ -7935,6 +8049,7 @@ ppkp2019 a02.PZU,RTOS_service,0xA7A3,0x777B,read,E0,high
 ppkp2019 a02.PZU,RTOS_service,0xA7A7,0x6D75,lcall,12 93BC,medium
 ppkp2019 a02.PZU,RTOS_service,0xA7AE,0xA7B4,ljmp,02 93EF,medium
 ppkp2019 a02.PZU,RTOS_service,0xA7C9,0x777B,read,E0,high
+ppkp2019 a02.PZU,RTOS_service,0xA7CE,0x5153,movc,93,medium
 ppkp2019 a02.PZU,RTOS_service,0xA7D4,0x6D75,lcall,12 93BC,medium
 ppkp2019 a02.PZU,RTOS_service,0xA7E9,0x777B,read,E0,high
 ppkp2019 a02.PZU,RTOS_service,0xA7ED,0x6D79,lcall,12 93BC,medium
@@ -7942,6 +8057,7 @@ ppkp2019 a02.PZU,RTOS_service,0xA7F9,0x777B,read,E0,high
 ppkp2019 a02.PZU,RTOS_service,0xA7FD,0x6D75,lcall,12 93BC,medium
 ppkp2019 a02.PZU,RTOS_service,0xA806,0x777B,read,E0,high
 ppkp2019 a02.PZU,RTOS_service,0xA823,0x6D73,lcall,12 93BC,medium
+ppkp2019 a02.PZU,RTOS_service,0xA82D,0xE912,movc,93,medium
 ppkp2019 a02.PZU,RTOS_service,0xA845,0x777B,read,E0,high
 ppkp2019 a02.PZU,RTOS_service,0xA850,0x6D78,lcall,12 93BC,medium
 ppkp2019 a02.PZU,RTOS_service,0xA85B,0xFFAC,write,F0,high
@@ -7950,12 +8066,15 @@ ppkp2019 a02.PZU,RTOS_service,0xA863,0xFFAF,write,F0,high
 ppkp2019 a02.PZU,RTOS_service,0xA867,0xFFB7,write,F0,high
 ppkp2019 a02.PZU,RTOS_service,0xA86B,0x777B,read,E0,high
 ppkp2019 a02.PZU,RTOS_service,0xA871,0x6D78,lcall,12 93BC,medium
+ppkp2019 a02.PZU,RTOS_service,0xA87D,0x5183,movc,93,medium
 ppkp2019 a02.PZU,RTOS_service,0xA883,0x6D75,lcall,12 93BC,medium
 ppkp2019 a02.PZU,RTOS_service,0xA89B,0x51B7,lcall,12 92EF,medium
+ppkp2019 a02.PZU,RTOS_service,0xA8B1,0x5163,movc,93,medium
 ppkp2019 a02.PZU,RTOS_service,0xA8B7,0x6D75,lcall,12 93BC,medium
 ppkp2019 a02.PZU,RTOS_service,0xA8C8,0x688E,write,F0,high
 ppkp2019 a02.PZU,RTOS_service,0xA8D0,0x777B,read,E0,high
 ppkp2019 a02.PZU,RTOS_service,0xA8D5,0x6D79,lcall,12 93BC,medium
+ppkp2019 a02.PZU,RTOS_service,0xA8E9,0x5173,movc,93,medium
 ppkp2019 a02.PZU,RTOS_service,0xA8EF,0x6D75,lcall,12 93BC,medium
 ppkp2019 a02.PZU,RTOS_service,0xA8FF,0x777B,read,E0,high
 ppkp2019 a02.PZU,RTOS_service,0xA903,0x6D79,lcall,12 93BC,medium
@@ -7982,6 +8101,7 @@ ppkp2019 a02.PZU,RTOS_service,0xABC4,0x68AA,lcall,12 92EF,medium
 ppkp2019 a02.PZU,RTOS_service,0xABFB,0x6D77,lcall,12 93BC,medium
 ppkp2019 a02.PZU,RTOS_service,0xAC23,0x6892,read,E0,high
 ppkp2019 a02.PZU,RTOS_service,0xAC48,0x68AA,lcall,12 92EF,medium
+ppkp2019 a02.PZU,RTOS_service,0xAC5B,0xACAF,movc,93,medium
 ppkp2019 a02.PZU,RTOS_service,0xAC8C,0x5194,lcall,12 92EF,medium
 ppkp2019 a02.PZU,RTOS_service,0xACE2,0x6983,lcall,12 93BC,medium
 ppkp2019 a02.PZU,RTOS_service,0xACF7,0x68E9,lcall,12 92EF,medium

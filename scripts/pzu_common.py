@@ -228,12 +228,16 @@ def extract_xdata_refs_detailed(mem: bytearray, start: int = 0x4000, end: int = 
             i += 4
             continue
         if op == 0xA3 and mem[i + 4] == 0xE0:
-            push(i, addr + 1, "read", "A3 E0", "high")
+            push(i, addr + 1, "offset_read", "A3 E0", "high")
             i += 5
             continue
         if op == 0xA3 and mem[i + 4] == 0xF0:
-            push(i, addr + 1, "write", "A3 F0", "high")
+            push(i, addr + 1, "offset_write", "A3 F0", "high")
             i += 5
+            continue
+        if op == 0x93:
+            push(i, addr, "movc", "93", "medium")
+            i += 4
             continue
         if op == 0x12:
             tgt = (mem[i + 4] << 8) | mem[i + 5]
