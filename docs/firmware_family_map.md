@@ -52,6 +52,14 @@
 4. `MOVC`-кандидаты дают указание на CODE-таблицы/строки, но не всегда это UI-строки (часть — lookup tables).
 5. В `RTOS_service` поздние entry vectors различаются между тремя файлами, поэтому перенос ролей между ними ограничен.
 
+## CFG-aware notes after PR #10
+
+- `call_xref` теперь строится из reachable disassembly (через entry vectors и достижимые переходы), а не из плоского сканирования всего диапазона.
+- Старый byte-scan оставлен только как legacy-слой для сравнения и отладки расхождений.
+- `docs/function_map.csv` связывает кандидаты функций с наблюдаемыми XDATA read/write и `MOVC` evidence.
+- Границы функций остаются approximate: `size_estimate` и хвосты функций чувствительны к качеству декодирования.
+- Следующий шаг: улучшить `scripts/disasm_8051.py` и уточнить таблицу длин opcode, чтобы сократить ложные function tails.
+
 ## 6) Что изменилось после PR #6
 
 - Добавлен переход от «плоского» XDATA xref к evidence-based слоям: `confirmed access`, `pointer args`, `code table candidates`.
