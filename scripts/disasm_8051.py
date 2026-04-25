@@ -22,87 +22,95 @@ ENTRY_VECTOR_KEYS = (
     "vector_401E",
 )
 
-# Minimal 8051 instruction-length table (fallback for unsupported opcodes).
-# Unknown opcodes default to length=1 with low confidence.
-MIN_LEN_TABLE: dict[int, int] = {
-    0x00: 1,
-    0x01: 2,
-    0x02: 3,
-    0x03: 1,
-    0x04: 1,
-    0x05: 2,
-    0x06: 1,
-    0x07: 1,
-    0x08: 1,
-    0x09: 1,
-    0x0A: 1,
-    0x0B: 1,
-    0x0C: 1,
-    0x0D: 1,
-    0x0E: 1,
-    0x0F: 1,
-    0x10: 3,
-    0x11: 2,
-    0x12: 3,
-    0x13: 1,
-    0x14: 1,
-    0x15: 2,
-    0x20: 3,
-    0x21: 2,
-    0x22: 1,
-    0x23: 1,
-    0x24: 2,
-    0x25: 2,
-    0x30: 3,
-    0x31: 2,
-    0x32: 1,
-    0x33: 1,
-    0x34: 2,
-    0x35: 2,
-    0x40: 2,
-    0x50: 2,
-    0x60: 2,
-    0x70: 2,
-    0x73: 1,
-    0x74: 2,
-    0x75: 3,
-    0x80: 2,
-    0x81: 2,
-    0x82: 2,
-    0x83: 1,
-    0x84: 1,
-    0x85: 3,
-    0x86: 2,
-    0x87: 2,
-    0x88: 2,
-    0x89: 2,
-    0x8A: 2,
-    0x8B: 2,
-    0x8C: 2,
-    0x8D: 2,
-    0x8E: 2,
-    0x8F: 2,
-    0x90: 3,
-    0x92: 2,
-    0x93: 1,
-    0x94: 2,
-    0x95: 2,
-    0xA0: 2,
-    0xA2: 2,
-    0xA3: 1,
-    0xB0: 2,
-    0xB2: 2,
-    0xC0: 2,
-    0xC2: 2,
-    0xD0: 2,
-    0xD2: 2,
-    0xE0: 1,
-    0xE2: 1,
-    0xE4: 1,
-    0xF0: 1,
-    0xF2: 1,
-    0xF4: 1,
-}
+# 8051 instruction-length table (covers full 0x00..0xFF opcode space).
+# Used for unknown-mnemonic fallback decoding with reliable instruction sizes.
+LEN_TABLE: dict[int, int] = {i: 1 for i in range(0x100)}
+
+# 2-byte opcode families
+for op in (
+    0x01, 0x11, 0x21, 0x31, 0x41, 0x51, 0x61, 0x71, 0x81, 0x91, 0xA1, 0xB1,
+    0xC1, 0xD1, 0xE1, 0xF1,
+):
+    LEN_TABLE[op] = 2
+
+for start_op in (0x05, 0x15, 0x25, 0x35, 0x45, 0x55, 0x65, 0x75, 0x85, 0x95, 0xA5, 0xB5, 0xC5, 0xD5, 0xE5, 0xF5):
+    LEN_TABLE[start_op] = 2
+
+for start_op in (0x06, 0x16, 0x26, 0x36, 0x46, 0x56, 0x66, 0x76, 0x86, 0x96, 0xA6, 0xB6, 0xC6, 0xD6, 0xE6, 0xF6):
+    LEN_TABLE[start_op] = 1
+
+for start_op in (0x07, 0x17, 0x27, 0x37, 0x47, 0x57, 0x67, 0x77, 0x87, 0x97, 0xA7, 0xB7, 0xC7, 0xD7, 0xE7, 0xF7):
+    LEN_TABLE[start_op] = 1
+
+# Explicit multi-byte opcodes
+for op in (0x02, 0x10, 0x12, 0x20, 0x30, 0x43, 0x53, 0x63, 0x75, 0x85, 0x90, 0xA5):
+    LEN_TABLE[op] = 3
+
+for op in (
+    0x04, 0x14, 0x24, 0x34, 0x44, 0x54, 0x64, 0x74, 0x84, 0x94, 0xA4, 0xB4, 0xC4, 0xD4, 0xE4, 0xF4,
+    0x03, 0x13, 0x23, 0x33, 0x42, 0x52, 0x62, 0x72, 0x82, 0x92, 0xA2, 0xB2, 0xC2, 0xD2, 0xE2, 0xF2,
+    0x00, 0x22, 0x32, 0x73, 0x83, 0x93, 0xA3, 0xD3,
+):
+    LEN_TABLE[op] = 1
+
+for op in (
+    0x40, 0x50, 0x60, 0x70, 0x80,
+    0xB0,
+    0xC0, 0xD0,
+    0xE0, 0xF0,
+):
+    LEN_TABLE[op] = 2
+
+# 2-byte relative jumps and conditional branches
+for op in list(range(0x40, 0x80)) + [0x80, 0xB4, 0xB5] + list(range(0xB6, 0xC0)):
+    LEN_TABLE[op] = 2
+
+# MOV Rn,#imm and CJNE forms
+for op in range(0x78, 0x80):
+    LEN_TABLE[op] = 2
+for op in range(0xB8, 0xC0):
+    LEN_TABLE[op] = 3
+
+# ACALL/AJMP pages
+for op in range(0x01, 0x100, 0x10):
+    LEN_TABLE[op] = 2
+for op in range(0x11, 0x100, 0x10):
+    LEN_TABLE[op] = 2
+
+# Direct bit operations
+for op in (0x20, 0x30):
+    LEN_TABLE[op] = 3
+for op in (0x10,):
+    LEN_TABLE[op] = 3
+for op in (0xA0, 0xB0, 0x92, 0xB2, 0xC2, 0xD2):
+    LEN_TABLE[op] = 2
+
+# Arithmetic/logical immediate and direct variants
+for op in (
+    0x24, 0x25, 0x26, 0x27,
+    0x34, 0x35, 0x36, 0x37,
+    0x44, 0x45, 0x46, 0x47,
+    0x54, 0x55, 0x56, 0x57,
+    0x64, 0x65, 0x66, 0x67,
+):
+    LEN_TABLE[op] = 2
+
+# MOV variants
+LEN_TABLE[0x75] = 3
+LEN_TABLE[0x85] = 3
+for op in (0x76, 0x77, 0x86, 0x87):
+    LEN_TABLE[op] = 2
+for op in range(0x88, 0x90):
+    LEN_TABLE[op] = 2
+LEN_TABLE[0x90] = 3
+for op in (0xA6, 0xA7, 0xB6, 0xB7):
+    LEN_TABLE[op] = 2
+
+# Decrement-and-jump forms
+for op in range(0xD8, 0xE0):
+    LEN_TABLE[op] = 2
+
+
 
 
 def in_code(addr: int) -> bool:
@@ -236,8 +244,8 @@ def _decode(mem: bytearray, addr: int) -> dict[str, object]:
             "stop": False,
         }
 
-    length = MIN_LEN_TABLE.get(op, 1)
-    confidence = "medium" if op in MIN_LEN_TABLE else "low"
+    length = LEN_TABLE[op]
+    confidence = "medium"
     return {
         "mnemonic": "UNK",
         "operands": "",
@@ -319,6 +327,11 @@ def main() -> int:
     files = discover_pzu_files(args.root)
     args.out.parent.mkdir(parents=True, exist_ok=True)
 
+    total_instructions = 0
+    low_confidence = 0
+    medium_confidence = 0
+    high_confidence = 0
+
     with args.out.open("w", newline="", encoding="utf-8") as f:
         w = csv.writer(f)
         w.writerow(
@@ -358,8 +371,19 @@ def main() -> int:
                         row["confidence"],
                     ]
                 )
+                total_instructions += 1
+                if row["confidence"] == "low":
+                    low_confidence += 1
+                elif row["confidence"] == "medium":
+                    medium_confidence += 1
+                elif row["confidence"] == "high":
+                    high_confidence += 1
 
     print(f"Generated: {args.out}")
+    print(f"total instructions: {total_instructions}")
+    print(f"low confidence instructions: {low_confidence}")
+    print(f"medium confidence instructions: {medium_confidence}")
+    print(f"high confidence instructions: {high_confidence}")
     return 0
 
 

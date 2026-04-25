@@ -36,7 +36,7 @@ A03_A04,0x6284,0,1,A04_28.PZU,unknown,unknown,reachable_disasm
 A03_A04,0x6409,0,1,A03_26.PZU,unknown,unknown,reachable_disasm
 A03_A04,0x66FC,0,1,A04_28.PZU,unknown,unknown,reachable_disasm
 A03_A04,0x670C,1,0,A04_28.PZU,unknown,unknown,reachable_disasm
-A03_A04,0x6717,15,0,A04_28.PZU,shared_service_call,hypothesis,reachable_disasm
+A03_A04,0x6717,16,0,A04_28.PZU,shared_service_call,hypothesis,reachable_disasm
 A03_A04,0x67BE,1,0,A04_28.PZU,unknown,unknown,reachable_disasm
 A03_A04,0x6813,1,0,A04_28.PZU,unknown,unknown,reachable_disasm
 A03_A04,0x6824,0,1,A03_26.PZU,unknown,unknown,reachable_disasm
