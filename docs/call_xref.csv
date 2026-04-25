@@ -174,6 +174,7 @@ A04_28.PZU,A03_A04,0xA31B,LCALL,0x6C07,true,true,true,high
 A04_28.PZU,A03_A04,0xA31F,LCALL,0x9462,true,true,true,high
 A04_28.PZU,A03_A04,0xA327,LJMP,0x66FC,true,true,true,high
 A04_28.PZU,A03_A04,0x6AA7,SJMP,0x6A93,true,true,true,high
+A04_28.PZU,A03_A04,0xA659,LCALL,0x6717,true,true,true,high
 A04_28.PZU,A03_A04,0xA663,LCALL,0x6826,true,true,true,high
 A04_28.PZU,A03_A04,0xA66A,LCALL,0x6717,true,true,true,high
 A04_28.PZU,A03_A04,0xA674,LCALL,0x6826,true,true,true,high

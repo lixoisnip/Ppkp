@@ -127,7 +127,7 @@ A04_28.PZU,A03_A04,0x497A,entry_vector,0,0,0,6410,1,0,1,0,0,unknown,unknown
 A04_28.PZU,A03_A04,0x6284,jump_target,0,1,0,1144,0,1,7,5,0,state_update_worker,probable
 A04_28.PZU,A03_A04,0x66FC,jump_target,0,1,0,16,0,0,0,0,0,unknown,hypothesis
 A04_28.PZU,A03_A04,0x670C,call_target,1,0,0,11,0,0,0,0,0,unknown,hypothesis
-A04_28.PZU,A03_A04,0x6717,call_target,15,0,0,167,1,0,0,0,0,unknown,hypothesis
+A04_28.PZU,A03_A04,0x6717,call_target,16,0,0,167,1,0,0,0,0,unknown,hypothesis
 A04_28.PZU,A03_A04,0x67BE,call_target,1,0,0,85,1,0,1,0,0,unknown,probable
 A04_28.PZU,A03_A04,0x6813,call_target,1,0,0,19,1,0,0,0,0,unknown,hypothesis
 A04_28.PZU,A03_A04,0x6826,mixed,14,2,0,78,1,0,0,0,0,unknown,hypothesis
@@ -145,7 +145,7 @@ A04_28.PZU,A03_A04,0xA269,call_target,1,0,0,121,0,30,3,1,0,dispatcher_or_router,
 A04_28.PZU,A03_A04,0xA2E2,call_target,13,0,0,835,0,8,5,0,0,service_or_runtime_worker,probable
 A04_28.PZU,A03_A04,0xA625,call_target,13,0,0,7,1,0,1,0,0,unknown,probable
 A04_28.PZU,A03_A04,0xA62C,call_target,1,0,0,38,1,0,1,0,0,unknown,probable
-A04_28.PZU,A03_A04,0xA652,call_target,1,0,0,135,0,15,1,0,0,dispatcher_or_router,probable
+A04_28.PZU,A03_A04,0xA652,call_target,1,0,0,135,0,16,1,0,0,dispatcher_or_router,probable
 A04_28.PZU,A03_A04,0xA6D9,call_target,1,0,0,3320,0,16,37,4,0,dispatcher_or_router,probable
 A04_28.PZU,A03_A04,0xB3D1,jump_target,0,1,0,192,0,4,8,0,0,dispatcher_or_router,probable
 A04_28.PZU,A03_A04,0xB491,jump_target,0,1,0,11,1,0,1,0,0,unknown,probable
