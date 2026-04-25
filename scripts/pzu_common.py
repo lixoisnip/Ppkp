@@ -13,6 +13,8 @@ from typing import Iterable
 PZU_GLOB = "*.PZU"
 ASCII_RE = re.compile(rb"[\x20-\x7E]{4,}")
 
+VECTOR_ADDRS = (0x4000, 0x4006, 0x400C, 0x4012, 0x4018, 0x401E)
+
 
 @dataclass
 class PzuStats:
@@ -110,47 +112,142 @@ def load_intel_hex(path: Path) -> tuple[bytearray, PzuStats]:
     return mem, stats
 
 
-def infer_family(name: str) -> str:
-    up = name.upper()
-    if up.startswith("90CYE"):
-        return "90CYE"
-    if up.startswith("PPKP") and "90CYE" in up:
-        return "PPKP-90CYE"
-    if up.startswith("A03"):
-        return "A03"
-    if up.startswith("A04"):
-        return "A04"
-    if up.startswith("PPKP"):
-        return "PPKP"
+def normalize_name(name: str) -> str:
+    return name.rsplit(".", 1)[0]
+
+
+def infer_branch(name: str) -> str:
+    stem = normalize_name(name).upper()
+    if stem in {"A03_26", "A04_28"}:
+        return "A03_A04"
+    if stem in {"90CYE03_19_DKS", "90CYE04_19_DKS"}:
+        return "90CYE_DKS"
+    if stem in {"90CYE03_19_2 V2_1", "90CYE04_19_2 V2_1"}:
+        return "90CYE_v2_1"
+    if stem == "90CYE02_27 DKS":
+        return "90CYE_shifted_DKS"
+    if stem in {"PPKP2001 90CYE01", "PPKP2012 A01", "PPKP2019 A02"}:
+        return "RTOS_service"
+
+    if stem.startswith("90CYE"):
+        return "90CYE_generic"
+    if stem.startswith("A03") or stem.startswith("A04"):
+        return "A03_A04"
+    if stem.startswith("PPKP"):
+        return "RTOS_service"
     return "OTHER"
 
 
-def normalize_name(name: str) -> str:
-    return name.rsplit(".", 1)[0]
+def infer_family(name: str) -> str:
+    branch = infer_branch(name)
+    if branch == "RTOS_service":
+        return "RTOS_service_family"
+    return branch
 
 
 def dump_json(path: Path, data: object) -> None:
     path.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
 
+def vector_entrypoints(mem: bytearray) -> dict[str, str]:
+    out: dict[str, str] = {}
+    for addr in VECTOR_ADDRS:
+        key = f"vector_{addr:04X}"
+        if mem[addr] == 0x02:
+            target = (mem[addr + 1] << 8) | mem[addr + 2]
+            out[key] = f"0x{target:04X}"
+        else:
+            out[key] = " ".join(f"{mem[addr + i]:02X}" for i in range(3))
+    return out
+
+
+def _add_ref(refs: dict[int, dict[str, int]], addr: int, access: str) -> None:
+    bucket = refs.setdefault(addr, {"read": 0, "write": 0})
+    if access in bucket:
+        bucket[access] += 1
+
+
 def extract_xdata_refs(mem: bytearray, start: int = 0x4000, end: int = 0xC000) -> dict[int, dict[str, int]]:
     refs: dict[int, dict[str, int]] = {}
     i = start
-    while i < end - 4:
-        # MOV DPTR,#imm16 ; MOVX A,@DPTR
-        if mem[i] == 0x90 and mem[i + 3] == 0xE0:
-            addr = (mem[i + 1] << 8) | mem[i + 2]
-            refs.setdefault(addr, {"read": 0, "write": 0})["read"] += 1
+    while i < end - 6:
+        if mem[i] != 0x90:
+            i += 1
+            continue
+
+        addr = (mem[i + 1] << 8) | mem[i + 2]
+        op = mem[i + 3]
+        if op == 0xE0:
+            _add_ref(refs, addr, "read")
             i += 4
             continue
-        # MOV DPTR,#imm16 ; MOVX @DPTR,A
-        if mem[i] == 0x90 and mem[i + 3] == 0xF0:
-            addr = (mem[i + 1] << 8) | mem[i + 2]
-            refs.setdefault(addr, {"read": 0, "write": 0})["write"] += 1
+        if op == 0xF0:
+            _add_ref(refs, addr, "write")
             i += 4
+            continue
+        if op == 0xA3 and mem[i + 4] == 0xE0:
+            _add_ref(refs, addr + 1, "read")
+            i += 5
+            continue
+        if op == 0xA3 and mem[i + 4] == 0xF0:
+            _add_ref(refs, addr + 1, "write")
+            i += 5
             continue
         i += 1
     return refs
+
+
+def extract_xdata_refs_detailed(mem: bytearray, start: int = 0x4000, end: int = 0xC000) -> list[dict[str, str | int]]:
+    rows: list[dict[str, str | int]] = []
+    i = start
+    while i < end - 6:
+        if mem[i] != 0x90:
+            i += 1
+            continue
+
+        addr = (mem[i + 1] << 8) | mem[i + 2]
+        op = mem[i + 3]
+
+        def push(code_addr: int, dptr_addr: int, access_type: str, next_bytes: str, confidence: str) -> None:
+            rows.append(
+                {
+                    "code_addr": code_addr,
+                    "dptr_addr": dptr_addr & 0xFFFF,
+                    "access_type": access_type,
+                    "next_bytes": next_bytes,
+                    "confidence": confidence,
+                }
+            )
+
+        if op == 0xE0:
+            push(i, addr, "read", "E0", "high")
+            i += 4
+            continue
+        if op == 0xF0:
+            push(i, addr, "write", "F0", "high")
+            i += 4
+            continue
+        if op == 0xA3 and mem[i + 4] == 0xE0:
+            push(i, addr + 1, "read", "A3 E0", "high")
+            i += 5
+            continue
+        if op == 0xA3 and mem[i + 4] == 0xF0:
+            push(i, addr + 1, "write", "A3 F0", "high")
+            i += 5
+            continue
+        if op == 0x12:
+            tgt = (mem[i + 4] << 8) | mem[i + 5]
+            push(i, addr, "lcall", f"12 {tgt:04X}", "medium")
+            i += 6
+            continue
+        if op == 0x02:
+            tgt = (mem[i + 4] << 8) | mem[i + 5]
+            push(i, addr, "ljmp", f"02 {tgt:04X}", "medium")
+            i += 6
+            continue
+
+        i += 1
+    return rows
 
 
 def to_rows(mapping: dict[int, dict[str, int]]) -> Iterable[tuple[int, int, int]]:
