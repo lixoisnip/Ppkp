@@ -18,9 +18,18 @@
 | snapshot_block_2 | `0x4FCE..0x5003` | самые частые чтения ветки | `A03_26.PZU`, `A04_28.PZU` | probable |
 | event_code | `0x3010` | точечные writes в транзакциях | `A03_26.PZU`, `A04_28.PZU` | hypothesis |
 | packet_buffer | `0x3298..0x329C` + `0x4FCE..0x5003` | одновременные read/write с указательными аргументами в `0x6C06/0x6D2D` | `A03_26.PZU`, `A04_28.PZU` | probable |
-| packet_builders | call-target cluster `0x6C07`, `0x6D2E`, `0x6F8F`, `0x6FB8` | высокий `LCALL`/`LJMP` в `call_targets_summary` | `A03_26.PZU`, `A04_28.PZU` | confirmed |
+| packet_builders | call-target cluster `0x6C07`, `0x6D2E`, `0x6F8F`, `0x6FB8` | высокий `LCALL`/`LJMP` в `call_targets_summary` | `A03_26.PZU`, `A04_28.PZU` | probable |
 | ui_string_table | CODE refs `0x7758..0x8094`; strings `0x5010` и меню-метки | `MOVC` + `string_index` | `A03_26.PZU`, `A04_28.PZU` | probable |
 | service_cluster | `0x94CE/0x950F` и `0x9F29` | частые branch-level call hubs | `A03_26.PZU`, `A04_28.PZU` | probable |
+
+### Function-map evidence after PR #10
+
+- `0x6D38` — `code_table_or_ui_worker`; xdata r/w=`194/50`; movc=`7`; confidence=`probable`.
+- `0x6409` — `state_update_worker`; xdata r/w=`7/5`; movc=`0`; confidence=`probable`.
+- `0x9FD8` — `service_or_runtime_worker`; xdata r/w=`4/0`; movc=`0`; confidence=`probable`.
+- `0xA2F5` — `dispatcher_or_router`; xdata r/w=`28/3`; movc=`0`; confidence=`probable`.
+- `0x6BBB` — `state_reader_or_packet_builder`; xdata r/w=`7/0`; movc=`1`; confidence=`probable`.
+- `0x694E` — `unknown`; xdata r/w=`0/0`; movc=`0`; confidence=`hypothesis`.
 
 ## 90CYE_DKS
 
@@ -36,9 +45,17 @@
 | snapshot_block_2 | `0x36D3..0x36D5` | самый частый read узел + writes рядом | оба DKS-файла | probable |
 | event_code | `0x30A0/0x30A7` | точечные writes при переходах | оба DKS-файла | hypothesis |
 | packet_buffer | `0x31BF`, `0x364B`, `0x3165` (как pointer args в `0x5A7F`) | `probable_pointer_argument` | оба DKS-файла | probable |
-| packet_builders | `0x5A7F`, `0x5D93`, `0x5D2E` | крупнейший call-target cluster ветки | оба DKS-файла | confirmed |
+| packet_builders | `0x5A7F`, `0x5D93`, `0x5D2E` | крупнейший call-target cluster ветки | оба DKS-файла | probable |
 | ui_string_table | CODE refs `0x5999..0x6E17`, строки `0x5010`, `0x52EB..0x5C2C` | `MOVC` + `string_index` | оба DKS-файла | probable |
 | service_cluster | `0x5D02/0x5D60/0x5D3D` | mixed LCALL/LJMP dispatcher-профиль | оба DKS-файла | probable |
+
+### Function-map evidence after PR #10
+
+- `0x54BC` — `code_table_or_ui_worker`; xdata r/w=`259/104`; movc=`11`; confidence=`probable`.
+- `0x792E` — `state_update_worker`; xdata r/w=`104/14`; movc=`1`; confidence=`probable`.
+- `0x859A` — `state_reader_or_packet_builder`; xdata r/w=`5/0`; movc=`0`; confidence=`probable`.
+- `0x862D` — `unknown`; xdata r/w=`1/0`; movc=`0`; confidence=`probable`.
+- `0x41E8` — `unknown`; xdata r/w=`0/0`; movc=`0`; confidence=`hypothesis`.
 
 ## 90CYE_v2_1
 
@@ -54,9 +71,18 @@
 | snapshot_block_2 | `0x32D7` + `0x462D` | два доминирующих read-узла ветки | оба v2_1-файла | confirmed |
 | event_code | `0x315C/0x315D` | read/write переключения | оба v2_1-файла | hypothesis |
 | packet_buffer | `0x44A3/0x44E3/0x44C3`, `0x3353`, `0x317D` | pointer args для `0x8D10` и `0x72AB` | оба v2_1-файла | probable |
-| packet_builders | `0x72AC`, `0x78EB`, `0x72AB`, `0x8D10` | high-volume call hubs | оба v2_1-файла | confirmed |
+| packet_builders | `0x72AC`, `0x78EB`, `0x72AB`, `0x8D10` | high-volume call hubs | оба v2_1-файла | probable |
 | ui_string_table | CODE refs `0x736B..0x8C74`, строки `0x5010`, `0x60EF..0x66E0` | `MOVC` + `string_index` | оба v2_1-файла | probable |
 | service_cluster | `0x781A/0x72DC/0x78B8` | смешанные LCALL/LJMP узлы | оба v2_1-файла | probable |
+
+### Function-map evidence after PR #10
+
+- `0x72AC` — `code_table_or_ui_worker`; xdata r/w=`157/30`; movc=`8`; confidence=`probable`.
+- `0x8FC4` — `code_table_or_ui_worker`; xdata r/w=`61/17`; movc=`3`; confidence=`probable`.
+- `0x9B22` — `state_update_worker`; xdata r/w=`88/12`; movc=`0`; confidence=`probable`.
+- `0xA5A9` — `code_table_or_ui_worker`; xdata r/w=`39/1`; movc=`6`; confidence=`probable`.
+- `0x6E7C` — `state_update_worker`; xdata r/w=`12/9`; movc=`0`; confidence=`probable`.
+- `0xAC3A` — `state_reader_or_packet_builder`; xdata r/w=`4/0`; movc=`0`; confidence=`probable`.
 
 ## 90CYE_shifted_DKS
 
@@ -72,9 +98,17 @@
 | snapshot_block_2 | `0x30CE/0x3103` | частые reads в той же подсистеме | `90CYE02_27 DKS.PZU` | hypothesis |
 | event_code | `0x31D1` | локальные writes рядом с call-dispatch | `90CYE02_27 DKS.PZU` | hypothesis |
 | packet_buffer | `0x31DD`, `0x7248/0x724A`, `0x52F8` | pointer args для `0x6083`, `0x7551`, `0x655F` | `90CYE02_27 DKS.PZU` | probable |
-| packet_builders | `0x604B`, `0x655F`, `0x6496`, `0x6507` | крупнейшие call hubs | `90CYE02_27 DKS.PZU` | confirmed |
+| packet_builders | `0x604B`, `0x655F`, `0x6496`, `0x6507` | крупнейшие call hubs | `90CYE02_27 DKS.PZU` | probable |
 | ui_string_table | CODE refs `0x60FC..0x74E9`, строки `0x5010`, `0x5329..0x5C2C` | `MOVC` + `string_index` | `90CYE02_27 DKS.PZU` | probable |
 | service_cluster | `0x6067/0x6070/0x6083` | частые сервисные targets для pointer args | `90CYE02_27 DKS.PZU` | probable |
+
+### Function-map evidence after PR #10
+
+- `0x5CF4` — `code_table_or_ui_worker`; xdata r/w=`155/66`; movc=`7`; confidence=`probable`.
+- `0x7FDB` — `state_update_worker`; xdata r/w=`49/9`; movc=`0`; confidence=`probable`.
+- `0x7C46` — `state_update_worker`; xdata r/w=`40/6`; movc=`0`; confidence=`probable`.
+- `0x8B6D` — `unknown`; xdata r/w=`2/0`; movc=`0`; confidence=`probable`.
+- `0x4176` — `state_reader_or_packet_builder`; xdata r/w=`5/0`; movc=`0`; confidence=`unknown`.
 
 ## RTOS_service
 
@@ -90,9 +124,18 @@
 | snapshot_block_2 | `0x76AA` | частые reads в одной подсистеме | все RTOS_service | hypothesis |
 | event_code | `0x6408/0x6423` | локальные writes рядом с `0x6406/0x6422` | все RTOS_service | hypothesis |
 | packet_buffer | `0x68AA/0x6700/0x6703/0x444A/0x443D` | pointer args к `0x92EF/0x8F8C/0x95B0/0x9848/0x9134` | все RTOS_service | probable |
-| packet_builders | `0x92EF`, `0x95B0`, `0x8F8C` | крупнейшие branch-level call hubs | все RTOS_service | confirmed |
+| packet_builders | `0x92EF`, `0x95B0`, `0x8F8C` | крупнейшие branch-level call hubs | все RTOS_service | probable |
 | ui_string_table | CODE refs `0x42D3..0x93B9`, строки `0x5010` и текстовые блоки `0x66CE+` | `MOVC` + `string_index` | все RTOS_service | hypothesis |
 | service_cluster | `0x919E`, `0x98B2`, `0x9489`, `0x94D6`, `0x91A5` | устойчивый набор сервисных call-target | все RTOS_service | probable |
+
+### Function-map evidence after PR #10
+
+- `0x41E8` — `code_table_or_ui_worker`; xdata r/w=`484/98` (до `511/107` в других файлах ветки); movc=`9` (до `21`); confidence=`probable`.
+- `0xAFB9` — `state_reader_or_packet_builder`; xdata r/w=`7/0`; movc=`0`; confidence=`probable`.
+- `0xAB9B` — `state_reader_or_packet_builder`; xdata r/w=`6/0`; movc=`0`; confidence=`probable`.
+- `0xB647` — `state_reader_or_packet_builder`; xdata r/w=`6/0`; movc=`0`; confidence=`probable`.
+- `0x4176` — `state_reader_or_packet_builder`; xdata r/w=`5/0`; movc=`0`; confidence=`unknown`.
+- `0xAC75` — `dispatcher_or_router`; xdata r/w=`0/0`; movc=`0`; confidence=`hypothesis`.
 
 ## Ограничения текущей реконструкции ролей
 
