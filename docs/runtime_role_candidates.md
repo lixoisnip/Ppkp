@@ -1,6 +1,6 @@
 # Runtime role candidates by firmware branch
 
-Дата обновления: 2026-04-25 (UTC).
+Дата обновления: 2026-04-26 (UTC).
 
 Метод: сопоставление `confirmed_xdata_*` + `probable_pointer_argument` + `MOVC` (`code_table_or_string_candidate`) + кластеры `LCALL/LJMP` по веткам. Набор ролей ниже — это рабочие гипотезы для следующего этапа реверса.
 
@@ -24,12 +24,16 @@
 
 ### Function-map evidence after PR #10
 
-- `0x6D38` — `code_table_or_ui_worker`; xdata r/w=`194/50`; movc=`7`; confidence=`probable`.
-- `0x6409` — `state_update_worker`; xdata r/w=`7/5`; movc=`0`; confidence=`probable`.
-- `0x9FD8` — `service_or_runtime_worker`; xdata r/w=`4/0`; movc=`0`; confidence=`probable`.
-- `0xA2F5` — `dispatcher_or_router`; xdata r/w=`28/3`; movc=`0`; confidence=`probable`.
-- `0x6BBB` — `state_reader_or_packet_builder`; xdata r/w=`7/0`; movc=`1`; confidence=`probable`.
-- `0x694E` — `unknown`; xdata r/w=`0/0`; movc=`0`; confidence=`hypothesis`.
+> Примечание (после PR #15): `function_map.csv` очищен с использованием `basic_block_map.csv`; обычные internal jump/conditional branch targets больше не считаются отдельными `function_addr`; `basic_block_count` и `internal_block_count` теперь используются как индикаторы сложности функции.
+
+| function_addr | role_candidate | basic_block_count | internal_block_count | xdata_read_count | xdata_write_count | movc_count | confidence |
+|---|---|---:|---:|---:|---:|---:|---|
+| `0x6C7E` | `state_reader_or_packet_builder` | 20 | 19 | 5 | 0 | 1 | `probable` |
+| `0x6B57` | `state_reader_or_packet_builder` | 20 | 19 | 5 | 0 | 1 | `probable` |
+| `0x8904` | `dispatcher_or_router` | 13 | 12 | 15 | 2 | 0 | `probable` |
+| `0x889F` | `dispatcher_or_router` | 13 | 12 | 15 | 2 | 0 | `probable` |
+| `0x80C3` | `state_update_worker` | 9 | 8 | 5 | 3 | 0 | `probable` |
+| `0x8012` | `state_update_worker` | 9 | 8 | 5 | 3 | 0 | `probable` |
 
 ## 90CYE_DKS
 
@@ -51,11 +55,16 @@
 
 ### Function-map evidence after PR #10
 
-- `0x54BC` — `code_table_or_ui_worker`; xdata r/w=`259/104`; movc=`11`; confidence=`probable`.
-- `0x792E` — `state_update_worker`; xdata r/w=`104/14`; movc=`1`; confidence=`probable`.
-- `0x859A` — `state_reader_or_packet_builder`; xdata r/w=`5/0`; movc=`0`; confidence=`probable`.
-- `0x862D` — `unknown`; xdata r/w=`1/0`; movc=`0`; confidence=`probable`.
-- `0x41E8` — `unknown`; xdata r/w=`0/0`; movc=`0`; confidence=`hypothesis`.
+> Примечание (после PR #15): `function_map.csv` очищен с использованием `basic_block_map.csv`; обычные internal jump/conditional branch targets больше не считаются отдельными `function_addr`; `basic_block_count` и `internal_block_count` теперь используются как индикаторы сложности функции.
+
+| function_addr | role_candidate | basic_block_count | internal_block_count | xdata_read_count | xdata_write_count | movc_count | confidence |
+|---|---|---:|---:|---:|---:|---:|---|
+| `0x59A0` | `state_reader_or_packet_builder` | 18 | 17 | 6 | 0 | 2 | `probable` |
+| `0x7017` | `dispatcher_or_router` | 17 | 16 | 17 | 4 | 0 | `probable` |
+| `0x6EF2` | `dispatcher_or_router` | 15 | 14 | 18 | 4 | 0 | `probable` |
+| `0x7BC2` | `dispatcher_or_router` | 13 | 12 | 15 | 2 | 0 | `probable` |
+| `0x673C` | `dispatcher_or_router` | 12 | 11 | 8 | 2 | 0 | `probable` |
+| `0x737C` | `dispatcher_or_router` | 8 | 7 | 11 | 6 | 1 | `probable` |
 
 ## 90CYE_v2_1
 
@@ -77,12 +86,16 @@
 
 ### Function-map evidence after PR #10
 
-- `0x72AC` — `code_table_or_ui_worker`; xdata r/w=`157/30`; movc=`8`; confidence=`probable`.
-- `0x8FC4` — `code_table_or_ui_worker`; xdata r/w=`61/17`; movc=`3`; confidence=`probable`.
-- `0x9B22` — `state_update_worker`; xdata r/w=`88/12`; movc=`0`; confidence=`probable`.
-- `0xA5A9` — `code_table_or_ui_worker`; xdata r/w=`39/1`; movc=`6`; confidence=`probable`.
-- `0x6E7C` — `state_update_worker`; xdata r/w=`12/9`; movc=`0`; confidence=`probable`.
-- `0xAC3A` — `state_reader_or_packet_builder`; xdata r/w=`4/0`; movc=`0`; confidence=`probable`.
+> Примечание (после PR #15): `function_map.csv` очищен с использованием `basic_block_map.csv`; обычные internal jump/conditional branch targets больше не считаются отдельными `function_addr`; `basic_block_count` и `internal_block_count` теперь используются как индикаторы сложности функции.
+
+| function_addr | role_candidate | basic_block_count | internal_block_count | xdata_read_count | xdata_write_count | movc_count | confidence |
+|---|---|---:|---:|---:|---:|---:|---|
+| `0x7375` | `state_reader_or_packet_builder` | 20 | 19 | 8 | 0 | 1 | `probable` |
+| `0x8EB8` | `dispatcher_or_router` | 18 | 17 | 16 | 4 | 0 | `probable` |
+| `0x8D3B` | `dispatcher_or_router` | 16 | 15 | 3 | 0 | 0 | `probable` |
+| `0x93F9` | `dispatcher_or_router` | 14 | 13 | 23 | 6 | 2 | `probable` |
+| `0x9D25` | `dispatcher_or_router` | 14 | 13 | 15 | 1 | 0 | `probable` |
+| `0x740B` | `state_reader_or_packet_builder` | 14 | 13 | 7 | 0 | 0 | `probable` |
 
 ## 90CYE_shifted_DKS
 
@@ -104,11 +117,16 @@
 
 ### Function-map evidence after PR #10
 
-- `0x5CF4` — `code_table_or_ui_worker`; xdata r/w=`155/66`; movc=`7`; confidence=`probable`.
-- `0x7FDB` — `state_update_worker`; xdata r/w=`49/9`; movc=`0`; confidence=`probable`.
-- `0x7C46` — `state_update_worker`; xdata r/w=`40/6`; movc=`0`; confidence=`probable`.
-- `0x8B6D` — `unknown`; xdata r/w=`2/0`; movc=`0`; confidence=`probable`.
-- `0x4176` — `state_reader_or_packet_builder`; xdata r/w=`5/0`; movc=`0`; confidence=`unknown`.
+> Примечание (после PR #15): `function_map.csv` очищен с использованием `basic_block_map.csv`; обычные internal jump/conditional branch targets больше не считаются отдельными `function_addr`; `basic_block_count` и `internal_block_count` теперь используются как индикаторы сложности функции.
+
+| function_addr | role_candidate | basic_block_count | internal_block_count | xdata_read_count | xdata_write_count | movc_count | confidence |
+|---|---|---:|---:|---:|---:|---:|---|
+| `0x6106` | `state_reader_or_packet_builder` | 20 | 19 | 6 | 0 | 1 | `probable` |
+| `0x774F` | `dispatcher_or_router` | 17 | 16 | 15 | 8 | 0 | `probable` |
+| `0x7574` | `dispatcher_or_router` | 16 | 15 | 3 | 0 | 0 | `probable` |
+| `0x7E49` | `dispatcher_or_router` | 14 | 13 | 15 | 1 | 0 | `probable` |
+| `0x72E4` | `code_table_or_ui_worker` | 9 | 8 | 0 | 0 | 2 | `probable` |
+| `0x8442` | `state_reader_or_packet_builder` | 8 | 7 | 6 | 0 | 0 | `probable` |
 
 ## RTOS_service
 
@@ -130,12 +148,16 @@
 
 ### Function-map evidence after PR #10
 
-- `0x41E8` — `code_table_or_ui_worker`; xdata r/w=`484/98` (до `511/107` в других файлах ветки); movc=`9` (до `21`); confidence=`probable`.
-- `0xAFB9` — `state_reader_or_packet_builder`; xdata r/w=`7/0`; movc=`0`; confidence=`probable`.
-- `0xAB9B` — `state_reader_or_packet_builder`; xdata r/w=`6/0`; movc=`0`; confidence=`probable`.
-- `0xB647` — `state_reader_or_packet_builder`; xdata r/w=`6/0`; movc=`0`; confidence=`probable`.
-- `0x4176` — `state_reader_or_packet_builder`; xdata r/w=`5/0`; movc=`0`; confidence=`unknown`.
-- `0xAC75` — `dispatcher_or_router`; xdata r/w=`0/0`; movc=`0`; confidence=`hypothesis`.
+> Примечание (после PR #15): `function_map.csv` очищен с использованием `basic_block_map.csv`; обычные internal jump/conditional branch targets больше не считаются отдельными `function_addr`; `basic_block_count` и `internal_block_count` теперь используются как индикаторы сложности функции.
+
+| function_addr | role_candidate | basic_block_count | internal_block_count | xdata_read_count | xdata_write_count | movc_count | confidence |
+|---|---|---:|---:|---:|---:|---:|---|
+| `0x6C9A` | `dispatcher_or_router` | 34 | 33 | 6 | 0 | 0 | `probable` |
+| `0x95D3` | `dispatcher_or_router` | 31 | 30 | 4 | 0 | 0 | `probable` |
+| `0x4228` | `dispatcher_or_router` | 29 | 28 | 5 | 0 | 1 | `probable` |
+| `0x47EF` | `dispatcher_or_router` | 18 | 17 | 0 | 1 | 0 | `probable` |
+| `0x4840` | `dispatcher_or_router` | 18 | 17 | 0 | 1 | 0 | `probable` |
+| `0x495D` | `dispatcher_or_router` | 18 | 17 | 0 | 1 | 0 | `probable` |
 
 ## Ограничения текущей реконструкции ролей
 
