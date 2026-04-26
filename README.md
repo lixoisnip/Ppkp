@@ -22,6 +22,7 @@
 - `docs/basic_block_map.csv` — preliminary basic block map separating function entries from internal branch targets.
 - `docs/a03_a04_packet_builder_candidates.csv` — A03/A04 packet builder candidate ranking.
 - `docs/a03_a04_top_packet_function_trace.csv` — static trace of top A03/A04 packet-builder candidates.
+- `docs/a03_a04_packet_call_neighborhood.csv` — local call-neighborhood around A03/A04 top packet-builder candidates.
 - Предыдущий файл анализа/журнал: `PZU_ANALYSIS.md`
 
 ## Исходные образы
