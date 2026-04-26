@@ -652,6 +652,17 @@ def main() -> int:
     # next deep dive plan
     picks = sorted(fn.values(), key=lambda s: s.score, reverse=True)[:5]
     plan = ["# RTOS_service next deep-dive plan", "", "## Цель", "Выбрать 3–5 функций RTOS_service для немедленного глубокого разбора runtime/service pipeline.", ""]
+    plan.extend(
+        [
+            "## Статус после PR #28",
+            "- Первым deep-dive выбран и зафиксирован chain в valid_hex: `ppkp2001 90cye01.PZU: 0x4358 -> 0x920C -> 0x53E6`.",
+            "- Артефакты deep-trace: `docs/rtos_service_chain_4358_920c_53e6_trace.csv`, `docs/rtos_service_chain_4358_920c_53e6_summary.csv`, `docs/rtos_service_chain_4358_920c_53e6_analysis.md`.",
+            "- Следующий candidate chain после него:",
+            "  - `0x464B -> 0x920C -> 0x53E6`",
+            "  - или `0xAB62 -> 0x44F1 -> 0x53E6`",
+            "",
+        ]
+    )
     for st in picks:
         plan.append(f"## Функция {st.file}:{st.addr}")
         plan.append(f"- Почему выбрана: высокий интегральный score={st.score}, candidate_type={st.candidate_type}, confidence={st.confidence}.")
