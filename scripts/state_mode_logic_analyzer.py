@@ -3,8 +3,8 @@ from __future__ import annotations
 
 import argparse
 import csv
+import re
 from collections import defaultdict
-from dataclasses import dataclass
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -54,6 +54,19 @@ CHAIN_FIELDS = [
     "missing_links","notes",
 ]
 
+ENUM_FIELDS = [
+    "branch",
+    "file",
+    "function_addr",
+    "enum_domain",
+    "enum_value_hex",
+    "enum_value_dec",
+    "enum_label",
+    "hits",
+    "confidence",
+    "evidence",
+]
+
 COND = {"CJNE", "SUBB", "JC", "JNC", "JZ", "JNZ", "JB", "JNB", "JBC", "DJNZ"}
 BIT = {"ANL", "ORL", "XRL", "SETB", "CLR", "CPL"}
 
@@ -81,6 +94,44 @@ ZONE_MARKERS = {
 MODE_MARKERS = {
     "auto": ["авто", "автомат", "auto", "automatic"],
     "manual": ["ручн", "manual"],
+}
+
+IMM_RE = re.compile(r"#0x([0-9A-Fa-f]{1,4})")
+
+SENSOR_ENUM_MAP = {
+    0x00: "sensor_normal_or_clear",
+    0x01: "sensor_fire_primary",
+    0x02: "sensor_fire_secondary",
+    0x03: "sensor_attention_prealarm",
+    0x04: "sensor_fault",
+    0x05: "sensor_disabled",
+    0x06: "sensor_blocked_or_isolated",
+    0x07: "sensor_service_mode",
+    0x08: "sensor_not_detected",
+    0x0F: "sensor_low_nibble_mask",
+    0x31: "sensor_state_table_idx_31",
+    0x35: "sensor_state_table_idx_35",
+    0x7E: "sensor_address_conflict",
+    0x80: "sensor_status_highbit",
+    0xFF: "sensor_absent_or_invalid",
+}
+
+ZONE_ENUM_MAP = {
+    0x00: "zone_normal",
+    0x01: "zone_attention",
+    0x02: "zone_fire",
+    0x03: "zone_alarm_or_fault",
+    0x04: "zone_ack_or_latched",
+    0x05: "zone_disabled",
+    0x06: "zone_blocked",
+    0x07: "zone_service",
+    0x08: "zone_unknown_08",
+    0x0F: "zone_state_low_nibble_mask",
+}
+
+MODE_ENUM_MAP = {
+    0x00: "mode_auto",
+    0x01: "mode_manual",
 }
 
 
@@ -141,11 +192,16 @@ def marker_hits(text: str, markers: dict[str, list[str]]) -> tuple[str, int]:
     return best, best_hits
 
 
+def extract_immediates(operands: str) -> list[int]:
+    return [int(m, 16) for m in IMM_RE.findall(operands or "")]
+
+
 def main() -> int:
     p = argparse.ArgumentParser(description="Sensor/zone state + auto/manual gating analyzer")
     p.add_argument("--out-sensor", type=Path, default=DOCS / "sensor_state_candidates.csv")
     p.add_argument("--out-zone-mode", type=Path, default=DOCS / "zone_state_mode_candidates.csv")
     p.add_argument("--out-chains", type=Path, default=DOCS / "extinguishing_output_gating_chains.csv")
+    p.add_argument("--out-enums", type=Path, default=DOCS / "state_mode_enum_candidates.csv")
     p.add_argument("--out-md", type=Path, default=DOCS / "state_mode_logic_analysis.md")
     args = p.parse_args()
 
@@ -185,6 +241,7 @@ def main() -> int:
 
     # sensor candidates
     sensor_rows: list[dict[str, str]] = []
+    enum_counter: dict[tuple[str, str, str, str, int], int] = defaultdict(int)
     for r in zone_trace:
         branch = r.get("branch", "")
         file = r.get("file", "")
@@ -204,6 +261,10 @@ def main() -> int:
         bit_hits = 1 if mnem in BIT else 0
         cond_hits = 1 if mnem in COND else 0
         score = 2.0 + s_hits * 2.5 + const_hits * 1.0 + bit_hits * 1.0 + cond_hits * 1.0
+        imm_vals = extract_immediates(operands)
+        if imm_vals:
+            for iv in imm_vals:
+                enum_counter[(branch, file, fn, "sensor_state", iv)] += 1
         sensor_rows.append({
             "branch": branch,
             "file": file,
@@ -255,6 +316,12 @@ def main() -> int:
         bit_hits = 1 if mnem in BIT else 0
         cond_hits = 1 if mnem in COND else 0
         score = 2.0 + z_hits * 2.0 + m_hits * 2.0 + const_hits + bit_hits + cond_hits
+        imm_vals = extract_immediates(operands)
+        if imm_vals:
+            for iv in imm_vals:
+                enum_counter[(branch, file, fn, "zone_state", iv)] += 1
+                if fn in {"0x728A", "0x84A6", "0x6833"}:
+                    enum_counter[(branch, file, fn, "mode", iv)] += 1
         zone_rows.append({
             "branch": branch,
             "file": file,
@@ -368,6 +435,34 @@ def main() -> int:
         for row in sorted(chain_rows, key=lambda x: (x["branch"], x["file"], to_int(x["chain_rank"]))):
             w.writerow(row)
 
+    enum_rows: list[dict[str, str]] = []
+    for (branch, file, fn, domain, val), hits in sorted(enum_counter.items(), key=lambda x: (x[0][0], x[0][1], to_int(x[0][2]), x[0][3], x[0][4])):
+        if domain == "sensor_state":
+            label = SENSOR_ENUM_MAP.get(val, f"sensor_unknown_0x{val:02X}")
+        elif domain == "zone_state":
+            label = ZONE_ENUM_MAP.get(val, f"zone_unknown_0x{val:02X}")
+        else:
+            label = MODE_ENUM_MAP.get(val, f"mode_unknown_0x{val:02X}")
+        confidence = "probable" if hits >= 3 and label.find("unknown") < 0 else ("low" if hits >= 2 else "hypothesis")
+        enum_rows.append({
+            "branch": branch,
+            "file": file,
+            "function_addr": fn,
+            "enum_domain": domain,
+            "enum_value_hex": f"0x{val:02X}" if val <= 0xFF else f"0x{val:04X}",
+            "enum_value_dec": str(val),
+            "enum_label": label,
+            "hits": str(hits),
+            "confidence": confidence,
+            "evidence": "immediate constants in candidate instructions",
+        })
+
+    with args.out_enums.open("w", encoding="utf-8", newline="") as f:
+        w = csv.DictWriter(f, fieldnames=ENUM_FIELDS)
+        w.writeheader()
+        for row in enum_rows:
+            w.writerow(row)
+
     # summary stats
     sensor_top = defaultdict(int)
     for r in sensor_rows:
@@ -398,53 +493,70 @@ def main() -> int:
         "- Режим: manual / auto.",
         "- Логика действия: manual => fire event+packet only; auto => fire event+packet + output/extinguishing start (если разрешения соблюдены).",
         "",
-        "## 3. Что найдено по состояниям датчиков",
+        "## 3. Декодированные enum-кандидаты (milestone #41)",
+        f"- Сформирован файл `docs/state_mode_enum_candidates.csv`, строк: **{len(enum_rows)}**.",
+        "- Метод: извлечение immediate-констант (`#0xNN`) в ключевых инструкциях + доменные словари (sensor/zone/mode).",
+        "- Важно: это **candidate decode**, а не финальный протокол; для ряда значений сохраняется unknown/hypothesis.",
+        "",
+        "## 4. Что найдено по состояниям датчиков",
         f"- Candidate rows: **{len(sensor_rows)}** (фокус по {TARGET_BRANCH}/{TARGET_FILE} и функциям {', '.join(sorted(TARGET_FUNCTIONS))}).",
         "- Распределение top state-candidates: " + ", ".join(f"{k}:{v}" for k, v in sorted(sensor_top.items(), key=lambda kv: kv[1], reverse=True)[:8]) + ".",
         "- Confidence: в основном `hypothesis/low`, точечные `probable` на участках с bit+cond+XDATA совпадением.",
         "",
-        "## 4. Что найдено по конфликту адресов",
+        "## 5. Что найдено по конфликту адресов",
         "- Маркеры address/conflict обнаруживаются в candidate-паттернах (operands/notes/string-index), но без полного recovery enum/state-id.",
         "- Статус: **probable/hypothesis**; требуется ручной deep-dive сравнений и XDATA map на стенде.",
         "",
-        "## 5. Что найдено по состояниям зон",
+        "## 6. Что найдено по состояниям зон",
         "- Candidate rows: **{}**. Top zone-states: {}.".format(
             len(zone_rows), ", ".join(f"{k}:{v}" for k, v in sorted(zone_top.items(), key=lambda kv: kv[1], reverse=True)[:8])
         ),
         "- Наиболее информативные узлы остаются вокруг 0x737C/0x613C/0x497A (90CYE_DKS focus).",
         "",
-        "## 6. Что найдено по автоматическому/ручному режиму",
+        "## 7. Что найдено по автоматическому/ручному режиму",
         "- Top mode-candidates: " + ", ".join(f"{k}:{v}" for k, v in sorted(mode_top.items(), key=lambda kv: kv[1], reverse=True)[:4]) + ".",
         "- Ищутся ветки `XDATA flag read -> conditional -> output call` и `XDATA flag read -> event/packet only`.",
         "",
-        "## 7. Есть ли в коде gating logic между fire и output",
+        "## 8. Есть ли в коде gating logic между fire и output",
         f"- Chain rows: **{len(chain_rows)}**. Есть признаки partial/full gating chains в {TARGET_BRANCH} и cross-branch pipeline chains.",
         "- Для части цепочек output отсутствует и остается только event/packet (manual-like гипотеза).",
         "",
-        "## 8. Признаки веток manual vs auto",
+        "## 9. Признаки веток manual vs auto",
         "- manual-like: цепочки типа `fire_to_event_only` с evidence event/packet без output.",
         "- auto-like: цепочки `fire_to_output_auto`/`mode_check_to_output` где присутствует output_control_function.",
         "",
-        "## 9. Наиболее вероятные XDATA флаги state/mode",
+        "## 10. Наиболее вероятные XDATA флаги state/mode",
         "- Наиболее вероятны адреса XDATA из trace около 0x30EA..0x30F9 / 0x315B / 0x3165 / 0x31BF / 0x364B (90CYE_DKS контур, confidence=probable/hypothesis).",
         "",
-        "## 10. Strongest functions сейчас",
+        "## 11. Strongest functions сейчас",
         "- sensor state: 0x497A, 0x737C (probable).",
         "- zone state: 0x737C, 0x613C (probable).",
         "- mode check: 0x84A6, 0x728A (hypothesis->low).",
         "- output gating: 0x6833 + chain bridges (low/probable mix).",
         "- packet/export: 0x5A7F (probable packet bridge).",
         "",
-        "## 11. Confirmed / probable / hypothesis / unknown",
+        "## 12. Техническая логика (псевдокод)",
+        "```text",
+        "sensor_state = decode_sensor_enum(sensor_raw)",
+        "zone_state   = fold_sensor_to_zone(sensor_state, zone_flags)",
+        "mode         = read_mode_flag(0x315B?)  # candidate",
+        "emit_event_packet(zone_state, sensor_state)",
+        "if mode == auto and zone_state in {fire, alarm} and output_permit_flags_ok():",
+        "    start_output_or_extinguishing()",
+        "else:",
+        "    keep_event_only_path()",
+        "```",
+        "",
+        "## 13. Confirmed / probable / hypothesis / unknown",
         "- confirmed: есть event/packet path и output-подобные узлы в анализируемых ветках.",
         "- probable: sensor/zone state update и partial gating цепочки.",
         "- hypothesis: строгий auto/manual flag-id и полный trigger-условный набор для тушения.",
         "- unknown: полный enum всех state-кодов и 100% привязка к физическим исполнительным устройствам.",
         "",
-        "## 12. Следующий ручной deep-dive",
+        "## 14. Следующий ручной deep-dive",
         "- Приоритет: 0x84A6 -> 0x728A -> 0x5A7F, а также детализация ветвей от 0x737C/0x613C/0x6833.",
         "",
-        "## 13. Нужные стендовые проверки",
+        "## 15. Нужные стендовые проверки",
         "- датчик: норма / заблокирован / не определяется / конфликт адресов (2 датчика на одном адресе).",
         "- зона: manual vs auto; пожар в manual (event/packet only) vs пожар в auto (output start).",
         "- подтверждение, что выход включается только при auto + разрешающих условиях.",
@@ -464,6 +576,7 @@ def main() -> int:
     print(f"wrote: {args.out_sensor.relative_to(ROOT)}")
     print(f"wrote: {args.out_zone_mode.relative_to(ROOT)}")
     print(f"wrote: {args.out_chains.relative_to(ROOT)}")
+    print(f"wrote: {args.out_enums.relative_to(ROOT)}")
     print(f"wrote: {args.out_md.relative_to(ROOT)}")
     return 0
 
