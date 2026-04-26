@@ -284,6 +284,21 @@ def main() -> int:
             ],
             "large runtime state-machine reconstruction / 90CYE_DKS",
         ),
+        SmokeCommand(
+            "state_enum_and_techdoc_reconstructor.py",
+            "a03_a04_only",
+            [sys.executable, "scripts/state_enum_and_techdoc_reconstructor.py"],
+            [
+                "docs/xdata_lifecycle_map.csv",
+                "docs/state_enum_hypotheses.csv",
+                "docs/auto_manual_mode_hypotheses.csv",
+                "docs/output_action_map.csv",
+                "docs/state_machine_branch_comparison.csv",
+                "docs/bench_validation_matrix.csv",
+                "docs/state_enum_and_techdoc_reconstruction.md",
+            ],
+            "large orchestrated reconstruction for state/mode enums and technical documentation",
+        ),
     ]
 
     rows: list[dict[str, str]] = []
