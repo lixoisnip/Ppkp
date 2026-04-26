@@ -226,6 +226,17 @@ def main() -> int:
             "branch/module-specific MASH deep trace",
         ),
         SmokeCommand(
+            "zone_output_deep_trace.py",
+            "a03_a04_only",
+            [sys.executable, "scripts/zone_output_deep_trace.py"],
+            [
+                "docs/zone_output_deep_trace.csv",
+                "docs/zone_output_deep_trace_summary.csv",
+                "docs/zone_output_deep_trace_analysis.md",
+            ],
+            "branch-specific zone/output deep trace",
+        ),
+        SmokeCommand(
             "zone_output_logic_analyzer.py",
             "all_firmwares",
             [sys.executable, "scripts/zone_output_logic_analyzer.py"],
