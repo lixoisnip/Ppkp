@@ -43,3 +43,20 @@
 - `ppkp2019 a02.PZU`
 
 > Важно: `.PZU` файлы в репозитории не редактируются, используются только для анализа.
+
+## Analysis verification
+
+Для полной контрольной проверки анализа выполните:
+
+```bash
+python3 -m py_compile scripts/*.py
+python3 scripts/run_analysis_smoke_test.py
+```
+
+`scripts/run_analysis_smoke_test.py` выполняет smoke-прогон основных глобальных и специализированных A03/A04-скриптов, проверяет их exit-code и наличие ожидаемых выходных артефактов.
+
+Результаты смотреть в:
+
+- `docs/analysis_smoke_test_results.csv`
+- `docs/analysis_health_report.md`
+- `docs/script_scope_matrix.csv`

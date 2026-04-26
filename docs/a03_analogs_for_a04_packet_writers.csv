@@ -1,109 +1,109 @@
 reference_file,reference_function,a03_file,a03_function,similarity_score,role_candidate,basic_block_count,internal_block_count,call_count,incoming_lcalls,xdata_read_count,xdata_write_count,arithmetic_hits,a03_pipeline_hits,near_known_a03_chain,confidence,notes
-A04_28.PZU,0x497A,A03_26.PZU,0x497A,10.25,state_update_worker,3,2,90,0,8,5,47,0,yes,probable,chain_distance=1; arith_present
-A04_28.PZU,0x497A,A03_26.PZU,0x86C5,8.25,state_update_worker,6,5,3,1,7,4,2,0,yes,probable,chain_distance=1; incoming_lcall_xref=1; arith_present
-A04_28.PZU,0x497A,A03_26.PZU,0x810E,7.50,state_update_worker,7,6,3,1,11,4,4,0,yes,hypothesis,chain_distance=1; incoming_lcall_xref=1; arith_present
-A04_28.PZU,0x497A,A03_26.PZU,0x8B0B,7.25,state_update_worker,1,0,1,1,19,3,6,1,yes,hypothesis,chain_distance=2; incoming_lcall_xref=1; pipeline_xdata_hit; arith_present
-A04_28.PZU,0x497A,A03_26.PZU,0x7953,7.00,state_update_worker,4,3,4,1,22,6,0,3,yes,hypothesis,chain_distance=2; incoming_lcall_xref=1; pipeline_xdata_hit
-A04_28.PZU,0x497A,A03_26.PZU,0x7259,7.00,state_reader_or_packet_builder,1,0,3,1,8,1,1,1,yes,hypothesis,chain_distance=2; incoming_lcall_xref=1; pipeline_xdata_hit; arith_present
-A04_28.PZU,0x497A,A03_26.PZU,0x886D,6.50,dispatcher_or_router,7,6,5,1,8,0,6,4,yes,hypothesis,chain_distance=1; incoming_lcall_xref=1; pipeline_xdata_hit; arith_present
-A04_28.PZU,0x497A,A03_26.PZU,0x70B3,6.50,state_reader_or_packet_builder,3,2,0,1,11,1,1,0,yes,hypothesis,chain_distance=2; incoming_lcall_xref=1; arith_present
-A04_28.PZU,0x497A,A03_26.PZU,0x8741,6.50,state_update_worker,1,0,12,1,16,4,1,0,yes,hypothesis,chain_distance=2; incoming_lcall_xref=1; arith_present
-A04_28.PZU,0x497A,A03_26.PZU,0x8FD7,6.50,state_reader_or_packet_builder,3,2,3,2,9,0,0,0,yes,hypothesis,chain_distance=1; incoming_lcall_xref=2
-A04_28.PZU,0x497A,A03_26.PZU,0xA900,6.25,state_reader_or_packet_builder,3,2,33,1,14,0,3,1,yes,hypothesis,chain_distance=0; incoming_lcall_xref=1; pipeline_xdata_hit; arith_present
-A04_28.PZU,0x497A,A03_26.PZU,0x80C3,6.25,state_update_worker,9,8,0,1,5,3,1,0,yes,hypothesis,chain_distance=2; incoming_lcall_xref=1; arith_present
-A04_28.PZU,0x497A,A03_26.PZU,0x9F58,6.25,state_reader_or_packet_builder,3,2,31,1,3,1,0,0,yes,hypothesis,chain_distance=1; incoming_lcall_xref=1
-A04_28.PZU,0x497A,A03_26.PZU,0x8EB1,6.00,state_reader_or_packet_builder,8,7,2,1,6,0,3,0,yes,hypothesis,chain_distance=1; incoming_lcall_xref=1; arith_present
-A04_28.PZU,0x497A,A03_26.PZU,0x8F9D,6.00,unknown,3,2,0,1,0,0,1,0,yes,hypothesis,chain_distance=1; incoming_lcall_xref=1; arith_present
-A04_28.PZU,0x497A,A03_26.PZU,0x7339,5.75,state_update_worker,3,2,1,1,39,16,0,5,no,hypothesis,incoming_lcall_xref=1; pipeline_xdata_hit
-A04_28.PZU,0x497A,A03_26.PZU,0x800B,5.50,unknown,5,4,21,1,4,2,4,0,yes,hypothesis,chain_distance=1; incoming_lcall_xref=1; arith_present
-A04_28.PZU,0x497A,A03_26.PZU,0x9EEC,5.50,unknown,2,1,8,2,1,0,2,0,yes,hypothesis,chain_distance=1; incoming_lcall_xref=2; arith_present
-A04_28.PZU,0x497A,A03_26.PZU,0x9FD8,5.50,state_reader_or_packet_builder,3,2,8,13,4,0,1,0,yes,hypothesis,chain_distance=2; incoming_lcall_xref=13; arith_present
-A04_28.PZU,0x497A,A03_26.PZU,0x6C7E,5.25,state_reader_or_packet_builder,20,19,3,2,5,0,7,0,yes,hypothesis,chain_distance=1; incoming_lcall_xref=2; arith_present
-A04_28.PZU,0x497A,A03_26.PZU,0x8692,5.25,unknown,5,4,2,1,2,0,2,0,yes,hypothesis,chain_distance=1; incoming_lcall_xref=1; arith_present
-A04_28.PZU,0x497A,A03_26.PZU,0xA248,5.25,unknown,1,0,0,1,1,0,1,0,yes,hypothesis,chain_distance=1; incoming_lcall_xref=1; arith_present
-A04_28.PZU,0x497A,A03_26.PZU,0xA2F5,5.25,state_update_worker,1,0,16,1,23,3,0,0,yes,hypothesis,chain_distance=2; incoming_lcall_xref=1
-A04_28.PZU,0x497A,A03_26.PZU,0x680C,5.00,unknown,1,0,0,1,0,0,1,0,yes,hypothesis,chain_distance=1; incoming_lcall_xref=1; arith_present
-A04_28.PZU,0x497A,A03_26.PZU,0x89EE,5.00,unknown,1,0,1,1,0,0,1,0,yes,hypothesis,chain_distance=1; incoming_lcall_xref=1; arith_present
-A04_28.PZU,0x497A,A03_26.PZU,0x8A42,5.00,unknown,1,0,2,1,0,0,1,0,yes,hypothesis,chain_distance=1; incoming_lcall_xref=1; arith_present
-A04_28.PZU,0x497A,A03_26.PZU,0x8E92,5.00,unknown,3,2,0,1,0,0,2,0,yes,hypothesis,chain_distance=2; incoming_lcall_xref=1; arith_present
-A04_28.PZU,0x497A,A03_26.PZU,0x8FCC,5.00,unknown,3,2,0,2,1,0,0,0,yes,hypothesis,chain_distance=1; incoming_lcall_xref=2
-A04_28.PZU,0x497A,A03_26.PZU,0x9481,5.00,unknown,3,2,0,2,1,0,0,0,yes,hypothesis,chain_distance=1; incoming_lcall_xref=2
-A04_28.PZU,0x497A,A03_26.PZU,0x4176,4.75,state_reader_or_packet_builder,5,4,1,0,5,0,10,0,no,hypothesis,arith_present
-A04_28.PZU,0x497A,A03_26.PZU,0x67C3,4.75,unknown,3,2,0,2,0,0,1,0,yes,hypothesis,chain_distance=2; incoming_lcall_xref=2; arith_present
-A04_28.PZU,0x497A,A03_26.PZU,0x6834,4.75,unknown,1,0,0,2,0,0,1,0,yes,hypothesis,chain_distance=1; incoming_lcall_xref=2; arith_present
-A04_28.PZU,0x497A,A03_26.PZU,0x6B3A,4.75,unknown,3,2,0,3,0,0,2,0,yes,hypothesis,chain_distance=2; incoming_lcall_xref=3; arith_present
-A04_28.PZU,0x497A,A03_26.PZU,0x8F80,4.75,unknown,3,2,1,2,0,0,4,0,yes,hypothesis,chain_distance=2; incoming_lcall_xref=2; arith_present
-A04_28.PZU,0x497A,A03_26.PZU,0x94CE,4.75,unknown,2,1,1,1,1,0,1,0,yes,hypothesis,chain_distance=2; incoming_lcall_xref=1; arith_present
-A04_28.PZU,0x497A,A03_26.PZU,0x41D0,4.50,unknown,3,2,1,0,1,0,3,0,no,hypothesis,arith_present
-A04_28.PZU,0x497A,A03_26.PZU,0x492E,4.50,unknown,3,2,0,0,1,0,3,0,no,hypothesis,arith_present
-A04_28.PZU,0x497A,A03_26.PZU,0x4954,4.50,unknown,3,2,0,0,1,0,3,0,no,hypothesis,arith_present
-A04_28.PZU,0x497A,A03_26.PZU,0x6913,4.50,unknown,1,0,0,4,0,0,2,0,yes,hypothesis,chain_distance=1; incoming_lcall_xref=4; arith_present
-A04_28.PZU,0x497A,A03_26.PZU,0x8A5E,4.50,unknown,1,0,0,5,0,0,6,0,yes,hypothesis,chain_distance=1; incoming_lcall_xref=5; arith_present
-A04_28.PZU,0x497A,A03_26.PZU,0x8F01,4.50,unknown,4,3,0,1,0,0,1,0,yes,hypothesis,chain_distance=2; incoming_lcall_xref=1; arith_present
-A04_28.PZU,0x497A,A03_26.PZU,0x9439,4.50,dispatcher_or_router,8,7,5,2,1,0,4,0,yes,hypothesis,chain_distance=1; incoming_lcall_xref=2; arith_present
-A04_28.PZU,0x497A,A03_26.PZU,0x68F9,4.25,unknown,1,0,0,1,1,0,4,0,yes,hypothesis,chain_distance=2; incoming_lcall_xref=1; arith_present
-A04_28.PZU,0x497A,A03_26.PZU,0x6BA5,4.25,unknown,1,0,1,1,2,0,7,0,yes,hypothesis,chain_distance=2; incoming_lcall_xref=1; arith_present
-A04_28.PZU,0x497A,A03_26.PZU,0x6C3C,4.25,unknown,1,0,1,1,1,0,4,0,yes,hypothesis,chain_distance=2; incoming_lcall_xref=1; arith_present
-A04_28.PZU,0x497A,A03_26.PZU,0x8F0F,4.25,unknown,1,0,4,1,2,1,1,0,yes,hypothesis,chain_distance=2; incoming_lcall_xref=1; arith_present
-A04_28.PZU,0x497A,A03_26.PZU,0x8FAF,4.25,unknown,5,4,1,1,2,1,0,0,yes,hypothesis,chain_distance=1; incoming_lcall_xref=1
-A04_28.PZU,0x497A,A03_26.PZU,0x67E8,4.00,unknown,1,0,1,1,0,0,1,0,yes,hypothesis,chain_distance=2; incoming_lcall_xref=1; arith_present
-A04_28.PZU,0x497A,A03_26.PZU,0x6824,4.00,unknown,1,0,0,1,0,0,0,0,yes,hypothesis,chain_distance=1; incoming_lcall_xref=1
-A04_28.PZU,0x497A,A03_26.PZU,0x6A15,4.00,unknown,1,0,0,1,0,0,1,0,yes,hypothesis,chain_distance=2; incoming_lcall_xref=1; arith_present
-A04_28.PZU,0x497A,A03_26.PZU,0x6AE9,4.00,unknown,2,1,0,5,0,0,2,0,yes,hypothesis,chain_distance=2; incoming_lcall_xref=5; arith_present
-A04_28.PZU,0x497A,A03_26.PZU,0x6B22,4.00,unknown,2,1,0,6,0,0,2,0,yes,hypothesis,chain_distance=2; incoming_lcall_xref=6; arith_present
-A04_28.PZU,0x497A,A03_26.PZU,0x6B99,4.00,unknown,1,0,0,1,0,0,2,0,yes,hypothesis,chain_distance=2; incoming_lcall_xref=1; arith_present
-A04_28.PZU,0x497A,A03_26.PZU,0x6BA2,4.00,unknown,1,0,0,1,0,0,0,0,yes,hypothesis,chain_distance=1; incoming_lcall_xref=1
-A04_28.PZU,0x497A,A03_26.PZU,0x6C21,4.00,unknown,1,0,0,1,0,0,3,0,yes,hypothesis,chain_distance=2; incoming_lcall_xref=1; arith_present
-A04_28.PZU,0x497A,A03_26.PZU,0x89FE,4.00,unknown,1,0,2,1,0,0,0,0,yes,hypothesis,chain_distance=1; incoming_lcall_xref=1
-A04_28.PZU,0x497A,A03_26.PZU,0x8A16,4.00,unknown,1,0,2,1,0,0,0,0,yes,hypothesis,chain_distance=1; incoming_lcall_xref=1
-A04_28.PZU,0x497A,A03_26.PZU,0x8F5B,4.00,unknown,1,0,2,2,1,0,4,0,yes,hypothesis,chain_distance=2; incoming_lcall_xref=2; arith_present
-A04_28.PZU,0x497A,A03_26.PZU,0x9424,4.00,unknown,3,2,0,1,0,0,0,0,yes,hypothesis,chain_distance=2; incoming_lcall_xref=1
-A04_28.PZU,0x497A,A03_26.PZU,0x942A,4.00,unknown,1,0,2,2,1,0,0,0,yes,hypothesis,chain_distance=1; incoming_lcall_xref=2
-A04_28.PZU,0x497A,A03_26.PZU,0x68E6,3.75,unknown,1,0,0,3,0,0,6,0,yes,unknown,chain_distance=2; incoming_lcall_xref=3; arith_present
-A04_28.PZU,0x497A,A03_26.PZU,0x692E,3.75,unknown,1,0,0,2,0,0,4,0,yes,unknown,chain_distance=2; incoming_lcall_xref=2; arith_present
-A04_28.PZU,0x497A,A03_26.PZU,0x69C6,3.75,unknown,3,2,1,3,0,0,0,0,yes,unknown,chain_distance=2; incoming_lcall_xref=3
-A04_28.PZU,0x497A,A03_26.PZU,0x6B96,3.75,unknown,1,0,0,2,0,0,0,0,yes,unknown,chain_distance=1; incoming_lcall_xref=2
-A04_28.PZU,0x497A,A03_26.PZU,0x8EF3,3.75,unknown,5,4,0,3,0,0,1,0,yes,unknown,chain_distance=2; incoming_lcall_xref=3; arith_present
-A04_28.PZU,0x497A,A03_26.PZU,0x8904,3.50,dispatcher_or_router,13,12,14,1,15,2,1,17,yes,unknown,chain_distance=0; incoming_lcall_xref=1; pipeline_xdata_hit; arith_present
-A04_28.PZU,0x497A,A03_26.PZU,0x4100,3.50,unknown,1,0,5,0,1,0,15,0,no,unknown,arith_present
-A04_28.PZU,0x497A,A03_26.PZU,0x693B,3.50,unknown,1,0,0,4,0,0,6,0,yes,unknown,chain_distance=2; incoming_lcall_xref=4; arith_present
-A04_28.PZU,0x497A,A03_26.PZU,0x6D38,3.50,unknown,1,0,0,4,0,0,0,0,yes,unknown,chain_distance=1; incoming_lcall_xref=4
-A04_28.PZU,0x497A,A03_26.PZU,0x93B4,3.50,unknown,7,6,1,1,0,0,2,0,yes,unknown,chain_distance=2; incoming_lcall_xref=1; arith_present
-A04_28.PZU,0x497A,A03_26.PZU,0x683F,3.25,unknown,1,0,0,20,0,0,8,0,yes,unknown,chain_distance=2; incoming_lcall_xref=20; arith_present
-A04_28.PZU,0x497A,A03_26.PZU,0x691A,3.25,unknown,1,0,0,18,0,0,2,0,yes,unknown,chain_distance=2; incoming_lcall_xref=18; arith_present
-A04_28.PZU,0x497A,A03_26.PZU,0x694E,3.25,unknown,1,0,0,17,0,0,8,0,yes,unknown,chain_distance=2; incoming_lcall_xref=17; arith_present
-A04_28.PZU,0x497A,A03_26.PZU,0x6D8D,3.25,state_reader_or_packet_builder,1,0,2,1,3,0,0,0,no,unknown,incoming_lcall_xref=1
-A04_28.PZU,0x497A,A03_26.PZU,0x6DC7,3.25,unknown,1,0,1,1,1,0,0,0,yes,unknown,chain_distance=2; incoming_lcall_xref=1
-A04_28.PZU,0x497A,A03_26.PZU,0xA26E,3.25,unknown,1,0,16,1,1,0,0,0,yes,unknown,chain_distance=2; incoming_lcall_xref=1
-A04_28.PZU,0x497A,A03_26.PZU,0x41E8,3.00,unknown,3,2,3,1,0,0,0,0,no,unknown,incoming_lcall_xref=1
-A04_28.PZU,0x497A,A03_26.PZU,0x67CA,3.00,unknown,1,0,0,1,0,0,1,0,no,unknown,incoming_lcall_xref=1; arith_present
-A04_28.PZU,0x497A,A03_26.PZU,0x6990,3.00,unknown,1,0,0,1,0,0,0,0,yes,unknown,chain_distance=2; incoming_lcall_xref=1
-A04_28.PZU,0x497A,A03_26.PZU,0x69AC,3.00,unknown,1,0,1,1,0,0,0,0,yes,unknown,chain_distance=2; incoming_lcall_xref=1
-A04_28.PZU,0x497A,A03_26.PZU,0x6B58,3.00,unknown,1,0,0,2,2,0,0,0,yes,unknown,chain_distance=2; incoming_lcall_xref=2
-A04_28.PZU,0x497A,A03_26.PZU,0x6D56,3.00,unknown,1,0,1,2,1,0,0,0,yes,unknown,chain_distance=2; incoming_lcall_xref=2
-A04_28.PZU,0x497A,A03_26.PZU,0x6D6F,3.00,unknown,1,0,1,1,0,0,0,0,yes,unknown,chain_distance=2; incoming_lcall_xref=1
-A04_28.PZU,0x497A,A03_26.PZU,0x6D7E,3.00,unknown,1,0,1,1,0,0,0,0,yes,unknown,chain_distance=2; incoming_lcall_xref=1
-A04_28.PZU,0x497A,A03_26.PZU,0x708A,3.00,unknown,1,0,0,1,0,0,0,0,yes,unknown,chain_distance=2; incoming_lcall_xref=1
-A04_28.PZU,0x497A,A03_26.PZU,0x941F,3.00,unknown,3,2,0,1,0,0,0,0,no,unknown,incoming_lcall_xref=1
-A04_28.PZU,0x497A,A03_26.PZU,0x9F29,3.00,unknown,1,0,0,1,0,0,0,0,yes,unknown,chain_distance=2; incoming_lcall_xref=1
-A04_28.PZU,0x497A,A03_26.PZU,0x9F34,3.00,unknown,1,0,0,1,0,0,0,0,yes,unknown,chain_distance=2; incoming_lcall_xref=1
-A04_28.PZU,0x497A,A03_26.PZU,0x67D9,2.75,unknown,1,0,0,2,0,0,1,0,no,unknown,incoming_lcall_xref=2; arith_present
-A04_28.PZU,0x497A,A03_26.PZU,0x6B0F,2.75,unknown,1,0,3,2,0,0,0,0,yes,unknown,chain_distance=2; incoming_lcall_xref=2
-A04_28.PZU,0x497A,A03_26.PZU,0x6D2D,2.75,unknown,1,0,0,2,0,0,0,0,yes,unknown,chain_distance=2; incoming_lcall_xref=2
-A04_28.PZU,0x497A,A03_26.PZU,0x6D83,2.75,unknown,1,0,1,3,0,0,0,0,yes,unknown,chain_distance=2; incoming_lcall_xref=3
-A04_28.PZU,0x497A,A03_26.PZU,0x7099,2.75,unknown,1,0,1,2,0,1,0,0,yes,unknown,chain_distance=2; incoming_lcall_xref=2
-A04_28.PZU,0x497A,A03_26.PZU,0x948C,2.75,unknown,1,0,1,2,0,0,0,0,yes,unknown,chain_distance=2; incoming_lcall_xref=2
-A04_28.PZU,0x497A,A03_26.PZU,0x69A3,2.50,unknown,1,0,1,6,0,0,0,0,yes,unknown,chain_distance=2; incoming_lcall_xref=6
-A04_28.PZU,0x497A,A03_26.PZU,0x69CE,2.50,unknown,1,0,1,5,0,0,0,0,yes,unknown,chain_distance=2; incoming_lcall_xref=5
-A04_28.PZU,0x497A,A03_26.PZU,0x6D5D,2.50,unknown,1,0,0,5,0,0,0,0,yes,unknown,chain_distance=2; incoming_lcall_xref=5
-A04_28.PZU,0x497A,A03_26.PZU,0xA241,2.50,unknown,1,0,0,13,1,0,0,0,yes,unknown,chain_distance=2; incoming_lcall_xref=13
-A04_28.PZU,0x497A,A03_26.PZU,0x6D2E,2.25,unknown,1,0,0,33,0,0,0,0,yes,unknown,chain_distance=2; incoming_lcall_xref=33
-A04_28.PZU,0x497A,A03_26.PZU,0x8A2E,2.25,unknown,1,0,1,1,1,1,0,0,yes,unknown,chain_distance=0; incoming_lcall_xref=1
-A04_28.PZU,0x497A,A03_26.PZU,0x6991,2.00,unknown,1,0,1,1,0,0,0,0,no,unknown,incoming_lcall_xref=1
-A04_28.PZU,0x497A,A03_26.PZU,0x69B7,2.00,unknown,1,0,0,1,0,0,0,0,no,unknown,incoming_lcall_xref=1
-A04_28.PZU,0x497A,A03_26.PZU,0x699C,1.75,unknown,1,0,0,2,0,0,0,0,no,unknown,incoming_lcall_xref=2
-A04_28.PZU,0x497A,A03_26.PZU,0x6A06,1.75,unknown,1,0,0,3,0,0,0,0,no,unknown,incoming_lcall_xref=3
-A04_28.PZU,0x497A,A03_26.PZU,0x6D88,1.75,unknown,1,0,1,3,0,0,0,0,no,unknown,incoming_lcall_xref=3
+A04_28.PZU,0x497A,A03_26.PZU,0x497A,8.75,dispatcher_or_router,65,64,90,0,8,5,47,0,yes,probable,chain_distance=1; arith_present
+A04_28.PZU,0x497A,A03_26.PZU,0x886D,8.00,dispatcher_or_router,14,13,5,1,8,0,6,4,yes,probable,chain_distance=1; incoming_lcall_xref=1; pipeline_xdata_hit; arith_present
+A04_28.PZU,0x497A,A03_26.PZU,0x800B,6.50,dispatcher_or_router,13,12,21,1,4,2,4,0,yes,hypothesis,chain_distance=1; incoming_lcall_xref=1; arith_present
+A04_28.PZU,0x497A,A03_26.PZU,0x7259,6.00,state_reader_or_packet_builder,1,0,3,1,8,1,1,1,yes,hypothesis,chain_distance=2; incoming_lcall_xref=1; pipeline_xdata_hit; arith_present
+A04_28.PZU,0x497A,A03_26.PZU,0x9439,6.00,dispatcher_or_router,8,7,5,2,1,0,4,0,yes,hypothesis,chain_distance=1; incoming_lcall_xref=2; arith_present
+A04_28.PZU,0x497A,A03_26.PZU,0x8904,5.50,dispatcher_or_router,34,33,14,1,15,2,1,17,yes,hypothesis,chain_distance=0; incoming_lcall_xref=1; pipeline_xdata_hit; arith_present
+A04_28.PZU,0x497A,A03_26.PZU,0x7953,5.50,dispatcher_or_router,6,5,4,1,22,6,0,3,yes,hypothesis,chain_distance=2; incoming_lcall_xref=1; pipeline_xdata_hit
+A04_28.PZU,0x497A,A03_26.PZU,0x8741,5.50,dispatcher_or_router,7,6,12,1,16,4,1,0,yes,hypothesis,chain_distance=2; incoming_lcall_xref=1; arith_present
+A04_28.PZU,0x497A,A03_26.PZU,0x8EB1,5.50,state_reader_or_packet_builder,8,7,2,1,6,0,3,0,yes,hypothesis,chain_distance=1; incoming_lcall_xref=1; arith_present
+A04_28.PZU,0x497A,A03_26.PZU,0xA900,5.25,dispatcher_or_router,23,22,33,1,14,0,3,1,yes,hypothesis,chain_distance=0; incoming_lcall_xref=1; pipeline_xdata_hit; arith_present
+A04_28.PZU,0x497A,A03_26.PZU,0x6C7E,5.25,state_reader_or_packet_builder,25,24,3,2,5,0,7,0,yes,hypothesis,chain_distance=1; incoming_lcall_xref=2; arith_present
+A04_28.PZU,0x497A,A03_26.PZU,0x86C5,5.25,state_update_worker,13,12,3,1,7,4,2,0,yes,hypothesis,chain_distance=1; incoming_lcall_xref=1; arith_present
+A04_28.PZU,0x497A,A03_26.PZU,0x810E,5.00,state_update_worker,7,6,3,1,11,4,4,0,yes,hypothesis,chain_distance=1; incoming_lcall_xref=1; arith_present
+A04_28.PZU,0x497A,A03_26.PZU,0x4100,4.50,dispatcher_or_router,12,11,5,0,1,0,15,0,no,hypothesis,arith_present
+A04_28.PZU,0x497A,A03_26.PZU,0x70B3,4.50,state_reader_or_packet_builder,3,2,0,1,11,1,1,0,yes,hypothesis,chain_distance=2; incoming_lcall_xref=1; arith_present
+A04_28.PZU,0x497A,A03_26.PZU,0x8FD7,4.50,state_reader_or_packet_builder,3,2,3,2,9,0,0,0,yes,hypothesis,chain_distance=1; incoming_lcall_xref=2
+A04_28.PZU,0x497A,A03_26.PZU,0x8B0B,4.25,state_update_worker,1,0,1,1,19,3,6,1,yes,hypothesis,chain_distance=2; incoming_lcall_xref=1; pipeline_xdata_hit; arith_present
+A04_28.PZU,0x497A,A03_26.PZU,0x8692,4.25,unknown,5,4,2,1,2,0,2,0,yes,hypothesis,chain_distance=1; incoming_lcall_xref=1; arith_present
+A04_28.PZU,0x497A,A03_26.PZU,0x9F58,4.25,state_reader_or_packet_builder,4,3,31,1,3,1,0,0,yes,hypothesis,chain_distance=1; incoming_lcall_xref=1
+A04_28.PZU,0x497A,A03_26.PZU,0xA248,4.25,unknown,1,0,0,1,1,0,1,0,yes,hypothesis,chain_distance=1; incoming_lcall_xref=1; arith_present
+A04_28.PZU,0x497A,A03_26.PZU,0x680C,4.00,unknown,1,0,0,1,0,0,1,0,yes,hypothesis,chain_distance=1; incoming_lcall_xref=1; arith_present
+A04_28.PZU,0x497A,A03_26.PZU,0x89EE,4.00,unknown,1,0,1,1,0,0,1,0,yes,hypothesis,chain_distance=1; incoming_lcall_xref=1; arith_present
+A04_28.PZU,0x497A,A03_26.PZU,0x8A42,4.00,unknown,1,0,2,1,0,0,1,0,yes,hypothesis,chain_distance=1; incoming_lcall_xref=1; arith_present
+A04_28.PZU,0x497A,A03_26.PZU,0x8F9D,4.00,unknown,3,2,0,1,0,0,1,0,yes,hypothesis,chain_distance=1; incoming_lcall_xref=1; arith_present
+A04_28.PZU,0x497A,A03_26.PZU,0x9EEC,4.00,unknown,2,1,8,2,1,0,2,0,yes,hypothesis,chain_distance=1; incoming_lcall_xref=2; arith_present
+A04_28.PZU,0x497A,A03_26.PZU,0x4176,3.75,state_reader_or_packet_builder,7,6,1,0,5,0,10,0,no,unknown,arith_present
+A04_28.PZU,0x497A,A03_26.PZU,0x6834,3.75,unknown,1,0,0,2,0,0,1,0,yes,unknown,chain_distance=1; incoming_lcall_xref=2; arith_present
+A04_28.PZU,0x497A,A03_26.PZU,0x80C3,3.75,state_update_worker,9,8,0,1,5,3,1,0,yes,unknown,chain_distance=2; incoming_lcall_xref=1; arith_present
+A04_28.PZU,0x497A,A03_26.PZU,0x6913,3.50,unknown,1,0,0,4,0,0,2,0,yes,unknown,chain_distance=1; incoming_lcall_xref=4; arith_present
+A04_28.PZU,0x497A,A03_26.PZU,0x8A5E,3.50,unknown,1,0,0,5,0,0,6,0,yes,unknown,chain_distance=1; incoming_lcall_xref=5; arith_present
+A04_28.PZU,0x497A,A03_26.PZU,0x9FD8,3.50,state_reader_or_packet_builder,3,2,8,13,4,0,1,0,yes,unknown,chain_distance=2; incoming_lcall_xref=13; arith_present
+A04_28.PZU,0x497A,A03_26.PZU,0x68F9,3.25,unknown,1,0,0,1,1,0,4,0,yes,unknown,chain_distance=2; incoming_lcall_xref=1; arith_present
+A04_28.PZU,0x497A,A03_26.PZU,0x6BA5,3.25,unknown,7,6,1,1,2,0,7,0,yes,unknown,chain_distance=2; incoming_lcall_xref=1; arith_present
+A04_28.PZU,0x497A,A03_26.PZU,0x6C3C,3.25,unknown,10,9,1,1,1,0,4,0,yes,unknown,chain_distance=2; incoming_lcall_xref=1; arith_present
+A04_28.PZU,0x497A,A03_26.PZU,0x8F0F,3.25,unknown,1,0,4,1,2,1,1,0,yes,unknown,chain_distance=2; incoming_lcall_xref=1; arith_present
+A04_28.PZU,0x497A,A03_26.PZU,0x8FAF,3.25,unknown,5,4,1,1,2,1,0,0,yes,unknown,chain_distance=1; incoming_lcall_xref=1
+A04_28.PZU,0x497A,A03_26.PZU,0x94CE,3.25,unknown,2,1,1,1,1,0,1,0,yes,unknown,chain_distance=2; incoming_lcall_xref=1; arith_present
+A04_28.PZU,0x497A,A03_26.PZU,0x67E8,3.00,unknown,1,0,1,1,0,0,1,0,yes,unknown,chain_distance=2; incoming_lcall_xref=1; arith_present
+A04_28.PZU,0x497A,A03_26.PZU,0x6824,3.00,unknown,1,0,0,1,0,0,0,0,yes,unknown,chain_distance=1; incoming_lcall_xref=1
+A04_28.PZU,0x497A,A03_26.PZU,0x6A15,3.00,unknown,1,0,0,1,0,0,1,0,yes,unknown,chain_distance=2; incoming_lcall_xref=1; arith_present
+A04_28.PZU,0x497A,A03_26.PZU,0x6B99,3.00,unknown,1,0,0,1,0,0,2,0,yes,unknown,chain_distance=2; incoming_lcall_xref=1; arith_present
+A04_28.PZU,0x497A,A03_26.PZU,0x6BA2,3.00,unknown,1,0,0,1,0,0,0,0,yes,unknown,chain_distance=1; incoming_lcall_xref=1
+A04_28.PZU,0x497A,A03_26.PZU,0x6C21,3.00,unknown,1,0,0,1,0,0,3,0,yes,unknown,chain_distance=2; incoming_lcall_xref=1; arith_present
+A04_28.PZU,0x497A,A03_26.PZU,0x89FE,3.00,unknown,1,0,2,1,0,0,0,0,yes,unknown,chain_distance=1; incoming_lcall_xref=1
+A04_28.PZU,0x497A,A03_26.PZU,0x8A16,3.00,unknown,1,0,2,1,0,0,0,0,yes,unknown,chain_distance=1; incoming_lcall_xref=1
+A04_28.PZU,0x497A,A03_26.PZU,0x8E92,3.00,unknown,3,2,0,1,0,0,2,0,yes,unknown,chain_distance=2; incoming_lcall_xref=1; arith_present
+A04_28.PZU,0x497A,A03_26.PZU,0x8F01,3.00,unknown,4,3,0,1,0,0,1,0,yes,unknown,chain_distance=2; incoming_lcall_xref=1; arith_present
+A04_28.PZU,0x497A,A03_26.PZU,0x8F5B,3.00,unknown,6,5,2,2,1,0,4,0,yes,unknown,chain_distance=2; incoming_lcall_xref=2; arith_present
+A04_28.PZU,0x497A,A03_26.PZU,0x8FCC,3.00,unknown,3,2,0,2,1,0,0,0,yes,unknown,chain_distance=1; incoming_lcall_xref=2
+A04_28.PZU,0x497A,A03_26.PZU,0x93B4,3.00,unknown,7,6,1,1,0,0,2,0,yes,unknown,chain_distance=2; incoming_lcall_xref=1; arith_present
+A04_28.PZU,0x497A,A03_26.PZU,0x942A,3.00,unknown,1,0,2,2,1,0,0,0,yes,unknown,chain_distance=1; incoming_lcall_xref=2
+A04_28.PZU,0x497A,A03_26.PZU,0x9481,3.00,unknown,3,2,0,2,1,0,0,0,yes,unknown,chain_distance=1; incoming_lcall_xref=2
+A04_28.PZU,0x497A,A03_26.PZU,0x67C3,2.75,unknown,3,2,0,2,0,0,1,0,yes,unknown,chain_distance=2; incoming_lcall_xref=2; arith_present
+A04_28.PZU,0x497A,A03_26.PZU,0x68E6,2.75,unknown,1,0,0,3,0,0,6,0,yes,unknown,chain_distance=2; incoming_lcall_xref=3; arith_present
+A04_28.PZU,0x497A,A03_26.PZU,0x692E,2.75,unknown,1,0,0,2,0,0,4,0,yes,unknown,chain_distance=2; incoming_lcall_xref=2; arith_present
+A04_28.PZU,0x497A,A03_26.PZU,0x6B3A,2.75,unknown,3,2,0,3,0,0,2,0,yes,unknown,chain_distance=2; incoming_lcall_xref=3; arith_present
+A04_28.PZU,0x497A,A03_26.PZU,0x6B96,2.75,unknown,1,0,0,2,0,0,0,0,yes,unknown,chain_distance=1; incoming_lcall_xref=2
+A04_28.PZU,0x497A,A03_26.PZU,0x8EF3,2.75,unknown,5,4,0,3,0,0,1,0,yes,unknown,chain_distance=2; incoming_lcall_xref=3; arith_present
+A04_28.PZU,0x497A,A03_26.PZU,0x8F80,2.75,unknown,3,2,1,2,0,0,4,0,yes,unknown,chain_distance=2; incoming_lcall_xref=2; arith_present
+A04_28.PZU,0x497A,A03_26.PZU,0x41D0,2.50,unknown,3,2,1,0,1,0,3,0,no,unknown,arith_present
+A04_28.PZU,0x497A,A03_26.PZU,0x492E,2.50,unknown,3,2,0,0,1,0,3,0,no,unknown,arith_present
+A04_28.PZU,0x497A,A03_26.PZU,0x4954,2.50,unknown,3,2,0,0,1,0,3,0,no,unknown,arith_present
+A04_28.PZU,0x497A,A03_26.PZU,0x693B,2.50,unknown,1,0,0,4,0,0,6,0,yes,unknown,chain_distance=2; incoming_lcall_xref=4; arith_present
+A04_28.PZU,0x497A,A03_26.PZU,0x6AE9,2.50,unknown,2,1,0,5,0,0,2,0,yes,unknown,chain_distance=2; incoming_lcall_xref=5; arith_present
+A04_28.PZU,0x497A,A03_26.PZU,0x6B22,2.50,unknown,2,1,0,6,0,0,2,0,yes,unknown,chain_distance=2; incoming_lcall_xref=6; arith_present
+A04_28.PZU,0x497A,A03_26.PZU,0x6D38,2.50,unknown,1,0,0,4,0,0,0,0,yes,unknown,chain_distance=1; incoming_lcall_xref=4
+A04_28.PZU,0x497A,A03_26.PZU,0x683F,2.25,unknown,1,0,0,20,0,0,8,0,yes,unknown,chain_distance=2; incoming_lcall_xref=20; arith_present
+A04_28.PZU,0x497A,A03_26.PZU,0x691A,2.25,unknown,1,0,0,18,0,0,2,0,yes,unknown,chain_distance=2; incoming_lcall_xref=18; arith_present
+A04_28.PZU,0x497A,A03_26.PZU,0x694E,2.25,unknown,1,0,0,17,0,0,8,0,yes,unknown,chain_distance=2; incoming_lcall_xref=17; arith_present
+A04_28.PZU,0x497A,A03_26.PZU,0x6D8D,2.25,state_reader_or_packet_builder,3,2,2,1,3,0,0,0,no,unknown,incoming_lcall_xref=1
+A04_28.PZU,0x497A,A03_26.PZU,0x6DC7,2.25,unknown,1,0,1,1,1,0,0,0,yes,unknown,chain_distance=2; incoming_lcall_xref=1
+A04_28.PZU,0x497A,A03_26.PZU,0xA26E,2.25,unknown,1,0,16,1,1,0,0,0,yes,unknown,chain_distance=2; incoming_lcall_xref=1
+A04_28.PZU,0x497A,A03_26.PZU,0xA2F5,2.25,state_update_worker,1,0,16,1,23,3,0,0,yes,unknown,chain_distance=2; incoming_lcall_xref=1
+A04_28.PZU,0x497A,A03_26.PZU,0x67CA,2.00,unknown,1,0,0,1,0,0,1,0,no,unknown,incoming_lcall_xref=1; arith_present
+A04_28.PZU,0x497A,A03_26.PZU,0x6990,2.00,unknown,1,0,0,1,0,0,0,0,yes,unknown,chain_distance=2; incoming_lcall_xref=1
+A04_28.PZU,0x497A,A03_26.PZU,0x69AC,2.00,unknown,1,0,1,1,0,0,0,0,yes,unknown,chain_distance=2; incoming_lcall_xref=1
+A04_28.PZU,0x497A,A03_26.PZU,0x6B58,2.00,unknown,1,0,0,2,2,0,0,0,yes,unknown,chain_distance=2; incoming_lcall_xref=2
+A04_28.PZU,0x497A,A03_26.PZU,0x6D56,2.00,unknown,2,1,1,2,1,0,0,0,yes,unknown,chain_distance=2; incoming_lcall_xref=2
+A04_28.PZU,0x497A,A03_26.PZU,0x6D6F,2.00,unknown,1,0,1,1,0,0,0,0,yes,unknown,chain_distance=2; incoming_lcall_xref=1
+A04_28.PZU,0x497A,A03_26.PZU,0x6D7E,2.00,unknown,1,0,1,1,0,0,0,0,yes,unknown,chain_distance=2; incoming_lcall_xref=1
+A04_28.PZU,0x497A,A03_26.PZU,0x708A,2.00,unknown,1,0,0,1,0,0,0,0,yes,unknown,chain_distance=2; incoming_lcall_xref=1
+A04_28.PZU,0x497A,A03_26.PZU,0x9424,2.00,unknown,3,2,0,1,0,0,0,0,yes,unknown,chain_distance=2; incoming_lcall_xref=1
+A04_28.PZU,0x497A,A03_26.PZU,0x9F29,2.00,unknown,1,0,0,1,0,0,0,0,yes,unknown,chain_distance=2; incoming_lcall_xref=1
+A04_28.PZU,0x497A,A03_26.PZU,0x9F34,2.00,unknown,1,0,0,1,0,0,0,0,yes,unknown,chain_distance=2; incoming_lcall_xref=1
+A04_28.PZU,0x497A,A03_26.PZU,0x7339,1.75,state_update_worker,3,2,1,1,39,16,0,5,no,unknown,incoming_lcall_xref=1; pipeline_xdata_hit
+A04_28.PZU,0x497A,A03_26.PZU,0x67D9,1.75,unknown,1,0,0,2,0,0,1,0,no,unknown,incoming_lcall_xref=2; arith_present
+A04_28.PZU,0x497A,A03_26.PZU,0x69C6,1.75,unknown,3,2,1,3,0,0,0,0,yes,unknown,chain_distance=2; incoming_lcall_xref=3
+A04_28.PZU,0x497A,A03_26.PZU,0x6B0F,1.75,unknown,1,0,3,2,0,0,0,0,yes,unknown,chain_distance=2; incoming_lcall_xref=2
+A04_28.PZU,0x497A,A03_26.PZU,0x6D2D,1.75,unknown,1,0,0,2,0,0,0,0,yes,unknown,chain_distance=2; incoming_lcall_xref=2
+A04_28.PZU,0x497A,A03_26.PZU,0x6D83,1.75,unknown,1,0,1,3,0,0,0,0,yes,unknown,chain_distance=2; incoming_lcall_xref=3
+A04_28.PZU,0x497A,A03_26.PZU,0x7099,1.75,unknown,1,0,1,2,0,1,0,0,yes,unknown,chain_distance=2; incoming_lcall_xref=2
+A04_28.PZU,0x497A,A03_26.PZU,0x948C,1.75,unknown,1,0,1,2,0,0,0,0,yes,unknown,chain_distance=2; incoming_lcall_xref=2
+A04_28.PZU,0x497A,A03_26.PZU,0x69A3,1.50,unknown,1,0,1,6,0,0,0,0,yes,unknown,chain_distance=2; incoming_lcall_xref=6
+A04_28.PZU,0x497A,A03_26.PZU,0x69CE,1.50,unknown,1,0,1,5,0,0,0,0,yes,unknown,chain_distance=2; incoming_lcall_xref=5
+A04_28.PZU,0x497A,A03_26.PZU,0x6D5D,1.50,unknown,2,1,0,5,0,0,0,0,yes,unknown,chain_distance=2; incoming_lcall_xref=5
+A04_28.PZU,0x497A,A03_26.PZU,0xA241,1.50,unknown,1,0,0,13,1,0,0,0,yes,unknown,chain_distance=2; incoming_lcall_xref=13
+A04_28.PZU,0x497A,A03_26.PZU,0x6D2E,1.25,unknown,1,0,0,33,0,0,0,0,yes,unknown,chain_distance=2; incoming_lcall_xref=33
+A04_28.PZU,0x497A,A03_26.PZU,0x8A2E,1.25,unknown,1,0,1,1,1,1,0,0,yes,unknown,chain_distance=0; incoming_lcall_xref=1
+A04_28.PZU,0x497A,A03_26.PZU,0x41E8,1.00,unknown,3,2,3,1,0,0,0,0,no,unknown,incoming_lcall_xref=1
+A04_28.PZU,0x497A,A03_26.PZU,0x6991,1.00,unknown,1,0,1,1,0,0,0,0,no,unknown,incoming_lcall_xref=1
+A04_28.PZU,0x497A,A03_26.PZU,0x69B7,1.00,unknown,1,0,0,1,0,0,0,0,no,unknown,incoming_lcall_xref=1
+A04_28.PZU,0x497A,A03_26.PZU,0x941F,1.00,unknown,3,2,0,1,0,0,0,0,no,unknown,incoming_lcall_xref=1
+A04_28.PZU,0x497A,A03_26.PZU,0x699C,0.75,unknown,1,0,0,2,0,0,0,0,no,unknown,incoming_lcall_xref=2
+A04_28.PZU,0x497A,A03_26.PZU,0x6A06,0.75,unknown,1,0,0,3,0,0,0,0,no,unknown,incoming_lcall_xref=3
+A04_28.PZU,0x497A,A03_26.PZU,0x6D88,0.75,unknown,1,0,1,3,0,0,0,0,no,unknown,incoming_lcall_xref=3
 A04_28.PZU,0x89C9,A03_26.PZU,0x89EE,9.25,unknown,1,0,1,1,0,0,1,0,yes,probable,chain_distance=1; incoming_lcall_xref=1; arith_present
 A04_28.PZU,0x89C9,A03_26.PZU,0xA248,9.25,unknown,1,0,0,1,1,0,1,0,yes,probable,chain_distance=1; incoming_lcall_xref=1; arith_present
 A04_28.PZU,0x89C9,A03_26.PZU,0x680C,9.00,unknown,1,0,0,1,0,0,1,0,yes,probable,chain_distance=1; incoming_lcall_xref=1; arith_present
@@ -119,25 +119,21 @@ A04_28.PZU,0x89C9,A03_26.PZU,0x8A16,8.25,unknown,1,0,2,1,0,0,0,0,yes,probable,ch
 A04_28.PZU,0x89C9,A03_26.PZU,0x942A,8.25,unknown,1,0,2,2,1,0,0,0,yes,probable,chain_distance=1; incoming_lcall_xref=2
 A04_28.PZU,0x89C9,A03_26.PZU,0x6A15,8.00,unknown,1,0,0,1,0,0,1,0,yes,probable,chain_distance=2; incoming_lcall_xref=1; arith_present
 A04_28.PZU,0x89C9,A03_26.PZU,0x6B96,8.00,unknown,1,0,0,2,0,0,0,0,yes,probable,chain_distance=1; incoming_lcall_xref=2
-A04_28.PZU,0x89C9,A03_26.PZU,0x6C3C,8.00,unknown,1,0,1,1,1,0,4,0,yes,probable,chain_distance=2; incoming_lcall_xref=1; arith_present
 A04_28.PZU,0x89C9,A03_26.PZU,0x8F0F,8.00,unknown,1,0,4,1,2,1,1,0,yes,probable,chain_distance=2; incoming_lcall_xref=1; arith_present
 A04_28.PZU,0x89C9,A03_26.PZU,0x8F9D,8.00,unknown,3,2,0,1,0,0,1,0,yes,probable,chain_distance=1; incoming_lcall_xref=1; arith_present
 A04_28.PZU,0x89C9,A03_26.PZU,0x94CE,8.00,unknown,2,1,1,1,1,0,1,0,yes,probable,chain_distance=2; incoming_lcall_xref=1; arith_present
 A04_28.PZU,0x89C9,A03_26.PZU,0x8B0B,7.75,state_update_worker,1,0,1,1,19,3,6,1,yes,hypothesis,chain_distance=2; incoming_lcall_xref=1; pipeline_xdata_hit; arith_present
 A04_28.PZU,0x89C9,A03_26.PZU,0x68F9,7.75,unknown,1,0,0,1,1,0,4,0,yes,hypothesis,chain_distance=2; incoming_lcall_xref=1; arith_present
 A04_28.PZU,0x89C9,A03_26.PZU,0x6B99,7.75,unknown,1,0,0,1,0,0,2,0,yes,hypothesis,chain_distance=2; incoming_lcall_xref=1; arith_present
-A04_28.PZU,0x89C9,A03_26.PZU,0x6BA5,7.75,unknown,1,0,1,1,2,0,7,0,yes,hypothesis,chain_distance=2; incoming_lcall_xref=1; arith_present
 A04_28.PZU,0x89C9,A03_26.PZU,0x6C21,7.75,unknown,1,0,0,1,0,0,3,0,yes,hypothesis,chain_distance=2; incoming_lcall_xref=1; arith_present
 A04_28.PZU,0x89C9,A03_26.PZU,0x6D38,7.75,unknown,1,0,0,4,0,0,0,0,yes,hypothesis,chain_distance=1; incoming_lcall_xref=4
 A04_28.PZU,0x89C9,A03_26.PZU,0x6DC7,7.75,unknown,1,0,1,1,1,0,0,0,yes,hypothesis,chain_distance=2; incoming_lcall_xref=1
 A04_28.PZU,0x89C9,A03_26.PZU,0x8A5E,7.75,unknown,1,0,0,5,0,0,6,0,yes,hypothesis,chain_distance=1; incoming_lcall_xref=5; arith_present
 A04_28.PZU,0x89C9,A03_26.PZU,0x9EEC,7.75,unknown,2,1,8,2,1,0,2,0,yes,hypothesis,chain_distance=1; incoming_lcall_xref=2; arith_present
 A04_28.PZU,0x89C9,A03_26.PZU,0x69AC,7.50,unknown,1,0,1,1,0,0,0,0,yes,hypothesis,chain_distance=2; incoming_lcall_xref=1
-A04_28.PZU,0x89C9,A03_26.PZU,0x6D56,7.50,unknown,1,0,1,2,1,0,0,0,yes,hypothesis,chain_distance=2; incoming_lcall_xref=2
 A04_28.PZU,0x89C9,A03_26.PZU,0x6D6F,7.50,unknown,1,0,1,1,0,0,0,0,yes,hypothesis,chain_distance=2; incoming_lcall_xref=1
 A04_28.PZU,0x89C9,A03_26.PZU,0x6D7E,7.50,unknown,1,0,1,1,0,0,0,0,yes,hypothesis,chain_distance=2; incoming_lcall_xref=1
 A04_28.PZU,0x89C9,A03_26.PZU,0x7099,7.50,unknown,1,0,1,2,0,1,0,0,yes,hypothesis,chain_distance=2; incoming_lcall_xref=2
-A04_28.PZU,0x89C9,A03_26.PZU,0x8F5B,7.50,unknown,1,0,2,2,1,0,4,0,yes,hypothesis,chain_distance=2; incoming_lcall_xref=2; arith_present
 A04_28.PZU,0x89C9,A03_26.PZU,0x692E,7.25,unknown,1,0,0,2,0,0,4,0,yes,hypothesis,chain_distance=2; incoming_lcall_xref=2; arith_present
 A04_28.PZU,0x89C9,A03_26.PZU,0x6990,7.25,unknown,1,0,0,1,0,0,0,0,yes,hypothesis,chain_distance=2; incoming_lcall_xref=1
 A04_28.PZU,0x89C9,A03_26.PZU,0x708A,7.25,unknown,1,0,0,1,0,0,0,0,yes,hypothesis,chain_distance=2; incoming_lcall_xref=1
@@ -148,12 +144,12 @@ A04_28.PZU,0x89C9,A03_26.PZU,0x9481,7.25,unknown,3,2,0,2,1,0,0,0,yes,hypothesis,
 A04_28.PZU,0x89C9,A03_26.PZU,0x948C,7.25,unknown,1,0,1,2,0,0,0,0,yes,hypothesis,chain_distance=2; incoming_lcall_xref=2
 A04_28.PZU,0x89C9,A03_26.PZU,0x9F29,7.25,unknown,1,0,0,1,0,0,0,0,yes,hypothesis,chain_distance=2; incoming_lcall_xref=1
 A04_28.PZU,0x89C9,A03_26.PZU,0x9F34,7.25,unknown,1,0,0,1,0,0,0,0,yes,hypothesis,chain_distance=2; incoming_lcall_xref=1
-A04_28.PZU,0x89C9,A03_26.PZU,0x886D,7.00,dispatcher_or_router,7,6,5,1,8,0,6,4,yes,hypothesis,chain_distance=1; incoming_lcall_xref=1; pipeline_xdata_hit; arith_present
 A04_28.PZU,0x89C9,A03_26.PZU,0x67CA,7.00,unknown,1,0,0,1,0,0,1,0,no,hypothesis,incoming_lcall_xref=1; arith_present
 A04_28.PZU,0x89C9,A03_26.PZU,0x68E6,7.00,unknown,1,0,0,3,0,0,6,0,yes,hypothesis,chain_distance=2; incoming_lcall_xref=3; arith_present
 A04_28.PZU,0x89C9,A03_26.PZU,0x693B,7.00,unknown,1,0,0,4,0,0,6,0,yes,hypothesis,chain_distance=2; incoming_lcall_xref=4; arith_present
 A04_28.PZU,0x89C9,A03_26.PZU,0x6B58,7.00,unknown,1,0,0,2,2,0,0,0,yes,hypothesis,chain_distance=2; incoming_lcall_xref=2
 A04_28.PZU,0x89C9,A03_26.PZU,0x6D2D,7.00,unknown,1,0,0,2,0,0,0,0,yes,hypothesis,chain_distance=2; incoming_lcall_xref=2
+A04_28.PZU,0x89C9,A03_26.PZU,0x6D56,7.00,unknown,2,1,1,2,1,0,0,0,yes,hypothesis,chain_distance=2; incoming_lcall_xref=2
 A04_28.PZU,0x89C9,A03_26.PZU,0x6D83,7.00,unknown,1,0,1,3,0,0,0,0,yes,hypothesis,chain_distance=2; incoming_lcall_xref=3
 A04_28.PZU,0x89C9,A03_26.PZU,0x8A2E,7.00,unknown,1,0,1,1,1,1,0,0,yes,hypothesis,chain_distance=0; incoming_lcall_xref=1
 A04_28.PZU,0x89C9,A03_26.PZU,0x8F01,7.00,unknown,4,3,0,1,0,0,1,0,yes,hypothesis,chain_distance=2; incoming_lcall_xref=1; arith_present
@@ -166,46 +162,50 @@ A04_28.PZU,0x89C9,A03_26.PZU,0x6B0F,6.75,unknown,1,0,3,2,0,0,0,0,yes,hypothesis,
 A04_28.PZU,0x89C9,A03_26.PZU,0x8E92,6.75,unknown,3,2,0,1,0,0,2,0,yes,hypothesis,chain_distance=2; incoming_lcall_xref=1; arith_present
 A04_28.PZU,0x89C9,A03_26.PZU,0x8EB1,6.75,state_reader_or_packet_builder,8,7,2,1,6,0,3,0,yes,hypothesis,chain_distance=1; incoming_lcall_xref=1; arith_present
 A04_28.PZU,0x89C9,A03_26.PZU,0xA26E,6.75,unknown,1,0,16,1,1,0,0,0,yes,hypothesis,chain_distance=2; incoming_lcall_xref=1
+A04_28.PZU,0x89C9,A03_26.PZU,0x886D,6.50,dispatcher_or_router,14,13,5,1,8,0,6,4,yes,hypothesis,chain_distance=1; incoming_lcall_xref=1; pipeline_xdata_hit; arith_present
 A04_28.PZU,0x89C9,A03_26.PZU,0x6991,6.50,unknown,1,0,1,1,0,0,0,0,no,hypothesis,incoming_lcall_xref=1
 A04_28.PZU,0x89C9,A03_26.PZU,0x6AE9,6.50,unknown,2,1,0,5,0,0,2,0,yes,hypothesis,chain_distance=2; incoming_lcall_xref=5; arith_present
 A04_28.PZU,0x89C9,A03_26.PZU,0x6B22,6.50,unknown,2,1,0,6,0,0,2,0,yes,hypothesis,chain_distance=2; incoming_lcall_xref=6; arith_present
-A04_28.PZU,0x89C9,A03_26.PZU,0x6D5D,6.50,unknown,1,0,0,5,0,0,0,0,yes,hypothesis,chain_distance=2; incoming_lcall_xref=5
 A04_28.PZU,0x89C9,A03_26.PZU,0x70B3,6.50,state_reader_or_packet_builder,3,2,0,1,11,1,1,0,yes,hypothesis,chain_distance=2; incoming_lcall_xref=1; arith_present
 A04_28.PZU,0x89C9,A03_26.PZU,0x8F80,6.50,unknown,3,2,1,2,0,0,4,0,yes,hypothesis,chain_distance=2; incoming_lcall_xref=2; arith_present
 A04_28.PZU,0x89C9,A03_26.PZU,0x93B4,6.50,unknown,7,6,1,1,0,0,2,0,yes,hypothesis,chain_distance=2; incoming_lcall_xref=1; arith_present
 A04_28.PZU,0x89C9,A03_26.PZU,0x9439,6.50,dispatcher_or_router,8,7,5,2,1,0,4,0,yes,hypothesis,chain_distance=1; incoming_lcall_xref=2; arith_present
-A04_28.PZU,0x89C9,A03_26.PZU,0x9F58,6.50,state_reader_or_packet_builder,3,2,31,1,3,1,0,0,yes,hypothesis,chain_distance=1; incoming_lcall_xref=1
+A04_28.PZU,0x89C9,A03_26.PZU,0x9F58,6.50,state_reader_or_packet_builder,4,3,31,1,3,1,0,0,yes,hypothesis,chain_distance=1; incoming_lcall_xref=1
 A04_28.PZU,0x89C9,A03_26.PZU,0xA241,6.50,unknown,1,0,0,13,1,0,0,0,yes,hypothesis,chain_distance=2; incoming_lcall_xref=13
 A04_28.PZU,0x89C9,A03_26.PZU,0x683F,6.25,unknown,1,0,0,20,0,0,8,0,yes,hypothesis,chain_distance=2; incoming_lcall_xref=20; arith_present
 A04_28.PZU,0x89C9,A03_26.PZU,0x694E,6.25,unknown,1,0,0,17,0,0,8,0,yes,hypothesis,chain_distance=2; incoming_lcall_xref=17; arith_present
 A04_28.PZU,0x89C9,A03_26.PZU,0x69B7,6.25,unknown,1,0,0,1,0,0,0,0,no,hypothesis,incoming_lcall_xref=1
 A04_28.PZU,0x89C9,A03_26.PZU,0x6B3A,6.25,unknown,3,2,0,3,0,0,2,0,yes,hypothesis,chain_distance=2; incoming_lcall_xref=3; arith_present
+A04_28.PZU,0x89C9,A03_26.PZU,0x6BA5,6.25,unknown,7,6,1,1,2,0,7,0,yes,hypothesis,chain_distance=2; incoming_lcall_xref=1; arith_present
 A04_28.PZU,0x89C9,A03_26.PZU,0x6D2E,6.25,unknown,1,0,0,33,0,0,0,0,yes,hypothesis,chain_distance=2; incoming_lcall_xref=33
-A04_28.PZU,0x89C9,A03_26.PZU,0x86C5,6.25,state_update_worker,6,5,3,1,7,4,2,0,yes,hypothesis,chain_distance=1; incoming_lcall_xref=1; arith_present
-A04_28.PZU,0x89C9,A03_26.PZU,0x8741,6.25,state_update_worker,1,0,12,1,16,4,1,0,yes,hypothesis,chain_distance=2; incoming_lcall_xref=1; arith_present
 A04_28.PZU,0x89C9,A03_26.PZU,0x9424,6.25,unknown,3,2,0,1,0,0,0,0,yes,hypothesis,chain_distance=2; incoming_lcall_xref=1
 A04_28.PZU,0x89C9,A03_26.PZU,0x41D0,6.00,unknown,3,2,1,0,1,0,3,0,no,hypothesis,arith_present
 A04_28.PZU,0x89C9,A03_26.PZU,0x699C,6.00,unknown,1,0,0,2,0,0,0,0,no,hypothesis,incoming_lcall_xref=2
 A04_28.PZU,0x89C9,A03_26.PZU,0x69C6,6.00,unknown,3,2,1,3,0,0,0,0,yes,hypothesis,chain_distance=2; incoming_lcall_xref=3
+A04_28.PZU,0x89C9,A03_26.PZU,0x6C3C,6.00,unknown,10,9,1,1,1,0,4,0,yes,hypothesis,chain_distance=2; incoming_lcall_xref=1; arith_present
+A04_28.PZU,0x89C9,A03_26.PZU,0x6D5D,6.00,unknown,2,1,0,5,0,0,0,0,yes,hypothesis,chain_distance=2; incoming_lcall_xref=5
 A04_28.PZU,0x89C9,A03_26.PZU,0x6D88,6.00,unknown,1,0,1,3,0,0,0,0,no,hypothesis,incoming_lcall_xref=3
-A04_28.PZU,0x89C9,A03_26.PZU,0x6D8D,6.00,state_reader_or_packet_builder,1,0,2,1,3,0,0,0,no,hypothesis,incoming_lcall_xref=1
-A04_28.PZU,0x89C9,A03_26.PZU,0x800B,6.00,unknown,5,4,21,1,4,2,4,0,yes,hypothesis,chain_distance=1; incoming_lcall_xref=1; arith_present
 A04_28.PZU,0x89C9,A03_26.PZU,0x8EF3,6.00,unknown,5,4,0,3,0,0,1,0,yes,hypothesis,chain_distance=2; incoming_lcall_xref=3; arith_present
+A04_28.PZU,0x89C9,A03_26.PZU,0x8F5B,6.00,unknown,6,5,2,2,1,0,4,0,yes,hypothesis,chain_distance=2; incoming_lcall_xref=2; arith_present
 A04_28.PZU,0x89C9,A03_26.PZU,0x8FD7,6.00,state_reader_or_packet_builder,3,2,3,2,9,0,0,0,yes,hypothesis,chain_distance=1; incoming_lcall_xref=2
-A04_28.PZU,0x89C9,A03_26.PZU,0x7953,5.75,state_update_worker,4,3,4,1,22,6,0,3,yes,hypothesis,chain_distance=2; incoming_lcall_xref=1; pipeline_xdata_hit
-A04_28.PZU,0x89C9,A03_26.PZU,0x4100,5.75,unknown,1,0,5,0,1,0,15,0,no,hypothesis,arith_present
 A04_28.PZU,0x89C9,A03_26.PZU,0x492E,5.75,unknown,3,2,0,0,1,0,3,0,no,hypothesis,arith_present
 A04_28.PZU,0x89C9,A03_26.PZU,0x4954,5.75,unknown,3,2,0,0,1,0,3,0,no,hypothesis,arith_present
 A04_28.PZU,0x89C9,A03_26.PZU,0x6A06,5.75,unknown,1,0,0,3,0,0,0,0,no,hypothesis,incoming_lcall_xref=3
 A04_28.PZU,0x89C9,A03_26.PZU,0x810E,5.75,state_update_worker,7,6,3,1,11,4,4,0,yes,hypothesis,chain_distance=1; incoming_lcall_xref=1; arith_present
-A04_28.PZU,0x89C9,A03_26.PZU,0x6C7E,5.50,state_reader_or_packet_builder,20,19,3,2,5,0,7,0,yes,hypothesis,chain_distance=1; incoming_lcall_xref=2; arith_present
+A04_28.PZU,0x89C9,A03_26.PZU,0x86C5,5.75,state_update_worker,13,12,3,1,7,4,2,0,yes,hypothesis,chain_distance=1; incoming_lcall_xref=1; arith_present
+A04_28.PZU,0x89C9,A03_26.PZU,0x6C7E,5.50,state_reader_or_packet_builder,25,24,3,2,5,0,7,0,yes,hypothesis,chain_distance=1; incoming_lcall_xref=2; arith_present
+A04_28.PZU,0x89C9,A03_26.PZU,0x800B,5.50,dispatcher_or_router,13,12,21,1,4,2,4,0,yes,hypothesis,chain_distance=1; incoming_lcall_xref=1; arith_present
 A04_28.PZU,0x89C9,A03_26.PZU,0xA2F5,5.50,state_update_worker,1,0,16,1,23,3,0,0,yes,hypothesis,chain_distance=2; incoming_lcall_xref=1
-A04_28.PZU,0x89C9,A03_26.PZU,0xA900,5.25,state_reader_or_packet_builder,3,2,33,1,14,0,3,1,yes,hypothesis,chain_distance=0; incoming_lcall_xref=1; pipeline_xdata_hit; arith_present
-A04_28.PZU,0x89C9,A03_26.PZU,0x497A,5.25,state_update_worker,3,2,90,0,8,5,47,0,yes,hypothesis,chain_distance=1; arith_present
+A04_28.PZU,0x89C9,A03_26.PZU,0x7953,5.25,dispatcher_or_router,6,5,4,1,22,6,0,3,yes,hypothesis,chain_distance=2; incoming_lcall_xref=1; pipeline_xdata_hit
 A04_28.PZU,0x89C9,A03_26.PZU,0x80C3,5.25,state_update_worker,9,8,0,1,5,3,1,0,yes,hypothesis,chain_distance=2; incoming_lcall_xref=1; arith_present
 A04_28.PZU,0x89C9,A03_26.PZU,0x941F,5.25,unknown,3,2,0,1,0,0,0,0,no,hypothesis,incoming_lcall_xref=1
 A04_28.PZU,0x89C9,A03_26.PZU,0x9FD8,5.25,state_reader_or_packet_builder,3,2,8,13,4,0,1,0,yes,hypothesis,chain_distance=2; incoming_lcall_xref=13; arith_present
 A04_28.PZU,0x89C9,A03_26.PZU,0x7339,5.00,state_update_worker,3,2,1,1,39,16,0,5,no,hypothesis,incoming_lcall_xref=1; pipeline_xdata_hit
 A04_28.PZU,0x89C9,A03_26.PZU,0x41E8,5.00,unknown,3,2,3,1,0,0,0,0,no,hypothesis,incoming_lcall_xref=1
-A04_28.PZU,0x89C9,A03_26.PZU,0x8904,4.50,dispatcher_or_router,13,12,14,1,15,2,1,17,yes,hypothesis,chain_distance=0; incoming_lcall_xref=1; pipeline_xdata_hit; arith_present
-A04_28.PZU,0x89C9,A03_26.PZU,0x4176,4.25,state_reader_or_packet_builder,5,4,1,0,5,0,10,0,no,hypothesis,arith_present
+A04_28.PZU,0x89C9,A03_26.PZU,0x6D8D,5.00,state_reader_or_packet_builder,3,2,2,1,3,0,0,0,no,hypothesis,incoming_lcall_xref=1
+A04_28.PZU,0x89C9,A03_26.PZU,0x8741,4.75,dispatcher_or_router,7,6,12,1,16,4,1,0,yes,hypothesis,chain_distance=2; incoming_lcall_xref=1; arith_present
+A04_28.PZU,0x89C9,A03_26.PZU,0x8904,4.50,dispatcher_or_router,34,33,14,1,15,2,1,17,yes,hypothesis,chain_distance=0; incoming_lcall_xref=1; pipeline_xdata_hit; arith_present
+A04_28.PZU,0x89C9,A03_26.PZU,0xA900,4.25,dispatcher_or_router,23,22,33,1,14,0,3,1,yes,hypothesis,chain_distance=0; incoming_lcall_xref=1; pipeline_xdata_hit; arith_present
+A04_28.PZU,0x89C9,A03_26.PZU,0x4176,4.25,state_reader_or_packet_builder,7,6,1,0,5,0,10,0,no,hypothesis,arith_present
+A04_28.PZU,0x89C9,A03_26.PZU,0x497A,4.25,dispatcher_or_router,65,64,90,0,8,5,47,0,yes,hypothesis,chain_distance=1; arith_present
+A04_28.PZU,0x89C9,A03_26.PZU,0x4100,3.75,dispatcher_or_router,12,11,5,0,1,0,15,0,no,unknown,arith_present

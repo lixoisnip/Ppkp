@@ -1,0 +1,17 @@
+script,all_firmwares_supported,a03_a04_only,requires_existing_csv,produces_csv,produces_md,default_safe_to_run,notes
+scripts/validate_pzu.py,true,false,false,false,false,true,Проверяет валидность Intel HEX во всех .PZU и не меняет артефакты.
+scripts/firmware_manifest.py,true,false,false,true,false,true,Генерирует firmware_manifest.json плюс inventory/vector CSV.
+scripts/family_matrix.py,true,false,false,true,false,true,Сравнивает попарное сходство между всеми найденными прошивками.
+scripts/xdata_xref.py,true,false,false,true,false,true,Формирует несколько XDATA CSV (agg/detailed/confirmed/pointer/code-table).
+scripts/disasm_8051.py,true,false,false,true,false,true,Генерирует docs/disassembly_index.csv для всех прошивок.
+scripts/call_xref.py,true,false,true,true,false,true,Нужен disassembly_index.csv; пишет call_xref/call_xref_legacy/call_targets_summary.
+scripts/function_map.py,true,false,true,true,false,true,Нужны disassembly/call_xref/basic_block_map/xdata_confirmed/code_table кандидаты.
+scripts/basic_block_map.py,true,false,true,true,false,true,Нужны disassembly_index/call_xref/function_map; строит карту базовых блоков.
+scripts/string_index.py,true,false,false,true,false,true,Индексирует строковые/табличные кандидаты по всем .PZU.
+scripts/a03_a04_packet_builder_candidates.py,false,true,true,true,false,true,Специализирован на A03_26.PZU и A04_28.PZU; требует базовые CSV.
+scripts/extract_function_trace.py,false,true,true,true,false,true,Трассировка top packet candidates только для A03/A04.
+scripts/extract_call_neighborhood.py,false,true,true,true,false,true,Извлекает call-neighborhood вокруг A03/A04 targets (depth 1/2).
+scripts/extract_pipeline_chain_trace.py,false,true,true,true,false,true,Трассировка заранее заданных pipeline chains A03/A04.
+scripts/find_packet_window_writers.py,false,true,true,true,false,true,Поиск writer-функций packet-window в ветке A03_A04.
+scripts/find_a03_analogs_for_a04_writers.py,false,true,true,true,true,true,Строит CSV и MD по structural-analog кандидатам A03 для A04 writer-функций.
+scripts/run_analysis_smoke_test.py,false,false,false,true,false,true,Оркестратор smoke-проверки; создает docs/analysis_smoke_test_results.csv.
