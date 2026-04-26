@@ -179,3 +179,13 @@ XDATA-адреса для подтверждения:
 - Добавлены кандидаты `sensor_state_candidates` и `zone_state_mode_candidates` с confidence-маркировкой для 90CYE_DKS приоритетных функций `0x497A/0x737C/0x613C/0x6833/0x84A6/0x728A/0x5A7F`.
 - Есть признаки manual/auto gating в цепочках `fire -> mode check -> event/packet` и `fire -> mode check -> output`, но полный recovery правил запуска тушения остается **hypothesis/probable** и требует стендовой верификации.
 - Следующие функции для ручной декомпозиции: `0x84A6`, `0x728A`, `0x5A7F`, затем развилки внутри `0x737C/0x613C/0x6833`.
+
+## Auto/manual gating deep trace after PR
+
+- Выполнен branch-specific deep trace цепочки `0x497A -> 0x737C -> 0x613C -> 0x84A6 -> 0x728A -> 0x6833 -> 0x5A7F` для `90CYE03_19_DKS.PZU`.
+- Наиболее вероятный узел `manual/auto` проверки: `0x84A6` (mode/gating marker concentration), при поддерживающей роли `0x728A` — **probable**.
+- Наиболее вероятный `output/extinguishing start`: `0x6833` — **probable**.
+- Наиболее вероятный `packet/export`: `0x5A7F` — **probable/confirmed as export-path candidate**.
+- Главные XDATA-кандидаты mode/state flags в этой цепочке: `0x30EA..0x30F9`, `0x315B`, `0x3165`, `0x31BF`, `0x364B`.
+- Найдены признаки ветвления вида `fire -> mode check -> (event/packet only)` и `fire -> mode check -> (output start -> packet/export)`; полное восстановление алгоритма пожаротушения без стенда не заявляется.
+- Для следующего ручного разбора приоритет: `0x84A6`, `0x728A`, затем развилки внутри `0x6833` и packet-side вызовы около `0x5A7F`.

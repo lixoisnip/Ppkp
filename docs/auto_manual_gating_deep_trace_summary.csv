@@ -1,0 +1,8 @@
+branch,file,function_addr,proposed_role,score,confidence,xdata_read_count,xdata_write_count,conditional_branch_count,bit_operation_count,state_marker_hits,mode_marker_hits,gating_marker_hits,output_marker_hits,packet_marker_hits,likely_xdata_flags,related_calls,notes
+90CYE_DKS,90CYE03_19_DKS.PZU,0x497A,sensor_zone_state_update_candidate,755.700,medium,23,24,42,8,588,0,0,0,29,0x31BF,0x5545;0x58B1;0x5935;0x594B;0x59A0;0x5A7F;0x5AA3;0x5D13;0x5D22;0x60E4;0x673C;0x6ACB;0x6CFB;0x78D8;0x7922;0x7928;0x826B;0x8291;0x8320;0x832D;0x835A;0x8381;0x83A6;0x859A;0x862D,state_update_path_candidate
+90CYE_DKS,90CYE03_19_DKS.PZU,0x737C,sensor_zone_state_update_candidate,231.200,medium,11,6,15,10,176,0,0,0,10,0x31BF,0x597F;0x5A7F;0x5AA3;0x73BA;0x74C0;0x848E;0x84A6,state_update_path_candidate
+90CYE_DKS,90CYE03_19_DKS.PZU,0x613C,sensor_zone_state_update_candidate,17.600,medium,2,1,1,1,12,0,0,0,0,,,state_update_path_candidate
+90CYE_DKS,90CYE03_19_DKS.PZU,0x84A6,manual_auto_mode_check_candidate,129.100,medium,6,0,9,2,0,75,9,0,1,0x315B,0x59A0;0x5A7F;0x6025;0x6CB5;0x6D0A;0x6E32;0x6EF2;0x7017;0x7184;0x728A;0x737C;0x764E;0x7681;0x770C;0x77BF;0x7889;0x7A9A;0x7B31;0x7BC2;0x7D35;0x7D42;0x85FB;0x862D,best_mode_check_candidate
+90CYE_DKS,90CYE03_19_DKS.PZU,0x728A,manual_auto_mode_check_candidate,180.500,hypothesis,5,4,6,3,0,104,6,0,11,,0x5A7F;0x6EB8;0x6EC2;0x6ECE;0x6EE6;0x7316;0x7360;0x7366;0x7922;0x7D7A;0x7D85,best_mode_check_candidate
+90CYE_DKS,90CYE03_19_DKS.PZU,0x6833,output_extinguishing_start_candidate,38.300,hypothesis,0,0,1,0,0,0,0,24,3,,0x597F;0x5A7F;0x7922;0x7DC2,best_output_start_candidate
+90CYE_DKS,90CYE03_19_DKS.PZU,0x5A7F,event_packet_export_candidate,7.800,hypothesis,0,0,0,0,0,0,0,0,6,,,best_packet_export_candidate
