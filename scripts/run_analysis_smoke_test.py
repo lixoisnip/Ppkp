@@ -203,6 +203,17 @@ def main() -> int:
             ["docs/supported_sensor_evidence.csv", "docs/mash_address_loop_sensor_model.md"],
             "seed evidence for MASH/address-loop sensors from PDF (firmware linkage remains hypothesis)",
         ),
+        SmokeCommand(
+            "mash_code_evidence_analyzer.py",
+            "global_mash_analysis",
+            [sys.executable, "scripts/mash_code_evidence_analyzer.py"],
+            [
+                "docs/mash_code_evidence_candidates.csv",
+                "docs/mash_candidate_chains.csv",
+                "docs/mash_code_evidence_analysis.md",
+            ],
+            "global / MASH code evidence analysis",
+        ),
     ]
 
     rows: list[dict[str, str]] = []
