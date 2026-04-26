@@ -16,3 +16,4 @@ scripts/extract_pipeline_chain_trace.py,false,true,true,true,false,true,Трас
 scripts/find_packet_window_writers.py,false,true,true,true,false,true,Поиск writer-функций packet-window в ветке A03_A04.
 scripts/find_a03_analogs_for_a04_writers.py,false,true,true,true,true,true,Строит CSV и MD по structural-analog кандидатам A03 для A04 writer-функций.
 scripts/run_analysis_smoke_test.py,false,false,false,true,false,true,Оркестратор smoke-проверки; создает docs/analysis_smoke_test_results.csv.
+scripts/global_packet_pipeline_miner.py,true,false,true,true,true,true,Глобальный майнинг packet/runtime pipeline candidates/chains по всем веткам; не доказывает packet format.
