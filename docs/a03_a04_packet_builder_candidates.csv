@@ -1,12 +1,14 @@
 file,function_addr,role_candidate,basic_block_count,internal_block_count,incoming_lcalls,call_count,xdata_read_count,xdata_write_count,movc_count,packet_xdata_hits,queue_hits,selector_hits,snapshot_hits,object_table_hits,score,confidence,notes
-A04_28.PZU,0x889F,dispatcher_or_router,13,12,1,14,15,2,0,2,8,4,0,0,13,probable,queue@0x329C; selector@0x329D; packet_window@0x5003-0x5010; call_xref_lcalls=1; bb_parent_hits=13
-A03_26.PZU,0x8904,dispatcher_or_router,13,12,1,14,15,2,0,0,1,1,0,0,10,probable,queue@0x329C; selector@0x329D; aux@0x3298/0x32A2; call_xref_lcalls=1; bb_parent_hits=13
+A04_28.PZU,0x889F,dispatcher_or_router,34,33,1,14,15,2,0,2,8,4,0,0,13,probable,queue@0x329C; selector@0x329D; packet_window@0x5003-0x5010; call_xref_lcalls=1; bb_parent_hits=34
+A03_26.PZU,0x8904,dispatcher_or_router,34,33,1,14,15,2,0,0,1,1,0,0,10,probable,queue@0x329C; selector@0x329D; aux@0x3298/0x32A2; call_xref_lcalls=1; bb_parent_hits=34
 A04_28.PZU,0x722E,state_update_worker,3,2,1,1,61,22,6,7,1,0,0,0,9,probable,queue@0x329C; packet_window@0x5003-0x5010; aux@0x3298/0x32A2; call_xref_lcalls=1; bb_parent_hits=3
 A04_28.PZU,0x714C,state_reader_or_packet_builder,1,0,1,4,8,1,0,1,0,0,0,0,7,probable,packet_window@0x5003-0x5010; call_xref_lcalls=1; bb_parent_hits=1
+A03_26.PZU,0x7953,dispatcher_or_router,6,5,1,4,22,6,4,0,3,0,0,0,7,probable,queue@0x329C; call_xref_lcalls=1; bb_parent_hits=6
 A03_26.PZU,0x7259,state_reader_or_packet_builder,1,0,1,3,8,1,0,0,1,0,0,0,7,probable,queue@0x329C; call_xref_lcalls=1; bb_parent_hits=1
+A04_28.PZU,0x497A,dispatcher_or_router,69,68,0,99,8,5,0,5,0,0,0,0,6,probable,packet_window@0x5003-0x5010; bb_parent_hits=69
 A04_28.PZU,0xA2E2,state_reader_or_packet_builder,3,2,13,8,5,0,0,4,0,0,0,0,6,probable,packet_window@0x5003-0x5010; call_xref_lcalls=13; bb_parent_hits=3
-A04_28.PZU,0xB310,state_reader_or_packet_builder,1,0,1,32,13,0,0,4,0,0,0,0,6,probable,packet_window@0x5003-0x5010; call_xref_lcalls=1; bb_parent_hits=1
-A04_28.PZU,0x6B57,state_reader_or_packet_builder,20,19,2,3,5,0,1,3,0,0,0,0,6,probable,packet_window@0x5003-0x5010; call_xref_lcalls=2; bb_parent_hits=20
+A04_28.PZU,0xB310,dispatcher_or_router,21,20,1,32,13,0,0,4,0,0,0,0,6,probable,packet_window@0x5003-0x5010; call_xref_lcalls=1; bb_parent_hits=21
+A04_28.PZU,0x6B57,state_reader_or_packet_builder,25,24,2,3,5,0,1,3,0,0,0,0,6,probable,packet_window@0x5003-0x5010; call_xref_lcalls=2; bb_parent_hits=25
 A04_28.PZU,0x8E4C,state_reader_or_packet_builder,8,7,1,2,6,0,0,3,0,0,0,0,6,probable,packet_window@0x5003-0x5010; call_xref_lcalls=1; bb_parent_hits=8
 A04_28.PZU,0x8F4A,unknown,5,4,1,1,2,1,0,2,0,0,0,0,6,probable,packet_window@0x5003-0x5010; call_xref_lcalls=1; bb_parent_hits=5
 A04_28.PZU,0x950F,state_update_worker,2,1,1,1,31,6,0,2,0,0,0,0,6,probable,packet_window@0x5003-0x5010; call_xref_lcalls=1; bb_parent_hits=2
@@ -17,23 +19,24 @@ A04_28.PZU,0x8AA6,state_update_worker,1,0,1,1,19,3,0,1,0,0,0,0,6,probable,packet
 A04_28.PZU,0x8F72,state_reader_or_packet_builder,3,2,2,3,17,0,0,1,0,0,0,0,6,probable,packet_window@0x5003-0x5010; call_xref_lcalls=2; bb_parent_hits=3
 A04_28.PZU,0xA6D9,state_update_worker,1,0,1,16,26,4,0,1,0,0,0,0,6,probable,packet_window@0x5003-0x5010; call_xref_lcalls=1; bb_parent_hits=1
 A03_26.PZU,0x7339,state_update_worker,3,2,1,1,39,16,2,0,4,0,0,0,6,probable,queue@0x329C; aux@0x3298/0x32A2; call_xref_lcalls=1; bb_parent_hits=3
-A04_28.PZU,0x8808,dispatcher_or_router,7,6,1,5,8,0,0,0,4,0,0,0,6,probable,queue@0x329C; aux@0x3298/0x32A2; call_xref_lcalls=1; bb_parent_hits=7
-A03_26.PZU,0x7953,state_update_worker,4,3,1,4,22,6,4,0,3,0,0,0,6,probable,queue@0x329C; call_xref_lcalls=1; bb_parent_hits=4
+A04_28.PZU,0x8808,dispatcher_or_router,14,13,1,5,8,0,0,0,4,0,0,0,6,probable,queue@0x329C; aux@0x3298/0x32A2; call_xref_lcalls=1; bb_parent_hits=14
 A03_26.PZU,0x8B0B,state_update_worker,1,0,1,1,19,3,0,0,1,0,0,0,6,probable,queue@0x329C; call_xref_lcalls=1; bb_parent_hits=1
-A03_26.PZU,0xA900,state_reader_or_packet_builder,3,2,1,33,14,0,0,0,1,0,0,0,6,probable,queue@0x329C; call_xref_lcalls=1; bb_parent_hits=3
-A04_28.PZU,0x497A,state_update_worker,3,2,0,99,8,5,0,5,0,0,0,0,5,hypothesis,packet_window@0x5003-0x5010; bb_parent_hits=3
+A03_26.PZU,0xA900,dispatcher_or_router,23,22,1,33,14,0,0,0,1,0,0,0,6,probable,queue@0x329C; call_xref_lcalls=1; bb_parent_hits=23
 A03_26.PZU,0x70B3,state_reader_or_packet_builder,3,2,1,0,11,1,0,0,0,0,0,0,4,hypothesis,call_xref_lcalls=1; bb_parent_hits=3
-A03_26.PZU,0x9F58,state_reader_or_packet_builder,3,2,1,31,3,1,0,0,0,0,0,0,4,hypothesis,call_xref_lcalls=1; bb_parent_hits=3
+A03_26.PZU,0x800B,dispatcher_or_router,13,12,1,21,4,2,1,0,0,0,0,0,4,hypothesis,call_xref_lcalls=1; bb_parent_hits=13
+A03_26.PZU,0x8741,dispatcher_or_router,7,6,1,12,16,4,0,0,0,0,0,0,4,hypothesis,call_xref_lcalls=1; bb_parent_hits=7
+A03_26.PZU,0x9F58,state_reader_or_packet_builder,4,3,1,31,3,1,0,0,0,0,0,0,4,hypothesis,call_xref_lcalls=1; bb_parent_hits=4
 A04_28.PZU,0x6F83,state_reader_or_packet_builder,3,2,2,0,11,1,0,0,0,0,0,0,4,hypothesis,call_xref_lcalls=2; bb_parent_hits=3
+A04_28.PZU,0x7F5B,dispatcher_or_router,13,12,1,20,4,2,1,0,0,0,0,0,4,hypothesis,aux@0x3298/0x32A2; call_xref_lcalls=1; bb_parent_hits=13
+A04_28.PZU,0x86DE,dispatcher_or_router,7,6,1,12,16,4,0,0,0,0,0,0,4,hypothesis,aux@0x3298/0x32A2; call_xref_lcalls=1; bb_parent_hits=7
 A04_28.PZU,0xA269,state_reader_or_packet_builder,3,2,1,30,3,1,0,0,0,0,0,0,4,hypothesis,call_xref_lcalls=1; bb_parent_hits=3
-A03_26.PZU,0x6C7E,state_reader_or_packet_builder,20,19,2,3,5,0,1,0,0,0,0,0,3,hypothesis,call_xref_lcalls=2; bb_parent_hits=20
-A03_26.PZU,0x6D8D,state_reader_or_packet_builder,1,0,1,2,3,0,0,0,0,0,0,0,3,hypothesis,call_xref_lcalls=1; bb_parent_hits=1
-A03_26.PZU,0x800B,unknown,5,4,1,21,4,2,1,0,0,0,0,0,3,hypothesis,call_xref_lcalls=1; bb_parent_hits=5
+A03_26.PZU,0x497A,dispatcher_or_router,65,64,0,90,8,5,0,0,0,0,0,0,3,hypothesis,bb_parent_hits=65
+A03_26.PZU,0x6C7E,state_reader_or_packet_builder,25,24,2,3,5,0,1,0,0,0,0,0,3,hypothesis,call_xref_lcalls=2; bb_parent_hits=25
+A03_26.PZU,0x6D8D,state_reader_or_packet_builder,3,2,1,2,3,0,0,0,0,0,0,0,3,hypothesis,call_xref_lcalls=1; bb_parent_hits=3
 A03_26.PZU,0x80C3,state_update_worker,9,8,1,0,5,3,0,0,0,0,0,0,3,hypothesis,call_xref_lcalls=1; bb_parent_hits=9
 A03_26.PZU,0x810E,state_update_worker,7,6,1,3,11,4,0,0,0,0,0,0,3,hypothesis,call_xref_lcalls=1; bb_parent_hits=7
-A03_26.PZU,0x86C5,state_update_worker,6,5,1,3,7,4,0,0,0,0,0,0,3,hypothesis,call_xref_lcalls=1; bb_parent_hits=6
-A03_26.PZU,0x8741,state_update_worker,1,0,1,12,16,4,0,0,0,0,0,0,3,hypothesis,call_xref_lcalls=1; bb_parent_hits=1
-A03_26.PZU,0x886D,dispatcher_or_router,7,6,1,5,8,0,0,0,0,0,0,0,3,hypothesis,aux@0x3298/0x32A2; call_xref_lcalls=1; bb_parent_hits=7
+A03_26.PZU,0x86C5,state_update_worker,13,12,1,3,7,4,0,0,0,0,0,0,3,hypothesis,call_xref_lcalls=1; bb_parent_hits=13
+A03_26.PZU,0x886D,dispatcher_or_router,14,13,1,5,8,0,0,0,0,0,0,0,3,hypothesis,aux@0x3298/0x32A2; call_xref_lcalls=1; bb_parent_hits=14
 A03_26.PZU,0x8A2E,unknown,1,0,1,1,1,1,0,0,0,0,0,0,3,hypothesis,call_xref_lcalls=1; bb_parent_hits=1
 A03_26.PZU,0x8EB1,state_reader_or_packet_builder,8,7,1,2,6,0,0,0,0,0,0,0,3,hypothesis,call_xref_lcalls=1; bb_parent_hits=8
 A03_26.PZU,0x8F0F,unknown,1,0,1,4,2,1,0,0,0,0,0,0,3,hypothesis,call_xref_lcalls=1; bb_parent_hits=1
@@ -42,24 +45,22 @@ A03_26.PZU,0x8FD7,state_reader_or_packet_builder,3,2,2,3,9,0,0,0,0,0,0,0,3,hypot
 A03_26.PZU,0x9439,dispatcher_or_router,8,7,2,5,1,0,0,0,0,0,0,0,3,hypothesis,call_xref_lcalls=2; bb_parent_hits=8
 A03_26.PZU,0x9FD8,state_reader_or_packet_builder,3,2,13,8,4,0,0,0,0,0,0,0,3,hypothesis,call_xref_lcalls=13; bb_parent_hits=3
 A03_26.PZU,0xA2F5,state_update_worker,1,0,1,16,23,3,0,0,0,0,0,0,3,hypothesis,call_xref_lcalls=1; bb_parent_hits=1
-A04_28.PZU,0x6C66,state_reader_or_packet_builder,1,0,1,2,3,0,0,0,0,0,0,0,3,hypothesis,aux@0x3298/0x32A2; call_xref_lcalls=1; bb_parent_hits=1
-A04_28.PZU,0x7F5B,unknown,5,4,1,20,4,2,1,0,0,0,0,0,3,hypothesis,aux@0x3298/0x32A2; call_xref_lcalls=1; bb_parent_hits=5
+A04_28.PZU,0x6C66,state_reader_or_packet_builder,3,2,1,2,3,0,0,0,0,0,0,0,3,hypothesis,aux@0x3298/0x32A2; call_xref_lcalls=1; bb_parent_hits=3
 A04_28.PZU,0x8012,state_update_worker,9,8,1,0,5,3,0,0,0,0,0,0,3,hypothesis,aux@0x3298/0x32A2; call_xref_lcalls=1; bb_parent_hits=9
-A04_28.PZU,0x866A,state_update_worker,6,5,1,3,7,4,0,0,0,0,0,0,3,hypothesis,call_xref_lcalls=1; bb_parent_hits=6
-A04_28.PZU,0x86DE,state_update_worker,1,0,1,12,16,4,0,0,0,0,0,0,3,hypothesis,aux@0x3298/0x32A2; call_xref_lcalls=1; bb_parent_hits=1
+A04_28.PZU,0x866A,state_update_worker,13,12,1,3,7,4,0,0,0,0,0,0,3,hypothesis,call_xref_lcalls=1; bb_parent_hits=13
 A04_28.PZU,0x8EAA,unknown,1,0,1,4,2,1,0,0,0,0,0,0,3,hypothesis,call_xref_lcalls=1; bb_parent_hits=1
 A04_28.PZU,0x947A,dispatcher_or_router,8,7,2,5,1,0,0,0,0,0,0,0,3,hypothesis,call_xref_lcalls=2; bb_parent_hits=8
-A03_26.PZU,0x4176,state_reader_or_packet_builder,5,4,0,1,5,0,0,0,0,0,0,0,2,unknown,bb_parent_hits=5
-A03_26.PZU,0x497A,state_update_worker,3,2,0,90,8,5,0,0,0,0,0,0,2,unknown,bb_parent_hits=3
+A03_26.PZU,0x4100,dispatcher_or_router,12,11,0,5,1,0,0,0,0,0,0,0,2,unknown,bb_parent_hits=12
+A03_26.PZU,0x4176,state_reader_or_packet_builder,7,6,0,1,5,0,0,0,0,0,0,0,2,unknown,bb_parent_hits=7
 A03_26.PZU,0x68F9,unknown,1,0,1,0,1,0,0,0,0,0,0,0,2,unknown,call_xref_lcalls=1; bb_parent_hits=1
 A03_26.PZU,0x6B58,unknown,1,0,2,0,2,0,0,0,0,0,0,0,2,unknown,call_xref_lcalls=2; bb_parent_hits=1
-A03_26.PZU,0x6BA5,unknown,1,0,1,1,2,0,0,0,0,0,0,0,2,unknown,call_xref_lcalls=1; bb_parent_hits=1
-A03_26.PZU,0x6C3C,unknown,1,0,1,1,1,0,0,0,0,0,0,0,2,unknown,call_xref_lcalls=1; bb_parent_hits=1
-A03_26.PZU,0x6D56,unknown,1,0,2,1,1,0,0,0,0,0,0,0,2,unknown,call_xref_lcalls=2; bb_parent_hits=1
+A03_26.PZU,0x6BA5,unknown,7,6,1,1,2,0,0,0,0,0,0,0,2,unknown,call_xref_lcalls=1; bb_parent_hits=7
+A03_26.PZU,0x6C3C,unknown,10,9,1,1,1,0,0,0,0,0,0,0,2,unknown,call_xref_lcalls=1; bb_parent_hits=10
+A03_26.PZU,0x6D56,unknown,2,1,2,1,1,0,0,0,0,0,0,0,2,unknown,call_xref_lcalls=2; bb_parent_hits=2
 A03_26.PZU,0x6DC7,unknown,1,0,1,1,1,0,0,0,0,0,0,0,2,unknown,call_xref_lcalls=1; bb_parent_hits=1
 A03_26.PZU,0x7099,unknown,1,0,2,1,0,1,0,0,0,0,0,0,2,unknown,call_xref_lcalls=2; bb_parent_hits=1
 A03_26.PZU,0x8692,unknown,5,4,1,2,2,0,0,0,0,0,0,0,2,unknown,call_xref_lcalls=1; bb_parent_hits=5
-A03_26.PZU,0x8F5B,unknown,1,0,2,2,1,0,0,0,0,0,0,0,2,unknown,call_xref_lcalls=2; bb_parent_hits=1
+A03_26.PZU,0x8F5B,unknown,6,5,2,2,1,0,0,0,0,0,0,0,2,unknown,call_xref_lcalls=2; bb_parent_hits=6
 A03_26.PZU,0x8FCC,unknown,3,2,2,0,1,0,0,0,0,0,0,0,2,unknown,call_xref_lcalls=2; bb_parent_hits=3
 A03_26.PZU,0x942A,unknown,1,0,2,2,1,0,0,0,0,0,0,0,2,unknown,call_xref_lcalls=2; bb_parent_hits=1
 A03_26.PZU,0x9481,unknown,3,2,2,0,1,0,0,0,0,0,0,0,2,unknown,call_xref_lcalls=2; bb_parent_hits=3
@@ -68,16 +69,17 @@ A03_26.PZU,0x9EEC,unknown,2,1,2,8,1,0,0,0,0,0,0,0,2,unknown,call_xref_lcalls=2; 
 A03_26.PZU,0xA241,unknown,1,0,13,0,1,0,0,0,0,0,0,0,2,unknown,call_xref_lcalls=13; bb_parent_hits=1
 A03_26.PZU,0xA248,unknown,1,0,1,0,1,0,0,0,0,0,0,0,2,unknown,call_xref_lcalls=1; bb_parent_hits=1
 A03_26.PZU,0xA26E,unknown,1,0,1,16,1,0,0,0,0,0,0,0,2,unknown,call_xref_lcalls=1; bb_parent_hits=1
-A04_28.PZU,0x4176,state_reader_or_packet_builder,5,4,0,1,5,0,0,0,0,0,0,0,2,unknown,bb_parent_hits=5
+A04_28.PZU,0x4100,dispatcher_or_router,12,11,0,5,1,0,0,0,0,0,0,0,2,unknown,bb_parent_hits=12
+A04_28.PZU,0x4176,state_reader_or_packet_builder,7,6,0,1,5,0,0,0,0,0,0,0,2,unknown,bb_parent_hits=7
 A04_28.PZU,0x67D1,unknown,1,0,1,0,1,0,0,0,0,0,0,0,2,unknown,call_xref_lcalls=1; bb_parent_hits=1
 A04_28.PZU,0x6A30,unknown,1,0,2,0,2,0,0,0,0,0,0,0,2,unknown,call_xref_lcalls=2; bb_parent_hits=1
-A04_28.PZU,0x6A7D,unknown,1,0,1,1,2,0,0,0,0,0,0,0,2,unknown,call_xref_lcalls=1; bb_parent_hits=1
-A04_28.PZU,0x6B14,unknown,1,0,1,2,1,0,0,0,0,0,0,0,2,unknown,call_xref_lcalls=1; bb_parent_hits=1
-A04_28.PZU,0x6C2F,unknown,1,0,2,1,1,0,0,0,0,0,0,0,2,unknown,aux@0x3298/0x32A2; call_xref_lcalls=2; bb_parent_hits=1
+A04_28.PZU,0x6A7D,unknown,7,6,1,1,2,0,0,0,0,0,0,0,2,unknown,call_xref_lcalls=1; bb_parent_hits=7
+A04_28.PZU,0x6B14,unknown,10,9,1,2,1,0,0,0,0,0,0,0,2,unknown,call_xref_lcalls=1; bb_parent_hits=10
+A04_28.PZU,0x6C2F,unknown,2,1,2,1,1,0,0,0,0,0,0,0,2,unknown,aux@0x3298/0x32A2; call_xref_lcalls=2; bb_parent_hits=2
 A04_28.PZU,0x6CA0,unknown,1,0,1,1,1,0,0,0,0,0,0,0,2,unknown,aux@0x3298/0x32A2; call_xref_lcalls=1; bb_parent_hits=1
 A04_28.PZU,0x6F6A,unknown,1,0,2,0,0,1,0,0,0,0,0,0,2,unknown,call_xref_lcalls=2; bb_parent_hits=1
 A04_28.PZU,0x8637,unknown,5,4,1,2,2,0,0,0,0,0,0,0,2,unknown,call_xref_lcalls=1; bb_parent_hits=5
-A04_28.PZU,0x8EF6,unknown,1,0,2,2,1,0,0,0,0,0,0,0,2,unknown,call_xref_lcalls=2; bb_parent_hits=1
+A04_28.PZU,0x8EF6,unknown,6,5,2,2,1,0,0,0,0,0,0,0,2,unknown,call_xref_lcalls=2; bb_parent_hits=6
 A04_28.PZU,0x8F67,unknown,3,2,2,0,1,0,0,0,0,0,0,0,2,unknown,call_xref_lcalls=2; bb_parent_hits=3
 A04_28.PZU,0x946B,unknown,1,0,2,2,1,0,0,0,0,0,0,0,2,unknown,call_xref_lcalls=2; bb_parent_hits=1
 A04_28.PZU,0x94C2,unknown,3,2,2,0,1,0,0,0,0,0,0,0,2,unknown,call_xref_lcalls=2; bb_parent_hits=3
@@ -85,8 +87,7 @@ A04_28.PZU,0xA1FA,unknown,2,1,2,8,1,0,0,0,0,0,0,0,2,unknown,call_xref_lcalls=2; 
 A04_28.PZU,0xA625,unknown,1,0,13,0,1,0,0,0,0,0,0,0,2,unknown,call_xref_lcalls=13; bb_parent_hits=1
 A04_28.PZU,0xA62C,unknown,1,0,1,0,1,0,0,0,0,0,0,0,2,unknown,call_xref_lcalls=1; bb_parent_hits=1
 A04_28.PZU,0xA652,unknown,1,0,1,16,1,0,0,0,0,0,0,0,2,unknown,call_xref_lcalls=1; bb_parent_hits=1
-A04_28.PZU,0xADC6,unknown,3,2,1,1,1,0,0,0,0,0,0,0,2,unknown,call_xref_lcalls=1; bb_parent_hits=3
-A03_26.PZU,0x4100,unknown,1,0,0,5,1,0,0,0,0,0,0,0,1,unknown,bb_parent_hits=1
+A04_28.PZU,0xADC6,unknown,6,5,1,1,1,0,0,0,0,0,0,0,2,unknown,call_xref_lcalls=1; bb_parent_hits=6
 A03_26.PZU,0x41D0,unknown,3,2,0,1,1,0,0,0,0,0,0,0,1,unknown,bb_parent_hits=3
 A03_26.PZU,0x41E8,unknown,3,2,1,3,0,0,0,0,0,0,0,0,1,unknown,call_xref_lcalls=1; bb_parent_hits=3
 A03_26.PZU,0x492E,unknown,3,2,0,0,1,0,0,0,0,0,0,0,1,unknown,bb_parent_hits=3
@@ -126,7 +127,7 @@ A03_26.PZU,0x6C21,unknown,1,0,1,0,0,0,0,0,0,0,0,0,1,unknown,call_xref_lcalls=1; 
 A03_26.PZU,0x6D2D,unknown,1,0,2,0,0,0,0,0,0,0,0,0,1,unknown,call_xref_lcalls=2; bb_parent_hits=1
 A03_26.PZU,0x6D2E,unknown,1,0,33,0,0,0,0,0,0,0,0,0,1,unknown,call_xref_lcalls=33; bb_parent_hits=1
 A03_26.PZU,0x6D38,unknown,1,0,4,0,0,0,0,0,0,0,0,0,1,unknown,call_xref_lcalls=4; bb_parent_hits=1
-A03_26.PZU,0x6D5D,unknown,1,0,5,0,0,0,0,0,0,0,0,0,1,unknown,call_xref_lcalls=5; bb_parent_hits=1
+A03_26.PZU,0x6D5D,unknown,2,1,5,0,0,0,0,0,0,0,0,0,1,unknown,call_xref_lcalls=5; bb_parent_hits=2
 A03_26.PZU,0x6D6F,unknown,1,0,1,1,0,0,0,0,0,0,0,0,1,unknown,call_xref_lcalls=1; bb_parent_hits=1
 A03_26.PZU,0x6D7E,unknown,1,0,1,1,0,0,0,0,0,0,0,0,1,unknown,call_xref_lcalls=1; bb_parent_hits=1
 A03_26.PZU,0x6D83,unknown,1,0,3,1,0,0,0,0,0,0,0,0,1,unknown,call_xref_lcalls=3; bb_parent_hits=1
@@ -148,12 +149,11 @@ A03_26.PZU,0x9424,unknown,3,2,1,0,0,0,0,0,0,0,0,0,1,unknown,call_xref_lcalls=1; 
 A03_26.PZU,0x948C,unknown,1,0,2,1,0,0,0,0,0,0,0,0,1,unknown,call_xref_lcalls=2; bb_parent_hits=1
 A03_26.PZU,0x9F29,unknown,1,0,1,0,0,0,0,0,0,0,0,0,1,unknown,call_xref_lcalls=1; bb_parent_hits=1
 A03_26.PZU,0x9F34,unknown,1,0,1,0,0,0,0,0,0,0,0,0,1,unknown,call_xref_lcalls=1; bb_parent_hits=1
-A04_28.PZU,0x4100,unknown,1,0,0,5,1,0,0,0,0,0,0,0,1,unknown,bb_parent_hits=1
 A04_28.PZU,0x41D0,unknown,3,2,0,1,1,0,0,0,0,0,0,0,1,unknown,bb_parent_hits=3
 A04_28.PZU,0x41E8,unknown,3,2,1,3,0,0,0,0,0,0,0,0,1,unknown,call_xref_lcalls=1; bb_parent_hits=3
 A04_28.PZU,0x492E,unknown,3,2,0,0,1,0,0,0,0,0,0,0,1,unknown,bb_parent_hits=3
 A04_28.PZU,0x4954,unknown,3,2,0,0,1,0,0,0,0,0,0,0,1,unknown,bb_parent_hits=3
-A04_28.PZU,0x669B,unknown,3,2,2,0,0,0,0,0,0,0,0,0,1,unknown,call_xref_lcalls=2; bb_parent_hits=3
+A04_28.PZU,0x669B,unknown,4,3,2,0,0,0,0,0,0,0,0,0,1,unknown,call_xref_lcalls=2; bb_parent_hits=4
 A04_28.PZU,0x66B1,unknown,1,0,1,0,0,0,0,0,0,0,0,0,1,unknown,call_xref_lcalls=1; bb_parent_hits=1
 A04_28.PZU,0x66C0,unknown,1,0,1,1,0,0,0,0,0,0,0,0,1,unknown,call_xref_lcalls=1; bb_parent_hits=1
 A04_28.PZU,0x66D4,unknown,1,0,1,0,0,0,0,0,0,0,0,0,1,unknown,call_xref_lcalls=1; bb_parent_hits=1
@@ -189,7 +189,7 @@ A04_28.PZU,0x6AF9,unknown,1,0,1,0,0,0,0,0,0,0,0,0,1,unknown,call_xref_lcalls=1; 
 A04_28.PZU,0x6C06,unknown,1,0,2,0,0,0,0,0,0,0,0,0,1,unknown,call_xref_lcalls=2; bb_parent_hits=1
 A04_28.PZU,0x6C07,unknown,1,0,35,0,0,0,0,0,0,0,0,0,1,unknown,call_xref_lcalls=35; bb_parent_hits=1
 A04_28.PZU,0x6C11,unknown,1,0,4,0,0,0,0,0,0,0,0,0,1,unknown,call_xref_lcalls=4; bb_parent_hits=1
-A04_28.PZU,0x6C36,unknown,1,0,6,0,0,0,0,0,0,0,0,0,1,unknown,call_xref_lcalls=6; bb_parent_hits=1
+A04_28.PZU,0x6C36,unknown,2,1,6,0,0,0,0,0,0,0,0,0,1,unknown,call_xref_lcalls=6; bb_parent_hits=2
 A04_28.PZU,0x6C48,unknown,1,0,1,1,0,0,0,0,0,0,0,0,1,unknown,call_xref_lcalls=1; bb_parent_hits=1
 A04_28.PZU,0x6C57,unknown,1,0,1,1,0,0,0,0,0,0,0,0,1,unknown,call_xref_lcalls=1; bb_parent_hits=1
 A04_28.PZU,0x6C5C,unknown,1,0,3,1,0,0,0,0,0,0,0,0,1,unknown,call_xref_lcalls=3; bb_parent_hits=1

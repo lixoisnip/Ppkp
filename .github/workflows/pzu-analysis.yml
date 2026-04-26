@@ -5,11 +5,10 @@ on:
   push:
     paths:
       - "*.PZU"
-      - "scripts/pzu_common.py"
-      - "scripts/validate_pzu.py"
-      - "scripts/firmware_manifest.py"
-      - "scripts/family_matrix.py"
-      - "scripts/xdata_xref.py"
+      - "scripts/*.py"
+      - ".github/workflows/pzu-analysis.yml"
+      - "README.md"
+      - "docs/script_scope_matrix.csv"
 
 jobs:
   analyze:
@@ -19,18 +18,24 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
-      - name: Validate and generate reports
-        run: |
-          python3 scripts/validate_pzu.py
-          python3 scripts/firmware_manifest.py
-          python3 scripts/family_matrix.py
-          python3 scripts/xdata_xref.py
+      - name: Compile Python scripts
+        run: python3 -m py_compile scripts/*.py
+      - name: Run analysis smoke test
+        run: python3 scripts/run_analysis_smoke_test.py
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
           name: pzu-analysis
           path: |
+            docs/analysis_smoke_test_results.csv
+            docs/analysis_health_report.md
+            docs/script_scope_matrix.csv
             docs/firmware_manifest.json
             docs/firmware_inventory.csv
             docs/firmware_family_matrix.csv
             docs/xdata_xref.csv
+            docs/disassembly_index.csv
+            docs/call_xref.csv
+            docs/basic_block_map.csv
+            docs/function_map.csv
+            docs/string_index.csv
