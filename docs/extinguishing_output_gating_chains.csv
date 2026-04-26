@@ -1,0 +1,81 @@
+branch,file,chain_rank,zone_state_function,mode_check_function,event_function,output_control_function,packet_export_function,chain_type,chain_score,confidence,manual_branch_evidence,auto_branch_evidence,missing_links,notes
+90CYE_DKS,90CYE03_19_DKS.PZU,1,0x497A,0x84A6,,0x613C,0x497A,mode_check_to_output,7.500,medium,weak,output branch present,"mode,event",partial_chain missing: event
+90CYE_DKS,90CYE03_19_DKS.PZU,2,0x7017,0x84A6,,0x84A6,0x7017,partial_chain,7.500,medium,weak,output branch present,"mode,event",partial_chain missing: event
+90CYE_DKS,90CYE03_19_DKS.PZU,3,0x737C,0x84A6,,0x84A6,0x737C,mode_check_to_output,7.500,medium,weak,output branch present,"mode,event",partial_chain missing: event
+90CYE_DKS,90CYE03_19_DKS.PZU,4,0x6ACB,0x84A6,,,0x497A,partial_chain,4.000,low,weak,weak,"mode,event,output","partial_chain missing: event, output_control"
+90CYE_DKS,90CYE03_19_DKS.PZU,5,0x673C,0x84A6,,,0x497A,partial_chain,4.000,low,weak,weak,"mode,event,output","partial_chain missing: event, output_control"
+90CYE_DKS,90CYE03_19_DKS.PZU,6,0x673C,0x84A6,,,0x497A,partial_chain,4.000,low,weak,weak,"mode,event,output","partial_chain missing: event, output_control"
+90CYE_DKS,90CYE03_19_DKS.PZU,73,0x497A,0x60E4,0x60E4,,0x613C,unknown,12.165,high,pipeline only,pipeline only,output,from global_packet_pipeline_chains.csv
+90CYE_DKS,90CYE03_19_DKS.PZU,75,0x84A6,0x7017,0x7017,,0x84A6,unknown,11.918,high,pipeline only,pipeline only,output,from global_packet_pipeline_chains.csv
+90CYE_DKS,90CYE03_19_DKS.PZU,77,0x84A6,0x737C,0x737C,,0x84A6,unknown,11.722,high,pipeline only,pipeline only,output,from global_packet_pipeline_chains.csv
+90CYE_DKS,90CYE03_19_DKS.PZU,79,0x497A,0x6ACB,0x6ACB,,0x5E78,unknown,11.310,high,pipeline only,pipeline only,output,from global_packet_pipeline_chains.csv
+90CYE_DKS,90CYE04_19_DKS.PZU,7,0x497A,0x84A6,,0x613C,0x497A,mode_check_to_output,7.500,medium,weak,output branch present,"mode,event",partial_chain missing: event
+90CYE_DKS,90CYE04_19_DKS.PZU,8,0x737C,0x84A6,,0x737C,0x737C,mode_check_to_output,7.500,medium,weak,output branch present,"mode,event",partial_chain missing: event
+90CYE_DKS,90CYE04_19_DKS.PZU,9,0x7017,0x84A6,,,0x7017,partial_chain,4.000,low,weak,weak,"mode,event,output","partial_chain missing: event, output_control"
+90CYE_DKS,90CYE04_19_DKS.PZU,10,0x6ACB,0x84A6,,,0x497A,partial_chain,4.000,low,weak,weak,"mode,event,output","partial_chain missing: event, output_control"
+90CYE_DKS,90CYE04_19_DKS.PZU,11,0x673C,0x84A6,,,0x497A,partial_chain,4.000,low,weak,weak,"mode,event,output","partial_chain missing: event, output_control"
+90CYE_DKS,90CYE04_19_DKS.PZU,12,0x673C,0x84A6,,,0x497A,partial_chain,4.000,low,weak,weak,"mode,event,output","partial_chain missing: event, output_control"
+90CYE_DKS,90CYE04_19_DKS.PZU,74,0x497A,0x60E4,0x60E4,,0x613C,unknown,12.165,high,pipeline only,pipeline only,output,from global_packet_pipeline_chains.csv
+90CYE_DKS,90CYE04_19_DKS.PZU,76,0x84A6,0x7017,0x7017,,0x84A6,unknown,11.918,high,pipeline only,pipeline only,output,from global_packet_pipeline_chains.csv
+90CYE_DKS,90CYE04_19_DKS.PZU,78,0x84A6,0x737C,0x737C,,0x84A6,unknown,11.722,high,pipeline only,pipeline only,output,from global_packet_pipeline_chains.csv
+90CYE_DKS,90CYE04_19_DKS.PZU,80,0x497A,0x6ACB,0x6ACB,,0x5E78,unknown,11.310,high,pipeline only,pipeline only,output,from global_packet_pipeline_chains.csv
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,13,0x8A42,,,0x8A42,0x497F,partial_chain,7.500,medium,weak,output branch present,"mode,event",partial_chain missing: event
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,14,0x8A42,,,0x774F,0x497F,partial_chain,7.500,medium,weak,output branch present,"mode,event",partial_chain missing: event
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,15,0x8A42,,,0x7574,0x497F,partial_chain,7.500,medium,weak,output branch present,"mode,event",partial_chain missing: event
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,16,0x8A42,,,0x7E49,0x497F,partial_chain,7.500,medium,weak,output branch present,"mode,event",partial_chain missing: event
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,17,0x497F,,,0x673C,0x497F,partial_chain,7.500,medium,weak,output branch present,"mode,event",partial_chain missing: event
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,18,0x8A42,,,0x8A42,0x497F,partial_chain,7.500,medium,weak,output branch present,"mode,event",partial_chain missing: event
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,19,0x8A42,,,0x8A42,0x497F,partial_chain,7.500,medium,weak,output branch present,"mode,event",partial_chain missing: event
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,20,0x8A42,,,0x8A42,0x497F,partial_chain,7.500,medium,weak,output branch present,"mode,event",partial_chain missing: event
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,21,0x8A42,,,0x8A42,0x497F,partial_chain,7.500,medium,weak,output branch present,"mode,event",partial_chain missing: event
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,22,0x8A42,,,0x8A42,0x497F,partial_chain,7.500,medium,weak,output branch present,"mode,event",partial_chain missing: event
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,23,0x8A42,,,0x8A42,0x497F,partial_chain,7.500,medium,weak,output branch present,"mode,event",partial_chain missing: event
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,24,0x8A42,,,0x8A42,0x497F,partial_chain,7.500,medium,weak,output branch present,"mode,event",partial_chain missing: event
+90CYE_v2_1,90CYE03_19_2 v2_1.PZU,25,0x90B6,,,0x9F46,0xAA96,partial_chain,7.500,medium,weak,output branch present,"mode,event",partial_chain missing: event
+90CYE_v2_1,90CYE03_19_2 v2_1.PZU,26,0x9F46,,,0x9F46,0xAA96,partial_chain,7.500,medium,weak,output branch present,"mode,event",partial_chain missing: event
+90CYE_v2_1,90CYE03_19_2 v2_1.PZU,27,0x9F46,,,0x9F46,0xAA96,partial_chain,7.500,medium,weak,output branch present,"mode,event",partial_chain missing: event
+90CYE_v2_1,90CYE03_19_2 v2_1.PZU,28,0x9F46,,,0x9F46,0xAA96,partial_chain,7.500,medium,weak,output branch present,"mode,event",partial_chain missing: event
+90CYE_v2_1,90CYE03_19_2 v2_1.PZU,29,0xAA96,,,0x90B6,0xAA96,partial_chain,7.500,medium,weak,output branch present,"mode,event",partial_chain missing: event
+90CYE_v2_1,90CYE03_19_2 v2_1.PZU,30,0x8D3B,,,,0xAA96,partial_chain,4.000,low,weak,weak,"mode,event,output","partial_chain missing: event, output_control"
+90CYE_v2_1,90CYE04_19_2 v2_1.PZU,31,0x90B6,,,0x9F46,0xAA96,partial_chain,7.500,medium,weak,output branch present,"mode,event",partial_chain missing: event
+90CYE_v2_1,90CYE04_19_2 v2_1.PZU,32,0x9F46,,,0x9F46,0xAA96,partial_chain,7.500,medium,weak,output branch present,"mode,event",partial_chain missing: event
+90CYE_v2_1,90CYE04_19_2 v2_1.PZU,33,0x9F46,,,0x9F46,0xAA96,partial_chain,7.500,medium,weak,output branch present,"mode,event",partial_chain missing: event
+90CYE_v2_1,90CYE04_19_2 v2_1.PZU,34,0x9F46,,,0x9F46,0xAA96,partial_chain,7.500,medium,weak,output branch present,"mode,event",partial_chain missing: event
+90CYE_v2_1,90CYE04_19_2 v2_1.PZU,35,0xAA96,,,0x90B6,0xAA96,partial_chain,7.500,medium,weak,output branch present,"mode,event",partial_chain missing: event
+90CYE_v2_1,90CYE04_19_2 v2_1.PZU,36,0x8D3B,,,,0xAA96,partial_chain,4.000,low,weak,weak,"mode,event,output","partial_chain missing: event, output_control"
+A03_A04,A03_26.PZU,37,0xA900,,,0x800B,0x497A,partial_chain,7.500,medium,weak,output branch present,"mode,event",partial_chain missing: event
+A03_A04,A03_26.PZU,38,0xA900,,,0x8904,0x497A,partial_chain,7.500,medium,weak,output branch present,"mode,event",partial_chain missing: event
+A03_A04,A03_26.PZU,39,0xA900,,,0xA900,0x497A,partial_chain,7.500,medium,weak,output branch present,"mode,event",partial_chain missing: event
+A03_A04,A03_26.PZU,40,0xA900,,,0xA900,0x497A,partial_chain,7.500,medium,weak,output branch present,"mode,event",partial_chain missing: event
+A03_A04,A03_26.PZU,61,0x497A,0xA900,0xA900,,0x800B,unknown,15.249,high,pipeline only,pipeline only,output,from global_packet_pipeline_chains.csv
+A03_A04,A03_26.PZU,63,0x497A,0xA900,0xA900,,0x8904,unknown,15.070,high,pipeline only,pipeline only,output,from global_packet_pipeline_chains.csv
+A03_A04,A03_26.PZU,67,0x497A,0xA900,0xA900,,0x9F58,unknown,13.628,high,pipeline only,pipeline only,output,from global_packet_pipeline_chains.csv
+A03_A04,A03_26.PZU,69,0x497A,0xA900,0xA900,,0x9EEC,unknown,13.520,high,pipeline only,pipeline only,output,from global_packet_pipeline_chains.csv
+A03_A04,A04_28.PZU,41,0xB310,,,0x889F,0x497A,partial_chain,7.500,medium,weak,output branch present,"mode,event",partial_chain missing: event
+A03_A04,A04_28.PZU,42,0x497A,,,0x722E,0x497A,partial_chain,7.500,medium,weak,output branch present,"mode,event",partial_chain missing: event
+A03_A04,A04_28.PZU,43,0xB310,,,,0x497A,partial_chain,4.000,low,weak,weak,"mode,event,output","partial_chain missing: event, output_control"
+A03_A04,A04_28.PZU,44,0xB310,,,,0x497A,partial_chain,4.000,low,weak,weak,"mode,event,output","partial_chain missing: event, output_control"
+A03_A04,A04_28.PZU,45,0xB310,,,,0x497A,partial_chain,4.000,low,weak,weak,"mode,event,output","partial_chain missing: event, output_control"
+A03_A04,A04_28.PZU,46,0xB310,,,,0x497A,partial_chain,4.000,low,weak,weak,"mode,event,output","partial_chain missing: event, output_control"
+A03_A04,A04_28.PZU,47,0xB310,,,,0x497A,partial_chain,4.000,low,weak,weak,"mode,event,output","partial_chain missing: event, output_control"
+A03_A04,A04_28.PZU,48,0xB310,,,,0x497A,partial_chain,4.000,low,weak,weak,"mode,event,output","partial_chain missing: event, output_control"
+A03_A04,A04_28.PZU,62,0x497A,0xB310,0xB310,,0x7F5B,unknown,15.158,high,pipeline only,pipeline only,output,from global_packet_pipeline_chains.csv
+A03_A04,A04_28.PZU,64,0x497A,0xB310,0xB310,,0x889F,unknown,14.802,high,pipeline only,pipeline only,output,from global_packet_pipeline_chains.csv
+A03_A04,A04_28.PZU,65,0x497A,0x714C,0x714C,,0x722E,unknown,14.188,high,pipeline only,pipeline only,output,from global_packet_pipeline_chains.csv
+A03_A04,A04_28.PZU,66,0x497A,0xB310,0xB310,,0xA269,unknown,13.679,high,pipeline only,pipeline only,output,from global_packet_pipeline_chains.csv
+A03_A04,A04_28.PZU,68,0x497A,0xB310,0xB310,,0xA1FA,unknown,13.579,high,pipeline only,pipeline only,output,from global_packet_pipeline_chains.csv
+A03_A04,A04_28.PZU,70,0x497A,0xB310,0xB310,,0x866A,unknown,13.508,high,pipeline only,pipeline only,output,from global_packet_pipeline_chains.csv
+A03_A04,A04_28.PZU,71,0x497A,0xB310,0xB310,,0x805D,unknown,13.476,high,pipeline only,pipeline only,output,from global_packet_pipeline_chains.csv
+A03_A04,A04_28.PZU,72,0x497A,0xB310,0xB310,,0x6B57,unknown,13.473,high,pipeline only,pipeline only,output,from global_packet_pipeline_chains.csv
+RTOS_service,ppkp2001 90cye01.PZU,49,0x758B,,,0x758B,0x758B,partial_chain,7.500,medium,weak,output branch present,"mode,event",partial_chain missing: event
+RTOS_service,ppkp2001 90cye01.PZU,50,0xAB62,,,0x758B,0x758B,partial_chain,7.500,medium,weak,output branch present,"mode,event",partial_chain missing: event
+RTOS_service,ppkp2001 90cye01.PZU,51,0x53E6,,,0x53E6,0x53E6,partial_chain,7.500,medium,weak,output branch present,"mode,event",partial_chain missing: event
+RTOS_service,ppkp2001 90cye01.PZU,52,0x53E6,,,0x53E6,0x53E6,partial_chain,7.500,medium,weak,output branch present,"mode,event",partial_chain missing: event
+RTOS_service,ppkp2001 90cye01.PZU,53,0x53E6,,,0x53E6,0x53E6,partial_chain,7.500,medium,weak,output branch present,"mode,event",partial_chain missing: event
+RTOS_service,ppkp2001 90cye01.PZU,54,0x53E6,,,0x53E6,0x53E6,partial_chain,7.500,medium,weak,output branch present,"mode,event",partial_chain missing: event
+RTOS_service,ppkp2012 a01.PZU,55,0x75F7,,,0x75F7,0x75F7,partial_chain,7.500,medium,weak,output branch present,"mode,event",partial_chain missing: event
+RTOS_service,ppkp2012 a01.PZU,56,0x5436,,,0x5436,0x5436,partial_chain,7.500,medium,weak,output branch present,"mode,event",partial_chain missing: event
+RTOS_service,ppkp2012 a01.PZU,57,0x5436,,,0x5436,0x5436,partial_chain,7.500,medium,weak,output branch present,"mode,event",partial_chain missing: event
+RTOS_service,ppkp2012 a01.PZU,58,0x5436,,,0x5436,0x5436,partial_chain,7.500,medium,weak,output branch present,"mode,event",partial_chain missing: event
+RTOS_service,ppkp2012 a01.PZU,59,0x5436,,,0x5436,0x5436,partial_chain,7.500,medium,weak,output branch present,"mode,event",partial_chain missing: event
+RTOS_service,ppkp2012 a01.PZU,60,0x5436,,,0x5436,0x5436,partial_chain,7.500,medium,weak,output branch present,"mode,event",partial_chain missing: event

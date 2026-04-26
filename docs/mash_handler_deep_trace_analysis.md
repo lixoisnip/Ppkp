@@ -11,10 +11,10 @@
 | branch | file | rank | chain | score | confidence |
 |---|---|---:|---|---:|---|
 | 90CYE_DKS | 90CYE03_19_DKS.PZU | 2 | 0x84A6 -> 0x737C -> 0x84A6 | 15.600 | medium |
-| 90CYE_DKS | 90CYE03_19_DKS.PZU | 3 | 0x737C -> 0x84A6 -> 0x7017 | 15.600 | medium |
-| 90CYE_DKS | 90CYE03_19_DKS.PZU | 4 | 0x737C -> 0x84A6 -> 0x728A | 15.600 | medium |
-| 90CYE_DKS | 90CYE03_19_DKS.PZU | 5 | 0x737C -> 0x84A6 -> 0x737C | 15.600 | medium |
-| 90CYE_DKS | 90CYE03_19_DKS.PZU | 8 | 0x7017 -> 0x84A6 -> 0x737C | 15.600 | medium |
+| 90CYE_DKS | 90CYE03_19_DKS.PZU | 5 | 0x7017 -> 0x84A6 -> 0x737C | 15.600 | medium |
+| 90CYE_DKS | 90CYE03_19_DKS.PZU | 6 | 0x737C -> 0x84A6 -> 0x728A | 15.600 | medium |
+| 90CYE_DKS | 90CYE03_19_DKS.PZU | 7 | 0x737C -> 0x84A6 -> 0x7017 | 15.600 | medium |
+| 90CYE_DKS | 90CYE03_19_DKS.PZU | 8 | 0x737C -> 0x84A6 -> 0x737C | 15.600 | medium |
 | 90CYE_shifted_DKS | 90CYE02_27 DKS.PZU | 61 | 0x497F -> 0x8A42 -> 0x7574 | 12.000 | medium |
 | A03_A04 | A03_26.PZU | 101 | 0x497A -> 0xA900 -> 0x800B | 14.300 | medium |
 | RTOS_service | ppkp2001 90cye01.PZU | 117 | 0xAB62 -> 0xAB62 -> 0x758B | 16.300 | confirmed |

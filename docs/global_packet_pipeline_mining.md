@@ -6,7 +6,7 @@ All conclusions are marked with confidence and may require runtime validation.
 ## Scope
 
 Analyzed branches: A03_A04, 90CYE_DKS, 90CYE_v2_1, 90CYE_shifted_DKS, RTOS_service.
-Input evidence is sourced from smoke-tested pipeline artifacts (smoke pass 20/20 commands).
+Input evidence is sourced from smoke-tested pipeline artifacts (smoke pass 25/25 commands).
 
 ## Branch: A03_A04
 - branch confidence (from branch comparison): high; checksum_error_count=0

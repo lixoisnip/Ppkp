@@ -173,3 +173,9 @@ XDATA-адреса для подтверждения:
 - strongest output function: `0x6833` (relay_output marker concentration) — **probable**.
 - event-звено: частично найдено как `event_state_update`/`event_to_output_bridge` маркеры, но явный queue bridge остается **hypothesis**.
 - осталось гипотезой: точные правила zone-event->relay и строгая привязка к конкретным физическим реле без стендовой проверки.
+
+## Sensor/zone state and auto/manual mode logic after PR
+
+- Добавлены кандидаты `sensor_state_candidates` и `zone_state_mode_candidates` с confidence-маркировкой для 90CYE_DKS приоритетных функций `0x497A/0x737C/0x613C/0x6833/0x84A6/0x728A/0x5A7F`.
+- Есть признаки manual/auto gating в цепочках `fire -> mode check -> event/packet` и `fire -> mode check -> output`, но полный recovery правил запуска тушения остается **hypothesis/probable** и требует стендовой верификации.
+- Следующие функции для ручной декомпозиции: `0x84A6`, `0x728A`, `0x5A7F`, затем развилки внутри `0x737C/0x613C/0x6833`.
