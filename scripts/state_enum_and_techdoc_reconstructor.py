@@ -45,6 +45,7 @@ MANDATORY_XDATA = ["0x30EA..0x30F9", "0x315B", "0x3165", "0x31BF", "0x364B"]
 PRIMARY_CHAIN = ["0x497A", "0x737C", "0x613C", "0x84A6", "0x728A", "0x6833", "0x5A7F"]
 PRIMARY_BRANCH = "90CYE_DKS"
 PRIMARY_FILE = "90CYE03_19_DKS.PZU"
+PRIMARY_BRANCH_FILES = {"90CYE03_19_DKS.PZU", "90CYE04_19_DKS.PZU"}
 COMPARE_FILES = [
     "90CYE03_19_DKS.PZU",
     "90CYE04_19_DKS.PZU",
@@ -90,6 +91,19 @@ def classify_confidence(score: float) -> str:
     return "hypothesis"
 
 
+def xdata_match(target: str, addr: str) -> bool:
+    if not addr:
+        return False
+    if ".." not in target:
+        return addr.upper() == target.upper()
+    lo, hi = target.split("..", 1)
+    try:
+        value = int(addr, 16)
+        return int(lo, 16) <= value <= int(hi, 16)
+    except ValueError:
+        return False
+
+
 def main() -> int:
     p = argparse.ArgumentParser(description="Reconstruct state/mode enum hypotheses and technical model")
     p.add_argument("--out-xdata", type=Path, default=DOCS / "xdata_lifecycle_map.csv")
@@ -128,11 +142,20 @@ def main() -> int:
         roles[(r.get("branch", ""), r.get("file", ""), addr)].append(r.get("role_candidate", ""))
 
     for target in MANDATORY_XDATA:
-        rg = ("0x30EA" <= target[:6] <= "0x30F9") if ".." in target else False
-        src = [r for r in xacc if (r.get("xdata_addr", "") in target if not rg else r.get("xdata_addr", "").startswith("0x30"))]
+        src = [
+            r
+            for r in xacc
+            if r.get("branch", "") == PRIMARY_BRANCH
+            and r.get("file", "") in PRIMARY_BRANCH_FILES
+            and xdata_match(target, r.get("xdata_addr", ""))
+        ]
         by_bf: dict[tuple[str, str], list[dict[str, str]]] = defaultdict(list)
         for r in src:
             by_bf[(r.get("branch", ""), r.get("file", ""))].append(r)
+        if not by_bf:
+            for fallback_file in sorted(PRIMARY_BRANCH_FILES):
+                by_bf[(PRIMARY_BRANCH, fallback_file)] = []
+
         for (branch, file), rows in by_bf.items():
             reads = [r.get("function_addr", "") for r in rows if "read" in (r.get("access_type", "") or "").lower()]
             writes = [r.get("function_addr", "") for r in rows if "write" in (r.get("access_type", "") or "").lower()]
@@ -159,7 +182,14 @@ def main() -> int:
 
     # State enum hypotheses
     enum_rows: list[dict[str, str]] = []
+    seen_enum = set()
     for r in sensor:
+        if r.get("file") not in PRIMARY_BRANCH_FILES:
+            continue
+        key = ("sensor", r.get("file", ""), r.get("state_candidate", ""), r.get("function_addr", ""), r.get("mnemonic", ""), r.get("operands", ""))
+        if key in seen_enum:
+            continue
+        seen_enum.add(key)
         enum_rows.append(
             {
                 "branch": r.get("branch", ""),
@@ -177,6 +207,12 @@ def main() -> int:
             }
         )
     for r in zone:
+        if r.get("branch") != PRIMARY_BRANCH or r.get("file") not in PRIMARY_BRANCH_FILES:
+            continue
+        key = ("zone", r.get("file", ""), r.get("zone_state_candidate", ""), r.get("function_addr", ""), r.get("mnemonic", ""), r.get("operands", ""))
+        if key in seen_enum:
+            continue
+        seen_enum.add(key)
         enum_rows.append(
             {
                 "branch": r.get("branch", ""),
@@ -196,12 +232,17 @@ def main() -> int:
 
     # auto/manual hypotheses
     mode_rows: list[dict[str, str]] = []
+    seen_mode = set()
     for r in deep:
-        if r.get("file") != PRIMARY_FILE:
+        if r.get("file") not in PRIMARY_BRANCH_FILES:
             continue
         fn = r.get("function_addr", "")
         if fn not in {"0x84A6", "0x728A", "0x6833"}:
             continue
+        mode_key = (r.get("branch", ""), r.get("file", ""), fn)
+        if mode_key in seen_mode:
+            continue
+        seen_mode.add(mode_key)
         mode_rows.append(
             {
                 "branch": r.get("branch", ""),
