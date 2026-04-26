@@ -204,3 +204,10 @@ XDATA-адреса для подтверждения:
 - Новые итоговые артефакты: `xdata_lifecycle_map.csv`, `state_enum_hypotheses.csv`, `auto_manual_mode_hypotheses.csv`, `output_action_map.csv`, `state_machine_branch_comparison.csv`, `bench_validation_matrix.csv`, `state_enum_and_techdoc_reconstruction.md`.
 - Для `90CYE_DKS / 90CYE03_19_DKS.PZU` усилена прикладная модель ветвления: manual-путь как `event+packet`, auto-путь как `event+output+packet` (still hypothesis/probable without bench).
 - Межветочное сравнение отделяет `same address` от `same role/similar chain`; адресное совпадение между ветками не трактуется как доказательство тождественной функции.
+
+## XDATA enum/branch deep resolution after PR
+
+- Добавлен follow-up `scripts/xdata_enum_branch_resolver.py` для trace-level детализации lifecycle/branch/value mapping по ключевым XDATA (`0x30EA..0x30F9`, `0x315B`, `0x3165`, `0x31BF`, `0x364B`).
+- Новые артефакты: `docs/xdata_branch_trace_map.csv`, `docs/enum_branch_value_map.csv`, `docs/manual_auto_branch_map.csv`, `docs/output_transition_map.csv`, `docs/xdata_enum_branch_resolution.md`.
+- Обновляемые таблицы (`xdata_lifecycle_map.csv`, `state_enum_hypotheses.csv`, `auto_manual_mode_hypotheses.csv`, `output_action_map.csv`) теперь получают конкретные function_addr/branch evidence, где это возможно из текущих static-trace данных.
+- Сохраняется ограничение: без bench нельзя заявлять полное восстановление enum/bit-level семантики и физического output поведения.

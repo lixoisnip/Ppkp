@@ -1,6 +1,5 @@
 branch,file,xdata_addr,function_addr,candidate_manual_value,candidate_auto_value,candidate_manual_bit,candidate_auto_bit,manual_path,auto_path,manual_confidence,auto_confidence,notes
-shared_chain,90CYE03_19_DKS.PZU,0x315B,0x84A6,0x01,0x00,bit0,bit0=0,event + packet only -> 0x5A7F,0x6833 output start -> 0x5A7F,probable,low,value mapping is static hypothesis until bench validation
-manual_like_event_packet,90CYE03_19_DKS.PZU,0x315B,0x84A6,0x01,0x00,bit0,bit0=0,event + packet only -> 0x5A7F,0x6833 output start -> 0x5A7F,probable,low,value mapping is static hypothesis until bench validation
-shared_chain,90CYE03_19_DKS.PZU,0x315B,0x728A,0x01,0x00,bit0,bit0=0,event + packet only -> 0x5A7F,0x6833 output start -> 0x5A7F,probable,probable,value mapping is static hypothesis until bench validation
-manual_like_event_packet,90CYE03_19_DKS.PZU,0x315B,0x728A,0x01,0x00,bit0,bit0=0,event + packet only -> 0x5A7F,0x6833 output start -> 0x5A7F,probable,probable,value mapping is static hypothesis until bench validation
-auto_like_output_start,90CYE03_19_DKS.PZU,0x315B,0x6833,0x01,0x00,bit0,bit0=0,event + packet only -> 0x5A7F,0x6833 output start -> 0x5A7F,low,probable,value mapping is static hypothesis until bench validation
+90CYE_DKS,90CYE03_19_DKS.PZU,0x315B,0x84A6,0x01,0x00,bit0,bit0=0,event/packet only -> 0x5A7F,0x6833 output start -> 0x5A7F,hypothesis,hypothesis,static path classification; bench validation required
+90CYE_DKS,90CYE03_19_DKS.PZU,0x315B,0x728A,0x01,0x00,bit0,bit0=0,event/packet only -> 0x5A7F,0x6833 output start -> 0x5A7F,hypothesis,hypothesis,static path classification; bench validation required
+90CYE_DKS,90CYE03_19_DKS.PZU,0x315B,0x6833,0x01,0x00,bit0,bit0=0,event/packet only -> 0x5A7F,0x6833 output start -> 0x5A7F,hypothesis,hypothesis,static path classification; bench validation required
+90CYE_DKS,90CYE03_19_DKS.PZU,0x315B,0x5A7F,0x01,0x00,bit0,bit0=0,event/packet only -> 0x5A7F,0x6833 output start -> 0x5A7F,hypothesis,hypothesis,static path classification; bench validation required

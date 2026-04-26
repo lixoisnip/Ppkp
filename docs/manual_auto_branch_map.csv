@@ -1,0 +1,5 @@
+branch,file,xdata_addr,function_addr,code_addr,mode_check_instruction,mode_candidate_value,mode_candidate_bit,manual_path,auto_path,manual_downstream,auto_downstream,output_call,packet_call,confidence,notes
+90CYE_DKS,90CYE03_19_DKS.PZU,0x315B,0x84A6,-,-,0x01,bit0,event/packet only -> 0x5A7F,0x6833 output start -> 0x5A7F,0x5A7F,0x6833;0x5A7F,-,0x5A7F,hypothesis,static path classification; bench validation required
+90CYE_DKS,90CYE03_19_DKS.PZU,0x315B,0x728A,-,-,0x01,bit0,event/packet only -> 0x5A7F,0x6833 output start -> 0x5A7F,0x5A7F,0x6833;0x5A7F,0x6833,0x5A7F,hypothesis,static path classification; bench validation required
+90CYE_DKS,90CYE03_19_DKS.PZU,0x315B,0x6833,-,-,0x01,bit0,event/packet only -> 0x5A7F,0x6833 output start -> 0x5A7F,0x5A7F,0x6833;0x5A7F,0x6833,-,hypothesis,static path classification; bench validation required
+90CYE_DKS,90CYE03_19_DKS.PZU,0x315B,0x5A7F,-,-,0x01,bit0,event/packet only -> 0x5A7F,0x6833 output start -> 0x5A7F,0x5A7F,0x6833;0x5A7F,-,0x5A7F,hypothesis,static path classification; bench validation required

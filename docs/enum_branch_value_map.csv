@@ -1,0 +1,10 @@
+branch,file,function_addr,enum_domain,candidate_value,candidate_bit,probable_label,comparison_instruction,comparison_addr,true_path,false_path,downstream_path,confidence,notes
+90CYE_DKS,90CYE03_19_DKS.PZU,0x497A,sensor,0x01,-,sensor_fire_primary_or_zone_attention,"CJNE A,#0x01,+27",0x55B1,state_or_output_path,auto_or_other_path,output_or_state,hypothesis,focused 90CYE_DKS trace
+90CYE_DKS,90CYE03_19_DKS.PZU,0x497A,sensor,0x02,-,sensor_fire_secondary_or_zone_fire,"CJNE A,#0x02,+27",0x55EA,state_or_output_path,auto_or_other_path,output_or_state,hypothesis,focused 90CYE_DKS trace
+90CYE_DKS,90CYE03_19_DKS.PZU,0x737C,sensor,0x03,-,sensor_attention_prealarm_or_zone_alarm_fault,"ANL A,#0x03",0x7395,state_or_output_path,auto_or_other_path,output_or_state,hypothesis,focused 90CYE_DKS trace
+90CYE_DKS,90CYE03_19_DKS.PZU,0x497A,sensor,0x04,-,sensor_fault,CLR 0x04,0x498C,state_or_output_path,auto_or_other_path,output_or_state,hypothesis,focused 90CYE_DKS trace
+90CYE_DKS,90CYE03_19_DKS.PZU,0x497A,sensor,0x05,-,sensor_disabled_or_zone_disabled,"CJNE A,#0x05,+2",0x5706,state_or_output_path,auto_or_other_path,output_or_state,hypothesis,focused 90CYE_DKS trace
+90CYE_DKS,90CYE03_19_DKS.PZU,0x737C,sensor,0x07,-,sensor_service_or_zone_service,"ORL A,#0x07",0x73A8,state_or_output_path,auto_or_other_path,output_or_state,hypothesis,focused 90CYE_DKS trace
+90CYE_DKS,90CYE03_19_DKS.PZU,0x497A,sensor,0x08,-,sensor_not_detected,"CJNE R0,#0x08,-43",0x55D0,state_or_output_path,auto_or_other_path,output_or_state,hypothesis,focused 90CYE_DKS trace
+90CYE_DKS,90CYE03_19_DKS.PZU,0x497A,sensor,0x7E,-,sensor_address_conflict,"CJNE A,#0x7E,-13",0x5540,state_or_output_path,auto_or_other_path,output_or_state,hypothesis,focused 90CYE_DKS trace
+90CYE_DKS,90CYE03_19_DKS.PZU,0x497A,sensor,0xFF,-,sensor_absent_or_invalid,"CJNE A,#0xFF,-13",0x54FE,state_or_output_path,auto_or_other_path,output_or_state,hypothesis,focused 90CYE_DKS trace
