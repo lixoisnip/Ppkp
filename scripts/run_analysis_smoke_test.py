@@ -299,6 +299,23 @@ def main() -> int:
             ],
             "large orchestrated reconstruction for state/mode enums and technical documentation",
         ),
+        SmokeCommand(
+            "xdata_enum_branch_resolver.py",
+            "a03_a04_only",
+            [sys.executable, "scripts/xdata_enum_branch_resolver.py"],
+            [
+                "docs/xdata_branch_trace_map.csv",
+                "docs/enum_branch_value_map.csv",
+                "docs/manual_auto_branch_map.csv",
+                "docs/output_transition_map.csv",
+                "docs/xdata_lifecycle_map.csv",
+                "docs/state_enum_hypotheses.csv",
+                "docs/auto_manual_mode_hypotheses.csv",
+                "docs/output_action_map.csv",
+                "docs/xdata_enum_branch_resolution.md",
+            ],
+            "deep follow-up resolver for XDATA lifecycle, enum values and manual/auto/output branch evidence",
+        ),
     ]
 
     rows: list[dict[str, str]] = []

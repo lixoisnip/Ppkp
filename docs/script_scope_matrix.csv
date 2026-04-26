@@ -28,3 +28,4 @@ scripts/state_mode_logic_analyzer.py,false,true,true,true,true,true,sensor/zone 
 scripts/auto_manual_gating_deep_trace.py,false,true,true,true,true,true,branch-specific deep trace for manual/auto gating chain and event-vs-output split (90CYE_DKS default)
 scripts/runtime_state_machine_reconstructor.py,false,true,true,true,true,true,large runtime state-machine reconstruction / 90CYE_DKS
 scripts/state_enum_and_techdoc_reconstructor.py,false,true,true,true,true,true,large orchestrated state/mode enum and technical-doc reconstruction with bench matrix outputs
+scripts/xdata_enum_branch_resolver.py,false,true,true,true,true,true,deep follow-up resolver for XDATA lifecycle + enum value branch mapping + manual/auto/output transition evidence

@@ -125,15 +125,11 @@
 - [ ] сравнить исходящие пакеты.
 - [ ] снять изменения XDATA/логов, если возможно.
 
-## 14. Orchestrated enum/mode follow-up
+## 15. Deep XDATA/enum branch follow-up
 
-Следующим шагом после этой реконструкции запускается `scripts/state_enum_and_techdoc_reconstructor.py`, который собирает единый пакет техдок-артефактов:
-- `docs/xdata_lifecycle_map.csv`
-- `docs/state_enum_hypotheses.csv`
-- `docs/auto_manual_mode_hypotheses.csv`
-- `docs/output_action_map.csv`
-- `docs/state_machine_branch_comparison.csv`
-- `docs/bench_validation_matrix.csv`
-- `docs/state_enum_and_techdoc_reconstruction.md`
-
-Эти файлы формируют value-level гипотезы по state/mode и отдельную матрицу стендовой валидации без заявления полной доказанности без bench.
+Следующим этапом запущен `scripts/xdata_enum_branch_resolver.py`, который углубляет trace-level evidence и обновляет:
+- `docs/xdata_branch_trace_map.csv`
+- `docs/enum_branch_value_map.csv`
+- `docs/manual_auto_branch_map.csv`
+- `docs/output_transition_map.csv`
+- `docs/xdata_enum_branch_resolution.md`
