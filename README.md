@@ -19,6 +19,7 @@
 - `docs/disassembly_index.csv` — минимальный reachable 8051 disassembly index.
 - `docs/call_xref_legacy.csv` — legacy byte-scan call reference for comparison.
 - `docs/function_map.csv` — preliminary reachable function map with XDATA/MOVC evidence.
+- `docs/basic_block_map.csv` — preliminary basic block map separating function entries from internal branch targets.
 - Предыдущий файл анализа/журнал: `PZU_ANALYSIS.md`
 
 ## Исходные образы
