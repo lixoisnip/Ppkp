@@ -237,6 +237,18 @@ def main() -> int:
             "branch-specific zone/output deep trace",
         ),
         SmokeCommand(
+            "state_mode_logic_analyzer.py",
+            "a03_a04_only",
+            [sys.executable, "scripts/state_mode_logic_analyzer.py"],
+            [
+                "docs/sensor_state_candidates.csv",
+                "docs/zone_state_mode_candidates.csv",
+                "docs/extinguishing_output_gating_chains.csv",
+                "docs/state_mode_logic_analysis.md",
+            ],
+            "sensor/zone state-machine and auto/manual output gating analysis",
+        ),
+        SmokeCommand(
             "zone_output_logic_analyzer.py",
             "all_firmwares",
             [sys.executable, "scripts/zone_output_logic_analyzer.py"],

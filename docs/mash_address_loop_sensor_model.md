@@ -52,11 +52,3 @@ PDF описывает адресно-аналоговые дымовые изв
 
 - Этот документ не доказывает полное восстановление протокола.
 - Для связки с firmware-функциями обязательно нужны дополнительные code-level свидетельства (xref/disasm/string/xdata/call-chain).
-
-## Code evidence after MASH analyzer
-
-- Добавлены кандидаты code-evidence по веткам/файлам/функциям в `docs/mash_code_evidence_candidates.csv` и цепочки в `docs/mash_candidate_chains.csv`.
-- Strongest branch/file/function смотреть в `docs/mash_code_evidence_analysis.md` (топ-кандидаты по score и confidence).
-- Неизвестным остаётся: окончательный обработчик МАШ, прямой маркер System Sensor 200AP/200+, и подтверждённый isolator-specific path для 22051EI.
-
-**Confidence:** low-to-medium (structural code evidence; protocol-level binding remains hypothesis).

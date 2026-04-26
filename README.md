@@ -37,6 +37,7 @@
 - docs/module_logic_overview.md — общий отчёт по логике работы модулей (МАШ/МАС/другие), XDATA-очередям/буферам и межветочному сравнению.
 - docs/zone_output_logic_analysis.md — zone logic and output-control module candidate analysis.
 - docs/zone_output_deep_trace_analysis.md — deep trace of 90CYE_DKS zone-to-output candidate functions.
+- docs/state_mode_logic_analysis.md — sensor/zone state and auto/manual extinguishing-output gating analysis.
 - docs/module_handler_summary.csv — сводная таблица кандидатов обработчиков модулей по всем веткам.
 - Предыдущий файл анализа/журнал: `PZU_ANALYSIS.md`
 
