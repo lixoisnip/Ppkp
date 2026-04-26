@@ -29,6 +29,7 @@
 - docs/a03_analogs_for_a04_packet_writers.csv — structural A03 analog candidates for A04 packet-window writer functions.
 - docs/global_branch_comparison.md — global comparison of firmware branches after smoke-test verification.
 - docs/global_packet_pipeline_mining.md — global packet/runtime pipeline candidate mining across all firmware branches.
+- docs/rtos_service_pipeline_analysis.md — RTOS_service branch-focused runtime/service pipeline candidate analysis.
 - Предыдущий файл анализа/журнал: `PZU_ANALYSIS.md`
 
 ## Исходные образы

@@ -131,6 +131,19 @@ def main() -> int:
             "global packet/runtime pipeline candidate mining across all branches",
         ),
         SmokeCommand(
+            "rtos_service_pipeline_analysis.py",
+            "rtos_service_only",
+            [sys.executable, "scripts/rtos_service_pipeline_analysis.py"],
+            [
+                "docs/rtos_service_function_candidates.csv",
+                "docs/rtos_service_pipeline_chains.csv",
+                "docs/rtos_service_xdata_role_candidates.csv",
+                "docs/rtos_service_pipeline_analysis.md",
+                "docs/rtos_service_next_deep_dive_plan.md",
+            ],
+            "branch-focused RTOS_service runtime/service pipeline candidate analysis",
+        ),
+        SmokeCommand(
             "a03_a04_packet_builder_candidates.py",
             "a03_a04_only",
             [sys.executable, "scripts/a03_a04_packet_builder_candidates.py"],
