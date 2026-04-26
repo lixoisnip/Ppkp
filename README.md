@@ -27,6 +27,7 @@
 - docs/a03_a04_packet_pipeline_chain_trace.csv — ordered static trace for A03/A04 packet pipeline candidate chains.
 - docs/a03_a04_packet_window_writers.csv — A03/A04 functions with confirmed writes into packet-window 0x5003..0x5010.
 - docs/a03_analogs_for_a04_packet_writers.csv — structural A03 analog candidates for A04 packet-window writer functions.
+- docs/global_branch_comparison.md — global comparison of firmware branches after smoke-test verification.
 - Предыдущий файл анализа/журнал: `PZU_ANALYSIS.md`
 
 ## Исходные образы

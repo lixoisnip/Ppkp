@@ -113,6 +113,13 @@ def main() -> int:
             "movc/string candidates",
         ),
         SmokeCommand(
+            "branch_comparison_report.py",
+            "all_firmwares",
+            [sys.executable, "scripts/branch_comparison_report.py"],
+            ["docs/branch_comparison_summary.csv", "docs/global_branch_comparison.md"],
+            "global branch-level comparison report after smoke-test",
+        ),
+        SmokeCommand(
             "a03_a04_packet_builder_candidates.py",
             "a03_a04_only",
             [sys.executable, "scripts/a03_a04_packet_builder_candidates.py"],
