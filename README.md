@@ -42,6 +42,7 @@
 - docs/runtime_state_machine_reconstruction.md — reconstructed 90CYE_DKS runtime state-machine model from sensor state to zone, auto/manual gating, output and packet/export.
 - docs/state_enum_and_techdoc_reconstruction.md — большой оркестраторный отчёт по гипотезам enum/state/mode, output-action map и bench-validation matrix.
 - docs/xdata_enum_branch_resolution.md — trace-level XDATA lifecycle and enum branch resolution for 90CYE_DKS state/mode/output logic.
+- docs/manual_decompile_0x728A_0x6833.md — manual decompile milestone #47 for mode gate `0x728A` and output-start entry `0x6833`.
 - docs/module_handler_summary.csv — сводная таблица кандидатов обработчиков модулей по всем веткам.
 - Предыдущий файл анализа/журнал: `PZU_ANALYSIS.md`
 
