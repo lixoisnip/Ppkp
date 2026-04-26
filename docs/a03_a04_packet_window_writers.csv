@@ -1,0 +1,4 @@
+file,branch,function_addr,code_addr,block_addr,xdata_addr,xdata_access_type,role_candidate,incoming_lcalls,call_count,basic_block_count,internal_block_count,nearby_queue_hits,nearby_selector_hits,nearby_aux_hits,nearby_arithmetic_hits,confidence,notes
+A04_28.PZU,A03_A04,0x497A,0x6286,0x498E,0x5004,write,state_update_worker,0,99,3,2,0,0,0,51,probable,static-only: confirmed xdata write in packet-window; arithmetic-near
+A04_28.PZU,A03_A04,0x497A,0x63F4,0x498E,0x5005,write,state_update_worker,0,99,3,2,0,0,0,51,probable,static-only: confirmed xdata write in packet-window; arithmetic-near
+A04_28.PZU,A03_A04,0x89C9,0x89D8,0x89C9,0x500F,write,unknown,1,1,1,0,0,0,0,0,hypothesis,static-only: confirmed xdata write in packet-window
