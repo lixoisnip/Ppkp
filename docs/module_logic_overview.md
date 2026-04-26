@@ -197,3 +197,10 @@ XDATA-адреса для подтверждения:
 - Главный кандидат manual/auto gating: `XDATA 0x315B` при функциях `0x84A6` и `0x728A` (confidence: medium/probable, без заявления полной доказанности).
 - Главный output candidate: `0x6833`; главный packet/export candidate: `0x5A7F`.
 - Unknown-области: точные коды всех состояний датчика/зоны и полная привязка каждого output-side XDATA-флага к физическому исполнительному механизму без стендовой верификации.
+
+## State-enum and technical-doc reconstruction after PR
+
+- Добавлен единый оркестратор `scripts/state_enum_and_techdoc_reconstructor.py`, который сводит runtime/model + deep-trace + branch-comparison evidence в единый набор CSV/MD.
+- Новые итоговые артефакты: `xdata_lifecycle_map.csv`, `state_enum_hypotheses.csv`, `auto_manual_mode_hypotheses.csv`, `output_action_map.csv`, `state_machine_branch_comparison.csv`, `bench_validation_matrix.csv`, `state_enum_and_techdoc_reconstruction.md`.
+- Для `90CYE_DKS / 90CYE03_19_DKS.PZU` усилена прикладная модель ветвления: manual-путь как `event+packet`, auto-путь как `event+output+packet` (still hypothesis/probable without bench).
+- Межветочное сравнение отделяет `same address` от `same role/similar chain`; адресное совпадение между ветками не трактуется как доказательство тождественной функции.

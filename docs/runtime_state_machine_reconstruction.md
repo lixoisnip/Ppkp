@@ -124,3 +124,16 @@
 - [ ] проверить реле/задвижку/исполнительный выход.
 - [ ] сравнить исходящие пакеты.
 - [ ] снять изменения XDATA/логов, если возможно.
+
+## 14. Orchestrated enum/mode follow-up
+
+Следующим шагом после этой реконструкции запускается `scripts/state_enum_and_techdoc_reconstructor.py`, который собирает единый пакет техдок-артефактов:
+- `docs/xdata_lifecycle_map.csv`
+- `docs/state_enum_hypotheses.csv`
+- `docs/auto_manual_mode_hypotheses.csv`
+- `docs/output_action_map.csv`
+- `docs/state_machine_branch_comparison.csv`
+- `docs/bench_validation_matrix.csv`
+- `docs/state_enum_and_techdoc_reconstruction.md`
+
+Эти файлы формируют value-level гипотезы по state/mode и отдельную матрицу стендовой валидации без заявления полной доказанности без bench.

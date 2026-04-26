@@ -1,0 +1,2 @@
+primary_branch,primary_file,primary_role,primary_function,comparison_branch,comparison_file,comparison_function,match_type,confidence,notes
+90CYE_DKS,90CYE03_19_DKS.PZU,runtime_state_machine,0x737C,,,,same_address,medium,same address present in function_map; role equivalence remains probabilistic

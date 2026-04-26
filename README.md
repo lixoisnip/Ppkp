@@ -40,6 +40,7 @@
 - docs/state_mode_logic_analysis.md — sensor/zone state and auto/manual extinguishing-output gating analysis.
 - docs/auto_manual_gating_deep_trace_analysis.md — branch-specific deep trace of manual/auto gating chain (0x497A→0x737C→0x613C→0x84A6→0x728A→0x6833→0x5A7F).
 - docs/runtime_state_machine_reconstruction.md — reconstructed 90CYE_DKS runtime state-machine model from sensor state to zone, auto/manual gating, output and packet/export.
+- docs/state_enum_and_techdoc_reconstruction.md — большой оркестраторный отчёт по гипотезам enum/state/mode, output-action map и bench-validation matrix.
 - docs/module_handler_summary.csv — сводная таблица кандидатов обработчиков модулей по всем веткам.
 - Предыдущий файл анализа/журнал: `PZU_ANALYSIS.md`
 
@@ -64,6 +65,7 @@
 
 ```bash
 python3 -m py_compile scripts/*.py
+python3 scripts/state_enum_and_techdoc_reconstructor.py
 python3 scripts/run_analysis_smoke_test.py
 ```
 
