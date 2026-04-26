@@ -1,6 +1,6 @@
 # Firmware family / branch map (.PZU)
 
-Дата обновления: 2026-04-25 (UTC).
+Дата обновления: 2026-04-26 (UTC).
 
 ## 1) Краткая таблица веток
 
@@ -59,6 +59,14 @@
 - `docs/function_map.csv` связывает кандидаты функций с наблюдаемыми XDATA read/write и `MOVC` evidence.
 - Границы функций остаются approximate: `size_estimate` и хвосты функций чувствительны к качеству декодирования.
 - Следующий шаг: улучшить `scripts/disasm_8051.py` и уточнить таблицу длин opcode, чтобы сократить ложные function tails.
+
+## Function map cleanup after PR #15
+
+- `function_map` теперь использует `basic_block_map` как источник для отсечения внутренних block-level targets и для агрегации метрик на уровне функции.
+- Количество `function candidates` уменьшилось примерно с `1860` до `1076` после очистки.
+- Внутренние ветви (internal jump/conditional blocks) остаются в `docs/basic_block_map.csv` и не дублируются как отдельные `function_addr` в `docs/function_map.csv`.
+- Обновлённый `function_map` лучше подходит для поиска `packet builders` и `runtime service workers`, потому что уменьшается шум от внутренних переходов.
+- Границы функций всё ещё `approximate` и требуют дополнительной валидации по CFG/дизассемблеру.
 
 ## 6) Что изменилось после PR #6
 
