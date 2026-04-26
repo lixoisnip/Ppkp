@@ -23,6 +23,7 @@
 - `docs/a03_a04_packet_builder_candidates.csv` — A03/A04 packet builder candidate ranking.
 - `docs/a03_a04_top_packet_function_trace.csv` — static trace of top A03/A04 packet-builder candidates.
 - `docs/a03_a04_packet_call_neighborhood.csv` — local call-neighborhood around A03/A04 top packet-builder candidates.
+- docs/a03_a04_packet_call_neighborhood_depth2.csv — depth=2 call-neighborhood around A04:0x89C9 and A03:0x8A2E.
 - Предыдущий файл анализа/журнал: `PZU_ANALYSIS.md`
 
 ## Исходные образы

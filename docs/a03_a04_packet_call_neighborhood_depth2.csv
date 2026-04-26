@@ -1,0 +1,25 @@
+file,target_function,direction,neighbor_function,call_addr,call_type,neighbor_role_candidate,neighbor_basic_block_count,neighbor_internal_block_count,neighbor_xdata_read_count,neighbor_xdata_write_count,neighbor_movc_count,packet_xdata_hits,queue_hits,selector_hits,snapshot_hits,object_table_hits,confidence,notes,depth_level
+A03_26.PZU,0x8A2E,target,0x8A2E,0x8A2E,self,unknown,1,0,1,1,0,0,0,0,0,0,high,target node; checksum_like=unknown,0
+A03_26.PZU,0x8A2E,incoming,0x8904,0x89B9,LCALL,dispatcher_or_router,13,12,15,2,0,0,1,1,0,0,high,"caller->target LCALL; aux_hits=0x3298,0x3299,0x4DB6,0x4FD7,0x4FD8; checksum_like=unknown",1
+A03_26.PZU,0x8A2E,outgoing,0x8A5E,0x8A36,LCALL,unknown,1,0,0,0,0,0,0,0,0,0,high,target->callee LCALL; checksum_like=unknown,1
+A03_26.PZU,0x8A2E,incoming_depth2,0x89EE,0x89F6,LCALL,unknown,1,0,0,0,0,0,0,0,0,0,high,caller->depth1(0x8A5E) LCALL; checksum_like=unknown,2
+A03_26.PZU,0x8A2E,incoming_depth2,0x89FE,0x8A06,LCALL,unknown,1,0,0,0,0,0,0,0,0,0,high,caller->depth1(0x8A5E) LCALL; checksum_like=unknown,2
+A03_26.PZU,0x8A2E,incoming_depth2,0x8A16,0x8A1E,LCALL,unknown,1,0,0,0,0,0,0,0,0,0,high,caller->depth1(0x8A5E) LCALL; checksum_like=unknown,2
+A03_26.PZU,0x8A2E,incoming_depth2,0x8A42,0x8A4A,LCALL,unknown,1,0,0,0,0,0,0,0,0,0,high,caller->depth1(0x8A5E) LCALL; checksum_like=unknown,2
+A03_26.PZU,0x8A2E,incoming_depth2,0xA900,0xAE4D,LCALL,state_reader_or_packet_builder,3,2,14,0,0,0,1,0,0,0,high,caller->depth1(0x8904) LCALL; checksum_like=unknown,2
+A03_26.PZU,0x8A2E,outgoing_depth2,0x89EE,0x8979,LCALL,unknown,1,0,0,0,0,0,0,0,0,0,high,depth1(0x8904)->callee LCALL; checksum_like=unknown,2
+A03_26.PZU,0x8A2E,outgoing_depth2,0x89FE,0x898F,LCALL,unknown,1,0,0,0,0,0,0,0,0,0,high,depth1(0x8904)->callee LCALL; checksum_like=unknown,2
+A03_26.PZU,0x8A2E,outgoing_depth2,0x8A16,0x89A4,LCALL,unknown,1,0,0,0,0,0,0,0,0,0,high,depth1(0x8904)->callee LCALL; checksum_like=unknown,2
+A03_26.PZU,0x8A2E,outgoing_depth2,0x8A42,0x89CE,LCALL,unknown,1,0,0,0,0,0,0,0,0,0,high,depth1(0x8904)->callee LCALL; checksum_like=unknown,2
+A04_28.PZU,0x89C9,target,0x89C9,0x89C9,self,unknown,1,0,1,1,0,1,0,0,0,0,high,target node; checksum_like=unknown,0
+A04_28.PZU,0x89C9,incoming,0x889F,0x8954,LCALL,dispatcher_or_router,13,12,15,2,0,2,8,4,0,0,high,"caller->target LCALL; aux_hits=0x32A0,0x32A1,0x4DAC,0x500C,0x500D; checksum_like=unknown",1
+A04_28.PZU,0x89C9,outgoing,0x89F9,0x89D1,LCALL,unknown,1,0,0,0,0,0,0,0,0,0,high,target->callee LCALL; checksum_like=unknown,1
+A04_28.PZU,0x89C9,incoming_depth2,0x8989,0x8991,LCALL,unknown,1,0,0,0,0,0,0,0,0,0,high,caller->depth1(0x89F9) LCALL; checksum_like=unknown,2
+A04_28.PZU,0x89C9,incoming_depth2,0x8999,0x89A1,LCALL,unknown,1,0,0,0,0,0,0,0,0,0,high,caller->depth1(0x89F9) LCALL; checksum_like=unknown,2
+A04_28.PZU,0x89C9,incoming_depth2,0x89B1,0x89B9,LCALL,unknown,1,0,0,0,0,0,0,0,0,0,high,caller->depth1(0x89F9) LCALL; checksum_like=unknown,2
+A04_28.PZU,0x89C9,incoming_depth2,0x89DD,0x89E5,LCALL,unknown,1,0,0,0,0,0,0,0,0,0,high,caller->depth1(0x89F9) LCALL; checksum_like=unknown,2
+A04_28.PZU,0x89C9,incoming_depth2,0xB310,0xB445,LCALL,state_reader_or_packet_builder,1,0,13,0,0,4,0,0,0,0,high,caller->depth1(0x889F) LCALL; aux_hits=0x32A0; checksum_like=unknown,2
+A04_28.PZU,0x89C9,outgoing_depth2,0x8989,0x8914,LCALL,unknown,1,0,0,0,0,0,0,0,0,0,high,depth1(0x889F)->callee LCALL; checksum_like=unknown,2
+A04_28.PZU,0x89C9,outgoing_depth2,0x8999,0x892A,LCALL,unknown,1,0,0,0,0,0,0,0,0,0,high,depth1(0x889F)->callee LCALL; checksum_like=unknown,2
+A04_28.PZU,0x89C9,outgoing_depth2,0x89B1,0x893F,LCALL,unknown,1,0,0,0,0,0,0,0,0,0,high,depth1(0x889F)->callee LCALL; checksum_like=unknown,2
+A04_28.PZU,0x89C9,outgoing_depth2,0x89DD,0x8969,LCALL,unknown,1,0,0,0,0,0,0,0,0,0,high,depth1(0x889F)->callee LCALL; checksum_like=unknown,2
