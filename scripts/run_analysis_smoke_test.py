@@ -249,6 +249,17 @@ def main() -> int:
             "sensor/zone state-machine and auto/manual output gating analysis",
         ),
         SmokeCommand(
+            "auto_manual_gating_deep_trace.py",
+            "a03_a04_only",
+            [sys.executable, "scripts/auto_manual_gating_deep_trace.py"],
+            [
+                "docs/auto_manual_gating_deep_trace.csv",
+                "docs/auto_manual_gating_deep_trace_summary.csv",
+                "docs/auto_manual_gating_deep_trace_analysis.md",
+            ],
+            "branch-specific deep trace for manual/auto gating chain 0x497A->0x737C->0x613C->0x84A6->0x728A->0x6833->0x5A7F",
+        ),
+        SmokeCommand(
             "zone_output_logic_analyzer.py",
             "all_firmwares",
             [sys.executable, "scripts/zone_output_logic_analyzer.py"],
