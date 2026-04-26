@@ -158,3 +158,10 @@ XDATA-адреса для подтверждения:
 - Подтвердилось (code evidence): в top chains есть последовательность dispatcher/core/callee с loop-like контролем, XDATA update, event queue marker и packet/export marker.
 - Осталось гипотезой: точная привязка isolator path и полный recovery логики System Sensor 200AP/200+ (не заявляется как завершённый).
 - Нужна стендовая проверка: прогон адресов `1..159`, LED-команды, потеря датчика, fault/short-circuit/isolator-like сценарии и сравнение исходящих пакетов.
+
+## Zone and output-control logic after PR
+
+- Strongest zone candidates (probable): `A03_A04:A04_28.PZU:0x497A`, `90CYE_DKS:90CYE03_19_DKS.PZU:0x737C`, `90CYE_v2_1:90CYE03_19_2 v2_1.PZU:0x80EC`, а также branch-specific state-update/dispatcher функции из `docs/zone_logic_candidates.csv`.
+- Strongest output-control candidates (probable): dispatcher/state-writer/packet-adjacent функции из `docs/output_control_candidates.csv` (включая MASH-linked call-hub узлы), но без полного доказательства привязки к конкретным реле/задвижкам.
+- Найдены partial/full chains в `docs/zone_to_output_chains.csv`: как минимум частичные `sensor/module -> zone/event -> output/service -> packet/export`; для части веток отсутствуют одно или несколько звеньев (отмечены как `partial_chain`).
+- Осталось гипотезой: точные правила zone menu logic (AND/OR/задержки/1-из-2/2-из-2), строгая sensor->zone таблица, и окончательная связь конкретного output-флага с физическим устройством без стендовой верификации.

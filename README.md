@@ -35,6 +35,7 @@
 - docs/mash_code_evidence_analysis.md — code-evidence search for MASH/address-loop behaviour based on IP212 sensor documentation.
 - docs/mash_handler_deep_trace_analysis.md — deep trace of top MASH/address-loop handler candidate chains.
 - docs/module_logic_overview.md — общий отчёт по логике работы модулей (МАШ/МАС/другие), XDATA-очередям/буферам и межветочному сравнению.
+- docs/zone_output_logic_analysis.md — zone logic and output-control module candidate analysis.
 - docs/module_handler_summary.csv — сводная таблица кандидатов обработчиков модулей по всем веткам.
 - Предыдущий файл анализа/журнал: `PZU_ANALYSIS.md`
 
