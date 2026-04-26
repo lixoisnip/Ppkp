@@ -39,6 +39,7 @@
 - docs/zone_output_deep_trace_analysis.md — deep trace of 90CYE_DKS zone-to-output candidate functions.
 - docs/state_mode_logic_analysis.md — sensor/zone state and auto/manual extinguishing-output gating analysis.
 - docs/auto_manual_gating_deep_trace_analysis.md — branch-specific deep trace of manual/auto gating chain (0x497A→0x737C→0x613C→0x84A6→0x728A→0x6833→0x5A7F).
+- docs/runtime_state_machine_reconstruction.md — reconstructed 90CYE_DKS runtime state-machine model from sensor state to zone, auto/manual gating, output and packet/export.
 - docs/module_handler_summary.csv — сводная таблица кандидатов обработчиков модулей по всем веткам.
 - Предыдущий файл анализа/журнал: `PZU_ANALYSIS.md`
 

@@ -1,0 +1,43 @@
+branch,file,similar_function_or_role,primary_function_addr,matched_function_addr,match_type,confidence,notes
+90CYE_DKS,90CYE03_19_DKS.PZU,sensor_zone,0x497A,0x497A,same_address,medium,same address present in function_map; role equivalence remains probabilistic
+90CYE_DKS,90CYE03_19_DKS.PZU,zone_logic,0x737C,0x737C,same_address,medium,same address present in function_map; role equivalence remains probabilistic
+90CYE_DKS,90CYE03_19_DKS.PZU,zone_state_feedback,0x613C,0x613C,same_address,medium,same address present in function_map; role equivalence remains probabilistic
+90CYE_DKS,90CYE03_19_DKS.PZU,mode_event_bridge,0x84A6,0x84A6,same_address,medium,same address present in function_map; role equivalence remains probabilistic
+90CYE_DKS,90CYE03_19_DKS.PZU,manual_auto_check,0x728A,0x728A,same_address,medium,same address present in function_map; role equivalence remains probabilistic
+90CYE_DKS,90CYE03_19_DKS.PZU,output_start,0x6833,0x6833,same_address,medium,same address present in function_map; role equivalence remains probabilistic
+90CYE_DKS,90CYE03_19_DKS.PZU,packet_export,0x5A7F,0x5A7F,same_address,medium,same address present in function_map; role equivalence remains probabilistic
+90CYE_DKS,90CYE04_19_DKS.PZU,sensor_zone,0x497A,0x497A,same_address,medium,same address present in function_map; role equivalence remains probabilistic
+90CYE_DKS,90CYE04_19_DKS.PZU,zone_logic,0x737C,0x737C,same_address,medium,same address present in function_map; role equivalence remains probabilistic
+90CYE_DKS,90CYE04_19_DKS.PZU,zone_state_feedback,0x613C,0x613C,same_address,medium,same address present in function_map; role equivalence remains probabilistic
+90CYE_DKS,90CYE04_19_DKS.PZU,mode_event_bridge,0x84A6,0x84A6,same_address,medium,same address present in function_map; role equivalence remains probabilistic
+90CYE_DKS,90CYE04_19_DKS.PZU,manual_auto_check,0x728A,0x728A,same_address,medium,same address present in function_map; role equivalence remains probabilistic
+90CYE_DKS,90CYE04_19_DKS.PZU,output_start,0x6833,0x6833,same_address,medium,same address present in function_map; role equivalence remains probabilistic
+90CYE_DKS,90CYE04_19_DKS.PZU,packet_export,0x5A7F,0x5A7F,same_address,medium,same address present in function_map; role equivalence remains probabilistic
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,sensor_zone,0x497A,0x497F,similar_role,medium,role keyword similarity from candidate tables
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,zone_logic,0x737C,0x497F,similar_role,medium,role keyword similarity from candidate tables
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,zone_state_feedback,0x613C,0x497F,similar_role,medium,role keyword similarity from candidate tables
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,mode_event_bridge,0x84A6,0x497F,checksum_limited,hypothesis,fallback structural proxy based on function_map intensity
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,manual_auto_check,0x728A,0x497F,checksum_limited,hypothesis,fallback structural proxy based on function_map intensity
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,output_start,0x6833,0x497F,similar_role,medium,role keyword similarity from candidate tables
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,packet_export,0x5A7F,0x6106,similar_role,hypothesis,role keyword similarity from candidate tables
+A03_A04,A03_26.PZU,sensor_zone,0x497A,0x497A,same_address,medium,same address present in function_map; role equivalence remains probabilistic
+A03_A04,A03_26.PZU,zone_logic,0x737C,0x497A,similar_role,medium,role keyword similarity from candidate tables
+A03_A04,A03_26.PZU,zone_state_feedback,0x613C,0x497A,similar_role,medium,role keyword similarity from candidate tables
+A03_A04,A03_26.PZU,mode_event_bridge,0x84A6,0x497A,checksum_limited,hypothesis,fallback structural proxy based on function_map intensity
+A03_A04,A03_26.PZU,manual_auto_check,0x728A,0x497A,checksum_limited,hypothesis,fallback structural proxy based on function_map intensity
+A03_A04,A03_26.PZU,output_start,0x6833,0x497A,similar_role,medium,role keyword similarity from candidate tables
+A03_A04,A03_26.PZU,packet_export,0x5A7F,0x6C7E,similar_role,hypothesis,role keyword similarity from candidate tables
+A03_A04,A04_28.PZU,sensor_zone,0x497A,0x497A,same_address,medium,same address present in function_map; role equivalence remains probabilistic
+A03_A04,A04_28.PZU,zone_logic,0x737C,0x497A,similar_role,medium,role keyword similarity from candidate tables
+A03_A04,A04_28.PZU,zone_state_feedback,0x613C,0x497A,similar_role,medium,role keyword similarity from candidate tables
+A03_A04,A04_28.PZU,mode_event_bridge,0x84A6,0x497A,checksum_limited,hypothesis,fallback structural proxy based on function_map intensity
+A03_A04,A04_28.PZU,manual_auto_check,0x728A,0x497A,checksum_limited,hypothesis,fallback structural proxy based on function_map intensity
+A03_A04,A04_28.PZU,output_start,0x6833,0x497A,similar_role,medium,role keyword similarity from candidate tables
+A03_A04,A04_28.PZU,packet_export,0x5A7F,0x6B57,similar_role,hypothesis,role keyword similarity from candidate tables
+RTOS_service,ppkp2001 90cye01.PZU,sensor_zone,0x497A,0xAB62,similar_role,medium,role keyword similarity from candidate tables
+RTOS_service,ppkp2001 90cye01.PZU,zone_logic,0x737C,0x758B,similar_role,medium,role keyword similarity from candidate tables
+RTOS_service,ppkp2001 90cye01.PZU,zone_state_feedback,0x613C,0x758B,similar_role,medium,role keyword similarity from candidate tables
+RTOS_service,ppkp2001 90cye01.PZU,mode_event_bridge,0x84A6,0x758B,checksum_limited,hypothesis,fallback structural proxy based on function_map intensity
+RTOS_service,ppkp2001 90cye01.PZU,manual_auto_check,0x728A,0x758B,checksum_limited,hypothesis,fallback structural proxy based on function_map intensity
+RTOS_service,ppkp2001 90cye01.PZU,output_start,0x6833,0x9C99,similar_role,medium,role keyword similarity from candidate tables
+RTOS_service,ppkp2001 90cye01.PZU,packet_export,0x5A7F,0x4176,similar_role,hypothesis,role keyword similarity from candidate tables

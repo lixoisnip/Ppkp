@@ -271,6 +271,19 @@ def main() -> int:
             ],
             "module/zone/output-control semantic analysis",
         ),
+        SmokeCommand(
+            "runtime_state_machine_reconstructor.py",
+            "a03_a04_only",
+            [sys.executable, "scripts/runtime_state_machine_reconstructor.py"],
+            [
+                "docs/runtime_state_machine_nodes.csv",
+                "docs/runtime_state_machine_edges.csv",
+                "docs/xdata_state_mode_flag_map.csv",
+                "docs/runtime_branch_comparison.csv",
+                "docs/runtime_state_machine_reconstruction.md",
+            ],
+            "large runtime state-machine reconstruction / 90CYE_DKS",
+        ),
     ]
 
     rows: list[dict[str, str]] = []
