@@ -21,3 +21,4 @@ scripts/global_packet_pipeline_miner.py,true,false,true,true,true,true,Глоб�
 scripts/rtos_service_pipeline_analysis.py,false,true,true,true,true,true,Branch-specific RTOS_service runtime/service pipeline analysis with confidence-capped candidates/chains/XDATA roles.
 scripts/rtos_chain_deep_trace.py,false,true,true,true,true,true,Branch-specific RTOS_service deep trace for valid chain 0x4358->0x920C->0x53E6 with confidence-capped role interpretation.
 scripts/mash_code_evidence_analyzer.py,true,false,true,true,true,true,global / MASH code evidence analysis
+scripts/mash_handler_deep_trace.py,false,true,true,true,true,true,branch/module-specific MASH deep trace
