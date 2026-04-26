@@ -33,6 +33,7 @@
 - docs/rtos_service_chain_4358_920c_53e6_analysis.md — deep static trace of top RTOS_service candidate chain.
 - docs/mash_address_loop_sensor_model.md — preliminary MASH/address-loop sensor model based on IP212-200 / 22051E documentation.
 - docs/mash_code_evidence_analysis.md — code-evidence search for MASH/address-loop behaviour based on IP212 sensor documentation.
+- docs/mash_handler_deep_trace_analysis.md — deep trace of top MASH/address-loop handler candidate chains.
 - docs/module_logic_overview.md — общий отчёт по логике работы модулей (МАШ/МАС/другие), XDATA-очередям/буферам и межветочному сравнению.
 - docs/module_handler_summary.csv — сводная таблица кандидатов обработчиков модулей по всем веткам.
 - Предыдущий файл анализа/журнал: `PZU_ANALYSIS.md`

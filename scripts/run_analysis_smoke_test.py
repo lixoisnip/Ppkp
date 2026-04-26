@@ -214,6 +214,17 @@ def main() -> int:
             ],
             "global / MASH code evidence analysis",
         ),
+        SmokeCommand(
+            "mash_handler_deep_trace.py",
+            "a03_a04_only",
+            [sys.executable, "scripts/mash_handler_deep_trace.py"],
+            [
+                "docs/mash_handler_deep_trace.csv",
+                "docs/mash_handler_deep_trace_summary.csv",
+                "docs/mash_handler_deep_trace_analysis.md",
+            ],
+            "branch/module-specific MASH deep trace",
+        ),
     ]
 
     rows: list[dict[str, str]] = []

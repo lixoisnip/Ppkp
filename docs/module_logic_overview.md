@@ -151,3 +151,10 @@ XDATA-адреса для подтверждения:
 4. Аналоговый sweep (норма->предтревога->тревога->обрыв) для кандидатов МАС.
 5. Сравнение исходящих пакетов между ветками для одинаковых воздействий.
 
+
+## MASH deep-trace after PR
+
+- Strongest chain candidates after deep trace: `0x737C -> 0x84A6 -> 0x728A` (90CYE_DKS branch family) and `0x497A -> 0xA900 -> 0x800B` (A03_A04 bridge path) — **probable** по loop/XDATA/event/packet marker balance.
+- Подтвердилось (code evidence): в top chains есть последовательность dispatcher/core/callee с loop-like контролем, XDATA update, event queue marker и packet/export marker.
+- Осталось гипотезой: точная привязка isolator path и полный recovery логики System Sensor 200AP/200+ (не заявляется как завершённый).
+- Нужна стендовая проверка: прогон адресов `1..159`, LED-команды, потеря датчика, fault/short-circuit/isolator-like сценарии и сравнение исходящих пакетов.
