@@ -1,7 +1,7 @@
 # Global branch comparison after smoke-test
 
 ## Smoke-test verification
-- Проверено команд smoke-test: **18** (pass=18, fail=0).
+- Проверено команд smoke-test: **20** (pass=20, fail=0).
 - Firmware count по manifest: **10**.
 - Глобальные скрипты считаются универсальными, A03/A04-скрипты считаются специализированными.
 

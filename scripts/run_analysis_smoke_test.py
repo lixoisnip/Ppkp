@@ -144,6 +144,17 @@ def main() -> int:
             "branch-focused RTOS_service runtime/service pipeline candidate analysis",
         ),
         SmokeCommand(
+            "rtos_chain_deep_trace.py",
+            "rtos_service_only",
+            [sys.executable, "scripts/rtos_chain_deep_trace.py"],
+            [
+                "docs/rtos_service_chain_4358_920c_53e6_trace.csv",
+                "docs/rtos_service_chain_4358_920c_53e6_summary.csv",
+                "docs/rtos_service_chain_4358_920c_53e6_analysis.md",
+            ],
+            "branch-specific deep static trace for top RTOS_service valid chain 0x4358->0x920C->0x53E6",
+        ),
+        SmokeCommand(
             "a03_a04_packet_builder_candidates.py",
             "a03_a04_only",
             [sys.executable, "scripts/a03_a04_packet_builder_candidates.py"],

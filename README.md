@@ -30,6 +30,7 @@
 - docs/global_branch_comparison.md — global comparison of firmware branches after smoke-test verification.
 - docs/global_packet_pipeline_mining.md — global packet/runtime pipeline candidate mining across all firmware branches.
 - docs/rtos_service_pipeline_analysis.md — RTOS_service branch-focused runtime/service pipeline candidate analysis.
+- docs/rtos_service_chain_4358_920c_53e6_analysis.md — deep static trace of top RTOS_service candidate chain.
 - Предыдущий файл анализа/журнал: `PZU_ANALYSIS.md`
 
 ## Исходные образы

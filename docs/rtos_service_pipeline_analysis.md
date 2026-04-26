@@ -62,14 +62,14 @@
 ## Top pipeline chains
 - ppkp2001 90cye01.PZU rank=1: 0x4358 -> 0x920C -> 0x53E6, chain_score=46, confidence=probable, hits=18/125/0.
 - ppkp2001 90cye01.PZU rank=2: 0x464B -> 0x920C -> 0x53E6, chain_score=46, confidence=probable, hits=18/124/0.
-- ppkp2012 a01.PZU rank=1: 0x4658 -> 0x9920 -> 0x5436, chain_score=46, confidence=hypothesis, hits=18/122/0.
-- ppkp2012 a01.PZU rank=2: 0x4358 -> 0x9920 -> 0x5436, chain_score=46, confidence=hypothesis, hits=18/123/0.
+- ppkp2012 a01.PZU rank=1: 0x4358 -> 0x9920 -> 0x5436, chain_score=46, confidence=hypothesis, hits=18/123/0.
+- ppkp2012 a01.PZU rank=2: 0x4658 -> 0x9920 -> 0x5436, chain_score=46, confidence=hypothesis, hits=18/122/0.
 - ppkp2001 90cye01.PZU rank=3: 0xAB62 -> 0x44F1 -> 0x53E6, chain_score=45, confidence=probable, hits=20/125/0.
 - ppkp2012 a01.PZU rank=3: 0xB606 -> 0x44FE -> 0x5436, chain_score=45, confidence=hypothesis, hits=20/123/0.
 - ppkp2001 90cye01.PZU rank=4: 0x4358 -> 0x6BA4 -> 0x4358, chain_score=44, confidence=probable, hits=2/5/0.
 - ppkp2001 90cye01.PZU rank=5: 0x464B -> 0x6BA4 -> 0x4358, chain_score=44, confidence=probable, hits=2/4/0.
-- ppkp2012 a01.PZU rank=4: 0x4658 -> 0x6C28 -> 0x4358, chain_score=44, confidence=hypothesis, hits=2/4/0.
-- ppkp2012 a01.PZU rank=5: 0x4358 -> 0x6C28 -> 0x4358, chain_score=44, confidence=hypothesis, hits=2/5/0.
+- ppkp2012 a01.PZU rank=4: 0x4358 -> 0x6C28 -> 0x4358, chain_score=44, confidence=hypothesis, hits=2/5/0.
+- ppkp2012 a01.PZU rank=5: 0x4658 -> 0x6C28 -> 0x4358, chain_score=44, confidence=hypothesis, hits=2/4/0.
 
 ## Какие функции стоит трассировать вручную первыми
 - ppkp2001 90cye01.PZU:0x53E6 (dispatcher_candidate) — score=18, core/service/secondary=17/120/0, xread/xwrite=144/36.
@@ -96,4 +96,4 @@
 
 ## Следующий практический milestone
 - Выполнить deep-dive 3–5 функций из top score в valid_hex файле ppkp2001, затем проверить устойчивость выводов в checksum_error образах как secondary evidence.
-- Smoke-test baseline на момент анализа: 18/18 pass.
+- Smoke-test baseline на момент анализа: 20/20 pass.
