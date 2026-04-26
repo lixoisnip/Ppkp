@@ -189,3 +189,11 @@ XDATA-адреса для подтверждения:
 - Главные XDATA-кандидаты mode/state flags в этой цепочке: `0x30EA..0x30F9`, `0x315B`, `0x3165`, `0x31BF`, `0x364B`.
 - Найдены признаки ветвления вида `fire -> mode check -> (event/packet only)` и `fire -> mode check -> (output start -> packet/export)`; полное восстановление алгоритма пожаротушения без стенда не заявляется.
 - Для следующего ручного разбора приоритет: `0x84A6`, `0x728A`, затем развилки внутри `0x6833` и packet-side вызовы около `0x5A7F`.
+
+
+## Runtime state-machine reconstruction after PR
+
+- Узлы модели объединены в связанную цепочку `sensor_state -> zone_table/zone_logic -> zone_state -> mode/event bridge -> mode check -> output -> packet/export` на базе артефактов `runtime_state_machine_nodes/edges`.
+- Главный кандидат manual/auto gating: `XDATA 0x315B` при функциях `0x84A6` и `0x728A` (confidence: medium/probable, без заявления полной доказанности).
+- Главный output candidate: `0x6833`; главный packet/export candidate: `0x5A7F`.
+- Unknown-области: точные коды всех состояний датчика/зоны и полная привязка каждого output-side XDATA-флага к физическому исполнительному механизму без стендовой верификации.
