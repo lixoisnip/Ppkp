@@ -196,6 +196,13 @@ def main() -> int:
             ["docs/a03_analogs_for_a04_packet_writers.csv", "docs/a03_analogs_for_a04_packet_writers.md"],
             "A03 structural analogs for A04 references",
         ),
+        SmokeCommand(
+            "mash_sensor_evidence_report.py",
+            "documentation_seed",
+            [sys.executable, "scripts/mash_sensor_evidence_report.py"],
+            ["docs/supported_sensor_evidence.csv", "docs/mash_address_loop_sensor_model.md"],
+            "seed evidence for MASH/address-loop sensors from PDF (firmware linkage remains hypothesis)",
+        ),
     ]
 
     rows: list[dict[str, str]] = []

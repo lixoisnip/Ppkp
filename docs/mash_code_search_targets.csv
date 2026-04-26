@@ -1,0 +1,10 @@
+target,why_search,expected_code_pattern,confidence,notes
+address_range_1_159,Verify address-loop scan cardinality,for addr in 1..159 or compare/counter bounds around 0x01 and 0x9F,medium,Primary indicator of addressed polling cycle
+system_sensor_200ap_200plus_protocol,Find explicit protocol linkage,constants/tables/state machine matching 200AP or 200+ framing assumptions,low,Direct protocol marker may be absent in firmware text
+led_control_from_panel,Map panel-driven LED behavior,bits/commands that toggle detector LEDs or remote LED outputs,medium,Can be indirect through output command queue
+smoke_alarm_status,Locate smoke/alarm threshold path,analog value read plus threshold compare leading to alarm state/event,medium,Expected in detector status handling path
+fault_status,Track fault/normal/alarm tri-state logic,status flags for fault/open/short/device error with event mapping,medium,Needed for documented fault behavior correlation
+short_circuit_isolator_status,Support 22051EI isolator behavior,flags/branching for isolator trip or loop segment isolation,low,May be abstracted as generic line fault status
+address_loop_polling,Find recurring query/response cycle,periodic scheduler task calling poll routine over address set,high,Core MASH/address-loop runtime behavior
+event_queue_integration,Connect detector state to event pipeline,enqueue/write into event buffer after status evaluation,high,Bridges sensor state to system event processing
+packet_export_integration,Connect local events to outbound transport,packet builder/transmit calls after event enqueue,medium,Needed to tie loop events to external reporting
