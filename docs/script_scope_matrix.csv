@@ -8,6 +8,7 @@ scripts/call_xref.py,true,false,true,true,false,true,Нужен disassembly_inde
 scripts/function_map.py,true,false,true,true,false,true,Нужны disassembly/call_xref/basic_block_map/xdata_confirmed/code_table кандидаты.
 scripts/basic_block_map.py,true,false,true,true,false,true,Нужны disassembly_index/call_xref/function_map; строит карту базовых блоков.
 scripts/string_index.py,true,false,false,true,false,true,Индексирует строковые/табличные кандидаты по всем .PZU.
+scripts/branch_comparison_report.py,true,false,true,true,true,true,Глобальный сравнительный отчёт по веткам; читает агрегированные CSV и smoke-test результаты.
 scripts/a03_a04_packet_builder_candidates.py,false,true,true,true,false,true,Специализирован на A03_26.PZU и A04_28.PZU; требует базовые CSV.
 scripts/extract_function_trace.py,false,true,true,true,false,true,Трассировка top packet candidates только для A03/A04.
 scripts/extract_call_neighborhood.py,false,true,true,true,false,true,Извлекает call-neighborhood вокруг A03/A04 targets (depth 1/2).
