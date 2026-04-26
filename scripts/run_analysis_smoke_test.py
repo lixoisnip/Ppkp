@@ -225,6 +225,18 @@ def main() -> int:
             ],
             "branch/module-specific MASH deep trace",
         ),
+        SmokeCommand(
+            "zone_output_logic_analyzer.py",
+            "all_firmwares",
+            [sys.executable, "scripts/zone_output_logic_analyzer.py"],
+            [
+                "docs/zone_logic_candidates.csv",
+                "docs/output_control_candidates.csv",
+                "docs/zone_to_output_chains.csv",
+                "docs/zone_output_logic_analysis.md",
+            ],
+            "module/zone/output-control semantic analysis",
+        ),
     ]
 
     rows: list[dict[str, str]] = []

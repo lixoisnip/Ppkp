@@ -1,0 +1,61 @@
+branch,file,chain_rank,sensor_or_module_function,zone_logic_function,event_function,output_control_function,packet_export_function,chain_score,confidence,zone_evidence,output_evidence,notes
+90CYE_DKS,90CYE03_19_DKS.PZU,13,0x497A,0x497A,,0x613C,0x497A,6.000,medium,zone_candidate,output_candidate,partial_chain missing: event
+90CYE_DKS,90CYE03_19_DKS.PZU,15,0x84A6,0x7017,,0x84A6,0x7017,6.000,medium,zone_candidate,output_candidate,partial_chain missing: event
+90CYE_DKS,90CYE03_19_DKS.PZU,17,0x84A6,0x737C,,0x84A6,0x737C,6.000,medium,zone_candidate,output_candidate,partial_chain missing: event
+90CYE_DKS,90CYE03_19_DKS.PZU,19,0x497A,0x6ACB,,,0x497A,4.000,low,zone_candidate,none,"partial_chain missing: event, output_control"
+90CYE_DKS,90CYE03_19_DKS.PZU,21,0x497A,0x673C,,,0x497A,4.000,low,zone_candidate,none,"partial_chain missing: event, output_control"
+90CYE_DKS,90CYE03_19_DKS.PZU,23,0x497A,0x673C,,,0x497A,4.000,low,zone_candidate,none,"partial_chain missing: event, output_control"
+90CYE_DKS,90CYE04_19_DKS.PZU,14,0x497A,0x497A,,0x613C,0x497A,6.000,medium,zone_candidate,output_candidate,partial_chain missing: event
+90CYE_DKS,90CYE04_19_DKS.PZU,18,0x84A6,0x737C,,0x737C,0x737C,6.000,medium,zone_candidate,output_candidate,partial_chain missing: event
+90CYE_DKS,90CYE04_19_DKS.PZU,16,0x84A6,0x7017,,,0x7017,4.000,low,zone_candidate,none,"partial_chain missing: event, output_control"
+90CYE_DKS,90CYE04_19_DKS.PZU,20,0x497A,0x6ACB,,,0x497A,4.000,low,zone_candidate,none,"partial_chain missing: event, output_control"
+90CYE_DKS,90CYE04_19_DKS.PZU,22,0x497A,0x673C,,,0x497A,4.000,low,zone_candidate,none,"partial_chain missing: event, output_control"
+90CYE_DKS,90CYE04_19_DKS.PZU,24,0x497A,0x673C,,,0x497A,4.000,low,zone_candidate,none,"partial_chain missing: event, output_control"
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,37,0x497F,0x8A42,,0x8A42,0x497F,6.000,medium,zone_candidate,output_candidate,partial_chain missing: event
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,38,0x497F,0x8A42,,0x774F,0x497F,6.000,medium,zone_candidate,output_candidate,partial_chain missing: event
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,39,0x497F,0x8A42,,0x7574,0x497F,6.000,medium,zone_candidate,output_candidate,partial_chain missing: event
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,40,0x497F,0x8A42,,0x7E49,0x497F,6.000,medium,zone_candidate,output_candidate,partial_chain missing: event
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,41,0x497F,0x497F,,0x673C,0x497F,6.000,medium,zone_candidate,output_candidate,partial_chain missing: event
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,42,0x497F,0x8A42,,0x8A42,0x497F,6.000,medium,zone_candidate,output_candidate,partial_chain missing: event
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,43,0x497F,0x8A42,,0x8A42,0x497F,6.000,medium,zone_candidate,output_candidate,partial_chain missing: event
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,44,0x497F,0x8A42,,0x8A42,0x497F,6.000,medium,zone_candidate,output_candidate,partial_chain missing: event
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,45,0x497F,0x8A42,,0x8A42,0x497F,6.000,medium,zone_candidate,output_candidate,partial_chain missing: event
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,46,0x497F,0x8A42,,0x8A42,0x497F,6.000,medium,zone_candidate,output_candidate,partial_chain missing: event
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,47,0x497F,0x8A42,,0x8A42,0x497F,6.000,medium,zone_candidate,output_candidate,partial_chain missing: event
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,48,0x497F,0x8A42,,0x8A42,0x497F,6.000,medium,zone_candidate,output_candidate,partial_chain missing: event
+90CYE_v2_1,90CYE03_19_2 v2_1.PZU,25,0xAA96,0x90B6,,0x9F46,0xAA96,6.000,medium,zone_candidate,output_candidate,partial_chain missing: event
+90CYE_v2_1,90CYE03_19_2 v2_1.PZU,29,0xAA96,0x9F46,,0x9F46,0xAA96,6.000,medium,zone_candidate,output_candidate,partial_chain missing: event
+90CYE_v2_1,90CYE03_19_2 v2_1.PZU,31,0xAA96,0x9F46,,0x9F46,0xAA96,6.000,medium,zone_candidate,output_candidate,partial_chain missing: event
+90CYE_v2_1,90CYE03_19_2 v2_1.PZU,33,0xAA96,0x9F46,,0x9F46,0xAA96,6.000,medium,zone_candidate,output_candidate,partial_chain missing: event
+90CYE_v2_1,90CYE03_19_2 v2_1.PZU,35,0x8D3B,0xAA96,,0x90B6,0xAA96,6.000,medium,zone_candidate,output_candidate,partial_chain missing: event
+90CYE_v2_1,90CYE03_19_2 v2_1.PZU,27,0xAA96,0x8D3B,,,0xAA96,4.000,low,zone_candidate,none,"partial_chain missing: event, output_control"
+90CYE_v2_1,90CYE04_19_2 v2_1.PZU,26,0xAA96,0x90B6,,0x9F46,0xAA96,6.000,medium,zone_candidate,output_candidate,partial_chain missing: event
+90CYE_v2_1,90CYE04_19_2 v2_1.PZU,30,0xAA96,0x9F46,,0x9F46,0xAA96,6.000,medium,zone_candidate,output_candidate,partial_chain missing: event
+90CYE_v2_1,90CYE04_19_2 v2_1.PZU,32,0xAA96,0x9F46,,0x9F46,0xAA96,6.000,medium,zone_candidate,output_candidate,partial_chain missing: event
+90CYE_v2_1,90CYE04_19_2 v2_1.PZU,34,0xAA96,0x9F46,,0x9F46,0xAA96,6.000,medium,zone_candidate,output_candidate,partial_chain missing: event
+90CYE_v2_1,90CYE04_19_2 v2_1.PZU,36,0x8D3B,0xAA96,,0x90B6,0xAA96,6.000,medium,zone_candidate,output_candidate,partial_chain missing: event
+90CYE_v2_1,90CYE04_19_2 v2_1.PZU,28,0xAA96,0x8D3B,,,0xAA96,4.000,low,zone_candidate,none,"partial_chain missing: event, output_control"
+A03_A04,A03_26.PZU,1,0x497A,0xA900,,0x800B,0x497A,6.000,medium,zone_candidate,output_candidate,partial_chain missing: event
+A03_A04,A03_26.PZU,3,0x497A,0xA900,,0x8904,0x497A,6.000,medium,zone_candidate,output_candidate,partial_chain missing: event
+A03_A04,A03_26.PZU,7,0x497A,0xA900,,0xA900,0x497A,6.000,medium,zone_candidate,output_candidate,partial_chain missing: event
+A03_A04,A03_26.PZU,9,0x497A,0xA900,,0xA900,0x497A,6.000,medium,zone_candidate,output_candidate,partial_chain missing: event
+A03_A04,A04_28.PZU,4,0x497A,0xB310,,0x889F,0x497A,6.000,medium,zone_candidate,output_candidate,partial_chain missing: event
+A03_A04,A04_28.PZU,5,0x497A,0x497A,,0x722E,0x497A,6.000,medium,zone_candidate,output_candidate,partial_chain missing: event
+A03_A04,A04_28.PZU,2,0x497A,0xB310,,,0x497A,4.000,low,zone_candidate,none,"partial_chain missing: event, output_control"
+A03_A04,A04_28.PZU,6,0x497A,0xB310,,,0x497A,4.000,low,zone_candidate,none,"partial_chain missing: event, output_control"
+A03_A04,A04_28.PZU,8,0x497A,0xB310,,,0x497A,4.000,low,zone_candidate,none,"partial_chain missing: event, output_control"
+A03_A04,A04_28.PZU,10,0x497A,0xB310,,,0x497A,4.000,low,zone_candidate,none,"partial_chain missing: event, output_control"
+A03_A04,A04_28.PZU,11,0x497A,0xB310,,,0x497A,4.000,low,zone_candidate,none,"partial_chain missing: event, output_control"
+A03_A04,A04_28.PZU,12,0x497A,0xB310,,,0x497A,4.000,low,zone_candidate,none,"partial_chain missing: event, output_control"
+RTOS_service,ppkp2001 90cye01.PZU,49,0xAB62,0x758B,,0x758B,0x758B,6.000,medium,zone_candidate,output_candidate,partial_chain missing: event
+RTOS_service,ppkp2001 90cye01.PZU,51,0xAB62,0xAB62,,0x758B,0x758B,6.000,medium,zone_candidate,output_candidate,partial_chain missing: event
+RTOS_service,ppkp2001 90cye01.PZU,53,0x44F1,0x53E6,,0x53E6,0x53E6,6.000,medium,zone_candidate,output_candidate,partial_chain missing: event
+RTOS_service,ppkp2001 90cye01.PZU,55,0x44F1,0x53E6,,0x53E6,0x53E6,6.000,medium,zone_candidate,output_candidate,partial_chain missing: event
+RTOS_service,ppkp2001 90cye01.PZU,59,0x44F1,0x53E6,,0x53E6,0x53E6,6.000,medium,zone_candidate,output_candidate,partial_chain missing: event
+RTOS_service,ppkp2001 90cye01.PZU,60,0x44F1,0x53E6,,0x53E6,0x53E6,6.000,medium,zone_candidate,output_candidate,partial_chain missing: event
+RTOS_service,ppkp2012 a01.PZU,50,0xB606,0x75F7,,0x75F7,0x75F7,6.000,medium,zone_candidate,output_candidate,partial_chain missing: event
+RTOS_service,ppkp2012 a01.PZU,52,0x44FE,0x5436,,0x5436,0x5436,6.000,medium,zone_candidate,output_candidate,partial_chain missing: event
+RTOS_service,ppkp2012 a01.PZU,54,0x44FE,0x5436,,0x5436,0x5436,6.000,medium,zone_candidate,output_candidate,partial_chain missing: event
+RTOS_service,ppkp2012 a01.PZU,56,0x44FE,0x5436,,0x5436,0x5436,6.000,medium,zone_candidate,output_candidate,partial_chain missing: event
+RTOS_service,ppkp2012 a01.PZU,57,0x44FE,0x5436,,0x5436,0x5436,6.000,medium,zone_candidate,output_candidate,partial_chain missing: event
+RTOS_service,ppkp2012 a01.PZU,58,0x44FE,0x5436,,0x5436,0x5436,6.000,medium,zone_candidate,output_candidate,partial_chain missing: event
