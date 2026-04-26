@@ -128,6 +128,10 @@ def _hex_addr(addr: int | None) -> str:
 def _decode(mem: bytearray, addr: int) -> dict[str, object]:
     op = mem[addr]
 
+    def rel_target(length: int, rel_byte: int) -> int | None:
+        target = (addr + length + _signed8(rel_byte)) & 0xFFFF
+        return target if in_code(target) else None
+
     if op == 0x02:
         target = (mem[addr + 1] << 8) | mem[addr + 2]
         return {
@@ -190,6 +194,269 @@ def _decode(mem: bytearray, addr: int) -> dict[str, object]:
             "length": 3,
             "target_addr": None,
             "fallthrough": addr + 3,
+            "confidence": "high",
+            "stop": False,
+        }
+    if op in (0x40, 0x50, 0x60, 0x70):
+        mnemonics = {
+            0x40: "JC",
+            0x50: "JNC",
+            0x60: "JZ",
+            0x70: "JNZ",
+        }
+        rel = _signed8(mem[addr + 1])
+        return {
+            "mnemonic": mnemonics[op],
+            "operands": f"{rel:+d}",
+            "length": 2,
+            "target_addr": rel_target(2, mem[addr + 1]),
+            "fallthrough": addr + 2,
+            "confidence": "high",
+            "stop": False,
+        }
+    if op in (0x10, 0x20, 0x30):
+        mnemonics = {
+            0x10: "JBC",
+            0x20: "JB",
+            0x30: "JNB",
+        }
+        bit = mem[addr + 1]
+        rel = _signed8(mem[addr + 2])
+        return {
+            "mnemonic": mnemonics[op],
+            "operands": f"0x{bit:02X},{rel:+d}",
+            "length": 3,
+            "target_addr": rel_target(3, mem[addr + 2]),
+            "fallthrough": addr + 3,
+            "confidence": "high",
+            "stop": False,
+        }
+    if op == 0xD5:
+        direct = mem[addr + 1]
+        rel = _signed8(mem[addr + 2])
+        return {
+            "mnemonic": "DJNZ",
+            "operands": f"0x{direct:02X},{rel:+d}",
+            "length": 3,
+            "target_addr": rel_target(3, mem[addr + 2]),
+            "fallthrough": addr + 3,
+            "confidence": "high",
+            "stop": False,
+        }
+    if 0xD8 <= op <= 0xDF:
+        reg = op - 0xD8
+        rel = _signed8(mem[addr + 1])
+        return {
+            "mnemonic": "DJNZ",
+            "operands": f"R{reg},{rel:+d}",
+            "length": 2,
+            "target_addr": rel_target(2, mem[addr + 1]),
+            "fallthrough": addr + 2,
+            "confidence": "high",
+            "stop": False,
+        }
+    if op == 0xB4:
+        imm = mem[addr + 1]
+        rel = _signed8(mem[addr + 2])
+        return {
+            "mnemonic": "CJNE",
+            "operands": f"A,#0x{imm:02X},{rel:+d}",
+            "length": 3,
+            "target_addr": rel_target(3, mem[addr + 2]),
+            "fallthrough": addr + 3,
+            "confidence": "high",
+            "stop": False,
+        }
+    if op == 0xB5:
+        direct = mem[addr + 1]
+        rel = _signed8(mem[addr + 2])
+        return {
+            "mnemonic": "CJNE",
+            "operands": f"A,0x{direct:02X},{rel:+d}",
+            "length": 3,
+            "target_addr": rel_target(3, mem[addr + 2]),
+            "fallthrough": addr + 3,
+            "confidence": "high",
+            "stop": False,
+        }
+    if op in (0xB6, 0xB7):
+        reg = op - 0xB6
+        imm = mem[addr + 1]
+        rel = _signed8(mem[addr + 2])
+        return {
+            "mnemonic": "CJNE",
+            "operands": f"@R{reg},#0x{imm:02X},{rel:+d}",
+            "length": 3,
+            "target_addr": rel_target(3, mem[addr + 2]),
+            "fallthrough": addr + 3,
+            "confidence": "high",
+            "stop": False,
+        }
+    if 0xB8 <= op <= 0xBF:
+        reg = op - 0xB8
+        imm = mem[addr + 1]
+        rel = _signed8(mem[addr + 2])
+        return {
+            "mnemonic": "CJNE",
+            "operands": f"R{reg},#0x{imm:02X},{rel:+d}",
+            "length": 3,
+            "target_addr": rel_target(3, mem[addr + 2]),
+            "fallthrough": addr + 3,
+            "confidence": "high",
+            "stop": False,
+        }
+    if op in (0x24, 0x34, 0x44, 0x54, 0x64, 0x74, 0x94):
+        mnemonics = {
+            0x24: "ADD",
+            0x34: "ADDC",
+            0x44: "ORL",
+            0x54: "ANL",
+            0x64: "XRL",
+            0x74: "MOV",
+            0x94: "SUBB",
+        }
+        imm = mem[addr + 1]
+        return {
+            "mnemonic": mnemonics[op],
+            "operands": f"A,#0x{imm:02X}",
+            "length": 2,
+            "target_addr": None,
+            "fallthrough": addr + 2,
+            "confidence": "high",
+            "stop": False,
+        }
+    if op == 0x75:
+        direct = mem[addr + 1]
+        imm = mem[addr + 2]
+        return {
+            "mnemonic": "MOV",
+            "operands": f"0x{direct:02X},#0x{imm:02X}",
+            "length": 3,
+            "target_addr": None,
+            "fallthrough": addr + 3,
+            "confidence": "high",
+            "stop": False,
+        }
+    if op == 0xF5:
+        direct = mem[addr + 1]
+        return {
+            "mnemonic": "MOV",
+            "operands": f"0x{direct:02X},A",
+            "length": 2,
+            "target_addr": None,
+            "fallthrough": addr + 2,
+            "confidence": "high",
+            "stop": False,
+        }
+    if op == 0xE5:
+        direct = mem[addr + 1]
+        return {
+            "mnemonic": "MOV",
+            "operands": f"A,0x{direct:02X}",
+            "length": 2,
+            "target_addr": None,
+            "fallthrough": addr + 2,
+            "confidence": "high",
+            "stop": False,
+        }
+    if op == 0x05:
+        direct = mem[addr + 1]
+        return {
+            "mnemonic": "INC",
+            "operands": f"0x{direct:02X}",
+            "length": 2,
+            "target_addr": None,
+            "fallthrough": addr + 2,
+            "confidence": "high",
+            "stop": False,
+        }
+    if op == 0x15:
+        direct = mem[addr + 1]
+        return {
+            "mnemonic": "DEC",
+            "operands": f"0x{direct:02X}",
+            "length": 2,
+            "target_addr": None,
+            "fallthrough": addr + 2,
+            "confidence": "high",
+            "stop": False,
+        }
+    if op in (0x92, 0xA2, 0xC2, 0xD2):
+        mnemonics = {
+            0x92: "MOV",
+            0xA2: "MOV",
+            0xC2: "CLR",
+            0xD2: "SETB",
+        }
+        bit = mem[addr + 1]
+        operands = {
+            0x92: f"0x{bit:02X},C",
+            0xA2: f"C,0x{bit:02X}",
+            0xC2: f"0x{bit:02X}",
+            0xD2: f"0x{bit:02X}",
+        }
+        return {
+            "mnemonic": mnemonics[op],
+            "operands": operands[op],
+            "length": 2,
+            "target_addr": None,
+            "fallthrough": addr + 2,
+            "confidence": "high",
+            "stop": False,
+        }
+    if 0x78 <= op <= 0x7F:
+        reg = op - 0x78
+        imm = mem[addr + 1]
+        return {
+            "mnemonic": "MOV",
+            "operands": f"R{reg},#0x{imm:02X}",
+            "length": 2,
+            "target_addr": None,
+            "fallthrough": addr + 2,
+            "confidence": "high",
+            "stop": False,
+        }
+    if 0xE8 <= op <= 0xEF:
+        reg = op - 0xE8
+        return {
+            "mnemonic": "MOV",
+            "operands": f"A,R{reg}",
+            "length": 1,
+            "target_addr": None,
+            "fallthrough": addr + 1,
+            "confidence": "high",
+            "stop": False,
+        }
+    if 0xF8 <= op <= 0xFF:
+        reg = op - 0xF8
+        return {
+            "mnemonic": "MOV",
+            "operands": f"R{reg},A",
+            "length": 1,
+            "target_addr": None,
+            "fallthrough": addr + 1,
+            "confidence": "high",
+            "stop": False,
+        }
+    if 0x08 <= op <= 0x0F:
+        reg = op - 0x08
+        return {
+            "mnemonic": "INC",
+            "operands": f"R{reg}",
+            "length": 1,
+            "target_addr": None,
+            "fallthrough": addr + 1,
+            "confidence": "high",
+            "stop": False,
+        }
+    if 0x18 <= op <= 0x1F:
+        reg = op - 0x18
+        return {
+            "mnemonic": "DEC",
+            "operands": f"R{reg}",
+            "length": 1,
+            "target_addr": None,
+            "fallthrough": addr + 1,
             "confidence": "high",
             "stop": False,
         }
