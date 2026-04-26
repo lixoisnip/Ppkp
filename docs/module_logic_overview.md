@@ -165,3 +165,11 @@ XDATA-адреса для подтверждения:
 - Strongest output-control candidates (probable): dispatcher/state-writer/packet-adjacent функции из `docs/output_control_candidates.csv` (включая MASH-linked call-hub узлы), но без полного доказательства привязки к конкретным реле/задвижкам.
 - Найдены partial/full chains в `docs/zone_to_output_chains.csv`: как минимум частичные `sensor/module -> zone/event -> output/service -> packet/export`; для части веток отсутствуют одно или несколько звеньев (отмечены как `partial_chain`).
 - Осталось гипотезой: точные правила zone menu logic (AND/OR/задержки/1-из-2/2-из-2), строгая sensor->zone таблица, и окончательная связь конкретного output-флага с физическим устройством без стендовой верификации.
+
+
+## Zone-output deep trace after PR
+
+- strongest zone function: `0x737C` (zone_table/zone_logic marker balance) — **probable**.
+- strongest output function: `0x6833` (relay_output marker concentration) — **probable**.
+- event-звено: частично найдено как `event_state_update`/`event_to_output_bridge` маркеры, но явный queue bridge остается **hypothesis**.
+- осталось гипотезой: точные правила zone-event->relay и строгая привязка к конкретным физическим реле без стендовой проверки.

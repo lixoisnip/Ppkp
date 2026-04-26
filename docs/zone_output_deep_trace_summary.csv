@@ -1,0 +1,5 @@
+branch,file,function_addr,proposed_role,score,confidence,basic_block_count,internal_block_count,call_count,incoming_lcalls,xdata_read_count,xdata_write_count,movc_count,conditional_branch_count,bit_operation_count,zone_marker_hits,output_marker_hits,event_marker_hits,packet_export_hits,notes
+90CYE_DKS,90CYE03_19_DKS.PZU,0x497A,sensor_to_zone_mapping_candidate,2453.500,medium,91,90,76,0,23,24,0,42,8,588,228,588,29,strong_zone_candidate
+90CYE_DKS,90CYE03_19_DKS.PZU,0x737C,zone_table_candidate,755.000,medium,33,32,20,1,11,6,1,15,10,176,79,176,10,strong_zone_candidate
+90CYE_DKS,90CYE03_19_DKS.PZU,0x613C,zone_table_candidate,61.900,medium,3,2,0,1,39,16,3,1,1,12,12,12,0,
+90CYE_DKS,90CYE03_19_DKS.PZU,0x6833,relay_output_candidate,40.700,medium,2,1,6,1,16,2,0,1,0,0,24,0,3,missing_event_link;strong_relay_output_candidate
