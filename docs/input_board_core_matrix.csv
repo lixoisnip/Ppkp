@@ -1,0 +1,10 @@
+branch,file,input_core_role,core_function_addr,match_type,command_cluster_present,command_strings,command_string_addresses,command_adjacent_candidate,confidence,notes
+90CYE_DKS,90CYE03_19_DKS.PZU,sensor_zone,0x497A,same_address,yes,"<FUNC>|<ENTER>|<ACTIV>|<SILENCE>|<RESET>","0x68FD|0x6904|0x690C|0x691E|0x6928",0x6833,medium,"command cluster and output candidate co-located in static evidence"
+90CYE_DKS,90CYE04_19_DKS.PZU,sensor_zone,0x497A,same_address,yes,"<FUNC>|<ENTER>|<ACTIV>|<SILENCE>|<RESET>","0x68FD|0x6904|0x690C|0x691E|0x6928",0x6833,medium,"mirrors 90CYE03_19_DKS profile"
+90CYE_v2_1,90CYE03_19_2 v2_1.PZU,sensor_zone,0x497F,similar_role,no,,,0x80EC,medium,"shared role topology present; command string cluster not extracted in string_index"
+90CYE_v2_1,90CYE04_19_2 v2_1.PZU,sensor_zone,0x497F,similar_role,no,,,0x80EC,medium,"paired v2_1 branch with same role-level pattern"
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,sensor_zone,0x497F,similar_role,no,,,0x497F,medium,"shifted DKS role analog; command-string evidence absent in current extraction"
+A03_A04,A03_26.PZU,sensor_zone,0x497A,similar_role,no,,,0x497A,medium,"A03 role alignment from runtime_branch_comparison"
+A03_A04,A04_28.PZU,sensor_zone,0x497A,similar_role,no,,,0x497A,medium,"A04 role alignment from runtime_branch_comparison"
+RTOS_service,ppkp2001 90cye01.PZU,sensor_zone,0xAB62,similar_role,yes,"<FUNC>|<ENTER>|<ACTIV>|<SILENCE>|<RESET>","0x99F5|0x99FC|0x9A04|0x9A0C|0x9A16",0x9407,medium,"includes numeric key marker \"1..8\" in candidate string_refs"
+RTOS_service,ppkp2019 a02.PZU,input_command_cluster,0x9F50,string_cluster_anchor,yes,"<FUNC>|<ENTER>|<ACTIV>|<SILENCE>|<RESET>","0x9F50|0x9F57|0x9F5F|0x9F67|0x9F71",0x9826,medium,"string cluster confirmed in string_index; role alignment to 2001 image remains inference"
