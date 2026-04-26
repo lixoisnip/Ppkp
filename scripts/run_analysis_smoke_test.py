@@ -120,6 +120,17 @@ def main() -> int:
             "global branch-level comparison report after smoke-test",
         ),
         SmokeCommand(
+            "global_packet_pipeline_miner.py",
+            "all_firmwares",
+            [sys.executable, "scripts/global_packet_pipeline_miner.py"],
+            [
+                "docs/global_packet_pipeline_candidates.csv",
+                "docs/global_packet_pipeline_chains.csv",
+                "docs/global_packet_pipeline_mining.md",
+            ],
+            "global packet/runtime pipeline candidate mining across all branches",
+        ),
+        SmokeCommand(
             "a03_a04_packet_builder_candidates.py",
             "a03_a04_only",
             [sys.executable, "scripts/a03_a04_packet_builder_candidates.py"],

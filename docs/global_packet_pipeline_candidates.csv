@@ -1,0 +1,241 @@
+branch,file,function_addr,candidate_type,score,confidence,role_candidate,basic_block_count,internal_block_count,incoming_lcalls,call_count,xdata_read_count,xdata_write_count,movc_count,string_refs,cluster_hits,call_hub_score,writer_score,reader_score,table_score,notes
+A03_A04,A04_28.PZU,0x497A,dispatcher_candidate,22.595,high,dispatcher_or_router,69,68,0,99,8,5,0,0,5,23.837,24.625,23.912,15.162,global branch-wide score; no A03/A04-only address assumptions
+A03_A04,A03_26.PZU,0x497A,dispatcher_candidate,21.341,high,dispatcher_or_router,65,64,0,90,8,5,0,0,7,22.375,23.500,22.862,13.812,global branch-wide score; no A03/A04-only address assumptions
+A03_A04,A03_26.PZU,0xA900,dispatcher_candidate,13.038,high,dispatcher_or_router,23,22,1,33,14,0,0,0,7,16.350,8.062,16.563,5.263,global branch-wide score; no A03/A04-only address assumptions
+A03_A04,A04_28.PZU,0xB310,dispatcher_candidate,12.273,high,dispatcher_or_router,21,20,1,32,13,0,0,0,4,15.750,7.100,15.100,5.112,global branch-wide score; no A03/A04-only address assumptions
+A03_A04,A04_28.PZU,0x722E,dispatcher_candidate,10.903,high,state_update_worker,3,2,1,1,61,22,6,6,45,1.018,20.255,41.265,5.796,global branch-wide score; no A03/A04-only address assumptions
+A03_A04,A03_26.PZU,0x8904,dispatcher_candidate,8.658,high,dispatcher_or_router,34,33,1,14,15,2,0,0,15,4.388,10.688,17.788,2.413,global branch-wide score; no A03/A04-only address assumptions
+A03_A04,A03_26.PZU,0x800B,dispatcher_candidate,8.470,high,dispatcher_or_router,13,12,1,21,4,2,3,1,2,11.400,5.800,6.612,5.637,global branch-wide score; no A03/A04-only address assumptions
+A03_A04,A04_28.PZU,0x7F5B,dispatcher_candidate,8.354,high,dispatcher_or_router,13,12,1,20,4,2,3,1,5,10.800,6.262,6.963,5.487,global branch-wide score; no A03/A04-only address assumptions
+A03_A04,A04_28.PZU,0x497A,packet_service_candidate,24.205,high,dispatcher_or_router,69,68,0,99,8,5,0,0,5,23.837,24.625,23.912,15.162,service/packet worker ranking
+A03_A04,A03_26.PZU,0x497A,packet_service_candidate,22.898,high,dispatcher_or_router,65,64,0,90,8,5,0,0,7,22.375,23.500,22.862,13.812,service/packet worker ranking
+A03_A04,A04_28.PZU,0x722E,packet_service_candidate,17.285,high,state_update_worker,3,2,1,1,61,22,6,6,45,1.018,20.255,41.265,5.796,service/packet worker ranking
+A03_A04,A03_26.PZU,0xA900,packet_service_candidate,12.323,high,dispatcher_or_router,23,22,1,33,14,0,0,0,7,16.350,8.062,16.563,5.263,service/packet worker ranking
+A03_A04,A04_28.PZU,0xB310,packet_service_candidate,11.374,high,dispatcher_or_router,21,20,1,32,13,0,0,0,4,15.750,7.100,15.100,5.112,service/packet worker ranking
+A03_A04,A03_26.PZU,0x8904,packet_service_candidate,11.023,high,dispatcher_or_router,34,33,1,14,15,2,0,0,15,4.388,10.688,17.788,2.413,service/packet worker ranking
+A03_A04,A03_26.PZU,0x7339,packet_service_candidate,10.957,high,state_update_worker,3,2,1,1,39,16,2,2,25,1.018,13.639,26.040,2.016,service/packet worker ranking
+A03_A04,A04_28.PZU,0x889F,packet_service_candidate,10.285,high,dispatcher_or_router,34,33,1,14,15,2,0,0,8,4.388,9.375,16.738,2.413,service/packet worker ranking
+A03_A04,A04_28.PZU,0x497A,xdata_writer_candidate,24.625,high,dispatcher_or_router,69,68,0,99,8,5,0,0,5,23.837,24.625,23.912,15.162,writer-like behavior from global features
+A03_A04,A03_26.PZU,0x497A,xdata_writer_candidate,23.500,high,dispatcher_or_router,65,64,0,90,8,5,0,0,7,22.375,23.500,22.862,13.812,writer-like behavior from global features
+A03_A04,A04_28.PZU,0x722E,xdata_writer_candidate,20.255,high,state_update_worker,3,2,1,1,61,22,6,6,45,1.018,20.255,41.265,5.796,writer-like behavior from global features
+A03_A04,A03_26.PZU,0x7339,xdata_writer_candidate,13.639,high,state_update_worker,3,2,1,1,39,16,2,2,25,1.018,13.639,26.040,2.016,writer-like behavior from global features
+A03_A04,A03_26.PZU,0x8904,xdata_writer_candidate,10.688,high,dispatcher_or_router,34,33,1,14,15,2,0,0,15,4.388,10.688,17.788,2.413,writer-like behavior from global features
+A03_A04,A04_28.PZU,0x889F,xdata_writer_candidate,9.375,high,dispatcher_or_router,34,33,1,14,15,2,0,0,8,4.388,9.375,16.738,2.413,writer-like behavior from global features
+A03_A04,A04_28.PZU,0x950F,xdata_writer_candidate,8.998,high,state_update_worker,2,1,1,1,31,6,0,0,33,1.018,8.998,22.334,0.126,writer-like behavior from global features
+A03_A04,A03_26.PZU,0xA900,xdata_writer_candidate,8.062,high,dispatcher_or_router,23,22,1,33,14,0,0,0,7,16.350,8.062,16.563,5.263,writer-like behavior from global features
+A03_A04,A04_28.PZU,0x722E,xdata_reader_candidate,41.265,high,state_update_worker,3,2,1,1,61,22,6,6,45,1.018,20.255,41.265,5.796,reader-like behavior from global features
+A03_A04,A03_26.PZU,0x7339,xdata_reader_candidate,26.040,high,state_update_worker,3,2,1,1,39,16,2,2,25,1.018,13.639,26.040,2.016,reader-like behavior from global features
+A03_A04,A04_28.PZU,0x497A,xdata_reader_candidate,23.912,high,dispatcher_or_router,69,68,0,99,8,5,0,0,5,23.837,24.625,23.912,15.162,reader-like behavior from global features
+A03_A04,A03_26.PZU,0x497A,xdata_reader_candidate,22.862,high,dispatcher_or_router,65,64,0,90,8,5,0,0,7,22.375,23.500,22.862,13.812,reader-like behavior from global features
+A03_A04,A04_28.PZU,0x950F,xdata_reader_candidate,22.334,high,state_update_worker,2,1,1,1,31,6,0,0,33,1.018,8.998,22.334,0.126,reader-like behavior from global features
+A03_A04,A03_26.PZU,0x7953,xdata_reader_candidate,18.150,high,dispatcher_or_router,6,5,1,4,22,6,4,4,13,2.888,7.863,18.150,5.412,reader-like behavior from global features
+A03_A04,A03_26.PZU,0x8904,xdata_reader_candidate,17.788,high,dispatcher_or_router,34,33,1,14,15,2,0,0,15,4.388,10.688,17.788,2.413,reader-like behavior from global features
+A03_A04,A04_28.PZU,0xA6D9,xdata_reader_candidate,16.958,high,state_update_worker,1,0,1,16,26,4,0,0,4,2.331,4.410,16.958,2.279,reader-like behavior from global features
+A03_A04,A04_28.PZU,0x497A,table_string_candidate,15.162,high,dispatcher_or_router,69,68,0,99,8,5,0,0,5,23.837,24.625,23.912,15.162,MOVC + table/string evidence
+A03_A04,A03_26.PZU,0x497A,table_string_candidate,13.812,high,dispatcher_or_router,65,64,0,90,8,5,0,0,7,22.375,23.500,22.862,13.812,MOVC + table/string evidence
+A03_A04,A04_28.PZU,0x722E,table_string_candidate,5.796,high,state_update_worker,3,2,1,1,61,22,6,6,45,1.018,20.255,41.265,5.796,MOVC + table/string evidence
+A03_A04,A03_26.PZU,0x800B,table_string_candidate,5.637,high,dispatcher_or_router,13,12,1,21,4,2,3,1,2,11.400,5.800,6.612,5.637,MOVC + table/string evidence
+A03_A04,A04_28.PZU,0x7F5B,table_string_candidate,5.487,high,dispatcher_or_router,13,12,1,20,4,2,3,1,5,10.800,6.262,6.963,5.487,MOVC + table/string evidence
+A03_A04,A03_26.PZU,0x7953,table_string_candidate,5.412,high,dispatcher_or_router,6,5,1,4,22,6,4,4,13,2.888,7.863,18.150,5.412,MOVC + table/string evidence
+A03_A04,A03_26.PZU,0xA900,table_string_candidate,5.263,high,dispatcher_or_router,23,22,1,33,14,0,0,0,7,16.350,8.062,16.563,5.263,MOVC + table/string evidence
+A03_A04,A04_28.PZU,0xB310,table_string_candidate,5.112,high,dispatcher_or_router,21,20,1,32,13,0,0,0,4,15.750,7.100,15.100,5.112,MOVC + table/string evidence
+A03_A04,A04_28.PZU,0x497A,call_hub_candidate,23.837,high,dispatcher_or_router,69,68,0,99,8,5,0,0,5,23.837,24.625,23.912,15.162,incoming/outgoing call hub in branch-local graph
+A03_A04,A03_26.PZU,0x497A,call_hub_candidate,22.375,high,dispatcher_or_router,65,64,0,90,8,5,0,0,7,22.375,23.500,22.862,13.812,incoming/outgoing call hub in branch-local graph
+A03_A04,A03_26.PZU,0xA900,call_hub_candidate,16.350,high,dispatcher_or_router,23,22,1,33,14,0,0,0,7,16.350,8.062,16.563,5.263,incoming/outgoing call hub in branch-local graph
+A03_A04,A04_28.PZU,0xB310,call_hub_candidate,15.750,high,dispatcher_or_router,21,20,1,32,13,0,0,0,4,15.750,7.100,15.100,5.112,incoming/outgoing call hub in branch-local graph
+A03_A04,A03_26.PZU,0x800B,call_hub_candidate,11.400,high,dispatcher_or_router,13,12,1,21,4,2,3,1,2,11.400,5.800,6.612,5.637,incoming/outgoing call hub in branch-local graph
+A03_A04,A04_28.PZU,0x7F5B,call_hub_candidate,10.800,high,dispatcher_or_router,13,12,1,20,4,2,3,1,5,10.800,6.262,6.963,5.487,incoming/outgoing call hub in branch-local graph
+A03_A04,A04_28.PZU,0x6C07,call_hub_candidate,8.930,high,unknown,1,0,35,0,0,0,0,0,0,8.930,0.114,0.085,0.237,incoming/outgoing call hub in branch-local graph
+A03_A04,A03_26.PZU,0x6D2E,call_hub_candidate,8.854,high,unknown,1,0,33,0,0,0,0,0,0,8.854,0.114,0.085,0.237,incoming/outgoing call hub in branch-local graph
+90CYE_DKS,90CYE03_19_DKS.PZU,0x497A,dispatcher_candidate,23.531,high,dispatcher_or_router,91,90,0,76,23,24,0,0,5,15.100,38.688,34.400,11.712,global branch-wide score; no A03/A04-only address assumptions
+90CYE_DKS,90CYE04_19_DKS.PZU,0x497A,dispatcher_candidate,23.531,high,dispatcher_or_router,91,90,0,76,23,24,0,0,5,15.100,38.688,34.400,11.712,global branch-wide score; no A03/A04-only address assumptions
+90CYE_DKS,90CYE03_19_DKS.PZU,0x84A6,dispatcher_candidate,11.179,high,dispatcher_or_router,19,18,2,24,13,1,0,0,3,14.375,6.500,13.925,3.912,global branch-wide score; no A03/A04-only address assumptions
+90CYE_DKS,90CYE04_19_DKS.PZU,0x84A6,dispatcher_candidate,11.179,high,dispatcher_or_router,19,18,2,24,13,1,0,0,3,14.375,6.500,13.925,3.912,global branch-wide score; no A03/A04-only address assumptions
+90CYE_DKS,90CYE03_19_DKS.PZU,0x7017,dispatcher_candidate,8.949,high,dispatcher_or_router,23,22,1,13,17,4,0,0,17,5.475,10.688,18.125,2.263,global branch-wide score; no A03/A04-only address assumptions
+90CYE_DKS,90CYE04_19_DKS.PZU,0x7017,dispatcher_candidate,8.949,high,dispatcher_or_router,23,22,1,13,17,4,0,0,17,5.475,10.688,18.125,2.263,global branch-wide score; no A03/A04-only address assumptions
+90CYE_DKS,90CYE03_19_DKS.PZU,0x737C,dispatcher_candidate,8.577,high,dispatcher_or_router,33,32,1,20,11,6,3,1,1,5.175,11.262,13.425,5.487,global branch-wide score; no A03/A04-only address assumptions
+90CYE_DKS,90CYE04_19_DKS.PZU,0x737C,dispatcher_candidate,8.577,high,dispatcher_or_router,33,32,1,20,11,6,3,1,1,5.175,11.262,13.425,5.487,global branch-wide score; no A03/A04-only address assumptions
+90CYE_DKS,90CYE03_19_DKS.PZU,0x497A,packet_service_candidate,30.142,high,dispatcher_or_router,91,90,0,76,23,24,0,0,5,15.100,38.688,34.400,11.712,service/packet worker ranking
+90CYE_DKS,90CYE04_19_DKS.PZU,0x497A,packet_service_candidate,30.142,high,dispatcher_or_router,91,90,0,76,23,24,0,0,5,15.100,38.688,34.400,11.712,service/packet worker ranking
+90CYE_DKS,90CYE03_19_DKS.PZU,0x613C,packet_service_candidate,11.186,high,state_update_worker,3,2,1,0,39,16,3,3,28,0.514,14.028,26.334,2.835,service/packet worker ranking
+90CYE_DKS,90CYE04_19_DKS.PZU,0x613C,packet_service_candidate,11.186,high,state_update_worker,3,2,1,0,39,16,3,3,28,0.514,14.028,26.334,2.835,service/packet worker ranking
+90CYE_DKS,90CYE03_19_DKS.PZU,0x7017,packet_service_candidate,11.030,high,dispatcher_or_router,23,22,1,13,17,4,0,0,17,5.475,10.688,18.125,2.263,service/packet worker ranking
+90CYE_DKS,90CYE04_19_DKS.PZU,0x7017,packet_service_candidate,11.030,high,dispatcher_or_router,23,22,1,13,17,4,0,0,17,5.475,10.688,18.125,2.263,service/packet worker ranking
+90CYE_DKS,90CYE03_19_DKS.PZU,0x737C,packet_service_candidate,10.539,high,dispatcher_or_router,33,32,1,20,11,6,3,1,1,5.175,11.262,13.425,5.487,service/packet worker ranking
+90CYE_DKS,90CYE04_19_DKS.PZU,0x737C,packet_service_candidate,10.539,high,dispatcher_or_router,33,32,1,20,11,6,3,1,1,5.175,11.262,13.425,5.487,service/packet worker ranking
+90CYE_DKS,90CYE03_19_DKS.PZU,0x497A,xdata_writer_candidate,38.688,high,dispatcher_or_router,91,90,0,76,23,24,0,0,5,15.100,38.688,34.400,11.712,writer-like behavior from global features
+90CYE_DKS,90CYE04_19_DKS.PZU,0x497A,xdata_writer_candidate,38.688,high,dispatcher_or_router,91,90,0,76,23,24,0,0,5,15.100,38.688,34.400,11.712,writer-like behavior from global features
+90CYE_DKS,90CYE03_19_DKS.PZU,0x613C,xdata_writer_candidate,14.028,high,state_update_worker,3,2,1,0,39,16,3,3,28,0.514,14.028,26.334,2.835,writer-like behavior from global features
+90CYE_DKS,90CYE04_19_DKS.PZU,0x613C,xdata_writer_candidate,14.028,high,state_update_worker,3,2,1,0,39,16,3,3,28,0.514,14.028,26.334,2.835,writer-like behavior from global features
+90CYE_DKS,90CYE03_19_DKS.PZU,0x737C,xdata_writer_candidate,11.262,high,dispatcher_or_router,33,32,1,20,11,6,3,1,1,5.175,11.262,13.425,5.487,writer-like behavior from global features
+90CYE_DKS,90CYE04_19_DKS.PZU,0x737C,xdata_writer_candidate,11.262,high,dispatcher_or_router,33,32,1,20,11,6,3,1,1,5.175,11.262,13.425,5.487,writer-like behavior from global features
+90CYE_DKS,90CYE03_19_DKS.PZU,0x5EDC,xdata_writer_candidate,10.738,high,dispatcher_or_router,40,39,1,13,13,2,0,0,11,3.225,10.738,16.387,2.263,writer-like behavior from global features
+90CYE_DKS,90CYE04_19_DKS.PZU,0x5EDC,xdata_writer_candidate,10.738,high,dispatcher_or_router,40,39,1,13,13,2,0,0,11,3.225,10.738,16.387,2.263,writer-like behavior from global features
+90CYE_DKS,90CYE03_19_DKS.PZU,0x497A,xdata_reader_candidate,34.400,high,dispatcher_or_router,91,90,0,76,23,24,0,0,5,15.100,38.688,34.400,11.712,reader-like behavior from global features
+90CYE_DKS,90CYE04_19_DKS.PZU,0x497A,xdata_reader_candidate,34.400,high,dispatcher_or_router,91,90,0,76,23,24,0,0,5,15.100,38.688,34.400,11.712,reader-like behavior from global features
+90CYE_DKS,90CYE03_19_DKS.PZU,0x613C,xdata_reader_candidate,26.334,high,state_update_worker,3,2,1,0,39,16,3,3,28,0.514,14.028,26.334,2.835,reader-like behavior from global features
+90CYE_DKS,90CYE04_19_DKS.PZU,0x613C,xdata_reader_candidate,26.334,high,state_update_worker,3,2,1,0,39,16,3,3,28,0.514,14.028,26.334,2.835,reader-like behavior from global features
+90CYE_DKS,90CYE03_19_DKS.PZU,0x7D85,xdata_reader_candidate,24.066,high,state_update_worker,8,7,2,3,36,5,1,1,18,1.124,6.983,24.066,1.323,reader-like behavior from global features
+90CYE_DKS,90CYE04_19_DKS.PZU,0x7D85,xdata_reader_candidate,24.066,high,state_update_worker,8,7,2,3,36,5,1,1,18,1.124,6.983,24.066,1.323,reader-like behavior from global features
+90CYE_DKS,90CYE03_19_DKS.PZU,0x7017,xdata_reader_candidate,18.125,high,dispatcher_or_router,23,22,1,13,17,4,0,0,17,5.475,10.688,18.125,2.263,reader-like behavior from global features
+90CYE_DKS,90CYE04_19_DKS.PZU,0x7017,xdata_reader_candidate,18.125,high,dispatcher_or_router,23,22,1,13,17,4,0,0,17,5.475,10.688,18.125,2.263,reader-like behavior from global features
+90CYE_DKS,90CYE03_19_DKS.PZU,0x497A,table_string_candidate,11.712,high,dispatcher_or_router,91,90,0,76,23,24,0,0,5,15.100,38.688,34.400,11.712,MOVC + table/string evidence
+90CYE_DKS,90CYE04_19_DKS.PZU,0x497A,table_string_candidate,11.712,high,dispatcher_or_router,91,90,0,76,23,24,0,0,5,15.100,38.688,34.400,11.712,MOVC + table/string evidence
+90CYE_DKS,90CYE03_19_DKS.PZU,0x737C,table_string_candidate,5.487,high,dispatcher_or_router,33,32,1,20,11,6,3,1,1,5.175,11.262,13.425,5.487,MOVC + table/string evidence
+90CYE_DKS,90CYE04_19_DKS.PZU,0x737C,table_string_candidate,5.487,high,dispatcher_or_router,33,32,1,20,11,6,3,1,1,5.175,11.262,13.425,5.487,MOVC + table/string evidence
+90CYE_DKS,90CYE03_19_DKS.PZU,0x728A,table_string_candidate,4.213,high,dispatcher_or_router,12,11,1,26,5,4,0,0,0,6.525,7.150,7.388,4.213,MOVC + table/string evidence
+90CYE_DKS,90CYE04_19_DKS.PZU,0x728A,table_string_candidate,4.213,high,dispatcher_or_router,12,11,1,26,5,4,0,0,0,6.525,7.150,7.388,4.213,MOVC + table/string evidence
+90CYE_DKS,90CYE03_19_DKS.PZU,0x84A6,table_string_candidate,3.912,high,dispatcher_or_router,19,18,2,24,13,1,0,0,3,14.375,6.500,13.925,3.912,MOVC + table/string evidence
+90CYE_DKS,90CYE04_19_DKS.PZU,0x84A6,table_string_candidate,3.912,high,dispatcher_or_router,19,18,2,24,13,1,0,0,3,14.375,6.500,13.925,3.912,MOVC + table/string evidence
+90CYE_DKS,90CYE03_19_DKS.PZU,0x497A,call_hub_candidate,15.100,high,dispatcher_or_router,91,90,0,76,23,24,0,0,5,15.100,38.688,34.400,11.712,incoming/outgoing call hub in branch-local graph
+90CYE_DKS,90CYE04_19_DKS.PZU,0x497A,call_hub_candidate,15.100,high,dispatcher_or_router,91,90,0,76,23,24,0,0,5,15.100,38.688,34.400,11.712,incoming/outgoing call hub in branch-local graph
+90CYE_DKS,90CYE03_19_DKS.PZU,0x84A6,call_hub_candidate,14.375,high,dispatcher_or_router,19,18,2,24,13,1,0,0,3,14.375,6.500,13.925,3.912,incoming/outgoing call hub in branch-local graph
+90CYE_DKS,90CYE04_19_DKS.PZU,0x84A6,call_hub_candidate,14.375,high,dispatcher_or_router,19,18,2,24,13,1,0,0,3,14.375,6.500,13.925,3.912,incoming/outgoing call hub in branch-local graph
+90CYE_DKS,90CYE03_19_DKS.PZU,0x5A7F,call_hub_candidate,12.920,high,unknown,1,0,95,0,0,0,0,0,0,12.920,0.114,0.085,0.237,incoming/outgoing call hub in branch-local graph
+90CYE_DKS,90CYE04_19_DKS.PZU,0x5A7F,call_hub_candidate,12.920,high,unknown,1,0,95,0,0,0,0,0,0,12.920,0.114,0.085,0.237,incoming/outgoing call hub in branch-local graph
+90CYE_DKS,90CYE03_19_DKS.PZU,0x6025,call_hub_candidate,6.562,high,dispatcher_or_router,17,16,1,12,8,0,0,0,5,6.562,4.688,9.363,2.112,incoming/outgoing call hub in branch-local graph
+90CYE_DKS,90CYE04_19_DKS.PZU,0x6025,call_hub_candidate,6.562,high,dispatcher_or_router,17,16,1,12,8,0,0,0,5,6.562,4.688,9.363,2.112,incoming/outgoing call hub in branch-local graph
+90CYE_v2_1,90CYE03_19_2 v2_1.PZU,0x497F,dispatcher_candidate,22.532,high,dispatcher_or_router,64,63,0,93,13,9,0,0,5,22.488,26.025,26.188,14.262,global branch-wide score; no A03/A04-only address assumptions
+90CYE_v2_1,90CYE04_19_2 v2_1.PZU,0x497F,dispatcher_candidate,22.532,high,dispatcher_or_router,64,63,0,93,13,9,0,0,5,22.488,26.025,26.188,14.262,global branch-wide score; no A03/A04-only address assumptions
+90CYE_v2_1,90CYE03_19_2 v2_1.PZU,0xAA96,dispatcher_candidate,15.019,high,dispatcher_or_router,23,22,2,30,21,1,0,0,17,17.413,10.325,22.575,4.812,global branch-wide score; no A03/A04-only address assumptions
+90CYE_v2_1,90CYE04_19_2 v2_1.PZU,0xAA96,dispatcher_candidate,15.019,high,dispatcher_or_router,23,22,2,30,21,1,0,0,17,17.413,10.325,22.575,4.812,global branch-wide score; no A03/A04-only address assumptions
+90CYE_v2_1,90CYE03_19_2 v2_1.PZU,0x9F46,dispatcher_candidate,12.590,high,dispatcher_or_router,13,12,3,12,36,6,0,0,26,7.788,12.150,31.312,2.112,global branch-wide score; no A03/A04-only address assumptions
+90CYE_v2_1,90CYE04_19_2 v2_1.PZU,0x9F46,dispatcher_candidate,12.590,high,dispatcher_or_router,13,12,3,12,36,6,0,0,26,7.788,12.150,31.312,2.112,global branch-wide score; no A03/A04-only address assumptions
+90CYE_v2_1,90CYE03_19_2 v2_1.PZU,0x90B6,dispatcher_candidate,11.912,high,dispatcher_or_router,55,54,1,32,12,1,0,0,10,8.438,14.012,19.137,5.112,global branch-wide score; no A03/A04-only address assumptions
+90CYE_v2_1,90CYE04_19_2 v2_1.PZU,0x90B6,dispatcher_candidate,11.912,high,dispatcher_or_router,55,54,1,32,12,1,0,0,10,8.438,14.012,19.137,5.112,global branch-wide score; no A03/A04-only address assumptions
+90CYE_v2_1,90CYE03_19_2 v2_1.PZU,0x497F,packet_service_candidate,24.807,high,dispatcher_or_router,64,63,0,93,13,9,0,0,5,22.488,26.025,26.188,14.262,service/packet worker ranking
+90CYE_v2_1,90CYE04_19_2 v2_1.PZU,0x497F,packet_service_candidate,24.807,high,dispatcher_or_router,64,63,0,93,13,9,0,0,5,22.488,26.025,26.188,14.262,service/packet worker ranking
+90CYE_v2_1,90CYE03_19_2 v2_1.PZU,0x9F46,packet_service_candidate,15.763,high,dispatcher_or_router,13,12,3,12,36,6,0,0,26,7.788,12.150,31.312,2.112,service/packet worker ranking
+90CYE_v2_1,90CYE04_19_2 v2_1.PZU,0x9F46,packet_service_candidate,15.763,high,dispatcher_or_router,13,12,3,12,36,6,0,0,26,7.788,12.150,31.312,2.112,service/packet worker ranking
+90CYE_v2_1,90CYE03_19_2 v2_1.PZU,0xAA96,packet_service_candidate,15.023,high,dispatcher_or_router,23,22,2,30,21,1,0,0,17,17.413,10.325,22.575,4.812,service/packet worker ranking
+90CYE_v2_1,90CYE04_19_2 v2_1.PZU,0xAA96,packet_service_candidate,15.023,high,dispatcher_or_router,23,22,2,30,21,1,0,0,17,17.413,10.325,22.575,4.812,service/packet worker ranking
+90CYE_v2_1,90CYE03_19_2 v2_1.PZU,0x90B6,packet_service_candidate,14.275,high,dispatcher_or_router,55,54,1,32,12,1,0,0,10,8.438,14.012,19.137,5.112,service/packet worker ranking
+90CYE_v2_1,90CYE04_19_2 v2_1.PZU,0x90B6,packet_service_candidate,14.275,high,dispatcher_or_router,55,54,1,32,12,1,0,0,10,8.438,14.012,19.137,5.112,service/packet worker ranking
+90CYE_v2_1,90CYE03_19_2 v2_1.PZU,0x497F,xdata_writer_candidate,26.025,high,dispatcher_or_router,64,63,0,93,13,9,0,0,5,22.488,26.025,26.188,14.262,writer-like behavior from global features
+90CYE_v2_1,90CYE04_19_2 v2_1.PZU,0x497F,xdata_writer_candidate,26.025,high,dispatcher_or_router,64,63,0,93,13,9,0,0,5,22.488,26.025,26.188,14.262,writer-like behavior from global features
+90CYE_v2_1,90CYE03_19_2 v2_1.PZU,0x90B6,xdata_writer_candidate,14.012,high,dispatcher_or_router,55,54,1,32,12,1,0,0,10,8.438,14.012,19.137,5.112,writer-like behavior from global features
+90CYE_v2_1,90CYE04_19_2 v2_1.PZU,0x90B6,xdata_writer_candidate,14.012,high,dispatcher_or_router,55,54,1,32,12,1,0,0,10,8.438,14.012,19.137,5.112,writer-like behavior from global features
+90CYE_v2_1,90CYE03_19_2 v2_1.PZU,0x9F46,xdata_writer_candidate,12.150,high,dispatcher_or_router,13,12,3,12,36,6,0,0,26,7.788,12.150,31.312,2.112,writer-like behavior from global features
+90CYE_v2_1,90CYE04_19_2 v2_1.PZU,0x9F46,xdata_writer_candidate,12.150,high,dispatcher_or_router,13,12,3,12,36,6,0,0,26,7.788,12.150,31.312,2.112,writer-like behavior from global features
+90CYE_v2_1,90CYE03_19_2 v2_1.PZU,0x8EB8,xdata_writer_candidate,10.812,high,dispatcher_or_router,22,21,1,12,16,4,0,0,19,5.438,10.812,17.525,2.112,writer-like behavior from global features
+90CYE_v2_1,90CYE04_19_2 v2_1.PZU,0x8EB8,xdata_writer_candidate,10.812,high,dispatcher_or_router,22,21,1,12,16,4,0,0,19,5.438,10.812,17.525,2.112,writer-like behavior from global features
+90CYE_v2_1,90CYE03_19_2 v2_1.PZU,0x9F46,xdata_reader_candidate,31.312,high,dispatcher_or_router,13,12,3,12,36,6,0,0,26,7.788,12.150,31.312,2.112,reader-like behavior from global features
+90CYE_v2_1,90CYE04_19_2 v2_1.PZU,0x9F46,xdata_reader_candidate,31.312,high,dispatcher_or_router,13,12,3,12,36,6,0,0,26,7.788,12.150,31.312,2.112,reader-like behavior from global features
+90CYE_v2_1,90CYE03_19_2 v2_1.PZU,0x84FA,xdata_reader_candidate,28.297,high,state_update_worker,3,2,1,12,40,5,1,1,31,5.040,9.156,28.297,2.720,reader-like behavior from global features
+90CYE_v2_1,90CYE04_19_2 v2_1.PZU,0x84FA,xdata_reader_candidate,28.297,high,state_update_worker,3,2,1,12,40,5,1,1,31,5.040,9.156,28.297,2.720,reader-like behavior from global features
+90CYE_v2_1,90CYE03_19_2 v2_1.PZU,0x497F,xdata_reader_candidate,26.188,high,dispatcher_or_router,64,63,0,93,13,9,0,0,5,22.488,26.025,26.188,14.262,reader-like behavior from global features
+90CYE_v2_1,90CYE04_19_2 v2_1.PZU,0x497F,xdata_reader_candidate,26.188,high,dispatcher_or_router,64,63,0,93,13,9,0,0,5,22.488,26.025,26.188,14.262,reader-like behavior from global features
+90CYE_v2_1,90CYE03_19_2 v2_1.PZU,0xAA96,xdata_reader_candidate,22.575,high,dispatcher_or_router,23,22,2,30,21,1,0,0,17,17.413,10.325,22.575,4.812,reader-like behavior from global features
+90CYE_v2_1,90CYE04_19_2 v2_1.PZU,0xAA96,xdata_reader_candidate,22.575,high,dispatcher_or_router,23,22,2,30,21,1,0,0,17,17.413,10.325,22.575,4.812,reader-like behavior from global features
+90CYE_v2_1,90CYE03_19_2 v2_1.PZU,0x497F,table_string_candidate,14.262,high,dispatcher_or_router,64,63,0,93,13,9,0,0,5,22.488,26.025,26.188,14.262,MOVC + table/string evidence
+90CYE_v2_1,90CYE04_19_2 v2_1.PZU,0x497F,table_string_candidate,14.262,high,dispatcher_or_router,64,63,0,93,13,9,0,0,5,22.488,26.025,26.188,14.262,MOVC + table/string evidence
+90CYE_v2_1,90CYE03_19_2 v2_1.PZU,0xA7FB,table_string_candidate,6.930,high,state_reader_or_packet_builder,3,2,1,4,9,0,7,6,2,1.661,1.078,6.358,6.930,MOVC + table/string evidence
+90CYE_v2_1,90CYE04_19_2 v2_1.PZU,0xA7FB,table_string_candidate,6.930,high,state_reader_or_packet_builder,3,2,1,4,9,0,7,6,2,1.661,1.078,6.358,6.930,MOVC + table/string evidence
+90CYE_v2_1,90CYE03_19_2 v2_1.PZU,0x8BE5,table_string_candidate,5.787,high,dispatcher_or_router,13,12,1,22,4,2,3,1,6,12.000,6.650,7.312,5.787,MOVC + table/string evidence
+90CYE_v2_1,90CYE04_19_2 v2_1.PZU,0x8BE5,table_string_candidate,5.787,high,dispatcher_or_router,13,12,1,22,4,2,3,1,6,12.000,6.650,7.312,5.787,MOVC + table/string evidence
+90CYE_v2_1,90CYE03_19_2 v2_1.PZU,0x929E,table_string_candidate,5.713,high,dispatcher_or_router,13,12,1,36,7,4,0,0,9,10.838,9.988,11.225,5.713,MOVC + table/string evidence
+90CYE_v2_1,90CYE04_19_2 v2_1.PZU,0x929E,table_string_candidate,5.713,high,dispatcher_or_router,13,12,1,36,7,4,0,0,9,10.838,9.988,11.225,5.713,MOVC + table/string evidence
+90CYE_v2_1,90CYE03_19_2 v2_1.PZU,0x497F,call_hub_candidate,22.488,high,dispatcher_or_router,64,63,0,93,13,9,0,0,5,22.488,26.025,26.188,14.262,incoming/outgoing call hub in branch-local graph
+90CYE_v2_1,90CYE04_19_2 v2_1.PZU,0x497F,call_hub_candidate,22.488,high,dispatcher_or_router,64,63,0,93,13,9,0,0,5,22.488,26.025,26.188,14.262,incoming/outgoing call hub in branch-local graph
+90CYE_v2_1,90CYE03_19_2 v2_1.PZU,0xAA96,call_hub_candidate,17.413,high,dispatcher_or_router,23,22,2,30,21,1,0,0,17,17.413,10.325,22.575,4.812,incoming/outgoing call hub in branch-local graph
+90CYE_v2_1,90CYE04_19_2 v2_1.PZU,0xAA96,call_hub_candidate,17.413,high,dispatcher_or_router,23,22,2,30,21,1,0,0,17,17.413,10.325,22.575,4.812,incoming/outgoing call hub in branch-local graph
+90CYE_v2_1,90CYE03_19_2 v2_1.PZU,0x72AC,call_hub_candidate,12.663,high,unknown,1,0,77,0,0,0,0,0,0,12.663,0.114,0.085,0.237,incoming/outgoing call hub in branch-local graph
+90CYE_v2_1,90CYE04_19_2 v2_1.PZU,0x72AC,call_hub_candidate,12.663,high,unknown,1,0,77,0,0,0,0,0,0,12.663,0.114,0.085,0.237,incoming/outgoing call hub in branch-local graph
+90CYE_v2_1,90CYE03_19_2 v2_1.PZU,0x8BE5,call_hub_candidate,12.000,high,dispatcher_or_router,13,12,1,22,4,2,3,1,6,12.000,6.650,7.312,5.787,incoming/outgoing call hub in branch-local graph
+90CYE_v2_1,90CYE04_19_2 v2_1.PZU,0x8BE5,call_hub_candidate,12.000,high,dispatcher_or_router,13,12,1,22,4,2,3,1,6,12.000,6.650,7.312,5.787,incoming/outgoing call hub in branch-local graph
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,0x497F,dispatcher_candidate,19.248,high,dispatcher_or_router,49,48,0,85,8,9,0,0,0,20.500,22.037,19.512,13.062,global branch-wide score; no A03/A04-only address assumptions
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,0x8A42,dispatcher_candidate,9.283,high,dispatcher_or_router,14,13,1,21,9,0,0,0,0,13.088,4.200,9.862,3.462,global branch-wide score; no A03/A04-only address assumptions
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,0x745A,dispatcher_candidate,8.648,high,dispatcher_or_router,13,12,1,22,4,2,3,1,0,12.000,5.525,6.412,5.787,global branch-wide score; no A03/A04-only address assumptions
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,0x673C,dispatcher_candidate,7.679,high,state_update_worker,3,2,1,0,52,25,2,2,0,0.514,14.816,30.314,1.890,global branch-wide score; no A03/A04-only address assumptions
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,0x7E49,dispatcher_candidate,7.663,high,dispatcher_or_router,35,34,1,14,15,1,0,0,0,4.388,7.338,15.650,2.413,global branch-wide score; no A03/A04-only address assumptions
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,0x774F,dispatcher_candidate,7.075,high,dispatcher_or_router,17,16,1,11,15,8,0,0,0,4.275,9.150,13.325,1.962,global branch-wide score; no A03/A04-only address assumptions
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,0x7574,dispatcher_candidate,6.749,high,dispatcher_or_router,22,21,1,22,3,0,0,0,0,7.500,5.500,6.737,3.612,global branch-wide score; no A03/A04-only address assumptions
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,0x7C97,dispatcher_candidate,5.609,high,dispatcher_or_router,7,6,1,8,16,4,0,0,0,3.600,4.600,12.588,1.512,global branch-wide score; no A03/A04-only address assumptions
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,0x497F,packet_service_candidate,20.502,high,dispatcher_or_router,49,48,0,85,8,9,0,0,0,20.500,22.037,19.512,13.062,service/packet worker ranking
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,0x673C,packet_service_candidate,12.288,high,state_update_worker,3,2,1,0,52,25,2,2,0,0.514,14.816,30.314,1.890,service/packet worker ranking
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,0x7E49,packet_service_candidate,9.334,high,dispatcher_or_router,35,34,1,14,15,1,0,0,0,4.388,7.338,15.650,2.413,service/packet worker ranking
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,0x774F,packet_service_candidate,8.618,high,dispatcher_or_router,17,16,1,11,15,8,0,0,0,4.275,9.150,13.325,1.962,service/packet worker ranking
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,0x8A42,packet_service_candidate,7.848,high,dispatcher_or_router,14,13,1,21,9,0,0,0,0,13.088,4.200,9.862,3.462,service/packet worker ranking
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,0x745A,packet_service_candidate,7.391,high,dispatcher_or_router,13,12,1,22,4,2,3,1,0,12.000,5.525,6.412,5.787,service/packet worker ranking
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,0x7C97,packet_service_candidate,6.505,high,dispatcher_or_router,7,6,1,8,16,4,0,0,0,3.600,4.600,12.588,1.512,service/packet worker ranking
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,0x7574,packet_service_candidate,6.458,high,dispatcher_or_router,22,21,1,22,3,0,0,0,0,7.500,5.500,6.737,3.612,service/packet worker ranking
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,0x497F,xdata_writer_candidate,22.037,high,dispatcher_or_router,49,48,0,85,8,9,0,0,0,20.500,22.037,19.512,13.062,writer-like behavior from global features
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,0x673C,xdata_writer_candidate,14.816,high,state_update_worker,3,2,1,0,52,25,2,2,0,0.514,14.816,30.314,1.890,writer-like behavior from global features
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,0x774F,xdata_writer_candidate,9.150,high,dispatcher_or_router,17,16,1,11,15,8,0,0,0,4.275,9.150,13.325,1.962,writer-like behavior from global features
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,0x7E49,xdata_writer_candidate,7.338,high,dispatcher_or_router,35,34,1,14,15,1,0,0,0,4.388,7.338,15.650,2.413,writer-like behavior from global features
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,0x745A,xdata_writer_candidate,5.525,high,dispatcher_or_router,13,12,1,22,4,2,3,1,0,12.000,5.525,6.412,5.787,writer-like behavior from global features
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,0x7574,xdata_writer_candidate,5.500,high,dispatcher_or_router,22,21,1,22,3,0,0,0,0,7.500,5.500,6.737,3.612,writer-like behavior from global features
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,0x6DCB,xdata_writer_candidate,5.492,high,state_update_worker,1,0,1,2,24,9,1,1,0,1.050,5.492,14.123,1.197,writer-like behavior from global features
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,0x7C97,xdata_writer_candidate,4.600,high,dispatcher_or_router,7,6,1,8,16,4,0,0,0,3.600,4.600,12.588,1.512,writer-like behavior from global features
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,0x673C,xdata_reader_candidate,30.314,high,state_update_worker,3,2,1,0,52,25,2,2,0,0.514,14.816,30.314,1.890,reader-like behavior from global features
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,0x497F,xdata_reader_candidate,19.512,high,dispatcher_or_router,49,48,0,85,8,9,0,0,0,20.500,22.037,19.512,13.062,reader-like behavior from global features
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,0x7E49,xdata_reader_candidate,15.650,high,dispatcher_or_router,35,34,1,14,15,1,0,0,0,4.388,7.338,15.650,2.413,reader-like behavior from global features
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,0x6DCB,xdata_reader_candidate,14.123,high,state_update_worker,1,0,1,2,24,9,1,1,0,1.050,5.492,14.123,1.197,reader-like behavior from global features
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,0x774F,xdata_reader_candidate,13.325,high,dispatcher_or_router,17,16,1,11,15,8,0,0,0,4.275,9.150,13.325,1.962,reader-like behavior from global features
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,0x7C97,xdata_reader_candidate,12.588,high,dispatcher_or_router,7,6,1,8,16,4,0,0,0,3.600,4.600,12.588,1.512,reader-like behavior from global features
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,0x8042,xdata_reader_candidate,12.306,high,state_update_worker,1,0,1,1,21,6,0,0,0,1.018,3.675,12.306,0.126,reader-like behavior from global features
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,0x8A42,xdata_reader_candidate,9.862,high,dispatcher_or_router,14,13,1,21,9,0,0,0,0,13.088,4.200,9.862,3.462,reader-like behavior from global features
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,0x497F,table_string_candidate,13.062,high,dispatcher_or_router,49,48,0,85,8,9,0,0,0,20.500,22.037,19.512,13.062,MOVC + table/string evidence
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,0x745A,table_string_candidate,5.787,high,dispatcher_or_router,13,12,1,22,4,2,3,1,0,12.000,5.525,6.412,5.787,MOVC + table/string evidence
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,0x7574,table_string_candidate,3.612,high,dispatcher_or_router,22,21,1,22,3,0,0,0,0,7.500,5.500,6.737,3.612,MOVC + table/string evidence
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,0x8A42,table_string_candidate,3.462,high,dispatcher_or_router,14,13,1,21,9,0,0,0,0,13.088,4.200,9.862,3.462,MOVC + table/string evidence
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,0x72E4,table_string_candidate,3.372,high,code_table_or_ui_worker,9,8,1,2,0,0,5,2,0,1.710,1.178,0.921,3.372,MOVC + table/string evidence
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,0x7E49,table_string_candidate,2.413,medium,dispatcher_or_router,35,34,1,14,15,1,0,0,0,4.388,7.338,15.650,2.413,MOVC + table/string evidence
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,0x6106,table_string_candidate,1.991,low,state_reader_or_packet_builder,26,25,2,2,6,0,2,1,0,2.024,3.608,6.380,1.991,MOVC + table/string evidence
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,0x774F,table_string_candidate,1.962,low,dispatcher_or_router,17,16,1,11,15,8,0,0,0,4.275,9.150,13.325,1.962,MOVC + table/string evidence
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,0x497F,call_hub_candidate,20.500,high,dispatcher_or_router,49,48,0,85,8,9,0,0,0,20.500,22.037,19.512,13.062,incoming/outgoing call hub in branch-local graph
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,0x8A42,call_hub_candidate,13.088,high,dispatcher_or_router,14,13,1,21,9,0,0,0,0,13.088,4.200,9.862,3.462,incoming/outgoing call hub in branch-local graph
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,0x745A,call_hub_candidate,12.000,high,dispatcher_or_router,13,12,1,22,4,2,3,1,0,12.000,5.525,6.412,5.787,incoming/outgoing call hub in branch-local graph
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,0x7574,call_hub_candidate,7.500,high,dispatcher_or_router,22,21,1,22,3,0,0,0,0,7.500,5.500,6.737,3.612,incoming/outgoing call hub in branch-local graph
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,0x604B,call_hub_candidate,7.372,high,unknown,1,0,39,0,0,0,0,0,0,7.372,0.114,0.085,0.237,incoming/outgoing call hub in branch-local graph
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,0x7E49,call_hub_candidate,4.388,high,dispatcher_or_router,35,34,1,14,15,1,0,0,0,4.388,7.338,15.650,2.413,incoming/outgoing call hub in branch-local graph
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,0x774F,call_hub_candidate,4.275,high,dispatcher_or_router,17,16,1,11,15,8,0,0,0,4.275,9.150,13.325,1.962,incoming/outgoing call hub in branch-local graph
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,0x7C97,call_hub_candidate,3.600,high,dispatcher_or_router,7,6,1,8,16,4,0,0,0,3.600,4.600,12.588,1.512,incoming/outgoing call hub in branch-local graph
+RTOS_service,ppkp2001 90cye01.PZU,0x758B,dispatcher_candidate,44.622,medium,dispatcher_or_router,341,340,1,127,66,2,4,1,19,7.500,68.787,99.288,22.062,global branch-wide score; no A03/A04-only address assumptions
+RTOS_service,ppkp2012 a01.PZU,0x5436,dispatcher_candidate,38.951,medium,dispatcher_or_router,17,16,2,13,144,39,1,1,135,8.338,55.975,122.463,3.388,global branch-wide score; no A03/A04-only address assumptions
+RTOS_service,ppkp2001 90cye01.PZU,0x53E6,dispatcher_candidate,38.715,medium,dispatcher_or_router,17,16,2,13,144,36,1,1,137,8.338,54.288,122.763,3.388,global branch-wide score; no A03/A04-only address assumptions
+RTOS_service,ppkp2012 a01.PZU,0x75F7,dispatcher_candidate,38.150,medium,dispatcher_or_router,262,261,1,91,87,1,2,1,0,6.150,49.087,98.388,15.613,global branch-wide score; no A03/A04-only address assumptions
+RTOS_service,ppkp2019 a02.PZU,0x57DB,dispatcher_candidate,31.790,medium,dispatcher_or_router,17,16,2,13,119,27,4,4,92,8.338,39.662,98.825,6.763,global branch-wide score; no A03/A04-only address assumptions
+RTOS_service,ppkp2012 a01.PZU,0xAB52,dispatcher_candidate,19.566,medium,dispatcher_or_router,154,153,1,75,5,0,13,1,1,6.675,30.787,28.413,18.988,global branch-wide score; no A03/A04-only address assumptions
+RTOS_service,ppkp2001 90cye01.PZU,0xA3FD,dispatcher_candidate,18.814,medium,dispatcher_or_router,154,153,1,70,5,0,7,1,1,6.487,30.288,27.913,15.088,global branch-wide score; no A03/A04-only address assumptions
+RTOS_service,ppkp2012 a01.PZU,0xB606,dispatcher_candidate,15.931,medium,dispatcher_or_router,41,40,1,46,11,4,0,0,3,19.087,14.062,17.225,7.212,global branch-wide score; no A03/A04-only address assumptions
+RTOS_service,ppkp2001 90cye01.PZU,0x758B,packet_service_candidate,66.591,medium,dispatcher_or_router,341,340,1,127,66,2,4,1,19,7.500,68.787,99.288,22.062,service/packet worker ranking
+RTOS_service,ppkp2012 a01.PZU,0x5436,packet_service_candidate,58.385,medium,dispatcher_or_router,17,16,2,13,144,39,1,1,135,8.338,55.975,122.463,3.388,service/packet worker ranking
+RTOS_service,ppkp2001 90cye01.PZU,0x53E6,packet_service_candidate,57.952,medium,dispatcher_or_router,17,16,2,13,144,36,1,1,137,8.338,54.288,122.763,3.388,service/packet worker ranking
+RTOS_service,ppkp2012 a01.PZU,0x75F7,packet_service_candidate,56.716,medium,dispatcher_or_router,262,261,1,91,87,1,2,1,0,6.150,49.087,98.388,15.613,service/packet worker ranking
+RTOS_service,ppkp2019 a02.PZU,0x57DB,packet_service_candidate,46.534,medium,dispatcher_or_router,17,16,2,13,119,27,4,4,92,8.338,39.662,98.825,6.763,service/packet worker ranking
+RTOS_service,ppkp2012 a01.PZU,0xAB52,packet_service_candidate,27.162,medium,dispatcher_or_router,154,153,1,75,5,0,13,1,1,6.675,30.787,28.413,18.988,service/packet worker ranking
+RTOS_service,ppkp2001 90cye01.PZU,0xA3FD,packet_service_candidate,26.083,medium,dispatcher_or_router,154,153,1,70,5,0,7,1,1,6.487,30.288,27.913,15.088,service/packet worker ranking
+RTOS_service,ppkp2019 a02.PZU,0x7A32,packet_service_candidate,20.566,medium,dispatcher_or_router,79,78,1,24,39,2,3,3,0,2.638,15.625,38.100,6.975,service/packet worker ranking
+RTOS_service,ppkp2001 90cye01.PZU,0x758B,xdata_writer_candidate,68.787,medium,dispatcher_or_router,341,340,1,127,66,2,4,1,19,7.500,68.787,99.288,22.062,writer-like behavior from global features
+RTOS_service,ppkp2012 a01.PZU,0x5436,xdata_writer_candidate,55.975,medium,dispatcher_or_router,17,16,2,13,144,39,1,1,135,8.338,55.975,122.463,3.388,writer-like behavior from global features
+RTOS_service,ppkp2001 90cye01.PZU,0x53E6,xdata_writer_candidate,54.288,medium,dispatcher_or_router,17,16,2,13,144,36,1,1,137,8.338,54.288,122.763,3.388,writer-like behavior from global features
+RTOS_service,ppkp2012 a01.PZU,0x75F7,xdata_writer_candidate,49.087,medium,dispatcher_or_router,262,261,1,91,87,1,2,1,0,6.150,49.087,98.388,15.613,writer-like behavior from global features
+RTOS_service,ppkp2019 a02.PZU,0x57DB,xdata_writer_candidate,39.662,medium,dispatcher_or_router,17,16,2,13,119,27,4,4,92,8.338,39.662,98.825,6.763,writer-like behavior from global features
+RTOS_service,ppkp2012 a01.PZU,0xAB52,xdata_writer_candidate,30.787,medium,dispatcher_or_router,154,153,1,75,5,0,13,1,1,6.675,30.787,28.413,18.988,writer-like behavior from global features
+RTOS_service,ppkp2001 90cye01.PZU,0xA3FD,xdata_writer_candidate,30.288,medium,dispatcher_or_router,154,153,1,70,5,0,7,1,1,6.487,30.288,27.913,15.088,writer-like behavior from global features
+RTOS_service,ppkp2019 a02.PZU,0xA9C5,xdata_writer_candidate,21.188,medium,dispatcher_or_router,106,105,1,51,4,0,7,1,1,5.775,21.188,19.925,12.237,writer-like behavior from global features
+RTOS_service,ppkp2001 90cye01.PZU,0x53E6,xdata_reader_candidate,122.763,medium,dispatcher_or_router,17,16,2,13,144,36,1,1,137,8.338,54.288,122.763,3.388,reader-like behavior from global features
+RTOS_service,ppkp2012 a01.PZU,0x5436,xdata_reader_candidate,122.463,medium,dispatcher_or_router,17,16,2,13,144,39,1,1,135,8.338,55.975,122.463,3.388,reader-like behavior from global features
+RTOS_service,ppkp2001 90cye01.PZU,0x758B,xdata_reader_candidate,99.288,medium,dispatcher_or_router,341,340,1,127,66,2,4,1,19,7.500,68.787,99.288,22.062,reader-like behavior from global features
+RTOS_service,ppkp2019 a02.PZU,0x57DB,xdata_reader_candidate,98.825,medium,dispatcher_or_router,17,16,2,13,119,27,4,4,92,8.338,39.662,98.825,6.763,reader-like behavior from global features
+RTOS_service,ppkp2012 a01.PZU,0x75F7,xdata_reader_candidate,98.388,medium,dispatcher_or_router,262,261,1,91,87,1,2,1,0,6.150,49.087,98.388,15.613,reader-like behavior from global features
+RTOS_service,ppkp2019 a02.PZU,0x7A32,xdata_reader_candidate,38.100,medium,dispatcher_or_router,79,78,1,24,39,2,3,3,0,2.638,15.625,38.100,6.975,reader-like behavior from global features
+RTOS_service,ppkp2012 a01.PZU,0x84FA,xdata_reader_candidate,36.124,medium,state_reader_or_packet_builder,1,0,8,2,49,1,0,0,47,1.408,8.668,36.124,0.264,reader-like behavior from global features
+RTOS_service,ppkp2001 90cye01.PZU,0x7EDA,xdata_reader_candidate,31.198,medium,unknown,1,0,4,2,49,2,0,0,47,1.064,8.008,31.198,0.228,reader-like behavior from global features
+RTOS_service,ppkp2001 90cye01.PZU,0x758B,table_string_candidate,22.062,medium,dispatcher_or_router,341,340,1,127,66,2,4,1,19,7.500,68.787,99.288,22.062,MOVC + table/string evidence
+RTOS_service,ppkp2012 a01.PZU,0xAB52,table_string_candidate,18.988,medium,dispatcher_or_router,154,153,1,75,5,0,13,1,1,6.675,30.787,28.413,18.988,MOVC + table/string evidence
+RTOS_service,ppkp2012 a01.PZU,0x75F7,table_string_candidate,15.613,medium,dispatcher_or_router,262,261,1,91,87,1,2,1,0,6.150,49.087,98.388,15.613,MOVC + table/string evidence
+RTOS_service,ppkp2001 90cye01.PZU,0xA3FD,table_string_candidate,15.088,medium,dispatcher_or_router,154,153,1,70,5,0,7,1,1,6.487,30.288,27.913,15.088,MOVC + table/string evidence
+RTOS_service,ppkp2019 a02.PZU,0xA9C5,table_string_candidate,12.237,medium,dispatcher_or_router,106,105,1,51,4,0,7,1,1,5.775,21.188,19.925,12.237,MOVC + table/string evidence
+RTOS_service,ppkp2019 a02.PZU,0x4CDC,table_string_candidate,9.162,medium,dispatcher_or_router,56,55,2,31,0,0,8,0,0,5.637,11.500,9.400,9.162,MOVC + table/string evidence
+RTOS_service,ppkp2019 a02.PZU,0x49C8,table_string_candidate,8.037,medium,dispatcher_or_router,48,47,1,34,0,0,5,0,0,4.575,10.600,8.800,8.037,MOVC + table/string evidence
+RTOS_service,ppkp2019 a02.PZU,0x6864,table_string_candidate,7.962,medium,dispatcher_or_router,26,25,1,40,2,0,2,1,0,6.487,7.900,8.300,7.962,MOVC + table/string evidence
+RTOS_service,ppkp2019 a02.PZU,0xAF92,call_hub_candidate,21.263,medium,dispatcher_or_router,40,39,1,44,8,0,0,0,0,21.263,10.400,14.400,6.912,incoming/outgoing call hub in branch-local graph
+RTOS_service,ppkp2019 a02.PZU,0x92EF,call_hub_candidate,19.114,medium,unknown,1,0,123,0,0,0,0,0,0,19.114,0.114,0.085,0.237,incoming/outgoing call hub in branch-local graph
+RTOS_service,ppkp2012 a01.PZU,0xB606,call_hub_candidate,19.087,medium,dispatcher_or_router,41,40,1,46,11,4,0,0,3,19.087,14.062,17.225,7.212,incoming/outgoing call hub in branch-local graph
+RTOS_service,ppkp2001 90cye01.PZU,0xAB62,call_hub_candidate,16.575,medium,dispatcher_or_router,41,40,1,39,11,2,0,0,3,16.575,11.988,16.525,6.162,incoming/outgoing call hub in branch-local graph
+RTOS_service,ppkp2012 a01.PZU,0x95B0,call_hub_candidate,14.820,medium,unknown,1,0,100,0,0,0,0,0,0,14.820,0.114,0.085,0.237,incoming/outgoing call hub in branch-local graph
+RTOS_service,ppkp2001 90cye01.PZU,0x8F8C,call_hub_candidate,13.822,medium,unknown,1,0,85,0,0,0,0,0,0,13.822,0.114,0.085,0.237,incoming/outgoing call hub in branch-local graph
+RTOS_service,ppkp2019 a02.PZU,0x439D,call_hub_candidate,10.613,medium,dispatcher_or_router,36,35,7,22,2,14,1,0,3,10.613,17.788,8.075,4.137,incoming/outgoing call hub in branch-local graph
+RTOS_service,ppkp2012 a01.PZU,0x6C3B,call_hub_candidate,9.000,medium,dispatcher_or_router,36,35,1,32,20,5,0,0,22,9.000,16.163,24.300,5.112,incoming/outgoing call hub in branch-local graph
