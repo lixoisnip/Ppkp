@@ -9,6 +9,7 @@ DISASM_CSV = Path("docs/disassembly_index.csv")
 CALL_XREF_CSV = Path("docs/call_xref.csv")
 XDATA_CSV = Path("docs/xdata_confirmed_access.csv")
 CODE_TABLE_CSV = Path("docs/code_table_candidates.csv")
+BASIC_BLOCK_CSV = Path("docs/basic_block_map.csv")
 OUT_CSV = Path("docs/function_map.csv")
 
 READ_EVIDENCE = {"confirmed_xdata_read", "offset_read"}
@@ -28,12 +29,13 @@ def evidence_label(evidence: set[str]) -> str:
         return "entry_vector"
     if evidence == {"call_target"}:
         return "call_target"
-    if evidence == {"jump_target"}:
-        return "jump_target"
+    if evidence == {"basic_block_entry"}:
+        return "basic_block_entry"
     return "mixed"
 
 
 def infer_role(
+    basic_block_count: int,
     incoming_lcalls: int,
     incoming_ljmps: int,
     incoming_sjmps: int,
@@ -43,21 +45,14 @@ def infer_role(
     xdata_write_count: int,
     movc_count: int,
 ) -> str:
-    total_incoming = incoming_lcalls + incoming_ljmps + incoming_sjmps
-    total_xdata = xdata_read_count + xdata_write_count
-
-    if incoming_lcalls >= 3 and total_xdata >= 3:
-        return "service_or_runtime_worker"
-    if movc_count >= 2:
-        return "code_table_or_ui_worker"
-    if call_count >= 4 and ret_count <= 1:
+    if basic_block_count >= 6 and call_count >= 4:
         return "dispatcher_or_router"
     if xdata_write_count >= 3:
         return "state_update_worker"
     if xdata_read_count >= 3 and xdata_write_count <= 1:
         return "state_reader_or_packet_builder"
-    if total_incoming == 0 and total_xdata == 0 and movc_count == 0:
-        return "unknown"
+    if movc_count >= 2:
+        return "code_table_or_ui_worker"
     return "unknown"
 
 
@@ -110,10 +105,26 @@ def main() -> int:
 
             if call_type == "LCALL":
                 function_evidence[key][target].add("call_target")
-            else:
-                function_evidence[key][target].add("jump_target")
             if call_type in {"LCALL", "LJMP", "SJMP"}:
                 incoming_counts[key][target][call_type] += 1
+
+    blocks_by_key: dict[tuple[str, str], list[dict[str, object]]] = defaultdict(list)
+    with BASIC_BLOCK_CSV.open(newline="", encoding="utf-8") as f:
+        for row in csv.DictReader(f):
+            key = (row["file"], row["branch"])
+            block_addr = parse_hex(row["block_addr"])
+            block_type = row["block_type"]
+            parent_candidate = row["parent_function_candidate"].strip()
+            parent_addr = parse_hex(parent_candidate) if parent_candidate else None
+            blocks_by_key[key].append(
+                {
+                    "block_addr": block_addr,
+                    "block_type": block_type,
+                    "parent_addr": parent_addr,
+                }
+            )
+            if block_type == "function_entry":
+                function_evidence[key][block_addr].add("basic_block_entry")
 
     xdata_by_key: dict[tuple[str, str], list[dict[str, object]]] = defaultdict(list)
     with XDATA_CSV.open(newline="", encoding="utf-8") as f:
@@ -165,9 +176,15 @@ def main() -> int:
                         xdata_write_count += 1
 
             movc_count = sum(1 for addr in movc_by_key.get(key, []) if func_addr <= addr < next_addr)
+            basic_blocks = [
+                block for block in blocks_by_key.get(key, []) if block["parent_addr"] == func_addr
+            ]
+            basic_block_count = len(basic_blocks)
+            internal_block_count = sum(1 for block in basic_blocks if block["block_type"] != "function_entry")
 
             incoming = incoming_counts[key][func_addr]
             role_candidate = infer_role(
+                basic_block_count=basic_block_count,
                 incoming_lcalls=incoming["LCALL"],
                 incoming_ljmps=incoming["LJMP"],
                 incoming_sjmps=incoming["SJMP"],
@@ -201,6 +218,8 @@ def main() -> int:
                     xdata_read_count,
                     xdata_write_count,
                     movc_count,
+                    basic_block_count,
+                    internal_block_count,
                     role_candidate,
                     confidence,
                 ]
@@ -224,6 +243,8 @@ def main() -> int:
                 "xdata_read_count",
                 "xdata_write_count",
                 "movc_count",
+                "basic_block_count",
+                "internal_block_count",
                 "role_candidate",
                 "confidence",
             ]
