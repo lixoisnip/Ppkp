@@ -351,6 +351,17 @@ def main() -> int:
             ],
             "deep-trace mapping of screen-confirmed DKS module slots to static code-level handler candidates",
         ),
+        SmokeCommand(
+            "manual_dks_module_decompiler.py",
+            "dks_module_followup",
+            [sys.executable, "scripts/manual_dks_module_decompiler.py"],
+            [
+                "docs/manual_dks_module_decompile.md",
+                "docs/manual_dks_module_decompile_summary.csv",
+                "docs/manual_dks_module_pseudocode.csv",
+            ],
+            "semi-manual DKS decompile follow-up report plus machine-readable summary and pseudocode CSVs",
+        ),
     ]
 
     rows: list[dict[str, str]] = []

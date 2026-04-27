@@ -51,6 +51,9 @@
 - docs/dks_module_deep_trace_analysis.md — deep-trace mapping of screen-confirmed DKS module slots MDS/MUP/PVK/MASH to code-level handler candidates.
 - docs/dks_module_deep_trace_candidates.csv — function-level candidate evidence for screen-confirmed DKS modules.
 - docs/dks_module_slot_summary.csv — per-slot module resolution status.
+- docs/manual_dks_module_decompile.md — semi-manual pseudocode reconstruction of DKS module candidates 0x497A, 0x613C, 0x673C, 0x758B, 0x53E6, 0xAB62.
+- docs/manual_dks_module_decompile_summary.csv — role/confidence summary for manually reconstructed DKS module candidates.
+- docs/manual_dks_module_pseudocode.csv — pseudocode skeletons for selected DKS module candidate functions.
 - docs/module_handler_summary.csv — сводная таблица кандидатов обработчиков модулей по всем веткам.
 - Предыдущий файл анализа/журнал: `PZU_ANALYSIS.md`
 

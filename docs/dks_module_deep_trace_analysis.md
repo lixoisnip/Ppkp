@@ -142,3 +142,9 @@ Date: 2026-04-27 (UTC).
 - MASH: ppkp2001 90cye01.PZU:0x758B (0.670), ppkp2001 90cye01.PZU:0x758B (0.670), ppkp2001 90cye01.PZU:0xAB62 (0.572), ppkp2001 90cye01.PZU:0xAB62 (0.572).
 - PVK: ppkp2001 90cye01.PZU:0x758B (0.450), 90CYE03_19_DKS.PZU:0x497A (0.410), 90CYE04_19_DKS.PZU:0x497A (0.408), 90CYE03_19_DKS.PZU:0x613C (0.370), 90CYE04_19_DKS.PZU:0x613C (0.370).
 - object-status layer: 0x673C (MDS, 0.862), 0x673C (MDS, 0.862), 0x673C (MDS, 0.862), 0x497F (MDS, 0.860), 0x497F (MDS, 0.860).
+
+## Manual decompile follow-up
+
+- `docs/manual_dks_module_decompile.md`
+- `docs/manual_dks_module_decompile_summary.csv`
+- `docs/manual_dks_module_pseudocode.csv`
