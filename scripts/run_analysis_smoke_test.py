@@ -340,6 +340,17 @@ def main() -> int:
             ],
             "full cross-firmware module architecture analyzer and comparison report",
         ),
+        SmokeCommand(
+            "dks_module_deep_trace.py",
+            "dks_module_followup",
+            [sys.executable, "scripts/dks_module_deep_trace.py"],
+            [
+                "docs/dks_module_deep_trace_candidates.csv",
+                "docs/dks_module_slot_summary.csv",
+                "docs/dks_module_deep_trace_analysis.md",
+            ],
+            "deep-trace mapping of screen-confirmed DKS module slots to static code-level handler candidates",
+        ),
     ]
 
     rows: list[dict[str, str]] = []
