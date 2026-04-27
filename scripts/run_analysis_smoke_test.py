@@ -362,6 +362,17 @@ def main() -> int:
             ],
             "semi-manual DKS decompile follow-up report plus machine-readable summary and pseudocode CSVs",
         ),
+        SmokeCommand(
+            "manual_dks_downstream_decompiler.py",
+            "dks_module_followup",
+            [sys.executable, "scripts/manual_dks_downstream_decompiler.py"],
+            [
+                "docs/manual_dks_downstream_decompile.md",
+                "docs/manual_dks_downstream_decompile_summary.csv",
+                "docs/manual_dks_downstream_pseudocode.csv",
+            ],
+            "semi-manual downstream DKS decompile follow-up report plus machine-readable summary and pseudocode CSVs",
+        ),
     ]
 
     rows: list[dict[str, str]] = []

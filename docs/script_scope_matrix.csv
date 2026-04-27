@@ -33,3 +33,4 @@ scripts/xdata_enum_branch_resolver.py,false,true,true,true,true,true,deep follow
 scripts/firmware_module_architecture_analyzer.py,true,false,true,true,true,true,full cross-firmware module architecture analyzer (Issue #52 follow-up); tolerates missing optional input-board artifacts with warnings
 scripts/dks_module_deep_trace.py,true,false,true,true,true,true,deep-trace mapping from screen-confirmed DKS module slots to static code candidates with conservative confidence caps
 scripts/manual_dks_module_decompiler.py,true,false,true,true,true,true,semi-manual DKS module follow-up; writes docs/manual_dks_module_decompile.md + docs/manual_dks_module_decompile_summary.csv + docs/manual_dks_module_pseudocode.csv
+scripts/manual_dks_downstream_decompiler.py,true,false,true,true,true,true,semi-manual downstream DKS follow-up; writes docs/manual_dks_downstream_decompile.md + docs/manual_dks_downstream_decompile_summary.csv + docs/manual_dks_downstream_pseudocode.csv

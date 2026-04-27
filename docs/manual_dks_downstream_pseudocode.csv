@@ -1,0 +1,30 @@
+branch,file,function_addr,pseudocode_block,known_operations,unknown_operations,confidence,notes
+90CYE_DKS,90CYE03_19_DKS.PZU,0x5A7F,"void fn_5A7F(uint8_t selector_or_index) {
+    // update DPTR bytes from current selector/context
+    // return pointer-like DPTR state for caller MOVX activity
+}",tiny helper; DPTR staging; high fan-in; caller performs MOVX after this helper; packet/export-adjacent bridge,"whether it is packet sink, pointer resolver, or packet-field bridge; exact selector/index meaning",probable,"conservative role: bridge-like helper, not full builder by itself"
+90CYE_DKS,90CYE03_19_DKS.PZU,0x737C,"void fn_737C(...) {
+    // read object/zone context (0x31BF + 0x36xx cluster)
+    // branch on masked enum/state values
+    // call 0x84A6 and 0x5A7F on selected paths
+    // update 0x3010/0x3011/0x3012/0x3013/0x3014/0x301A/0x301B state-table fields
+}",reads/writes 0x3010/0x3011/0x3012/0x3013/0x3014/0x301A/0x301B; reads 0x31BF and 0x36xx cluster; calls 0x84A6 and 0x5A7F; enum-like values 0x03/0x07,exact physical semantics for branch outcomes and object-state meaning,probable,kept as zone/object logic candidate with conservative confidence
+90CYE_DKS,90CYE03_19_DKS.PZU,0x84A6,"void fn_84A6(...) {
+    // read mode/state cluster (0x315B/0x3181/0x3640/0x36D3/0x36D9)
+    // evaluate branch flags / thresholds
+    // call 0x728A for downstream gate path
+    // call 0x5A7F for packet/pointer bridge on selected paths
+}",reads 0x315B/0x3181/0x3640/0x36D3/0x36D9; calls 0x728A; calls 0x5A7F,manual/auto physical mapping remains hypothesis; exact event semantics unknown,hypothesis,bridge interpretation kept conservative
+90CYE_DKS,90CYE03_19_DKS.PZU,0x7922,"void fn_7922(void) {
+    // A = XDATA[DPTR]; R0 = A
+    // DPTR++
+    // A = XDATA[DPTR]; R1 = A
+    // return
+}",tiny helper; reads two bytes from XDATA @DPTR into R0/R1; no direct packet/export call inside,exact table/service semantic meaning of fetched bytes,probable,usable as state-table reader/service-event helper without overclaiming semantics
+90CYE_DKS,90CYE03_19_DKS.PZU,0x597F,"uint8_t fn_597F(uint8_t in_a) {
+    // return in_a & 0x07
+}",compact helper; likely A & 0x07; used by 0x6833 before output-start write,exact permission/fault/mode semantics of bitmask result,probable,condition-check helper role preserved
+90CYE_DKS,90CYE03_19_DKS.PZU,0x7DC2,"void fn_7DC2(...) {
+    // downstream sub-block in parent routine (0x7D85)
+    // call helper(s) (0x7121 and 0x7D9B), then continue output/service transition tail
+}",LJMP target from 0x6833 tail; sub-block in parent 0x7D85; calls 0x7121 and 0x7D9B,whether it is exclusively a packet finalizer remains unknown,hypothesis,treated as downstream output/service transition tail

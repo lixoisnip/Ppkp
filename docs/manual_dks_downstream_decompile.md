@@ -2,6 +2,10 @@
 
 Date: 2026-04-27 (UTC).
 
+## Machine-readable outputs
+- `docs/manual_dks_downstream_decompile_summary.csv`
+- `docs/manual_dks_downstream_pseudocode.csv`
+
 ## Scope
 - Static semi-manual reconstruction only.
 - Targets selected because they sit downstream of 0x497A / 0x613C / 0x728A / 0x6833 chain.
@@ -141,64 +145,57 @@ void fn_7DC2(...) {
 - **Chain adjacency evidence:** prior reports (`manual_decompile_0x728A_0x6833.md`, `auto_manual_gating_deep_trace_analysis.md`) used only as contextual adjacency, not as proof of physical action.
 - **Unknown physical meaning:** no direct claim is made that these addresses correspond to specific field actuators or named physical devices.
 
-## Pseudocode section
+## Pseudocode section (specific, non-generic)
 
 ### 0x5A7F
 ```c
-void fn_5A7F(...) {
-    // read inputs / context
-    // branch on flags or state
-    // call helpers
-    // write state / return pointer / export event
+void fn_5A7F(uint8_t selector_or_index) {
+    // update DPTR bytes from current selector/context
+    // return pointer-like DPTR state for caller MOVX activity
 }
 ```
 
 ### 0x737C
 ```c
 void fn_737C(...) {
-    // read inputs / context
-    // branch on flags or state
-    // call helpers
-    // write state / return pointer / export event
+    // read object/zone context (0x31BF + 0x36xx cluster)
+    // branch on masked enum/state values
+    // call 0x84A6 and 0x5A7F on selected paths
+    // update 0x3010/0x3011/0x3012/0x3013/0x3014/0x301A/0x301B state-table fields
 }
 ```
 
 ### 0x84A6
 ```c
 void fn_84A6(...) {
-    // read inputs / context
-    // branch on flags or state
-    // call helpers
-    // write state / return pointer / export event
+    // read mode/state cluster (0x315B/0x3181/0x3640/0x36D3/0x36D9)
+    // evaluate branch flags / thresholds
+    // call 0x728A for downstream gate path
+    // call 0x5A7F for packet/pointer bridge on selected paths
 }
 ```
 
 ### 0x7922
 ```c
-void fn_7922(...) {
-    // read inputs / context
-    // branch on flags or state
-    // call helpers
-    // write state / return pointer / export event
+void fn_7922(void) {
+    // A = XDATA[DPTR]; R0 = A
+    // DPTR++
+    // A = XDATA[DPTR]; R1 = A
+    // return
 }
 ```
 
 ### 0x597F
 ```c
-void fn_597F(...) {
-    // read inputs / context
-    // branch on flags or state
-    // call helpers
-    // write state / return pointer / export event
+uint8_t fn_597F(uint8_t in_a) {
+    // return in_a & 0x07
 }
 ```
 
 ### 0x7DC2
 ```c
 void fn_7DC2(...) {
-    // read inputs / context
-    // branch on flags or state
-    // call helpers
-    // write state / return pointer / export event
+    // downstream sub-block in parent routine (0x7D85)
+    // call helper(s) (0x7121 and 0x7D9B), then continue output/service transition tail
 }
 ```
