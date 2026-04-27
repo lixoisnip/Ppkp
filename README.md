@@ -95,6 +95,15 @@ python3 scripts/run_analysis_smoke_test.py
 
 `scripts/run_analysis_smoke_test.py` выполняет smoke-прогон основных глобальных и специализированных A03/A04-скриптов, проверяет их exit-code и наличие ожидаемых выходных артефактов.
 
+Для experimental emulator (Issue #78 follow-up) можно отдельно запустить:
+
+```bash
+python3 scripts/firmware_execution_sandbox.py list-scenarios
+python3 scripts/firmware_execution_sandbox.py run-scenario packet_bridge_default --max-steps 500
+python3 scripts/firmware_execution_sandbox.py run-scenario packet_bridge_seeded_context --max-steps 500
+python3 scripts/firmware_execution_sandbox.py run-scenario boot_probe_static --max-steps 500
+```
+
 Результаты смотреть в:
 
 - `docs/analysis_smoke_test_results.csv`

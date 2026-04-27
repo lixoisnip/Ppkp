@@ -5,7 +5,7 @@ from dataclasses import dataclass, field
 from typing import Callable
 
 from emulator.pzu_memory import CodeImage
-from emulator.sfr_model import SfrModel
+from emulator.sfr_model import SBUF_CANDIDATE_ADDRS, SfrModel
 from emulator.trace import TraceLog
 
 
@@ -192,13 +192,17 @@ class CPU8051Subset:
 
         if op == 0x25:  # ADD A,direct
             direct = self.fetch(pc + 1)
-            if direct >= 0x80:
-                value = self.sfr.read(direct, step=s.step_counter, pc=pc, notes="direct_sfr_read")
-            else:
-                value = s.idata[direct]
+            value = self._read_direct(direct, pc=pc, notes="add_direct")
             s.acc = (s.acc + value) & 0xFF
             s.pc += 2
             self._log_instr("ADD", f"A,0x{direct:02X}", pc, acc_before, dptr_before, notes="direct_read_model=idata_or_sfr")
+            return True, None
+
+        if op == 0xF5:  # MOV direct,A
+            direct = self.fetch(pc + 1)
+            self._write_direct(direct, s.acc, pc=pc, notes="mov_direct_a")
+            s.pc += 2
+            self._log_instr("MOV", f"0x{direct:02X},A", pc, acc_before, dptr_before, notes="direct_write_model=idata_or_sfr")
             return True, None
 
         if op == 0x93:  # MOVC A,@A+DPTR
@@ -226,11 +230,51 @@ class CPU8051Subset:
         if op == 0xB4:  # CJNE A,#imm,rel
             imm = self.fetch(pc + 1)
             rel = self.fetch(pc + 2)
+            self._set_carry_for_cjne(s.acc, imm)
             if s.acc != imm:
                 s.pc = (pc + 3 + self._rel(rel)) & 0xFFFF
             else:
                 s.pc = (pc + 3) & 0xFFFF
             self._log_instr("CJNE", f"A,#0x{imm:02X},{self._rel(rel)}", pc, acc_before, dptr_before)
+            return True, None
+
+        if op == 0xB5:  # CJNE A,direct,rel
+            direct = self.fetch(pc + 1)
+            rel = self.fetch(pc + 2)
+            value = self._read_direct(direct, pc=pc, notes="cjne_a_direct")
+            self._set_carry_for_cjne(s.acc, value)
+            if s.acc != value:
+                s.pc = (pc + 3 + self._rel(rel)) & 0xFFFF
+            else:
+                s.pc = (pc + 3) & 0xFFFF
+            self._log_instr("CJNE", f"A,0x{direct:02X},{self._rel(rel)}", pc, acc_before, dptr_before)
+            return True, None
+
+        if op in (0xB6, 0xB7):  # CJNE @R0/@R1,#imm,rel
+            n = op - 0xB6
+            imm = self.fetch(pc + 1)
+            rel = self.fetch(pc + 2)
+            addr = s.regs[n] & 0xFF
+            value = s.idata[addr]
+            self._set_carry_for_cjne(value, imm)
+            if value != imm:
+                s.pc = (pc + 3 + self._rel(rel)) & 0xFFFF
+            else:
+                s.pc = (pc + 3) & 0xFFFF
+            self._log_instr("CJNE", f"@R{n},#0x{imm:02X},{self._rel(rel)}", pc, acc_before, dptr_before)
+            return True, None
+
+        if 0xB8 <= op <= 0xBF:  # CJNE Rn,#imm,rel
+            n = op - 0xB8
+            imm = self.fetch(pc + 1)
+            rel = self.fetch(pc + 2)
+            value = s.regs[n]
+            self._set_carry_for_cjne(value, imm)
+            if value != imm:
+                s.pc = (pc + 3 + self._rel(rel)) & 0xFFFF
+            else:
+                s.pc = (pc + 3) & 0xFFFF
+            self._log_instr("CJNE", f"R{n},#0x{imm:02X},{self._rel(rel)}", pc, acc_before, dptr_before)
             return True, None
 
         if op in (0x60, 0x70, 0x80):
@@ -287,3 +331,62 @@ class CPU8051Subset:
             self._log_instr("UNSUPPORTED_SKIP", f"0x{op:02X}", pc, acc_before, dptr_before, notes=msg)
             return True, None
         return False, msg
+
+    def _read_direct(self, direct: int, *, pc: int, notes: str = "") -> int:
+        if direct >= 0x80:
+            return self.sfr.read(direct, step=self.s.step_counter, pc=pc, notes=notes or "direct_sfr_read")
+        value = self.s.idata[direct]
+        self.trace.add(
+            {
+                "step": self.s.step_counter,
+                "pc": pc,
+                "op": "DIRECT",
+                "args": f"0x{direct:02X}",
+                "xdata_addr": direct,
+                "xdata_value": f"0x{value:02X}",
+                "trace_type": "direct_memory_read",
+                "notes": notes or "direct_idata_read",
+            }
+        )
+        return value
+
+    def _write_direct(self, direct: int, value: int, *, pc: int, notes: str = "") -> None:
+        v = value & 0xFF
+        if direct >= 0x80:
+            self.sfr.write(direct, v, step=self.s.step_counter, pc=pc, notes=notes or "direct_sfr_write")
+            if direct in SBUF_CANDIDATE_ADDRS:
+                role = "sbuf0_candidate" if direct == 0x99 else "sbuf1_candidate" if direct == 0x9A else "unknown_sfr_uart_candidate"
+                self.trace.add(
+                    {
+                        "step": self.s.step_counter,
+                        "pc": pc,
+                        "op": "UART_TX_CANDIDATE",
+                        "args": f"0x{direct:02X}",
+                        "sfr_addr": direct,
+                        "sfr_value": f"0x{v:02X}",
+                        "trace_type": "uart_sbuf_write",
+                        "notes": f"role={role};confidence=low;evidence_level=hypothesis",
+                    }
+                )
+            return
+
+        prev = self.s.idata[direct]
+        self.s.idata[direct] = v
+        self._sync_regs_from_idata()
+        self.trace.add(
+            {
+                "step": self.s.step_counter,
+                "pc": pc,
+                "op": "DIRECT",
+                "args": f"0x{direct:02X}",
+                "xdata_addr": direct,
+                "xdata_value": f"0x{v:02X}",
+                "trace_type": "direct_memory_write",
+                "notes": f"prev=0x{prev:02X};{notes or 'direct_idata_write'}",
+            }
+        )
+
+    def _set_carry_for_cjne(self, lhs: int, rhs: int) -> None:
+        carry = 1 if (lhs & 0xFF) < (rhs & 0xFF) else 0
+        self.s.psw = ((self.s.psw & 0x7F) | (carry << 7)) & 0xFF
+        self.sfr.write(0xD0, self.s.psw, step=self.s.step_counter, pc=self.s.pc, notes="cjne_carry_update")

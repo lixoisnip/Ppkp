@@ -11,7 +11,7 @@
 - Record init writes with evidence labels.
 
 ## Phase 3 — UART/SBUF capture
-- Detect SCON/SBUF writes.
+- Detect candidate SCON/SBUF writes via direct/SFR model.
 - Record candidate TX byte streams.
 - Correlate with scenario-level events without overclaiming protocol semantics.
 

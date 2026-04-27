@@ -24,6 +24,9 @@ REPORT_MD = OUT / "firmware_execution_sandbox_report.md"
 SFR_TRACE_CSV = OUT / "sfr_trace.csv"
 CODE_READ_TRACE_CSV = OUT / "code_read_trace.csv"
 PZU_METADATA_CSV = OUT / "pzu_load_metadata.csv"
+DIRECT_TRACE_CSV = OUT / "direct_memory_trace.csv"
+UART_SBUF_TRACE_CSV = OUT / "uart_sbuf_trace.csv"
+CPU_COVERAGE_CSV = OUT / "cpu_subset_coverage.csv"
 
 
 def _run_id(prefix: str) -> str:
@@ -161,12 +164,39 @@ def _write_report(source_note: str, runs: list[FunctionRunResult], scenario_name
                 "## Candidate packet/event records",
                 "See docs/emulator/candidate_packet_records.csv (contiguous observed writes only; no packet format invention).",
                 "",
+                "## Issue #78 progress checks",
+                f"Did 0x55AD advance past 0xB8? {'yes' if _advanced_past_opcode(runs, 0x55AD, 0x55D0) else 'no'}",
+                f"Did 0x5602 advance past 0xB8? {'yes' if _advanced_past_opcode(runs, 0x5602, 0x5609) else 'no'}",
+                f"Did 0x5A7F advance past 0xF5? {'yes' if _advanced_past_opcode(runs, 0x5A7F, 0x5A81) else 'no'}",
+                f"Were any SBUF candidate writes observed? {'yes' if _has_trace_type(runs, 'uart_sbuf_write') else 'no'}",
+                f"Were any UART TX candidate bytes observed? {'yes' if _has_trace_type(runs, 'uart_sbuf_write') else 'no'}",
+                f"Were any new candidate packet/event records observed? {'yes' if writes > 0 else 'no'}",
+                "Are RS-485 commands still unresolved? yes",
+                "",
                 "No real RS-485 command is confirmed unless UART/SBUF writes or decoded packet bytes are observed.",
             ]
         )
         + "\n",
         encoding="utf-8",
     )
+
+
+def _has_trace_type(runs: list[FunctionRunResult], trace_type: str) -> bool:
+    return any(row["trace_type"] == trace_type for run in runs for row in run.trace.rows)
+
+
+def _advanced_past_opcode(runs: list[FunctionRunResult], function_addr: int, blocked_pc: int) -> bool:
+    for run in runs:
+        if run.function_addr != function_addr:
+            continue
+        for row in run.trace.rows:
+            pc = row.get("pc", "")
+            try:
+                if int(pc, 16) > blocked_pc:
+                    return True
+            except ValueError:
+                continue
+    return False
 
 
 def run_scenario(name: str, max_steps: int) -> None:
@@ -210,6 +240,9 @@ def run_scenario(name: str, max_steps: int) -> None:
     _write_sfr_trace(all_runs, name)
     _write_code_read_trace(all_runs, name)
     _write_pzu_load_metadata(img)
+    _write_direct_memory_trace(all_runs, name)
+    _write_uart_sbuf_trace(all_runs, name)
+    _write_cpu_subset_coverage(all_runs)
     _write_report(f"{img.firmware_file} via {img.source}", all_runs, scenario_name=name)
 
 
@@ -245,6 +278,9 @@ def run_single_function(firmware: str, addr: int, max_steps: int) -> None:
     _write_sfr_trace([run], "single")
     _write_code_read_trace([run], "single")
     _write_pzu_load_metadata(img)
+    _write_direct_memory_trace([run], "single")
+    _write_uart_sbuf_trace([run], "single")
+    _write_cpu_subset_coverage([run])
     _write_report(f"{img.firmware_file} via {img.source}", [run], scenario_name=None)
 
 
@@ -323,6 +359,90 @@ def _write_pzu_load_metadata(img) -> None:
         w.writerow(img.metadata())
 
 
+def _write_direct_memory_trace(runs: list[FunctionRunResult], scenario: str) -> None:
+    cols = ["run_id", "scenario", "firmware_file", "function_addr", "step", "pc", "direct_addr", "access_type", "value", "previous_value", "possible_role", "notes"]
+    rows: list[dict[str, str]] = []
+    for run in runs:
+        for r in run.trace.rows:
+            ttype = r.get("trace_type", "")
+            if ttype not in {"direct_memory_read", "direct_memory_write"}:
+                continue
+            note = r.get("notes", "")
+            prev = ""
+            if "prev=" in note:
+                prev = note.split("prev=", 1)[1].split(";", 1)[0]
+            rows.append(
+                {
+                    "run_id": run.run_id,
+                    "scenario": scenario,
+                    "firmware_file": run.firmware_file,
+                    "function_addr": f"0x{run.function_addr:04X}",
+                    "step": r["step"],
+                    "pc": r["pc"],
+                    "direct_addr": r["xdata_addr"],
+                    "access_type": "write" if ttype.endswith("_write") else "read",
+                    "value": r["xdata_value"],
+                    "previous_value": prev,
+                    "possible_role": "direct_idata_candidate",
+                    "notes": "emulation_observed",
+                }
+            )
+    with DIRECT_TRACE_CSV.open("w", encoding="utf-8", newline="") as fh:
+        w = csv.DictWriter(fh, fieldnames=cols)
+        w.writeheader()
+        w.writerows(rows)
+
+
+def _write_uart_sbuf_trace(runs: list[FunctionRunResult], scenario: str) -> None:
+    cols = ["run_id", "scenario", "firmware_file", "function_addr", "step", "pc", "sfr_addr", "value", "uart_channel_candidate", "confidence", "evidence_level", "notes"]
+    rows: list[dict[str, str]] = []
+    for run in runs:
+        for r in run.trace.rows:
+            if r.get("trace_type") != "uart_sbuf_write":
+                continue
+            notes = r.get("notes", "")
+            role = "unknown_sfr_uart_candidate"
+            for part in notes.split(";"):
+                if part.startswith("role="):
+                    role = part.split("=", 1)[1]
+            rows.append(
+                {
+                    "run_id": run.run_id,
+                    "scenario": scenario,
+                    "firmware_file": run.firmware_file,
+                    "function_addr": f"0x{run.function_addr:04X}",
+                    "step": r["step"],
+                    "pc": r["pc"],
+                    "sfr_addr": r["sfr_addr"],
+                    "value": r["sfr_value"],
+                    "uart_channel_candidate": role,
+                    "confidence": "low",
+                    "evidence_level": "hypothesis",
+                    "notes": "candidate_sbuf_write_observed",
+                }
+            )
+    with UART_SBUF_TRACE_CSV.open("w", encoding="utf-8", newline="") as fh:
+        w = csv.DictWriter(fh, fieldnames=cols)
+        w.writeheader()
+        w.writerows(rows)
+
+
+def _write_cpu_subset_coverage(runs: list[FunctionRunResult]) -> None:
+    cols = ["opcode", "mnemonic", "implemented", "observed_in_runs", "notes"]
+    observed_ops = {r["op"] for run in runs for r in run.trace.rows if r.get("trace_type") == "instruction"}
+    coverage_rows = [
+        {"opcode": "0xF5", "mnemonic": "MOV direct,A", "implemented": "yes", "observed_in_runs": "yes" if "MOV" in observed_ops else "unknown", "notes": "issue_78_blocker"},
+        {"opcode": "0xB8..0xBF", "mnemonic": "CJNE Rn,#imm,rel", "implemented": "yes", "observed_in_runs": "yes" if "CJNE" in observed_ops else "no", "notes": "issue_78_blocker"},
+        {"opcode": "0xB4", "mnemonic": "CJNE A,#imm,rel", "implemented": "yes", "observed_in_runs": "yes" if "CJNE" in observed_ops else "no", "notes": "extended_support"},
+        {"opcode": "0xB5", "mnemonic": "CJNE A,direct,rel", "implemented": "yes", "observed_in_runs": "yes" if "CJNE" in observed_ops else "no", "notes": "extended_support"},
+        {"opcode": "0xB6/0xB7", "mnemonic": "CJNE @R0/@R1,#imm,rel", "implemented": "yes", "observed_in_runs": "yes" if "CJNE" in observed_ops else "no", "notes": "extended_support"},
+    ]
+    with CPU_COVERAGE_CSV.open("w", encoding="utf-8", newline="") as fh:
+        w = csv.DictWriter(fh, fieldnames=cols)
+        w.writeheader()
+        w.writerows(coverage_rows)
+
+
 def export_trace() -> None:
     print(f"Summary: {SUMMARY_CSV}")
     print(f"XDATA writes: {TRACE_CSV}")
@@ -331,6 +451,9 @@ def export_trace() -> None:
     print(f"SFR trace: {SFR_TRACE_CSV}")
     print(f"CODE reads: {CODE_READ_TRACE_CSV}")
     print(f"PZU metadata: {PZU_METADATA_CSV}")
+    print(f"Direct memory trace: {DIRECT_TRACE_CSV}")
+    print(f"UART/SBUF trace: {UART_SBUF_TRACE_CSV}")
+    print(f"CPU subset coverage: {CPU_COVERAGE_CSV}")
     print(f"Report: {REPORT_MD}")
 
 
