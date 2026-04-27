@@ -211,3 +211,9 @@ XDATA-адреса для подтверждения:
 - Новые артефакты: `docs/xdata_branch_trace_map.csv`, `docs/enum_branch_value_map.csv`, `docs/manual_auto_branch_map.csv`, `docs/output_transition_map.csv`, `docs/xdata_enum_branch_resolution.md`.
 - Обновляемые таблицы (`xdata_lifecycle_map.csv`, `state_enum_hypotheses.csv`, `auto_manual_mode_hypotheses.csv`, `output_action_map.csv`) теперь получают конкретные function_addr/branch evidence, где это возможно из текущих static-trace данных.
 - Сохраняется ограничение: без bench нельзя заявлять полное восстановление enum/bit-level семантики и физического output поведения.
+
+## Cross-firmware module architecture analyzer (Issue #52 follow-up)
+
+- Добавлен отдельный анализатор `scripts/firmware_module_architecture_analyzer.py` для модульного сравнения по всем веткам с разделением CPU/runtime core, keyboard/display, MASH, MVK, input board, MDS, MUP, aerosol/water-specific и packet/export.
+- Выходные артефакты: `docs/firmware_architecture_matrix.csv`, `docs/shared_core_function_map.csv`, `docs/module_presence_matrix.csv`, `docs/mvk_output_semantics.csv`, `docs/aerosol_line_supervision_candidates.csv`, `docs/input_board_presence_matrix.csv`, `docs/cross_firmware_pattern_summary.csv`, `docs/mds_mup_module_candidates.csv`, `docs/firmware_module_architecture_comparison.md`.
+- Правило интерпретации: слабые выводы помечаются `hypothesis/unknown`; MUP не приравнивается к MVK, MDS не приравнивается к обычной input-board логике без прямого code evidence.

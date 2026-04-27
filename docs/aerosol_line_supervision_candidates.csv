@@ -1,0 +1,2 @@
+branch,file,function_addr,line_or_channel,supervision_candidate,score,confidence,xdata_refs,threshold_constants,comparison_instructions,normal_path,fault_path,start_path,packet_export_path,notes
+ALL,n/a,,unknown,unknown_aerosol_line_logic,0.000,unknown,,,,,,,,no strong aerosol-line supervision evidence in current artifact set
