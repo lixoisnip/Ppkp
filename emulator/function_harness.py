@@ -5,6 +5,7 @@ from dataclasses import dataclass
 
 from emulator.cpu8051_subset import CPU8051State, CPU8051Subset
 from emulator.pzu_memory import CodeImage
+from emulator.sfr_model import SfrModel
 from emulator.trace import TraceContext, TraceLog
 
 
@@ -57,6 +58,9 @@ class FunctionHarness:
         use_stubs: bool = True,
     ) -> FunctionRunResult:
         state = CPU8051State(pc=function_addr)
+        sfr = SfrModel()
+        sfr.write(0x81, state.sp, step=0, pc=state.pc, notes="init_sp")
+        sfr.write(0xD0, state.psw, step=0, pc=state.pc, notes="init_psw")
         if init_regs:
             for k, v in init_regs.items():
                 vv = v & 0xFF
@@ -68,6 +72,7 @@ class FunctionHarness:
                     idx = int(k[1:])
                     if 0 <= idx <= 7:
                         state.regs[idx] = vv
+                        state.idata[idx] = vv
         if init_xdata:
             state.xdata.update({k & 0xFFFF: v & 0xFF for k, v in init_xdata.items()})
 
@@ -79,6 +84,7 @@ class FunctionHarness:
             watchpoints=self.watchpoints,
             stub_calls=self.default_stubs(enable=use_stubs),
             allow_skip_unsupported=allow_skip_unsupported,
+            sfr=sfr,
         )
 
         stop_reason = "max_steps"
@@ -93,6 +99,19 @@ class FunctionHarness:
                 break
 
         rows = trace.rows
+        for event in sfr.events:
+            trace.add(
+                {
+                    "step": event.step,
+                    "pc": event.pc,
+                    "op": "SFR",
+                    "args": f"0x{event.sfr_addr:02X}",
+                    "sfr_addr": event.sfr_addr,
+                    "sfr_value": f"0x{event.value:02X}",
+                    "trace_type": "sfr_access",
+                    "notes": f"{event.access_type};prev={'' if event.previous_value is None else f'0x{event.previous_value:02X}'};role={event.possible_role};{event.notes}".strip(";"),
+                }
+            )
         return FunctionRunResult(
             run_id=run_id,
             firmware_file=self.code.firmware_file,

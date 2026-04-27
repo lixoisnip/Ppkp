@@ -21,6 +21,9 @@ SUMMARY_CSV = OUT / "function_trace_summary.csv"
 UNSUPPORTED_CSV = OUT / "unsupported_opcode_report.csv"
 CANDIDATES_CSV = OUT / "candidate_packet_records.csv"
 REPORT_MD = OUT / "firmware_execution_sandbox_report.md"
+SFR_TRACE_CSV = OUT / "sfr_trace.csv"
+CODE_READ_TRACE_CSV = OUT / "code_read_trace.csv"
+PZU_METADATA_CSV = OUT / "pzu_load_metadata.csv"
 
 
 def _run_id(prefix: str) -> str:
@@ -139,6 +142,7 @@ def _write_report(source_note: str, runs: list[FunctionRunResult], scenario_name
                 "",
                 "## CPU subset status",
                 "Implemented subset includes MOV/MOVX/DPTR ops, simple ALU immediates, limited branches, LCALL/LJMP/RET.",
+                "Includes initial MOVC table reads and dictionary-backed SFR access tracing (no synthetic UART behavior).",
                 "Unsupported opcodes are logged and never silently ignored.",
                 "",
                 "## Loaded firmware/artifact source",
@@ -203,6 +207,9 @@ def run_scenario(name: str, max_steps: int) -> None:
     _write_xdata(xdata_rows)
     _write_unsupported(all_runs)
     _write_candidates(xdata_rows)
+    _write_sfr_trace(all_runs, name)
+    _write_code_read_trace(all_runs, name)
+    _write_pzu_load_metadata(img)
     _write_report(f"{img.firmware_file} via {img.source}", all_runs, scenario_name=name)
 
 
@@ -235,7 +242,85 @@ def run_single_function(firmware: str, addr: int, max_steps: int) -> None:
     _write_xdata(_collect_xdata_writes(run, "single"))
     _write_unsupported([run])
     _write_candidates(_collect_xdata_writes(run, "single"))
+    _write_sfr_trace([run], "single")
+    _write_code_read_trace([run], "single")
+    _write_pzu_load_metadata(img)
     _write_report(f"{img.firmware_file} via {img.source}", [run], scenario_name=None)
+
+
+def _write_sfr_trace(runs: list[FunctionRunResult], scenario: str) -> None:
+    cols = ["run_id", "scenario", "firmware_file", "function_addr", "step", "pc", "sfr_addr", "access_type", "value", "previous_value", "possible_role", "notes"]
+    rows: list[dict[str, str]] = []
+    for run in runs:
+        for r in run.trace.rows:
+            if r["trace_type"] != "sfr_access":
+                continue
+            notes = r.get("notes", "")
+            parts = notes.split(";")
+            access_type = parts[0] if parts else ""
+            prev = ""
+            role = ""
+            for p in parts[1:]:
+                if p.startswith("prev="):
+                    prev = p.split("=", 1)[1]
+                if p.startswith("role="):
+                    role = p.split("=", 1)[1]
+            rows.append(
+                {
+                    "run_id": run.run_id,
+                    "scenario": scenario,
+                    "firmware_file": run.firmware_file,
+                    "function_addr": f"0x{run.function_addr:04X}",
+                    "step": r["step"],
+                    "pc": r["pc"],
+                    "sfr_addr": r["sfr_addr"],
+                    "access_type": access_type,
+                    "value": r["sfr_value"],
+                    "previous_value": prev,
+                    "possible_role": role,
+                    "notes": "emulation_observed",
+                }
+            )
+    with SFR_TRACE_CSV.open("w", encoding="utf-8", newline="") as fh:
+        w = csv.DictWriter(fh, fieldnames=cols)
+        w.writeheader()
+        w.writerows(rows)
+
+
+def _write_code_read_trace(runs: list[FunctionRunResult], scenario: str) -> None:
+    cols = ["run_id", "scenario", "firmware_file", "function_addr", "step", "pc", "code_addr", "value", "access_type", "possible_role", "notes"]
+    rows: list[dict[str, str]] = []
+    for run in runs:
+        for r in run.trace.rows:
+            if r["trace_type"] != "code_read":
+                continue
+            rows.append(
+                {
+                    "run_id": run.run_id,
+                    "scenario": scenario,
+                    "firmware_file": run.firmware_file,
+                    "function_addr": f"0x{run.function_addr:04X}",
+                    "step": r["step"],
+                    "pc": r["pc"],
+                    "code_addr": r["xdata_addr"],
+                    "value": r["xdata_value"],
+                    "access_type": r["args"],
+                    "possible_role": "code_table_candidate",
+                    "notes": "emulation_observed",
+                }
+            )
+    with CODE_READ_TRACE_CSV.open("w", encoding="utf-8", newline="") as fh:
+        w = csv.DictWriter(fh, fieldnames=cols)
+        w.writeheader()
+        w.writerows(rows)
+
+
+def _write_pzu_load_metadata(img) -> None:
+    cols = ["firmware_file", "min_code_addr", "max_code_addr", "has_0x4000", "has_0x4100", "reset_vector_bytes", "entrypoint_candidate", "confidence", "notes"]
+    with PZU_METADATA_CSV.open("w", encoding="utf-8", newline="") as fh:
+        w = csv.DictWriter(fh, fieldnames=cols)
+        w.writeheader()
+        w.writerow(img.metadata())
 
 
 def export_trace() -> None:
@@ -243,6 +328,9 @@ def export_trace() -> None:
     print(f"XDATA writes: {TRACE_CSV}")
     print(f"Unsupported: {UNSUPPORTED_CSV}")
     print(f"Candidates: {CANDIDATES_CSV}")
+    print(f"SFR trace: {SFR_TRACE_CSV}")
+    print(f"CODE reads: {CODE_READ_TRACE_CSV}")
+    print(f"PZU metadata: {PZU_METADATA_CSV}")
     print(f"Report: {REPORT_MD}")
 
 

@@ -5,20 +5,21 @@ Experimental function-level 8051-subset tracing for selected targets. Evidence l
 
 ## CPU subset status
 Implemented subset includes MOV/MOVX/DPTR ops, simple ALU immediates, limited branches, LCALL/LJMP/RET.
+Includes initial MOVC table reads and dictionary-backed SFR access tracing (no synthetic UART behavior).
 Unsupported opcodes are logged and never silently ignored.
 
 ## Loaded firmware/artifact source
 90CYE03_19_DKS.PZU via pzu_intel_hex
 
 ## Target functions tested
-Scenario: packet_bridge_default
-Functions: 0x55AD, 0x5602, 0x5A7F
+Scenario: boot_probe_static
+Functions: 0x4000, 0x4100
 
 ## Unsupported opcodes encountered
-3
+2
 
 ## XDATA writes observed
-1
+0
 
 ## Candidate packet/event records
 See docs/emulator/candidate_packet_records.csv (contiguous observed writes only; no packet format invention).

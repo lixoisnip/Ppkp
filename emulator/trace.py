@@ -27,6 +27,8 @@ TRACE_COLUMNS = [
     "r7",
     "xdata_addr",
     "xdata_value",
+    "sfr_addr",
+    "sfr_value",
     "trace_type",
     "notes",
 ]
@@ -51,13 +53,15 @@ class TraceLog:
             "function_addr": f"0x{self.ctx.function_addr:04X}",
             "xdata_addr": "",
             "xdata_value": "",
+            "sfr_addr": "",
+            "sfr_value": "",
             "notes": "",
             "args": "",
         }
         for k, v in row.items():
             if v is None:
                 continue
-            base[k] = f"0x{v:04X}" if k in {"pc", "dptr_before", "dptr_after", "xdata_addr"} and isinstance(v, int) else str(v)
+            base[k] = f"0x{v:04X}" if k in {"pc", "dptr_before", "dptr_after", "xdata_addr", "sfr_addr"} and isinstance(v, int) else str(v)
         self.rows.append({k: str(base.get(k, "")) for k in TRACE_COLUMNS})
 
     def write_csv(self, path: Path) -> None:

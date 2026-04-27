@@ -17,6 +17,9 @@
 - Сценарии стендового replay: `docs/replay_scenarios.md`
 - Карта XDATA (CSV): `docs/xdata_map.csv`
 - `docs/disassembly_index.csv` — минимальный reachable 8051 disassembly index.
+- `docs/emulator/ds80c320_emulation_notes.md` — DS80C320/DS80C323 рабочие допущения для emulator roadmap.
+- `docs/emulator/pzu_memory_map_and_entrypoint.md` — гипотеза карты памяти `.PZU`, reset/entry и риски отсутствующего low ROM.
+- `docs/emulator/full_firmware_emulation_roadmap.md` — поэтапный roadmap от function-level tracing к boot/UART/timer/interrupt модели.
 - `docs/call_xref_legacy.csv` — legacy byte-scan call reference for comparison.
 - `docs/function_map.csv` — preliminary reachable function map with XDATA/MOVC evidence.
 - `docs/basic_block_map.csv` — preliminary basic block map separating function entries from internal branch targets.
