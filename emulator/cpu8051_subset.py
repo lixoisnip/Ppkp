@@ -1,0 +1,223 @@
+#!/usr/bin/env python3
+from __future__ import annotations
+
+from dataclasses import dataclass, field
+from typing import Callable
+
+from emulator.pzu_memory import CodeImage
+from emulator.trace import TraceLog
+
+
+@dataclass
+class CPU8051State:
+    pc: int = 0
+    acc: int = 0
+    b: int = 0
+    dptr: int = 0
+    psw: int = 0
+    sp: int = 0x07
+    regs: list[int] = field(default_factory=lambda: [0] * 8)
+    xdata: dict[int, int] = field(default_factory=dict)
+    call_stack: list[int] = field(default_factory=list)
+    step_counter: int = 0
+
+
+class CPU8051Subset:
+    def __init__(
+        self,
+        code_image: CodeImage,
+        state: CPU8051State,
+        trace: TraceLog,
+        watchpoints: set[int] | None = None,
+        stub_calls: dict[int, Callable[[CPU8051State, TraceLog], None]] | None = None,
+        allow_skip_unsupported: bool = False,
+    ) -> None:
+        self.code = code_image
+        self.s = state
+        self.trace = trace
+        self.watchpoints = watchpoints or set()
+        self.stub_calls = stub_calls or {}
+        self.allow_skip_unsupported = allow_skip_unsupported
+
+    def fetch(self, addr: int) -> int:
+        return self.code.get_byte(addr)
+
+    def _rel(self, offset: int) -> int:
+        return offset - 256 if offset & 0x80 else offset
+
+    def _log_instr(self, op: str, args: str, pc: int, acc_before: int, dptr_before: int, notes: str = "") -> None:
+        self.trace.add(
+            {
+                "step": self.s.step_counter,
+                "pc": pc,
+                "op": op,
+                "args": args,
+                "acc_before": f"0x{acc_before:02X}",
+                "acc_after": f"0x{self.s.acc:02X}",
+                "dptr_before": dptr_before,
+                "dptr_after": self.s.dptr,
+                "r0": f"0x{self.s.regs[0]:02X}",
+                "r1": f"0x{self.s.regs[1]:02X}",
+                "r2": f"0x{self.s.regs[2]:02X}",
+                "r3": f"0x{self.s.regs[3]:02X}",
+                "r4": f"0x{self.s.regs[4]:02X}",
+                "r5": f"0x{self.s.regs[5]:02X}",
+                "r6": f"0x{self.s.regs[6]:02X}",
+                "r7": f"0x{self.s.regs[7]:02X}",
+                "trace_type": "instruction",
+                "notes": notes,
+            }
+        )
+
+    def step(self) -> tuple[bool, str | None]:
+        s = self.s
+        pc = s.pc
+        op = self.fetch(pc)
+        acc_before = s.acc
+        dptr_before = s.dptr
+
+        if op == 0x74:  # MOV A,#imm
+            imm = self.fetch(pc + 1)
+            s.acc = imm
+            s.pc += 2
+            self._log_instr("MOV", f"A,#0x{imm:02X}", pc, acc_before, dptr_before)
+            return True, None
+
+        if 0xE8 <= op <= 0xEF:  # MOV A,Rn
+            n = op - 0xE8
+            s.acc = s.regs[n]
+            s.pc += 1
+            self._log_instr("MOV", f"A,R{n}", pc, acc_before, dptr_before)
+            return True, None
+
+        if 0xF8 <= op <= 0xFF:  # MOV Rn,A
+            n = op - 0xF8
+            s.regs[n] = s.acc
+            s.pc += 1
+            self._log_instr("MOV", f"R{n},A", pc, acc_before, dptr_before)
+            return True, None
+
+        if 0x78 <= op <= 0x7F:  # MOV Rn,#imm
+            n = op - 0x78
+            imm = self.fetch(pc + 1)
+            s.regs[n] = imm
+            s.pc += 2
+            self._log_instr("MOV", f"R{n},#0x{imm:02X}", pc, acc_before, dptr_before)
+            return True, None
+
+        if op == 0x90:
+            hi = self.fetch(pc + 1)
+            lo = self.fetch(pc + 2)
+            s.dptr = ((hi << 8) | lo) & 0xFFFF
+            s.pc += 3
+            self._log_instr("MOV", f"DPTR,#0x{s.dptr:04X}", pc, acc_before, dptr_before)
+            return True, None
+
+        if op == 0xF0:
+            addr = s.dptr
+            prev = s.xdata.get(addr)
+            s.xdata[addr] = s.acc
+            s.pc += 1
+            note = f"watchpoint_hit={addr in self.watchpoints};prev={prev}"
+            self._log_instr("MOVX", "@DPTR,A", pc, acc_before, dptr_before, notes=note)
+            self.trace.add({"step": s.step_counter, "pc": pc, "op": "MOVX", "args": "@DPTR,A", "xdata_addr": addr, "xdata_value": f"0x{s.acc:02X}", "trace_type": "xdata_write", "notes": note})
+            return True, None
+
+        if op == 0xE0:
+            addr = s.dptr
+            s.acc = s.xdata.get(addr, 0)
+            s.pc += 1
+            note = f"watchpoint_hit={addr in self.watchpoints}"
+            self._log_instr("MOVX", "A,@DPTR", pc, acc_before, dptr_before, notes=note)
+            self.trace.add({"step": s.step_counter, "pc": pc, "op": "MOVX", "args": "A,@DPTR", "xdata_addr": addr, "xdata_value": f"0x{s.acc:02X}", "trace_type": "xdata_read", "notes": note})
+            return True, None
+
+        if op == 0xA3:
+            s.dptr = (s.dptr + 1) & 0xFFFF
+            s.pc += 1
+            self._log_instr("INC", "DPTR", pc, acc_before, dptr_before)
+            return True, None
+
+        if op in (0x54, 0x44, 0x64, 0x24):
+            imm = self.fetch(pc + 1)
+            if op == 0x54:
+                s.acc = s.acc & imm
+                opname = "ANL"
+            elif op == 0x44:
+                s.acc = s.acc | imm
+                opname = "ORL"
+            elif op == 0x64:
+                s.acc = s.acc ^ imm
+                opname = "XRL"
+            else:
+                s.acc = (s.acc + imm) & 0xFF
+                opname = "ADD"
+            s.pc += 2
+            self._log_instr(opname, f"A,#0x{imm:02X}", pc, acc_before, dptr_before)
+            return True, None
+
+        if op == 0xE4:
+            s.acc = 0
+            s.pc += 1
+            self._log_instr("CLR", "A", pc, acc_before, dptr_before)
+            return True, None
+
+        if op == 0xB4:  # CJNE A,#imm,rel
+            imm = self.fetch(pc + 1)
+            rel = self.fetch(pc + 2)
+            if s.acc != imm:
+                s.pc = (pc + 3 + self._rel(rel)) & 0xFFFF
+            else:
+                s.pc = (pc + 3) & 0xFFFF
+            self._log_instr("CJNE", f"A,#0x{imm:02X},{self._rel(rel)}", pc, acc_before, dptr_before)
+            return True, None
+
+        if op in (0x60, 0x70, 0x80):
+            rel = self.fetch(pc + 1)
+            do_jump = (op == 0x80) or (op == 0x60 and s.acc == 0) or (op == 0x70 and s.acc != 0)
+            s.pc = (pc + 2 + self._rel(rel)) & 0xFFFF if do_jump else (pc + 2) & 0xFFFF
+            opname = "SJMP" if op == 0x80 else ("JZ" if op == 0x60 else "JNZ")
+            self._log_instr(opname, str(self._rel(rel)), pc, acc_before, dptr_before)
+            return True, None
+
+        if op == 0x12:  # LCALL
+            hi = self.fetch(pc + 1)
+            lo = self.fetch(pc + 2)
+            target = ((hi << 8) | lo) & 0xFFFF
+            ret = (pc + 3) & 0xFFFF
+            self.trace.add({"step": s.step_counter, "pc": pc, "op": "LCALL", "args": f"0x{target:04X}", "trace_type": "call"})
+            if target in self.stub_calls:
+                self.stub_calls[target](s, self.trace)
+                s.pc = ret
+                self.trace.add({"step": s.step_counter, "pc": s.pc, "op": "RET(stub)", "args": f"0x{target:04X}", "trace_type": "ret"})
+            else:
+                s.call_stack.append(ret)
+                s.pc = target
+            self._log_instr("LCALL", f"0x{target:04X}", pc, acc_before, dptr_before)
+            return True, None
+
+        if op == 0x02:  # LJMP
+            hi = self.fetch(pc + 1)
+            lo = self.fetch(pc + 2)
+            target = ((hi << 8) | lo) & 0xFFFF
+            s.pc = target
+            self._log_instr("LJMP", f"0x{target:04X}", pc, acc_before, dptr_before)
+            return True, None
+
+        if op == 0x22:
+            self.trace.add({"step": s.step_counter, "pc": pc, "op": "RET", "trace_type": "ret"})
+            if s.call_stack:
+                s.pc = s.call_stack.pop()
+                self._log_instr("RET", "", pc, acc_before, dptr_before)
+                return True, None
+            s.pc = (pc + 1) & 0xFFFF
+            self._log_instr("RET", "", pc, acc_before, dptr_before)
+            return False, "ret_from_entry"
+
+        msg = f"unsupported_opcode 0x{op:02X} at 0x{pc:04X}"
+        self.trace.add({"step": s.step_counter, "pc": pc, "op": f"0x{op:02X}", "trace_type": "unsupported_opcode", "notes": msg})
+        if self.allow_skip_unsupported:
+            s.pc = (pc + 1) & 0xFFFF
+            self._log_instr("UNSUPPORTED_SKIP", f"0x{op:02X}", pc, acc_before, dptr_before, notes=msg)
+            return True, None
+        return False, msg

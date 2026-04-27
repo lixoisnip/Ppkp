@@ -1,0 +1,4 @@
+run_id,scenario,firmware_file,function_addr,steps,stop_reason,calls_seen,returns_seen,xdata_reads,xdata_writes,unsupported_ops,confidence,notes
+packet_bridge_default_55AD_20260427T165433Z,packet_bridge_default,90CYE03_19_DKS.PZU,0x55AD,4,unsupported_opcode 0x08 at 0x55CF,1,1,1,0,1,low,emulation_observed
+packet_bridge_default_5602_20260427T165433Z,packet_bridge_default,90CYE03_19_DKS.PZU,0x5602,4,unsupported_opcode 0x09 at 0x5607,1,1,0,1,1,low,emulation_observed
+packet_bridge_default_5A7F_20260427T165433Z,packet_bridge_default,90CYE03_19_DKS.PZU,0x5A7F,1,unsupported_opcode 0x25 at 0x5A7F,0,0,0,0,1,low,emulation_observed

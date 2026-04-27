@@ -1,0 +1,8 @@
+run_id,firmware_file,function_addr,step,pc,op,args,acc_before,acc_after,dptr_before,dptr_after,r0,r1,r2,r3,r4,r5,r6,r7,xdata_addr,xdata_value,trace_type,notes
+packet_bridge_default_5602_20260427T165429Z,90CYE03_19_DKS.PZU,0x5602,1,0x5602,LCALL,0x5A7F,,,,,,,,,,,,,,,call,
+packet_bridge_default_5602_20260427T165429Z,90CYE03_19_DKS.PZU,0x5602,1,0x5605,RET(stub),0x5A7F,,,,,,,,,,,,,,,ret,
+packet_bridge_default_5602_20260427T165429Z,90CYE03_19_DKS.PZU,0x5602,1,0x5602,LCALL,0x5A7F,0x00,0x00,0x0000,0x0000,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,,,instruction,
+packet_bridge_default_5602_20260427T165429Z,90CYE03_19_DKS.PZU,0x5602,2,0x5605,MOV,"A,R1",0x00,0x00,0x0000,0x0000,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,,,instruction,
+packet_bridge_default_5602_20260427T165429Z,90CYE03_19_DKS.PZU,0x5602,3,0x5606,MOVX,"@DPTR,A",0x00,0x00,0x0000,0x0000,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,,,instruction,watchpoint_hit=False;prev=None
+packet_bridge_default_5602_20260427T165429Z,90CYE03_19_DKS.PZU,0x5602,3,0x5606,MOVX,"@DPTR,A",,,,,,,,,,,,,0x0000,0x00,xdata_write,watchpoint_hit=False;prev=None
+packet_bridge_default_5602_20260427T165429Z,90CYE03_19_DKS.PZU,0x5602,4,0x5607,0x09,,,,,,,,,,,,,,,,unsupported_opcode,unsupported_opcode 0x09 at 0x5607

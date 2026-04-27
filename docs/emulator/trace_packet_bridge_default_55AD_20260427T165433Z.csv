@@ -1,0 +1,8 @@
+run_id,firmware_file,function_addr,step,pc,op,args,acc_before,acc_after,dptr_before,dptr_after,r0,r1,r2,r3,r4,r5,r6,r7,xdata_addr,xdata_value,trace_type,notes
+packet_bridge_default_55AD_20260427T165433Z,90CYE03_19_DKS.PZU,0x55AD,1,0x55AD,LCALL,0x5A7F,,,,,,,,,,,,,,,call,
+packet_bridge_default_55AD_20260427T165433Z,90CYE03_19_DKS.PZU,0x55AD,1,0x55B0,RET(stub),0x5A7F,,,,,,,,,,,,,,,ret,
+packet_bridge_default_55AD_20260427T165433Z,90CYE03_19_DKS.PZU,0x55AD,1,0x55AD,LCALL,0x5A7F,0x00,0x00,0x0000,0x0000,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,,,instruction,
+packet_bridge_default_55AD_20260427T165433Z,90CYE03_19_DKS.PZU,0x55AD,2,0x55B0,MOVX,"A,@DPTR",0x00,0x00,0x0000,0x0000,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,,,instruction,watchpoint_hit=False
+packet_bridge_default_55AD_20260427T165433Z,90CYE03_19_DKS.PZU,0x55AD,2,0x55B0,MOVX,"A,@DPTR",,,,,,,,,,,,,0x0000,0x00,xdata_read,watchpoint_hit=False
+packet_bridge_default_55AD_20260427T165433Z,90CYE03_19_DKS.PZU,0x55AD,3,0x55B1,CJNE,"A,#0x01,27",0x00,0x00,0x0000,0x0000,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,,,instruction,
+packet_bridge_default_55AD_20260427T165433Z,90CYE03_19_DKS.PZU,0x55AD,4,0x55CF,0x08,,,,,,,,,,,,,,,,unsupported_opcode,unsupported_opcode 0x08 at 0x55CF
