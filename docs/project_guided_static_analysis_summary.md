@@ -41,3 +41,14 @@ See `docs/project_guided_next_static_targets.csv`.
 - Protocol appendix (RS-485 frame/address/CRC/baud/timeout).
 - Full terminal/object cross-reference for 90CYE02/03/04 outputs.
 - MUP/PVK-specific project pages to reduce split-evidence ambiguity.
+
+
+## Micro-decompile follow-up
+
+Generated focused micro-decompile outputs (static-only, evidence-gated):
+- docs/project_guided_micro_decompile.md
+- docs/project_guided_micro_decompile_summary.csv
+- docs/project_guided_micro_pseudocode.csv
+- docs/project_guided_micro_constants.csv
+- docs/project_guided_micro_xdata_flow.csv
+- docs/project_guided_micro_unknowns_update.csv

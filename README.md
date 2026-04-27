@@ -188,6 +188,13 @@ Generated extraction layer (project-level evidence, separated from static/decomp
 
 
 ## Project-guided static search milestone (issue-driven)
+- docs/project_guided_micro_decompile.md — micro-decompile pass for 0x5A7F, 0x920C, 0x6833, 0x673C, 0x7DC2.
+- docs/project_guided_micro_decompile_summary.csv
+- docs/project_guided_micro_pseudocode.csv
+- docs/project_guided_micro_constants.csv
+- docs/project_guided_micro_xdata_flow.csv
+- docs/project_guided_micro_unknowns_update.csv
+
 
 Добавлен целевой статический этап, где project-documentation используется как ограничитель поиска (без переноса семантики без code evidence):
 
