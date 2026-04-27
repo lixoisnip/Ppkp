@@ -1,0 +1,4 @@
+opcode,pc,function_addr,count,first_seen_run,notes
+0x08,0x55CF,0x55AD,1,packet_bridge_default_55AD_20260427T165433Z,unsupported
+0x09,0x5607,0x5602,1,packet_bridge_default_5602_20260427T165433Z,unsupported
+0x25,0x5A7F,0x5A7F,1,packet_bridge_default_5A7F_20260427T165433Z,unsupported

@@ -241,3 +241,12 @@ python3 scripts/project_guided_mds_mvk_valve_output_analyzer.py
 python3 scripts/project_guided_static_summary_builder.py
 python3 scripts/run_analysis_smoke_test.py
 ```
+
+## Firmware execution sandbox / experimental emulator
+
+- `emulator/README.md`
+- `docs/emulator/firmware_execution_sandbox_report.md`
+- `docs/emulator/function_trace_summary.csv`
+- `docs/emulator/xdata_write_trace.csv`
+- `docs/emulator/candidate_packet_records.csv`
+- `docs/emulator/emulation_limitations.md`

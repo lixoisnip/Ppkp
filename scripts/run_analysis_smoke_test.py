@@ -41,9 +41,36 @@ def main() -> int:
         SmokeCommand(
             script="py_compile",
             scope="utility",
-            command=[sys.executable, "-m", "py_compile", "scripts/*.py"],
+            command=[sys.executable, "-m", "py_compile", "scripts/*.py", "emulator/*.py"],
             output_files=[],
             notes="syntax compile check for all scripts",
+        ),
+        SmokeCommand(
+            "firmware_execution_sandbox.py:list-scenarios",
+            "experimental_emulator",
+            [sys.executable, "scripts/firmware_execution_sandbox.py", "list-scenarios"],
+            [],
+            "lightweight CLI probe for experimental firmware execution sandbox",
+        ),
+        SmokeCommand(
+            "firmware_execution_sandbox.py:packet_bridge_default",
+            "experimental_emulator",
+            [
+                sys.executable,
+                "scripts/firmware_execution_sandbox.py",
+                "run-scenario",
+                "packet_bridge_default",
+                "--max-steps",
+                "100",
+            ],
+            [
+                "docs/emulator/firmware_execution_sandbox_report.md",
+                "docs/emulator/function_trace_summary.csv",
+                "docs/emulator/xdata_write_trace.csv",
+                "docs/emulator/unsupported_opcode_report.csv",
+                "docs/emulator/candidate_packet_records.csv",
+            ],
+            "smoke scenario; success means deterministic run and clean unsupported-opcode reporting without crash",
         ),
         SmokeCommand("validate_pzu.py", "all_firmwares", [sys.executable, "scripts/validate_pzu.py"], [], "validation only"),
         SmokeCommand(
