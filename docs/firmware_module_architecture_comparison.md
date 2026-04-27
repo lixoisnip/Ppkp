@@ -236,3 +236,6 @@ See `docs/cross_firmware_pattern_summary.csv` for shared packet/core/front-panel
 - `docs/manual_dks_module_decompile.md`
 - `docs/manual_dks_module_decompile_summary.csv`
 - `docs/manual_dks_module_pseudocode.csv`
+- `docs/manual_dks_downstream_decompile.md`
+- `docs/manual_dks_downstream_decompile_summary.csv`
+- `docs/manual_dks_downstream_pseudocode.csv`

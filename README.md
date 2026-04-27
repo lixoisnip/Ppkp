@@ -54,6 +54,9 @@
 - docs/manual_dks_module_decompile.md — semi-manual pseudocode reconstruction of DKS module candidates 0x497A, 0x613C, 0x673C, 0x758B, 0x53E6, 0xAB62.
 - docs/manual_dks_module_decompile_summary.csv — role/confidence summary for manually reconstructed DKS module candidates.
 - docs/manual_dks_module_pseudocode.csv — pseudocode skeletons for selected DKS module candidate functions.
+- docs/manual_dks_downstream_decompile.md — semi-manual reconstruction of downstream 90CYE_DKS functions 0x5A7F, 0x737C, 0x84A6, 0x7922, 0x597F, 0x7DC2.
+- docs/manual_dks_downstream_decompile_summary.csv — role/confidence summary for downstream DKS functions.
+- docs/manual_dks_downstream_pseudocode.csv — pseudocode skeletons for downstream DKS functions.
 - docs/module_handler_summary.csv — сводная таблица кандидатов обработчиков модулей по всем веткам.
 - Предыдущий файл анализа/журнал: `PZU_ANALYSIS.md`
 

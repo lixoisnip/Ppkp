@@ -113,6 +113,12 @@ Date: 2026-04-27 (UTC).
 - New upstream candidates here are treated as potential state-preparation/feed paths toward that chain, not as replacements.
 - This report does **not** relabel `0x6833` as MUP-only handler; evidence remains chain-adjacent and mixed.
 
+## Downstream decompile follow-up
+
+- `docs/manual_dks_downstream_decompile.md`
+- `docs/manual_dks_downstream_decompile_summary.csv`
+- `docs/manual_dks_downstream_pseudocode.csv`
+
 ## Manual pseudocode
 
 ```c

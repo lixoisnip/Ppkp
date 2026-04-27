@@ -53,6 +53,82 @@ KNOWN_CONTEXT = {
     "0x7DC2": "downstream jump target from 0x6833 tail",
 }
 
+SUMMARY_HEADERS = [
+    "branch",
+    "file",
+    "function_addr",
+    "previous_role",
+    "new_manual_role",
+    "confidence",
+    "evidence_sources",
+    "xdata_refs",
+    "callers",
+    "callees",
+    "chain_relation",
+    "notes",
+]
+
+PSEUDOCODE_HEADERS = [
+    "branch",
+    "file",
+    "function_addr",
+    "pseudocode_block",
+    "known_operations",
+    "unknown_operations",
+    "confidence",
+    "notes",
+]
+
+CSV_PREVIOUS_ROLE = {
+    "0x5A7F": "packet/export candidate",
+    "0x737C": "zone logic candidate",
+    "0x84A6": "mode/event bridge candidate",
+    "0x7922": "service/event helper candidate",
+    "0x597F": "condition check helper",
+    "0x7DC2": "downstream output/service transition",
+}
+
+CSV_CONFIDENCE = {
+    "0x5A7F": "probable",
+    "0x737C": "probable",
+    "0x84A6": "hypothesis",
+    "0x7922": "probable",
+    "0x597F": "probable",
+    "0x7DC2": "hypothesis",
+}
+
+SPECIFIC_PSEUDOCODE = {
+    "0x5A7F": """void fn_5A7F(uint8_t selector_or_index) {
+    // update DPTR bytes from current selector/context
+    // return pointer-like DPTR state for caller MOVX activity
+}""",
+    "0x737C": """void fn_737C(...) {
+    // read object/zone context (0x31BF + 0x36xx cluster)
+    // branch on masked enum/state values
+    // call 0x84A6 and 0x5A7F on selected paths
+    // update 0x3010/0x3011/0x3012/0x3013/0x3014/0x301A/0x301B state-table fields
+}""",
+    "0x84A6": """void fn_84A6(...) {
+    // read mode/state cluster (0x315B/0x3181/0x3640/0x36D3/0x36D9)
+    // evaluate branch flags / thresholds
+    // call 0x728A for downstream gate path
+    // call 0x5A7F for packet/pointer bridge on selected paths
+}""",
+    "0x7922": """void fn_7922(void) {
+    // A = XDATA[DPTR]; R0 = A
+    // DPTR++
+    // A = XDATA[DPTR]; R1 = A
+    // return
+}""",
+    "0x597F": """uint8_t fn_597F(uint8_t in_a) {
+    // return in_a & 0x07
+}""",
+    "0x7DC2": """void fn_7DC2(...) {
+    // downstream sub-block in parent routine (0x7D85)
+    // call helper(s) (0x7121 and 0x7D9B), then continue output/service transition tail
+}""",
+}
+
 
 def read_csv(name: str) -> list[dict[str, str]]:
     with (DOCS / name).open(encoding="utf-8", newline="") as f:
@@ -152,6 +228,9 @@ def main() -> int:
     sections: list[str] = []
     sections.append("# Manual downstream DKS decompile: 0x5A7F / 0x737C / 0x84A6 / 0x7922 / 0x597F / 0x7DC2\n")
     sections.append("Date: 2026-04-27 (UTC).\n")
+    sections.append("## Machine-readable outputs")
+    sections.append("- `docs/manual_dks_downstream_decompile_summary.csv`")
+    sections.append("- `docs/manual_dks_downstream_pseudocode.csv`\n")
     sections.append("## Scope")
     sections.append("- Static semi-manual reconstruction only.")
     sections.append("- Targets selected because they sit downstream of 0x497A / 0x613C / 0x728A / 0x6833 chain.")
@@ -296,19 +375,172 @@ def main() -> int:
     sections.append("- **Chain adjacency evidence:** prior reports (`manual_decompile_0x728A_0x6833.md`, `auto_manual_gating_deep_trace_analysis.md`) used only as contextual adjacency, not as proof of physical action.")
     sections.append("- **Unknown physical meaning:** no direct claim is made that these addresses correspond to specific field actuators or named physical devices.")
 
-    sections.append("\n## Pseudocode section")
+    sections.append("\n## Pseudocode section (specific, non-generic)")
     for addr in TARGETS:
         sections.append(f"\n### {addr}")
         sections.append("```c")
-        sections.append(f"void fn_{addr[2:]}(...) {{")
-        sections.append("    // read inputs / context")
-        sections.append("    // branch on flags or state")
-        sections.append("    // call helpers")
-        sections.append("    // write state / return pointer / export event")
-        sections.append("}")
+        sections.append(SPECIFIC_PSEUDOCODE[addr])
         sections.append("```")
 
     (DOCS / "manual_dks_downstream_decompile.md").write_text("\n".join(sections).rstrip() + "\n", encoding="utf-8")
+
+    summary_rows = [
+        {
+            "branch": BRANCH,
+            "file": PRIMARY_FILE,
+            "function_addr": "0x5A7F",
+            "previous_role": CSV_PREVIOUS_ROLE["0x5A7F"],
+            "new_manual_role": MANUAL_ROLES["0x5A7F"],
+            "confidence": CSV_CONFIDENCE["0x5A7F"],
+            "evidence_sources": "manual_dks_downstream_decompile.md;call_xref.csv;basic_block_map.csv;xdata_confirmed_access.csv;xdata_branch_trace_map.csv",
+            "xdata_refs": "",
+            "callers": "0x497A|0x728A|0x6833-context high fan-in",
+            "callees": "",
+            "chain_relation": "direct call adjacency from 0x728A/0x6833 paths",
+            "notes": "tiny DPTR staging / pointer-like helper; high fan-in; not full packet builder by itself; packet/export role is bridge-like",
+        },
+        {
+            "branch": BRANCH,
+            "file": PRIMARY_FILE,
+            "function_addr": "0x737C",
+            "previous_role": CSV_PREVIOUS_ROLE["0x737C"],
+            "new_manual_role": MANUAL_ROLES["0x737C"],
+            "confidence": CSV_CONFIDENCE["0x737C"],
+            "evidence_sources": "manual_dks_downstream_decompile.md;enum_branch_value_map.csv;xdata_confirmed_access.csv;call_xref.csv",
+            "xdata_refs": "0x3010|0x3011|0x3012|0x3013|0x3014|0x301A|0x301B|0x31BF|0x36D3|0x36EC|0x36EE|0x36EF|0x36F2|0x36F3|0x36F4|0x36FC|0x36FD",
+            "callers": "0x73FD",
+            "callees": "0x84A6|0x5A7F",
+            "chain_relation": "static adjacency in 0x497A->0x737C->0x84A6 chain hypothesis",
+            "notes": "reads/writes 0x3010/0x3011/0x3012/0x3013/0x3014/0x301A/0x301B; reads 0x31BF and 0x36xx cluster; calls 0x84A6 and 0x5A7F; enum-like evidence 0x03/0x07",
+        },
+        {
+            "branch": BRANCH,
+            "file": PRIMARY_FILE,
+            "function_addr": "0x84A6",
+            "previous_role": CSV_PREVIOUS_ROLE["0x84A6"],
+            "new_manual_role": MANUAL_ROLES["0x84A6"],
+            "confidence": CSV_CONFIDENCE["0x84A6"],
+            "evidence_sources": "manual_dks_downstream_decompile.md;manual_auto_branch_map.csv;xdata_confirmed_access.csv;call_xref.csv",
+            "xdata_refs": "0x315B|0x3181|0x3640|0x36D3|0x36D9",
+            "callers": "0x7105|0x73FD",
+            "callees": "0x728A|0x5A7F",
+            "chain_relation": "direct call to 0x728A and direct call to 0x5A7F in selected paths",
+            "notes": "reads 0x315B/0x3181/0x3640/0x36D3/0x36D9; calls 0x728A and 0x5A7F; possible manual/auto bridge but physical semantics unknown",
+        },
+        {
+            "branch": BRANCH,
+            "file": PRIMARY_FILE,
+            "function_addr": "0x7922",
+            "previous_role": CSV_PREVIOUS_ROLE["0x7922"],
+            "new_manual_role": MANUAL_ROLES["0x7922"],
+            "confidence": CSV_CONFIDENCE["0x7922"],
+            "evidence_sources": "manual_dks_downstream_decompile.md;call_xref.csv;basic_block_map.csv",
+            "xdata_refs": "DPTR-indirect two-byte read helper",
+            "callers": "0x728A/0x6833 paths",
+            "callees": "",
+            "chain_relation": "direct call helper in downstream gate/output paths",
+            "notes": "tiny helper; reads two bytes from @DPTR into R0/R1; no direct packet/export call inside; called from 0x728A/0x6833 paths",
+        },
+        {
+            "branch": BRANCH,
+            "file": PRIMARY_FILE,
+            "function_addr": "0x597F",
+            "previous_role": CSV_PREVIOUS_ROLE["0x597F"],
+            "new_manual_role": MANUAL_ROLES["0x597F"],
+            "confidence": CSV_CONFIDENCE["0x597F"],
+            "evidence_sources": "manual_dks_downstream_decompile.md;call_xref.csv;basic_block_map.csv",
+            "xdata_refs": "",
+            "callers": "0x6833 path",
+            "callees": "",
+            "chain_relation": "direct helper call before downstream output-start write path",
+            "notes": "compact helper; likely A & 0x07; result used by 0x6833 before output-start write; exact permission/fault/mode meaning unknown",
+        },
+        {
+            "branch": BRANCH,
+            "file": PRIMARY_FILE,
+            "function_addr": "0x7DC2",
+            "previous_role": CSV_PREVIOUS_ROLE["0x7DC2"],
+            "new_manual_role": MANUAL_ROLES["0x7DC2"],
+            "confidence": CSV_CONFIDENCE["0x7DC2"],
+            "evidence_sources": "manual_dks_downstream_decompile.md;output_transition_map.csv;basic_block_map.csv;call_xref.csv",
+            "xdata_refs": "0x0001(read)",
+            "callers": "0x6833 tail LJMP",
+            "callees": "0x7121|0x7D9B",
+            "chain_relation": "tail transition from 0x6833 into sub-block inside parent 0x7D85",
+            "notes": "LJMP target from 0x6833 tail; sub-block inside parent 0x7D85; calls 0x7121 and 0x7D9B; not proven packet finalizer exclusively",
+        },
+    ]
+    with (DOCS / "manual_dks_downstream_decompile_summary.csv").open("w", encoding="utf-8", newline="") as f:
+        writer = csv.DictWriter(f, fieldnames=SUMMARY_HEADERS)
+        writer.writeheader()
+        writer.writerows(summary_rows)
+
+    pseudocode_rows = [
+        {
+            "branch": BRANCH,
+            "file": PRIMARY_FILE,
+            "function_addr": "0x5A7F",
+            "pseudocode_block": SPECIFIC_PSEUDOCODE["0x5A7F"],
+            "known_operations": "tiny helper; DPTR staging; high fan-in; caller performs MOVX after this helper; packet/export-adjacent bridge",
+            "unknown_operations": "whether it is packet sink, pointer resolver, or packet-field bridge; exact selector/index meaning",
+            "confidence": CSV_CONFIDENCE["0x5A7F"],
+            "notes": "conservative role: bridge-like helper, not full builder by itself",
+        },
+        {
+            "branch": BRANCH,
+            "file": PRIMARY_FILE,
+            "function_addr": "0x737C",
+            "pseudocode_block": SPECIFIC_PSEUDOCODE["0x737C"],
+            "known_operations": "reads/writes 0x3010/0x3011/0x3012/0x3013/0x3014/0x301A/0x301B; reads 0x31BF and 0x36xx cluster; calls 0x84A6 and 0x5A7F; enum-like values 0x03/0x07",
+            "unknown_operations": "exact physical semantics for branch outcomes and object-state meaning",
+            "confidence": CSV_CONFIDENCE["0x737C"],
+            "notes": "kept as zone/object logic candidate with conservative confidence",
+        },
+        {
+            "branch": BRANCH,
+            "file": PRIMARY_FILE,
+            "function_addr": "0x84A6",
+            "pseudocode_block": SPECIFIC_PSEUDOCODE["0x84A6"],
+            "known_operations": "reads 0x315B/0x3181/0x3640/0x36D3/0x36D9; calls 0x728A; calls 0x5A7F",
+            "unknown_operations": "manual/auto physical mapping remains hypothesis; exact event semantics unknown",
+            "confidence": CSV_CONFIDENCE["0x84A6"],
+            "notes": "bridge interpretation kept conservative",
+        },
+        {
+            "branch": BRANCH,
+            "file": PRIMARY_FILE,
+            "function_addr": "0x7922",
+            "pseudocode_block": SPECIFIC_PSEUDOCODE["0x7922"],
+            "known_operations": "tiny helper; reads two bytes from XDATA @DPTR into R0/R1; no direct packet/export call inside",
+            "unknown_operations": "exact table/service semantic meaning of fetched bytes",
+            "confidence": CSV_CONFIDENCE["0x7922"],
+            "notes": "usable as state-table reader/service-event helper without overclaiming semantics",
+        },
+        {
+            "branch": BRANCH,
+            "file": PRIMARY_FILE,
+            "function_addr": "0x597F",
+            "pseudocode_block": SPECIFIC_PSEUDOCODE["0x597F"],
+            "known_operations": "compact helper; likely A & 0x07; used by 0x6833 before output-start write",
+            "unknown_operations": "exact permission/fault/mode semantics of bitmask result",
+            "confidence": CSV_CONFIDENCE["0x597F"],
+            "notes": "condition-check helper role preserved",
+        },
+        {
+            "branch": BRANCH,
+            "file": PRIMARY_FILE,
+            "function_addr": "0x7DC2",
+            "pseudocode_block": SPECIFIC_PSEUDOCODE["0x7DC2"],
+            "known_operations": "LJMP target from 0x6833 tail; sub-block in parent 0x7D85; calls 0x7121 and 0x7D9B",
+            "unknown_operations": "whether it is exclusively a packet finalizer remains unknown",
+            "confidence": CSV_CONFIDENCE["0x7DC2"],
+            "notes": "treated as downstream output/service transition tail",
+        },
+    ]
+    with (DOCS / "manual_dks_downstream_pseudocode.csv").open("w", encoding="utf-8", newline="") as f:
+        writer = csv.DictWriter(f, fieldnames=PSEUDOCODE_HEADERS)
+        writer.writeheader()
+        writer.writerows(pseudocode_rows)
     return 0
 
 
