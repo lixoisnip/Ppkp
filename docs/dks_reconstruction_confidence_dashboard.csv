@@ -1,14 +1,17 @@
-area,understanding_percent,target_percent_if_validated,confidence,main_evidence,main_unknowns,next_step
-global_architecture,72%,,probable,cross-firmware architecture + DKS chain traces,exclusive module ownership edges,targeted bench validation
-90CYE_DKS_execution_chain,78%,,probable,0x497A->0x737C->0x613C->0x84A6->0x728A->0x6833->0x5A7F,branch-specific side exits,deep windows around side exits
-XDATA_lifecycle,74%,,probable,dks_xdata_lifecycle_* artifacts,byte-level semantics for all addresses,instrumented watchpoints
-enum_state_values,61%,80-90%,probable,enum_branch_value_map + enum reconstruction,exact physical labels per value,scenario-based enum probes
-packet_export,56%,75-85%,probable,0x5A7F high fan-in callsites + context XDATA,packet framing format,capture packet bytes with call correlation
-output_action,54%,75-85%,probable,0x6833/0x597F/0x7922/0x7DC2 reconstruction,meaning of write 0x04 in hardware terms,bench output-start trigger tests
-MDS_handler,60%,,probable,slot evidence + 0x673C-related traces,family-specific divergence,branch-isolated MDS traces
-MUP_handler,49%,65-80%,hypothesis,screen slot X06 + shared chain adjacency,exclusive handler proof,X06-isolated bench scenarios
-MASH_handler,58%,,probable,RTOS_service and global MASH traces,direct DKS path linkage,separate-family validation
-PVK_handler,47%,60-75%,hypothesis,screen evidence + candidate lists,conclusive code path,slot-specific static narrowing
-menu_keyboard_display,66%,,probable,screen/configuration + shared architecture,full handler map,UI call graph extraction
-physical_output_semantics,29%,55-75%,hypothesis,static paths only,actuator mapping (MVK/GOA/valve/siren),hardware bench with I/O capture
-bench_validation,52%,,probable,bench plans across enum/xdata/output,execution telemetry not yet collected,run v2 bench matrix
+area,understanding_percent,confidence,main_evidence,main_unknowns,next_step
+global_architecture,72%,probable,cross-firmware architecture + DKS chain traces,exclusive module ownership edges,targeted bench validation
+90CYE_DKS_execution_chain,78%,probable,0x497A->0x737C->0x613C->0x84A6->0x728A->0x6833->0x5A7F,branch-specific side exits,deep windows around side exits
+XDATA_lifecycle,74%,probable,dks_xdata_lifecycle_* artifacts,byte-level semantics for all addresses,instrumented watchpoints
+enum_state_values,61%,probable,enum_branch_value_map + enum reconstruction,exact physical labels per value,scenario-based enum probes
+packet_export,56%,probable,0x5A7F high fan-in callsites + context XDATA,packet framing format,capture packet bytes with call correlation
+output_action,54%,probable,0x6833/0x597F/0x7922/0x7DC2 reconstruction,meaning of write 0x04 in hardware terms,bench output-start trigger tests
+MDS_handler,60%,probable,slot evidence + 0x673C-related traces,family-specific divergence,branch-isolated MDS traces
+MUP_handler,49%,hypothesis,screen slot X06 + shared chain adjacency,exclusive handler proof,X06-isolated bench scenarios
+MASH_handler,58%,probable,RTOS_service and global MASH traces,direct DKS path linkage,separate-family validation
+PVK_handler,47%,hypothesis,screen evidence + candidate lists,conclusive code path,slot-specific static narrowing
+menu_keyboard_display,66%,probable,screen/configuration + shared architecture,full handler map,UI call graph extraction
+physical_output_semantics,29%,hypothesis,static paths only,actuator mapping (MVK/GOA/valve/siren),hardware bench with I/O capture
+bench_validation,52%,probable,bench plans across enum/xdata/output,execution telemetry not yet collected,run v2 bench matrix
+project_physical_role_90CYE03_90CYE04_aerosol,65%,project_documentation_uplift,project scan extraction confirms aerosol physical role and 30s/door semantics,function-address and numeric code confidence unchanged,link project evidence to bench/static validation only
+project_physical_role_90CYE01_MDS,62%,project_documentation_uplift,project scan extraction confirms MDS еФ5.104.156 with CP/CF/CH physical signals,protocol/bit mapping and handler exclusivity unresolved,keep code-level confidence capped pending static+bench proof
+project_packet_export_numeric_enums,56%,unchanged,project extraction does not add packet bytes or enum numeric values,RS-485 packet format and enum codes remain unknown,no confidence uplift without code/runtime data

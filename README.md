@@ -175,3 +175,13 @@ python3 scripts/rtos_service_chain_decompiler.py
 python3 scripts/cross_family_static_deepening_builder.py
 python3 scripts/run_analysis_smoke_test.py
 ```
+
+## Project scan extraction evidence
+
+Generated extraction layer (project-level evidence, separated from static/decompile code evidence):
+
+- `docs/extracted/project_scan_report_v0_1.md`
+- `docs/extracted/ppkp_devices.yaml`
+- `docs/extracted/project_to_firmware_linkage.csv`
+- `docs/extracted/firmware_search_targets.md`
+- `docs/extracted/states_enum_candidates.md`
