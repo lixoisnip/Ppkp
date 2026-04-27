@@ -1,0 +1,12 @@
+area,current_status,static_confidence,blocked_by,next_best_evidence,do_not_repeat_until,notes
+RS-485 frame,narrowed_bridge_not_serialized,medium,blocked_until_docs+blocked_until_bench,protocol frame sheet + bus capture with event tags,new protocol-doc pages or captured bytes are available,"0x5A7F caller synthesis confirms repeated staging, not full frame bytes"
+RS-485 address map,partial_context_only,low_to_medium,blocked_until_docs+blocked_until_bench,address table docs + per-device isolated capture,address map docs or address-tagged captures arrive,"table origin narrowed in pass3, still not decoded"
+RS-485 baudrate,token_hits_only,low,blocked_until_docs+blocked_until_bench,commissioning UART settings or line timing scope,new UART init constants with register proof are found,PU-003 unresolved
+CRC/checksum,candidate_loops_not_buffer_bounded,low,blocked_until_docs+blocked_until_bench,checksum appendix + invalid-checksum runtime behavior,bounded packet-buffer loop linked to packet window is proven,PU-004 unresolved
+enum numeric codes,partially_narrowed,medium,blocked_until_docs,project enum/state table pages,new enum table docs or branch/value anchors emerge,no exact semantic lock without docs
+30s delay / start chain,chain_supported,medium,blocked_until_bench,runtime timing capture on delay->start transition,bench timing traces are available,0x6833 marker and 0x7DC2 transition remain conservative
+launch pulse width,unresolved,low,blocked_until_docs+blocked_until_bench,launch timing requirements + oscilloscope pulse width,timing spec or pulse waveform evidence exists,PU-009 unresolved
+damper open/closed/fault,partially_narrowed,medium,blocked_until_docs+blocked_until_bench,terminal/object cross-table + limit-switch probe,terminal docs or labeled bench mapping is available,0x673C/0x613C/0x7773 chain static-only
+GOA/AN/AU/AO output map,output_class_only,low_to_medium,blocked_until_docs+blocked_until_bench,terminal mapping docs + output line tracing,terminal/object docs or captured output toggles exist,PU-011 unresolved
+MDS CP/CF/CH bit map,class_narrowing_only,low_to_medium,blocked_until_docs+blocked_until_bench,electrical supervision tables + controlled fault bench,CP/CF/CH documentation pages are provided,no full bit-to-terminal mapping
+MUP/PVK handler split,split_preserved,medium,blocked_until_docs+blocked_until_bench,missing project pages + slot-isolated runtime traces,new MUP/PVK project pages or isolated traces exist,PU-012/PU-013 unchanged split

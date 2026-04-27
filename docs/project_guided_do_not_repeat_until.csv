@@ -1,0 +1,9 @@
+topic,reason_currently_blocked,required_new_evidence,next_allowed_action,notes
+RS-485 frame format,no serialized byte sequence proven,protocol frame appendix or serial capture,only parse new anchored protocol bytes,avoid speculative frame byte synthesis
+CRC/checksum,no bounded packet-buffer checksum loop,checksum docs or invalid-checksum capture,resume only when bounded loop evidence appears,candidate arithmetic scans are exhausted
+baudrate,only low-confidence token hits,commissioning UART settings or scope timing,resume with register-level UART init proof,repeat token scans are low value
+GOA terminal map,class-level only without terminal table,terminal/object cross-reference docs or IO capture,resume once terminal IDs are documented/captured,no direct GOA/AN/AU/AO mapping claim
+damper terminal map,status chain narrowed but terminals unmapped,damper terminal table + limit-switch bench,resume when table/probe labels exist,avoid re-labeling 0x673C without docs
+MUP/PVK handler ownership,evidence split unresolved,MUP/PVK project pages + isolated slot traces,resume with new pages or slot-isolated traces,keep split explicitly
+exact enum semantic mapping,numeric values lack authoritative labels,state enum docs or labeled runtime traces,resume when labels can be cross-checked,avoid forced semantic naming
+launch pulse duration,no pulse-width constants tied to output line,timing requirements + scope waveform,resume with timing spec or waveform,chain evidence does not equal duration proof
