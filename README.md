@@ -45,6 +45,7 @@
 - docs/manual_decompile_0x728A_0x6833.md — manual decompile milestone #47 for mode gate `0x728A` and output-start entry `0x6833`.
 - docs/input_board_core_cross_family.md — issue #50 cross-cutting milestone: shared input-board core role and command vocabulary across firmware families.
 - docs/family_module_architecture_map.md — issue #52 large milestone: full cross-family comparison and shared module architecture map.
+- docs/firmware_module_architecture_comparison.md — cross-firmware architecture comparison of CPU core, keyboard/display, MASH, MVK, input boards, MDS, MUP, aerosol/water/APS-specific logic.
 - docs/module_handler_summary.csv — сводная таблица кандидатов обработчиков модулей по всем веткам.
 - Предыдущий файл анализа/журнал: `PZU_ANALYSIS.md`
 

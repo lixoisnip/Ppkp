@@ -29,3 +29,4 @@ scripts/auto_manual_gating_deep_trace.py,false,true,true,true,true,true,branch-s
 scripts/runtime_state_machine_reconstructor.py,false,true,true,true,true,true,large runtime state-machine reconstruction / 90CYE_DKS
 scripts/state_enum_and_techdoc_reconstructor.py,false,true,true,true,true,true,large orchestrated state/mode enum and technical-doc reconstruction with bench matrix outputs
 scripts/xdata_enum_branch_resolver.py,false,true,true,true,true,true,deep follow-up resolver for XDATA lifecycle + enum value branch mapping + manual/auto/output transition evidence
+scripts/firmware_module_architecture_analyzer.py,true,false,true,true,true,true,full cross-firmware module architecture analyzer (Issue #52 follow-up); tolerates missing optional input-board artifacts with warnings

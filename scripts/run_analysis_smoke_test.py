@@ -316,6 +316,23 @@ def main() -> int:
             ],
             "deep follow-up resolver for XDATA lifecycle, enum values and manual/auto/output branch evidence",
         ),
+        SmokeCommand(
+            "firmware_module_architecture_analyzer.py",
+            "all_firmwares",
+            [sys.executable, "scripts/firmware_module_architecture_analyzer.py"],
+            [
+                "docs/firmware_architecture_matrix.csv",
+                "docs/shared_core_function_map.csv",
+                "docs/module_presence_matrix.csv",
+                "docs/mvk_output_semantics.csv",
+                "docs/aerosol_line_supervision_candidates.csv",
+                "docs/input_board_presence_matrix.csv",
+                "docs/cross_firmware_pattern_summary.csv",
+                "docs/mds_mup_module_candidates.csv",
+                "docs/firmware_module_architecture_comparison.md",
+            ],
+            "full cross-firmware module architecture analyzer and comparison report",
+        ),
     ]
 
     rows: list[dict[str, str]] = []

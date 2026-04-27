@@ -1,0 +1,81 @@
+branch,file,function_addr,core_role,score,confidence,evidence_sources,xdata_refs,calls_out,calls_in,notes
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,0x497F,cpu_main_dispatcher,1.000,confirmed,function_map.csv|call_xref.csv|runtime_state_machine_nodes.csv,17,85,0,centrality + xdata density heuristic
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,0x673C,unknown_core,1.000,confirmed,function_map.csv|call_xref.csv|runtime_state_machine_nodes.csv,77,0,1,centrality + xdata density heuristic
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,0x604B,unknown_core,1.000,confirmed,function_map.csv|call_xref.csv|runtime_state_machine_nodes.csv,0,0,40,centrality + xdata density heuristic
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,0x745A,module_poll_scheduler,0.809,confirmed,function_map.csv|call_xref.csv|runtime_state_machine_nodes.csv,6,22,2,centrality + xdata density heuristic
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,0x774F,runtime_loop,1.000,confirmed,function_map.csv|call_xref.csv|runtime_state_machine_nodes.csv,23,11,1,centrality + xdata density heuristic
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,0x8A42,runtime_loop,0.848,confirmed,function_map.csv|call_xref.csv|runtime_state_machine_nodes.csv,9,21,1,centrality + xdata density heuristic
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,0x7574,unknown_core,0.702,probable,function_map.csv|call_xref.csv|runtime_state_machine_nodes.csv,3,22,1,centrality + xdata density heuristic
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,0x7E49,cpu_main_dispatcher,0.888,confirmed,function_map.csv|call_xref.csv|runtime_state_machine_nodes.csv,16,14,1,centrality + xdata density heuristic
+90CYE_v2_1,90CYE03_19_2 v2_1.PZU,0x497F,cpu_main_dispatcher,1.000,confirmed,function_map.csv|call_xref.csv|runtime_state_machine_nodes.csv,22,93,0,centrality + xdata density heuristic
+90CYE_v2_1,90CYE03_19_2 v2_1.PZU,0x72AC,unknown_core,1.000,confirmed,function_map.csv|call_xref.csv|runtime_state_machine_nodes.csv,0,0,78,centrality + xdata density heuristic
+90CYE_v2_1,90CYE03_19_2 v2_1.PZU,0xAA96,cpu_main_dispatcher,1.000,confirmed,function_map.csv|call_xref.csv|runtime_state_machine_nodes.csv,22,30,2,centrality + xdata density heuristic
+90CYE_v2_1,90CYE03_19_2 v2_1.PZU,0x929E,cpu_main_dispatcher,1.000,confirmed,function_map.csv|call_xref.csv|runtime_state_machine_nodes.csv,11,36,1,centrality + xdata density heuristic
+90CYE_v2_1,90CYE03_19_2 v2_1.PZU,0x84FA,runtime_loop,1.000,confirmed,function_map.csv|call_xref.csv|runtime_state_machine_nodes.csv,45,12,1,centrality + xdata density heuristic
+90CYE_v2_1,90CYE03_19_2 v2_1.PZU,0x90B6,cpu_main_dispatcher,1.000,confirmed,function_map.csv|call_xref.csv|runtime_state_machine_nodes.csv,13,32,1,centrality + xdata density heuristic
+90CYE_v2_1,90CYE03_19_2 v2_1.PZU,0x9F46,runtime_loop,1.000,confirmed,function_map.csv|call_xref.csv|runtime_state_machine_nodes.csv,42,12,3,centrality + xdata density heuristic
+90CYE_v2_1,90CYE03_19_2 v2_1.PZU,0x93F9,cpu_main_dispatcher,1.000,confirmed,function_map.csv|call_xref.csv|runtime_state_machine_nodes.csv,29,18,1,centrality + xdata density heuristic
+90CYE_DKS,90CYE03_19_DKS.PZU,0x497A,cpu_main_dispatcher,1.000,confirmed,function_map.csv|call_xref.csv|runtime_state_machine_nodes.csv,47,76,0,centrality + xdata density heuristic
+90CYE_DKS,90CYE03_19_DKS.PZU,0x5A7F,packet_export_core,1.000,confirmed,function_map.csv|call_xref.csv|runtime_state_machine_nodes.csv,0,0,95,centrality + xdata density heuristic
+90CYE_DKS,90CYE03_19_DKS.PZU,0x613C,unknown_core,1.000,confirmed,function_map.csv|call_xref.csv|runtime_state_machine_nodes.csv,55,0,1,centrality + xdata density heuristic
+90CYE_DKS,90CYE03_19_DKS.PZU,0x84A6,cpu_main_dispatcher,1.000,confirmed,function_map.csv|call_xref.csv|runtime_state_machine_nodes.csv,14,24,2,centrality + xdata density heuristic
+90CYE_DKS,90CYE03_19_DKS.PZU,0x728A,runtime_loop,0.961,confirmed,function_map.csv|call_xref.csv|runtime_state_machine_nodes.csv,9,26,1,centrality + xdata density heuristic
+90CYE_DKS,90CYE03_19_DKS.PZU,0x737C,cpu_main_dispatcher,1.000,confirmed,function_map.csv|call_xref.csv|runtime_state_machine_nodes.csv,17,20,1,centrality + xdata density heuristic
+90CYE_DKS,90CYE03_19_DKS.PZU,0x7D85,unknown_core,1.000,confirmed,function_map.csv|call_xref.csv|runtime_state_machine_nodes.csv,41,3,2,centrality + xdata density heuristic
+90CYE_DKS,90CYE03_19_DKS.PZU,0x6EF2,runtime_loop,1.000,confirmed,function_map.csv|call_xref.csv|runtime_state_machine_nodes.csv,22,13,1,centrality + xdata density heuristic
+90CYE_v2_1,90CYE04_19_2 v2_1.PZU,0x497F,cpu_main_dispatcher,1.000,confirmed,function_map.csv|call_xref.csv|runtime_state_machine_nodes.csv,22,93,0,centrality + xdata density heuristic
+90CYE_v2_1,90CYE04_19_2 v2_1.PZU,0x72AC,unknown_core,1.000,confirmed,function_map.csv|call_xref.csv|runtime_state_machine_nodes.csv,0,0,78,centrality + xdata density heuristic
+90CYE_v2_1,90CYE04_19_2 v2_1.PZU,0xAA96,cpu_main_dispatcher,1.000,confirmed,function_map.csv|call_xref.csv|runtime_state_machine_nodes.csv,22,30,2,centrality + xdata density heuristic
+90CYE_v2_1,90CYE04_19_2 v2_1.PZU,0x929E,cpu_main_dispatcher,1.000,confirmed,function_map.csv|call_xref.csv|runtime_state_machine_nodes.csv,11,36,1,centrality + xdata density heuristic
+90CYE_v2_1,90CYE04_19_2 v2_1.PZU,0x84FA,runtime_loop,1.000,confirmed,function_map.csv|call_xref.csv|runtime_state_machine_nodes.csv,45,12,1,centrality + xdata density heuristic
+90CYE_v2_1,90CYE04_19_2 v2_1.PZU,0x90B6,cpu_main_dispatcher,1.000,confirmed,function_map.csv|call_xref.csv|runtime_state_machine_nodes.csv,13,32,1,centrality + xdata density heuristic
+90CYE_v2_1,90CYE04_19_2 v2_1.PZU,0x9F46,runtime_loop,1.000,confirmed,function_map.csv|call_xref.csv|runtime_state_machine_nodes.csv,42,12,3,centrality + xdata density heuristic
+90CYE_v2_1,90CYE04_19_2 v2_1.PZU,0x93F9,cpu_main_dispatcher,1.000,confirmed,function_map.csv|call_xref.csv|runtime_state_machine_nodes.csv,29,18,1,centrality + xdata density heuristic
+90CYE_DKS,90CYE04_19_DKS.PZU,0x497A,cpu_main_dispatcher,1.000,confirmed,function_map.csv|call_xref.csv|runtime_state_machine_nodes.csv,47,76,0,centrality + xdata density heuristic
+90CYE_DKS,90CYE04_19_DKS.PZU,0x5A7F,packet_export_core,1.000,confirmed,function_map.csv|call_xref.csv|runtime_state_machine_nodes.csv,0,0,95,centrality + xdata density heuristic
+90CYE_DKS,90CYE04_19_DKS.PZU,0x613C,unknown_core,1.000,confirmed,function_map.csv|call_xref.csv|runtime_state_machine_nodes.csv,55,0,1,centrality + xdata density heuristic
+90CYE_DKS,90CYE04_19_DKS.PZU,0x84A6,cpu_main_dispatcher,1.000,confirmed,function_map.csv|call_xref.csv|runtime_state_machine_nodes.csv,14,24,2,centrality + xdata density heuristic
+90CYE_DKS,90CYE04_19_DKS.PZU,0x728A,runtime_loop,0.961,confirmed,function_map.csv|call_xref.csv|runtime_state_machine_nodes.csv,9,26,1,centrality + xdata density heuristic
+90CYE_DKS,90CYE04_19_DKS.PZU,0x737C,cpu_main_dispatcher,1.000,confirmed,function_map.csv|call_xref.csv|runtime_state_machine_nodes.csv,17,20,1,centrality + xdata density heuristic
+90CYE_DKS,90CYE04_19_DKS.PZU,0x7D85,unknown_core,1.000,confirmed,function_map.csv|call_xref.csv|runtime_state_machine_nodes.csv,41,3,2,centrality + xdata density heuristic
+90CYE_DKS,90CYE04_19_DKS.PZU,0x6EF2,runtime_loop,1.000,confirmed,function_map.csv|call_xref.csv|runtime_state_machine_nodes.csv,22,13,1,centrality + xdata density heuristic
+A03_A04,A03_26.PZU,0x497A,cpu_main_dispatcher,1.000,confirmed,function_map.csv|call_xref.csv|runtime_state_machine_nodes.csv,13,90,0,centrality + xdata density heuristic
+A03_A04,A03_26.PZU,0xA900,cpu_main_dispatcher,1.000,confirmed,function_map.csv|call_xref.csv|runtime_state_machine_nodes.csv,14,33,1,centrality + xdata density heuristic
+A03_A04,A03_26.PZU,0x7339,unknown_core,1.000,confirmed,function_map.csv|call_xref.csv|runtime_state_machine_nodes.csv,55,1,1,centrality + xdata density heuristic
+A03_A04,A03_26.PZU,0x9F58,unknown_core,0.933,confirmed,function_map.csv|call_xref.csv|runtime_state_machine_nodes.csv,4,31,1,centrality + xdata density heuristic
+A03_A04,A03_26.PZU,0xA2F5,cpu_main_dispatcher,1.000,confirmed,function_map.csv|call_xref.csv|runtime_state_machine_nodes.csv,26,16,1,centrality + xdata density heuristic
+A03_A04,A03_26.PZU,0x6D2E,unknown_core,0.865,confirmed,function_map.csv|call_xref.csv|runtime_state_machine_nodes.csv,0,0,34,centrality + xdata density heuristic
+A03_A04,A03_26.PZU,0x800B,module_poll_scheduler,0.786,probable,function_map.csv|call_xref.csv|runtime_state_machine_nodes.csv,6,21,2,centrality + xdata density heuristic
+A03_A04,A03_26.PZU,0x8741,runtime_loop,0.955,confirmed,function_map.csv|call_xref.csv|runtime_state_machine_nodes.csv,20,12,1,centrality + xdata density heuristic
+A03_A04,A04_28.PZU,0x497A,cpu_main_dispatcher,1.000,confirmed,function_map.csv|call_xref.csv|runtime_state_machine_nodes.csv,13,99,0,centrality + xdata density heuristic
+A03_A04,A04_28.PZU,0x722E,unknown_core,1.000,confirmed,function_map.csv|call_xref.csv|runtime_state_machine_nodes.csv,83,1,1,centrality + xdata density heuristic
+A03_A04,A04_28.PZU,0xB310,cpu_main_dispatcher,1.000,confirmed,function_map.csv|call_xref.csv|runtime_state_machine_nodes.csv,13,32,1,centrality + xdata density heuristic
+A03_A04,A04_28.PZU,0xA6D9,cpu_main_dispatcher,1.000,confirmed,function_map.csv|call_xref.csv|runtime_state_machine_nodes.csv,30,16,1,centrality + xdata density heuristic
+A03_A04,A04_28.PZU,0xA269,unknown_core,0.910,confirmed,function_map.csv|call_xref.csv|runtime_state_machine_nodes.csv,4,30,1,centrality + xdata density heuristic
+A03_A04,A04_28.PZU,0x6C07,unknown_core,0.910,confirmed,function_map.csv|call_xref.csv|runtime_state_machine_nodes.csv,0,0,36,centrality + xdata density heuristic
+A03_A04,A04_28.PZU,0x7F5B,module_poll_scheduler,0.764,probable,function_map.csv|call_xref.csv|runtime_state_machine_nodes.csv,6,20,2,centrality + xdata density heuristic
+A03_A04,A04_28.PZU,0x86DE,runtime_loop,0.955,confirmed,function_map.csv|call_xref.csv|runtime_state_machine_nodes.csv,20,12,1,centrality + xdata density heuristic
+RTOS_service,ppkp2001 90cye01.PZU,0x758B,cpu_main_dispatcher,1.000,confirmed,function_map.csv|call_xref.csv|runtime_state_machine_nodes.csv,68,127,1,centrality + xdata density heuristic
+RTOS_service,ppkp2001 90cye01.PZU,0x53E6,runtime_loop,1.000,confirmed,function_map.csv|call_xref.csv|runtime_state_machine_nodes.csv,180,13,2,centrality + xdata density heuristic
+RTOS_service,ppkp2001 90cye01.PZU,0xA3FD,module_poll_scheduler,1.000,confirmed,function_map.csv|call_xref.csv|runtime_state_machine_nodes.csv,5,70,1,centrality + xdata density heuristic
+RTOS_service,ppkp2001 90cye01.PZU,0x8F8C,unknown_core,1.000,confirmed,function_map.csv|call_xref.csv|runtime_state_machine_nodes.csv,0,0,86,centrality + xdata density heuristic
+RTOS_service,ppkp2001 90cye01.PZU,0xAB62,cpu_main_dispatcher,1.000,confirmed,function_map.csv|call_xref.csv|runtime_state_machine_nodes.csv,13,39,1,centrality + xdata density heuristic
+RTOS_service,ppkp2001 90cye01.PZU,0x7EDA,unknown_core,1.000,confirmed,function_map.csv|call_xref.csv|runtime_state_machine_nodes.csv,51,2,4,centrality + xdata density heuristic
+RTOS_service,ppkp2001 90cye01.PZU,0x6BB7,runtime_loop,1.000,confirmed,function_map.csv|call_xref.csv|runtime_state_machine_nodes.csv,27,13,1,centrality + xdata density heuristic
+RTOS_service,ppkp2001 90cye01.PZU,0x9A24,runtime_loop,0.910,confirmed,function_map.csv|call_xref.csv|runtime_state_machine_nodes.csv,8,25,1,centrality + xdata density heuristic
+RTOS_service,ppkp2012 a01.PZU,0x75F7,cpu_main_dispatcher,1.000,confirmed,function_map.csv|call_xref.csv|runtime_state_machine_nodes.csv,88,91,1,centrality + xdata density heuristic
+RTOS_service,ppkp2012 a01.PZU,0x5436,runtime_loop,1.000,confirmed,function_map.csv|call_xref.csv|runtime_state_machine_nodes.csv,183,13,2,centrality + xdata density heuristic
+RTOS_service,ppkp2012 a01.PZU,0x95B0,unknown_core,1.000,confirmed,function_map.csv|call_xref.csv|runtime_state_machine_nodes.csv,0,0,101,centrality + xdata density heuristic
+RTOS_service,ppkp2012 a01.PZU,0xAB52,module_poll_scheduler,1.000,confirmed,function_map.csv|call_xref.csv|runtime_state_machine_nodes.csv,5,75,1,centrality + xdata density heuristic
+RTOS_service,ppkp2012 a01.PZU,0xB606,cpu_main_dispatcher,1.000,confirmed,function_map.csv|call_xref.csv|runtime_state_machine_nodes.csv,15,46,1,centrality + xdata density heuristic
+RTOS_service,ppkp2012 a01.PZU,0x6C3B,cpu_main_dispatcher,1.000,confirmed,function_map.csv|call_xref.csv|runtime_state_machine_nodes.csv,25,32,1,centrality + xdata density heuristic
+RTOS_service,ppkp2012 a01.PZU,0x84FA,unknown_core,1.000,confirmed,function_map.csv|call_xref.csv|runtime_state_machine_nodes.csv,50,2,8,centrality + xdata density heuristic
+RTOS_service,ppkp2012 a01.PZU,0xA0EF,runtime_loop,0.910,confirmed,function_map.csv|call_xref.csv|runtime_state_machine_nodes.csv,8,25,1,centrality + xdata density heuristic
+RTOS_service,ppkp2019 a02.PZU,0x57DB,runtime_loop,1.000,confirmed,function_map.csv|call_xref.csv|runtime_state_machine_nodes.csv,146,13,2,centrality + xdata density heuristic
+RTOS_service,ppkp2019 a02.PZU,0x92EF,unknown_core,1.000,confirmed,function_map.csv|call_xref.csv|runtime_state_machine_nodes.csv,0,0,126,centrality + xdata density heuristic
+RTOS_service,ppkp2019 a02.PZU,0xA9C5,unknown_core,1.000,confirmed,function_map.csv|call_xref.csv|runtime_state_machine_nodes.csv,4,51,1,centrality + xdata density heuristic
+RTOS_service,ppkp2019 a02.PZU,0x7A32,cpu_main_dispatcher,1.000,confirmed,function_map.csv|call_xref.csv|runtime_state_machine_nodes.csv,41,24,1,centrality + xdata density heuristic
+RTOS_service,ppkp2019 a02.PZU,0xAF92,runtime_loop,1.000,confirmed,function_map.csv|call_xref.csv|runtime_state_machine_nodes.csv,8,44,1,centrality + xdata density heuristic
+RTOS_service,ppkp2019 a02.PZU,0x6864,unknown_core,1.000,confirmed,function_map.csv|call_xref.csv|runtime_state_machine_nodes.csv,2,40,1,centrality + xdata density heuristic
+RTOS_service,ppkp2019 a02.PZU,0x439D,cpu_main_dispatcher,1.000,confirmed,function_map.csv|call_xref.csv|runtime_state_machine_nodes.csv,16,22,7,centrality + xdata density heuristic
+RTOS_service,ppkp2019 a02.PZU,0x49C8,unknown_core,0.887,confirmed,function_map.csv|call_xref.csv|runtime_state_machine_nodes.csv,0,34,1,centrality + xdata density heuristic
