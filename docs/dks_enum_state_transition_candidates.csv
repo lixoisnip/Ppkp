@@ -1,0 +1,9 @@
+branch,file,from_state,to_state,function_addr,xdata_addr,trigger_context,downstream_function,packet_export_seen,confidence,notes
+90CYE_DKS,90CYE03_19_DKS.PZU,0x01,0x04,0x497A,0x3010,state compare / branch dispatch,0x6833,yes,probable,Static chain only; bench transition confirmation required.
+90CYE_DKS,90CYE03_19_DKS.PZU,0x02,0x04,0x497A,0x3010,state compare / branch dispatch,0x6833,yes,probable,Static chain only; bench transition confirmation required.
+90CYE_DKS,90CYE03_19_DKS.PZU,0x04,0x5A7F_event,0x497A,0x3010,state compare / branch dispatch,0x5A7F,possible,probable,Static chain only; bench transition confirmation required.
+90CYE_DKS,90CYE03_19_DKS.PZU,0x05,0x5A7F_event,0x497A,0x3010,state compare / branch dispatch,0x5A7F,possible,probable,Static chain only; bench transition confirmation required.
+90CYE_DKS,90CYE03_19_DKS.PZU,0x08,0x5A7F_event,0x497A,0x3010,state compare / branch dispatch,0x5A7F,possible,probable,Static chain only; bench transition confirmation required.
+90CYE_DKS,90CYE03_19_DKS.PZU,0xFF,0x5A7F_event,0x497A,0x3010,state compare / branch dispatch,0x5A7F,yes,probable,Static chain only; bench transition confirmation required.
+90CYE_DKS,90CYE03_19_DKS.PZU,0x03,0x04,0x737C,0x3010,state compare / branch dispatch,0x6833,yes,probable,Static chain only; bench transition confirmation required.
+90CYE_DKS,90CYE03_19_DKS.PZU,0x07,0x04,0x737C,0x3010,state compare / branch dispatch,0x6833,yes,probable,Static chain only; bench transition confirmation required.

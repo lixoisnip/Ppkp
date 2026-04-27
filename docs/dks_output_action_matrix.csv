@@ -1,0 +1,68 @@
+branch,file,function_addr,action_candidate,xdata_target,write_value,precondition_function,downstream_function,packet_export_path,possible_physical_semantic,confidence,evidence_level,notes
+90CYE_DKS,90CYE03_19_DKS.PZU,0x497A,packet_export_or_feedback,-,-,-,0x5A7F,yes,unknown,hypothesis,hypothesis,static_trace
+90CYE_DKS,90CYE03_19_DKS.PZU,0x497A,packet_export_or_feedback,-,-,-,0x5A7F,yes,unknown,hypothesis,hypothesis,static_trace
+90CYE_DKS,90CYE03_19_DKS.PZU,0x497A,packet_export_or_feedback,-,-,-,0x5A7F,yes,unknown,hypothesis,hypothesis,static_trace
+90CYE_DKS,90CYE03_19_DKS.PZU,0x497A,packet_export_or_feedback,-,-,-,0x5A7F,yes,unknown,hypothesis,hypothesis,static_trace
+90CYE_DKS,90CYE03_19_DKS.PZU,0x497A,packet_export_or_feedback,-,-,-,0x5A7F,yes,unknown,hypothesis,hypothesis,static_trace
+90CYE_DKS,90CYE03_19_DKS.PZU,0x497A,packet_export_or_feedback,-,-,-,0x5A7F,yes,unknown,hypothesis,hypothesis,static_trace
+90CYE_DKS,90CYE03_19_DKS.PZU,0x497A,packet_export_or_feedback,-,-,-,0x5A7F,yes,unknown,hypothesis,hypothesis,static_trace
+90CYE_DKS,90CYE03_19_DKS.PZU,0x497A,packet_export_or_feedback,-,-,-,0x5A7F,yes,unknown,hypothesis,hypothesis,static_trace
+90CYE_DKS,90CYE03_19_DKS.PZU,0x497A,packet_export_or_feedback,-,-,-,0x5A7F,yes,unknown,hypothesis,hypothesis,static_trace
+90CYE_DKS,90CYE03_19_DKS.PZU,0x497A,packet_export_or_feedback,-,-,-,0x5A7F,yes,unknown,hypothesis,hypothesis,static_trace
+90CYE_DKS,90CYE03_19_DKS.PZU,0x497A,packet_export_or_feedback,-,-,-,0x5A7F,yes,unknown,hypothesis,hypothesis,static_trace
+90CYE_DKS,90CYE03_19_DKS.PZU,0x497A,packet_export_or_feedback,-,-,-,0x5A7F,yes,unknown,hypothesis,hypothesis,static_trace
+90CYE_DKS,90CYE03_19_DKS.PZU,0x497A,packet_export_or_feedback,-,-,-,0x5A7F,yes,unknown,hypothesis,hypothesis,static_trace
+90CYE_DKS,90CYE03_19_DKS.PZU,0x497A,packet_export_or_feedback,-,-,-,0x5A7F,yes,unknown,hypothesis,hypothesis,static_trace
+90CYE_DKS,90CYE03_19_DKS.PZU,0x497A,packet_export_or_feedback,-,-,-,0x5A7F,yes,unknown,hypothesis,hypothesis,static_trace
+90CYE_DKS,90CYE03_19_DKS.PZU,0x497A,packet_export_or_feedback,-,-,-,0x5A7F,yes,unknown,hypothesis,hypothesis,static_trace
+90CYE_DKS,90CYE03_19_DKS.PZU,0x497A,packet_export_or_feedback,-,-,-,0x5A7F,yes,unknown,hypothesis,hypothesis,static_trace
+90CYE_DKS,90CYE03_19_DKS.PZU,0x497A,packet_export_or_feedback,-,-,-,0x5A7F,yes,unknown,hypothesis,hypothesis,static_trace
+90CYE_DKS,90CYE03_19_DKS.PZU,0x497A,packet_export_or_feedback,-,-,-,0x5A7F,yes,unknown,hypothesis,hypothesis,static_trace
+90CYE_DKS,90CYE03_19_DKS.PZU,0x497A,packet_export_or_feedback,-,-,-,0x5A7F,yes,unknown,hypothesis,hypothesis,static_trace
+90CYE_DKS,90CYE03_19_DKS.PZU,0x497A,packet_export_or_feedback,-,-,-,0x5A7F,yes,unknown,hypothesis,hypothesis,static_trace
+90CYE_DKS,90CYE03_19_DKS.PZU,0x497A,packet_export_or_feedback,-,-,-,0x5A7F,yes,unknown,hypothesis,hypothesis,static_trace
+90CYE_DKS,90CYE03_19_DKS.PZU,0x497A,packet_export_or_feedback,-,-,-,0x5A7F,yes,unknown,hypothesis,hypothesis,static_trace
+90CYE_DKS,90CYE03_19_DKS.PZU,0x497A,packet_export_or_feedback,-,-,-,0x5A7F,yes,unknown,hypothesis,hypothesis,static_trace
+90CYE_DKS,90CYE03_19_DKS.PZU,0x497A,packet_export_or_feedback,-,-,-,0x5A7F,yes,unknown,hypothesis,hypothesis,static_trace
+90CYE_DKS,90CYE03_19_DKS.PZU,0x497A,packet_export_or_feedback,-,-,-,0x5A7F,yes,unknown,hypothesis,hypothesis,static_trace
+90CYE_DKS,90CYE03_19_DKS.PZU,0x497A,packet_export_or_feedback,-,-,-,0x5A7F,yes,unknown,hypothesis,hypothesis,static_trace
+90CYE_DKS,90CYE03_19_DKS.PZU,0x497A,packet_export_or_feedback,-,-,-,0x5A7F,yes,unknown,hypothesis,hypothesis,static_trace
+90CYE_DKS,90CYE03_19_DKS.PZU,0x497A,packet_export_or_feedback,-,-,-,0x5A7F,yes,unknown,hypothesis,hypothesis,static_trace
+90CYE_DKS,90CYE03_19_DKS.PZU,0x597F,condition_mask_guard_candidate,ACC,A&0x07,-,0x6833,possible,unknown,probable,manual_decompile,Inserted from manual downstream reconstruction and chain adjacency.
+90CYE_DKS,90CYE03_19_DKS.PZU,0x6833,output_start,-,-,0x597F,-,no,unknown,probable,manual_decompile,static_trace
+90CYE_DKS,90CYE03_19_DKS.PZU,0x6833,output_start,-,-,0x597F,0x7922,no,unknown,probable,manual_decompile,static_trace
+90CYE_DKS,90CYE03_19_DKS.PZU,0x6833,output_start,-,-,0x597F,-,no,unknown,probable,manual_decompile,static_trace
+90CYE_DKS,90CYE03_19_DKS.PZU,0x6833,output_start,-,-,0x597F,0x597F,no,unknown,probable,manual_decompile,static_trace
+90CYE_DKS,90CYE03_19_DKS.PZU,0x6833,output_start,-,-,0x597F,-,no,unknown,probable,manual_decompile,static_trace
+90CYE_DKS,90CYE03_19_DKS.PZU,0x6833,output_start,-,-,0x597F,-,no,unknown,probable,manual_decompile,static_trace
+90CYE_DKS,90CYE03_19_DKS.PZU,0x6833,output_start,-,-,0x597F,-,no,unknown,probable,manual_decompile,static_trace
+90CYE_DKS,90CYE03_19_DKS.PZU,0x6833,output_start,-,-,0x597F,-,no,unknown,probable,manual_decompile,static_trace
+90CYE_DKS,90CYE03_19_DKS.PZU,0x6833,output_start,-,-,0x597F,0x67D7,no,unknown,probable,manual_decompile,static_trace
+90CYE_DKS,90CYE03_19_DKS.PZU,0x6833,output_start,-,-,0x597F,-,no,unknown,probable,manual_decompile,static_trace
+90CYE_DKS,90CYE03_19_DKS.PZU,0x6833,output_start,-,-,0x597F,0x5A7F,yes,unknown,probable,manual_decompile,static_trace
+90CYE_DKS,90CYE03_19_DKS.PZU,0x6833,output_start,-,-,0x597F,-,no,unknown,probable,manual_decompile,static_trace
+90CYE_DKS,90CYE03_19_DKS.PZU,0x6833,output_start,-,-,0x597F,-,no,unknown,probable,manual_decompile,static_trace
+90CYE_DKS,90CYE03_19_DKS.PZU,0x6833,output_start,-,-,0x597F,-,no,unknown,probable,manual_decompile,static_trace
+90CYE_DKS,90CYE03_19_DKS.PZU,0x6833,output_start,-,-,0x597F,-,no,unknown,probable,manual_decompile,static_trace
+90CYE_DKS,90CYE03_19_DKS.PZU,0x6833,output_start,-,-,0x597F,0x5A7F,yes,unknown,probable,manual_decompile,static_trace
+90CYE_DKS,90CYE03_19_DKS.PZU,0x6833,output_start,-,-,0x597F,-,no,unknown,probable,manual_decompile,static_trace
+90CYE_DKS,90CYE03_19_DKS.PZU,0x6833,output_start,-,-,0x597F,-,no,unknown,probable,manual_decompile,static_trace
+90CYE_DKS,90CYE03_19_DKS.PZU,0x6833,output_start,-,-,0x597F,-,no,unknown,probable,manual_decompile,static_trace
+90CYE_DKS,90CYE03_19_DKS.PZU,0x6833,output_start,-,-,0x597F,-,no,unknown,probable,manual_decompile,static_trace
+90CYE_DKS,90CYE03_19_DKS.PZU,0x6833,output_start,-,-,0x597F,-,no,unknown,probable,manual_decompile,static_trace
+90CYE_DKS,90CYE03_19_DKS.PZU,0x6833,output_start,-,-,0x597F,-,no,unknown,probable,manual_decompile,static_trace
+90CYE_DKS,90CYE03_19_DKS.PZU,0x6833,output_start,-,-,0x597F,0x5A7F,yes,unknown,probable,manual_decompile,static_trace
+90CYE_DKS,90CYE03_19_DKS.PZU,0x6833,output_start,-,-,0x597F,0x7DC2,no,unknown,probable,manual_decompile,static_trace
+90CYE_DKS,90CYE03_19_DKS.PZU,0x6833,output_start_marker_candidate,dptr_context_target,0x04,0x597F,0x7DC2,yes,unknown,probable,manual_decompile,Inserted from manual downstream reconstruction and chain adjacency.
+90CYE_DKS,90CYE03_19_DKS.PZU,0x737C,packet_export_or_feedback,-,-,-,0x5A7F,yes,unknown,hypothesis,hypothesis,static_trace | reads/writes 0x3010/0x3011/0x3012/0x3013/0x3014/0x301A/0x301B; reads 0x31BF and 0x36xx cluster; calls 0x84A6 and 0x5A7F; enum-like evidence 0x03/0x07
+90CYE_DKS,90CYE03_19_DKS.PZU,0x737C,packet_export_or_feedback,-,-,-,0x5A7F,yes,unknown,hypothesis,hypothesis,static_trace | reads/writes 0x3010/0x3011/0x3012/0x3013/0x3014/0x301A/0x301B; reads 0x31BF and 0x36xx cluster; calls 0x84A6 and 0x5A7F; enum-like evidence 0x03/0x07
+90CYE_DKS,90CYE03_19_DKS.PZU,0x737C,packet_export_or_feedback,-,-,-,0x5A7F,yes,unknown,hypothesis,hypothesis,static_trace | reads/writes 0x3010/0x3011/0x3012/0x3013/0x3014/0x301A/0x301B; reads 0x31BF and 0x36xx cluster; calls 0x84A6 and 0x5A7F; enum-like evidence 0x03/0x07
+90CYE_DKS,90CYE03_19_DKS.PZU,0x737C,packet_export_or_feedback,-,-,-,0x5A7F,yes,unknown,hypothesis,hypothesis,static_trace | reads/writes 0x3010/0x3011/0x3012/0x3013/0x3014/0x301A/0x301B; reads 0x31BF and 0x36xx cluster; calls 0x84A6 and 0x5A7F; enum-like evidence 0x03/0x07
+90CYE_DKS,90CYE03_19_DKS.PZU,0x737C,packet_export_or_feedback,-,-,-,0x5A7F,yes,unknown,hypothesis,hypothesis,static_trace | reads/writes 0x3010/0x3011/0x3012/0x3013/0x3014/0x301A/0x301B; reads 0x31BF and 0x36xx cluster; calls 0x84A6 and 0x5A7F; enum-like evidence 0x03/0x07
+90CYE_DKS,90CYE03_19_DKS.PZU,0x737C,packet_export_or_feedback,-,-,-,0x5A7F,yes,unknown,hypothesis,hypothesis,static_trace | reads/writes 0x3010/0x3011/0x3012/0x3013/0x3014/0x301A/0x301B; reads 0x31BF and 0x36xx cluster; calls 0x84A6 and 0x5A7F; enum-like evidence 0x03/0x07
+90CYE_DKS,90CYE03_19_DKS.PZU,0x737C,packet_export_or_feedback,-,-,-,0x5A7F,yes,unknown,hypothesis,hypothesis,static_trace | reads/writes 0x3010/0x3011/0x3012/0x3013/0x3014/0x301A/0x301B; reads 0x31BF and 0x36xx cluster; calls 0x84A6 and 0x5A7F; enum-like evidence 0x03/0x07
+90CYE_DKS,90CYE03_19_DKS.PZU,0x737C,packet_export_or_feedback,-,-,-,0x5A7F,yes,unknown,hypothesis,hypothesis,static_trace | reads/writes 0x3010/0x3011/0x3012/0x3013/0x3014/0x301A/0x301B; reads 0x31BF and 0x36xx cluster; calls 0x84A6 and 0x5A7F; enum-like evidence 0x03/0x07
+90CYE_DKS,90CYE03_19_DKS.PZU,0x737C,packet_export_or_feedback,-,-,-,0x5A7F,yes,unknown,hypothesis,hypothesis,static_trace | reads/writes 0x3010/0x3011/0x3012/0x3013/0x3014/0x301A/0x301B; reads 0x31BF and 0x36xx cluster; calls 0x84A6 and 0x5A7F; enum-like evidence 0x03/0x07
+90CYE_DKS,90CYE03_19_DKS.PZU,0x737C,packet_export_or_feedback,-,-,-,0x5A7F,yes,unknown,hypothesis,hypothesis,static_trace | reads/writes 0x3010/0x3011/0x3012/0x3013/0x3014/0x301A/0x301B; reads 0x31BF and 0x36xx cluster; calls 0x84A6 and 0x5A7F; enum-like evidence 0x03/0x07
+90CYE_DKS,90CYE03_19_DKS.PZU,0x7922,state_table_reader_service_helper,0x30EA..0x30F9,read,-,0x6833,possible,unknown,probable,manual_decompile,Inserted from manual downstream reconstruction and chain adjacency.
+90CYE_DKS,90CYE03_19_DKS.PZU,0x7DC2,downstream_output_transition_finalizer,0x36D3..0x36FD,contextual,0x6833,0x5A7F,yes,unknown,probable,manual_decompile,Inserted from manual downstream reconstruction and chain adjacency.

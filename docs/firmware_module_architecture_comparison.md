@@ -231,9 +231,13 @@ See `docs/cross_firmware_pattern_summary.csv` for shared packet/core/front-panel
 - Unknown: insufficient evidence.
 - No `.PZU` files were modified.
 
-## 21. DKS XDATA lifecycle reconstruction follow-up
+## 21. DKS technical reconstruction v1 linkage
 
-- `docs/dks_xdata_lifecycle_analysis.md`
-- `docs/dks_xdata_lifecycle_matrix.csv`
-- `docs/dks_xdata_function_roles.csv`
-- `docs/dks_xdata_bench_probe_plan.csv`
+Для ветки DKS этот документ теперь связан с отдельными v1-артефактами:
+- `docs/dks_enum_state_reconstruction.md`
+- `docs/dks_packet_export_reconstruction.md`
+- `docs/dks_output_action_reconstruction.md`
+- `docs/dks_module_handler_attribution.md`
+- `docs/dks_firmware_technical_reconstruction_v1.md`
+
+Shared-chain функции (`0x497A`, `0x613C`, `0x737C`, `0x84A6`, `0x728A`, `0x6833`, `0x5A7F`) остаются общими диспетчерно-мостовыми кандидатами и не назначаются эксклюзивно на один экранный модуль без дополнительного доказательства.

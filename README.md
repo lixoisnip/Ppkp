@@ -97,3 +97,21 @@ python3 scripts/run_analysis_smoke_test.py
 - `docs/analysis_smoke_test_results.csv`
 - `docs/analysis_health_report.md`
 - `docs/script_scope_matrix.csv`
+## DKS reconstruction milestone v1
+
+Новые артефакты большого этапа DKS:
+- `docs/dks_enum_state_reconstruction.md`, `docs/dks_enum_state_matrix.csv`, `docs/dks_enum_state_transition_candidates.csv`
+- `docs/dks_packet_export_reconstruction.md`, `docs/dks_packet_export_callsite_matrix.csv`, `docs/dks_packet_context_xdata_matrix.csv`, `docs/dks_packet_format_hypothesis.csv`
+- `docs/dks_output_action_reconstruction.md`, `docs/dks_output_action_matrix.csv`, `docs/dks_output_start_path_trace.csv`, `docs/dks_output_action_bench_tests.csv`
+- `docs/dks_module_handler_attribution.md`, `docs/dks_module_handler_attribution_matrix.csv`, `docs/dks_module_unresolved_handlers.csv`
+- `docs/dks_firmware_technical_reconstruction_v1.md`, `docs/dks_reconstruction_confidence_dashboard.csv`, `docs/dks_remaining_unknowns.csv`, `docs/dks_next_iteration_plan.csv`
+
+Для полного прогона v1:
+```bash
+python3 scripts/dks_enum_state_reconstructor.py
+python3 scripts/dks_packet_export_reconstructor.py
+python3 scripts/dks_output_action_reconstructor.py
+python3 scripts/dks_module_handler_attribution.py
+python3 scripts/dks_final_techdoc_builder.py
+python3 scripts/run_analysis_smoke_test.py
+```

@@ -1,5 +1,5 @@
 # DKS XDATA lifecycle analysis
-Date: 2026-04-27 09:14 UTC.
+Date: 2026-04-27 09:45 UTC.
 
 ## Scope
 - This report is static lifecycle reconstruction only.
@@ -116,3 +116,12 @@ Date: 2026-04-27 09:14 UTC.
 - Trace `0x30E9` around `0x728A` branch paths.
 - Trace `0x31BF/0x364B` around packet/export transitions.
 - Trace `0x3104` on 90CYE02 object-state changes.
+
+## DKS v1 integration note
+
+Текущая lifecycle-модель является входом для:
+- `docs/dks_packet_export_reconstruction.md` (контекст `0x31BF`, `0x364B`, `0x36D3..0x36FD`)
+- `docs/dks_output_action_reconstruction.md` (контекст `0x30E7`, `0x30E9`, `0x30EA..0x30F9`)
+- `docs/dks_firmware_technical_reconstruction_v1.md` (консолидированный v1 отчёт)
+
+Физическая семантика выходов остаётся в статусе hypothesis до bench-подтверждения.

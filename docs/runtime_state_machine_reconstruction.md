@@ -124,3 +124,13 @@
 - [ ] проверить реле/задвижку/исполнительный выход.
 - [ ] сравнить исходящие пакеты.
 - [ ] снять изменения XDATA/логов, если возможно.
+
+## DKS v1 downstream refinement note
+
+Следующий слой реконструкции state-machine вынесен в специализированные артефакты:
+- `docs/dks_enum_state_reconstruction.md`
+- `docs/dks_packet_export_reconstruction.md`
+- `docs/dks_output_action_reconstruction.md`
+
+Текущий state-machine документ остается верхнеуровневым и не назначает физические значения output-кодов без bench-подтверждения.
+

@@ -1,0 +1,14 @@
+branch,file,xdata_addr,context_role,readers,writers,packet_adjacency,confidence,evidence_level,notes
+90CYE_DKS,90CYE03_19_DKS.PZU,0x31BF,selector_or_context_byte,-;0x497A;0x737C,-,yes,probable,probable_static,Derived from xdata_branch_trace_map and downstream manual reconstruction.
+90CYE_DKS,90CYE03_19_DKS.PZU,0x3640,packet_context_candidate,-,-,possible,hypothesis,chain_adjacency,Derived from xdata_branch_trace_map and downstream manual reconstruction.
+90CYE_DKS,90CYE03_19_DKS.PZU,0x364B,packet_window_anchor_candidate,-,-,possible,hypothesis,chain_adjacency,Derived from xdata_branch_trace_map and downstream manual reconstruction.
+90CYE_DKS,90CYE03_19_DKS.PZU,0x36D3,packet_context_candidate,-,-,possible,hypothesis,chain_adjacency,Derived from xdata_branch_trace_map and downstream manual reconstruction.
+90CYE_DKS,90CYE03_19_DKS.PZU,0x36D9,packet_context_candidate,-,-,possible,hypothesis,chain_adjacency,Derived from xdata_branch_trace_map and downstream manual reconstruction.
+90CYE_DKS,90CYE03_19_DKS.PZU,0x36EC,packet_context_candidate,-,-,possible,hypothesis,chain_adjacency,Derived from xdata_branch_trace_map and downstream manual reconstruction.
+90CYE_DKS,90CYE03_19_DKS.PZU,0x36EE,packet_context_candidate,-,-,possible,hypothesis,chain_adjacency,Derived from xdata_branch_trace_map and downstream manual reconstruction.
+90CYE_DKS,90CYE03_19_DKS.PZU,0x36EF,packet_context_candidate,-,-,possible,hypothesis,chain_adjacency,Derived from xdata_branch_trace_map and downstream manual reconstruction.
+90CYE_DKS,90CYE03_19_DKS.PZU,0x36F2,packet_context_candidate,-,-,possible,hypothesis,chain_adjacency,Derived from xdata_branch_trace_map and downstream manual reconstruction.
+90CYE_DKS,90CYE03_19_DKS.PZU,0x36F3,packet_context_candidate,-,-,possible,hypothesis,chain_adjacency,Derived from xdata_branch_trace_map and downstream manual reconstruction.
+90CYE_DKS,90CYE03_19_DKS.PZU,0x36F4,packet_context_candidate,-,-,possible,hypothesis,chain_adjacency,Derived from xdata_branch_trace_map and downstream manual reconstruction.
+90CYE_DKS,90CYE03_19_DKS.PZU,0x36FC,packet_context_candidate,-,-,possible,hypothesis,chain_adjacency,Derived from xdata_branch_trace_map and downstream manual reconstruction.
+90CYE_DKS,90CYE03_19_DKS.PZU,0x36FD,packet_context_candidate,-,-,possible,hypothesis,chain_adjacency,Derived from xdata_branch_trace_map and downstream manual reconstruction.

@@ -1,0 +1,5 @@
+field_candidate,xdata_source,source_function,probable_field_role,confidence,evidence,unknowns
+selector_byte,0x31BF,0x497A/0x737C,object_or_context_selector,probable,xdata read adjacency + dispatcher role,exact bit layout
+state_cluster,0x36D3..0x36FD,0x737C/0x84A6,state/event payload bytes,hypothesis,cluster reads near packet/export path,byte order and packet framing
+mode_flags,0x30E7/0x30E9,0x728A,manual_auto_and_mode_gate context,probable,mode gate branch + downstream 0x5A7F adjacency,whether exported directly or only control-flow metadata
+output_start_marker,DPTR-target write 0x04,0x6833,start command or output state code,hypothesis,manual decompile path 0x6833->0x5A7F,physical meaning without bench trace

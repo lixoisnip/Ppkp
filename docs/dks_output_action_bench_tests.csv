@@ -1,0 +1,5 @@
+test_id,scenario,expected_function_path,watch_xdata,expected_xdata_change,expected_packet_or_event,confidence,notes
+OA-01,manual mode event; force path expected to skip output-start,0x728A->0x5A7F,"0x30E7,0x315B,0x36D3..0x36FD",mode bits change without stable 0x04 write,event/packet export present,probable,validates manual path split
+OA-02,auto mode start condition,0x728A->0x597F->0x7922->0x6833->0x7DC2->0x5A7F,"DPTR target,0x30EA..0x30F9,0x36D3..0x36FD",single 0x04 write before downstream finalize,packet/export after finalize,probable,primary test for meaning of XDATA[DPTR]=0x04
+OA-03,vary condition nibble/low bits to probe 0x597F,0x597F guard toggles entry into 0x6833,ACC sampled + branch side effects,start path accepted/rejected by mask,packet only when guard passes,hypothesis,designed to validate A&0x07 hypothesis
+OA-04,MUP slot X06 active in 90CYE03/04; compare with non-X06,shared chain unchanged; payload context varies,"0x31BF,0x364B,0x36D3..0x36FD","context byte difference, no proof of physical output type",export differences only,hypothesis,keeps MUP/MVK semantics separated until stronger evidence
