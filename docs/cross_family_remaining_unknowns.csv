@@ -1,0 +1,6 @@
+unknown_id,area,description,priority,needed_evidence
+CF-U01,packet_export,cross-family frame format relation,high,synchronized packet captures across families
+CF-U02,output_action,meaning of 0x04-like write in non-DKS,high,bench IO correlation
+CF-U03,enum_values,"same byte value, different behavior risk",high,scenario-controlled runtime traces
+CF-U04,module_semantics,MDS/MUP/PVK attribution in non-DKS,medium,slot-isolated tests and docs
+CF-U05,RTOS_service,service-family specific chain semantics,high,service firmware documentation

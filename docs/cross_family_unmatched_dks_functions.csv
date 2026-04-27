@@ -1,0 +1,4 @@
+reference_branch,reference_file,reference_function,reference_role,status,notes
+90CYE_DKS,90CYE03_19_DKS.PZU,0x613C,state latch/updater,no_candidate_over_threshold,no candidate score >= 0.45 across non-DKS families
+90CYE_DKS,90CYE03_19_DKS.PZU,0x84A6,mode/event bridge,no_candidate_over_threshold,no candidate score >= 0.45 across non-DKS families
+90CYE_DKS,90CYE03_19_DKS.PZU,0x7DC2,downstream output/service transition,no_candidate_over_threshold,no candidate score >= 0.45 across non-DKS families

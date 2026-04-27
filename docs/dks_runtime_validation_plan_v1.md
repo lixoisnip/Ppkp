@@ -1,6 +1,6 @@
 # DKS runtime validation plan v1
 
-Generated: 2026-04-27 10:12:33Z
+Generated: 2026-04-27 10:35:10Z
 
 ## Scope and safety
 - This document is a **validation plan** and does not contain bench-confirmed runtime evidence.
@@ -116,3 +116,6 @@ If required tests succeed with synchronized evidence, projected uplift targets a
 - `MUP_handler`: `49% -> 65–80%`
 - `PVK_handler`: `47% -> 60–75%`
 - `physical_output_semantics`: `29% -> 55–75%`
+
+## Cross-family guardrail addendum
+This validation plan is DKS-specific. For A03/A04, v2_1, shifted_DKS, and RTOS_service use separate family plans and do not assume DKS physical semantics without family-local evidence.

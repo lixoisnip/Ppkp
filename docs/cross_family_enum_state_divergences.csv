@@ -1,0 +1,10 @@
+enum_value,seen_in_branches,missing_in_branches,reference_meaning,divergence_type,notes
+0x01,90CYE_DKS,,fire_primary_or_attention_candidate,shared,operational meaning remains branch-local unless independently validated
+0x02,90CYE_DKS,,fire_secondary_or_fire_candidate,shared,operational meaning remains branch-local unless independently validated
+0x03,90CYE_DKS,,attention_or_alarm_fault_candidate,shared,operational meaning remains branch-local unless independently validated
+0x04,90CYE_DKS,,fault_or_output_start_marker_candidate,shared,operational meaning remains branch-local unless independently validated
+0x05,90CYE_DKS,,disabled_candidate,shared,operational meaning remains branch-local unless independently validated
+0x07,90CYE_DKS,,service_candidate,shared,operational meaning remains branch-local unless independently validated
+0x08,90CYE_DKS,,not_detected_candidate,shared,operational meaning remains branch-local unless independently validated
+0x7E,90CYE_DKS,,address_conflict_candidate,shared,operational meaning remains branch-local unless independently validated
+0xFF,90CYE_DKS,,absent_or_invalid_candidate,shared,operational meaning remains branch-local unless independently validated

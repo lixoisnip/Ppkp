@@ -1,0 +1,6 @@
+step_id,priority,task,inputs,expected_output
+CF-N1,high,Deepen A03/A04 packet bridge adjacency,call_xref/basic_block/xdata traces,refined packet bridge candidate confidence
+CF-N2,high,Shifted_DKS + v2_1 xdata offset validation,xdata schema map + function analogs,conserved/shifted cluster confirmation
+CF-N3,high,RTOS_service chain-specific manual decompile,0x758B/0x53E6/0xAB62 neighborhoods,separate family chain report
+CF-N4,medium,Enum divergence trace per family,enum matrix + branch traces,reduced enum ambiguity
+CF-N5,medium,Prepare cross-family bench matrix,unknowns dashboard,minimal-risk validation plan

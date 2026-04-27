@@ -1,0 +1,9 @@
+branch,file,function_addr,analog_to,role_candidate,fan_in,post_call_movx_pattern,xdata_context,confidence,evidence,notes
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,0x8405,0x5A7F,packet/export bridge analog,3,unknown_static,,unknown,hypothesis,No physical packet semantics inferred
+90CYE_v2_1,90CYE03_19_2 v2_1.PZU,0xA496,0x5A7F,packet/export bridge analog,3,unknown_static,,unknown,hypothesis,No physical packet semantics inferred
+90CYE_v2_1,90CYE04_19_2 v2_1.PZU,0xA496,0x5A7F,packet/export bridge analog,3,unknown_static,,unknown,hypothesis,No physical packet semantics inferred
+A03_A04,A03_26.PZU,0x6D38,0x5A7F,packet/export bridge analog,4,unknown_static,,unknown,hypothesis,No physical packet semantics inferred
+A03_A04,A04_28.PZU,0x6C11,0x5A7F,packet/export bridge analog,4,unknown_static,,unknown,hypothesis,No physical packet semantics inferred
+RTOS_service,ppkp2001 90cye01.PZU,0x4A0F,0x5A7F,packet/export bridge analog,11,unknown_static,,unknown,hypothesis,No physical packet semantics inferred
+RTOS_service,ppkp2012 a01.PZU,0x4A72,0x5A7F,packet/export bridge analog,10,unknown_static,,unknown,hypothesis,No physical packet semantics inferred
+RTOS_service,ppkp2019 a02.PZU,0x4C89,0x5A7F,packet/export bridge analog,18,unknown_static,,unknown,hypothesis,No physical packet semantics inferred

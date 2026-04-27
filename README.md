@@ -121,3 +121,33 @@ python3 scripts/dks_final_techdoc_builder.py
 python3 scripts/dks_runtime_validation_planner.py
 python3 scripts/run_analysis_smoke_test.py
 ```
+
+## Cross-family static reconstruction milestone v1
+
+Добавлен большой статический этап для межсемейного сравнения (без переноса DKS-семантики «по умолчанию»):
+
+- `docs/cross_family_function_analogs.md`, `docs/cross_family_function_analogs.csv`, `docs/cross_family_unmatched_dks_functions.csv`
+- `docs/cross_family_xdata_schema_map.md`, `docs/cross_family_xdata_schema_map.csv`, `docs/cross_family_xdata_unresolved.csv`
+- `docs/cross_family_packet_output_comparison.md`, `docs/cross_family_packet_bridge_candidates.csv`, `docs/cross_family_output_action_candidates.csv`, `docs/cross_family_packet_format_variants.csv`
+- `docs/cross_family_enum_state_comparison.md`, `docs/cross_family_enum_state_matrix.csv`, `docs/cross_family_enum_state_divergences.csv`
+- `docs/cross_family_module_semantics.md`, `docs/cross_family_module_semantics_matrix.csv`, `docs/cross_family_module_semantics_unknowns.csv`
+- `docs/cross_family_static_reconstruction_v1.md`, `docs/cross_family_confidence_dashboard.csv`, `docs/cross_family_remaining_unknowns.csv`, `docs/cross_family_next_static_plan.csv`
+
+Скрипты:
+- `scripts/cross_family_function_analog_mapper.py`
+- `scripts/cross_family_xdata_schema_mapper.py`
+- `scripts/cross_family_packet_output_comparator.py`
+- `scripts/cross_family_enum_state_comparator.py`
+- `scripts/cross_family_module_semantics_reporter.py`
+- `scripts/cross_family_static_reconstruction_builder.py`
+
+Запуск полного milestone:
+```bash
+python3 scripts/cross_family_function_analog_mapper.py
+python3 scripts/cross_family_xdata_schema_mapper.py
+python3 scripts/cross_family_packet_output_comparator.py
+python3 scripts/cross_family_enum_state_comparator.py
+python3 scripts/cross_family_module_semantics_reporter.py
+python3 scripts/cross_family_static_reconstruction_builder.py
+python3 scripts/run_analysis_smoke_test.py
+```
