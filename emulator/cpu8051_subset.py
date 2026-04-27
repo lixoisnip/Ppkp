@@ -138,6 +138,13 @@ class CPU8051Subset:
             self._log_instr("INC", "DPTR", pc, acc_before, dptr_before)
             return True, None
 
+        if 0x08 <= op <= 0x0F:  # INC Rn
+            n = op - 0x08
+            s.regs[n] = (s.regs[n] + 1) & 0xFF
+            s.pc += 1
+            self._log_instr("INC", f"R{n}", pc, acc_before, dptr_before)
+            return True, None
+
         if op in (0x54, 0x44, 0x64, 0x24):
             imm = self.fetch(pc + 1)
             if op == 0x54:
@@ -154,6 +161,14 @@ class CPU8051Subset:
                 opname = "ADD"
             s.pc += 2
             self._log_instr(opname, f"A,#0x{imm:02X}", pc, acc_before, dptr_before)
+            return True, None
+
+        if op == 0x25:  # ADD A,direct
+            direct = self.fetch(pc + 1)
+            value = s.xdata.get(direct, 0)
+            s.acc = (s.acc + value) & 0xFF
+            s.pc += 2
+            self._log_instr("ADD", f"A,0x{direct:02X}", pc, acc_before, dptr_before, notes="direct_read_model=xdata")
             return True, None
 
         if op == 0xE4:
