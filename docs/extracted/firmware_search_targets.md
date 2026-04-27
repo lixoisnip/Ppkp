@@ -75,3 +75,9 @@ Evidence level: `project_documentation` (search guidance only)
 - mode_gate
 - start_delay_30s
 - warning_board_prestart
+
+
+## Project-guided analyzer targets
+- RS-485 bridge/builder/parser/CRC/timeout paths (PU-001..PU-005).
+- Enum and delay/interlock paths around `0x84A6/0x728A/0x6833` (PU-006).
+- MDS CP/CF/CH input grouping, MVK output, valve feedback, aerosol AN/AU/AO/GOA split (PU-007..PU-013).

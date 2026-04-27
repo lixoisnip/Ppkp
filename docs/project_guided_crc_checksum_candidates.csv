@@ -1,0 +1,3 @@
+branch,file,function_addr,checksum_pattern,constants,loop_signature,callers,callees,confidence,evidence_level,notes
+90CYE_DKS,90CYE03_19_DKS.PZU,0x5A7F,bridge_without_explicit_crc_loop,none_static,single-block fan-in bridge,0x497A|0x6833|0x737C|unknown_from_callsite_only,,low,static_code,No direct XOR/add/CRC table loop confirmed in this function; likely helper/bridge scope only.
+90CYE_DKS,90CYE03_19_DKS.PZU,0x737C,additive_or_selector_prep_hypothesis,0x31BF|0x364B,multi-branch context transformer,,0x84A6|0x5A7F,low,hypothesis,Candidate packet-context staging only; checksum algorithm unresolved (PU-004).

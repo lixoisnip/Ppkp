@@ -1,0 +1,2 @@
+branch,file,function_addr,output_candidate,project_function,xdata_refs,precondition_path,downstream_packet_path,confidence,evidence_level,notes
+RTOS_service,ppkp2001 90cye01.PZU,0x53E6,any_zone_fire_common_output,MVK-2.1_any_zone_fire,unknown,fire_threshold_branch,0x4358->0x920C->0x53E6,low,cross_family_pattern,"Project docs confirm MVK role, but function-level ownership remains static hypothesis."

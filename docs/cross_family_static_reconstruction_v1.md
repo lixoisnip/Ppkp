@@ -1,6 +1,6 @@
 # Cross-family static reconstruction v1
 
-Generated: 2026-04-27 13:41:01Z
+Generated: 2026-04-27 14:56:52Z
 
 ## 1. Scope and evidence rules
 Evidence levels used: exact_fingerprint, near_fingerprint, callgraph_match, xdata_pattern_match, string_marker_match, screen_configuration, chain_adjacency, hypothesis, unknown.
@@ -61,6 +61,6 @@ See `cross_family_remaining_unknowns.csv`.
 ## 17. Next static iteration plan
 See `cross_family_next_static_plan.csv`.
 
-## Project scan evidence integration
+## Project-guided addendum
 
-Project scan extraction adds real physical-role evidence for device semantics (90CYE01/02/03/04 and MDS/MVK links), but this does **not** remove cross-family evidence gates. Cross-family code semantics must remain family-local unless direct static or bench evidence confirms equivalence.
+Project documentation is now consumed as constrained search input by dedicated project-guided static analyzers, but cross-family semantics remain confidence-capped and family-separated until direct static/bench confirmation.

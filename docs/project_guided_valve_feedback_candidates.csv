@@ -1,0 +1,3 @@
+branch,file,function_addr,valve_role_candidate,open_closed_fault_context,xdata_refs,limit_switch_pattern,confidence,evidence_level,notes
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,0x673C,damper_remove_voltage_action,open/closed limit switch supervision,0x3104,object_status_update_after_fire,medium,manual_decompile,Most concrete static candidate for 90CYE02 damper logic narrowing.
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,0x758B,limit_feedback_router,open/closed/fault split,0x3010..0x301B,fault_branch_following_state_update,low,hypothesis,Second-stage status routing candidate; needs deeper branch-byte extraction.

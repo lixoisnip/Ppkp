@@ -1,6 +1,6 @@
 # DKS runtime validation plan v1
 
-Generated: 2026-04-27 13:40:59Z
+Generated: 2026-04-27 14:56:50Z
 
 ## Scope and safety
 - This document is a **validation plan** and does not contain bench-confirmed runtime evidence.
@@ -117,13 +117,10 @@ If required tests succeed with synchronized evidence, projected uplift targets a
 - `PVK_handler`: `47% -> 60–75%`
 - `physical_output_semantics`: `29% -> 55–75%`
 
-## Project-doc driven validation additions
+## Project-guided pre-validation alignment
 
-Additional validation scenarios derived from project-documentation extraction:
-- verify 30-second aerosol delay behavior;
-- verify door-open disables auto mode and forces manual mode behavior;
-- verify AO (`Автоматика отключена`) indicator ON in manual and OFF in auto;
-- verify RS-485 fire transfer `90CYE01 -> 90CYE03/90CYE04`;
-- verify `90CYE02` voltage removal on fire event;
-- verify valve limit-switch status transitions and fault hypotheses;
-- verify MDS CP/CF/CH event ingestion and state reporting in `90CYE01`.
+Use project-guided static outputs to prioritize validation order before bench runs:
+- `docs/project_guided_rs485_analysis.md`
+- `docs/project_guided_enum_delay_interlock_analysis.md`
+- `docs/project_guided_mds_mvk_valve_output_analysis.md`
+- `docs/project_guided_remaining_unknowns_v2.csv`

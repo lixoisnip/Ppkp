@@ -1,0 +1,5 @@
+source,module_label,device_scope,evidence_type,confirmed_by_source,handler_status,related_functions,notes
+project_scan,MUP,DKS,project_documentation,not_confirmed_in_current_project_pages,unresolved,0x613C|0x728A,Keep separate from screen config evidence; do not collapse into confirmed mapping.
+screen_configuration,MUP,DKS,screen_configuration,slot_label_present,candidate_only,0x613C|0x758B,Screen shows module slot but static handler ownership is unresolved.
+project_scan,PVK,DKS,project_documentation,not_confirmed_in_current_project_pages,unresolved,0x613C|0x53E6,Project extraction lacks PVK-specific sheets in current scope.
+screen_configuration,PVK,DKS,screen_configuration,slot_label_present,candidate_only,0x613C|0x53E6,Maintain explicit split until static or bench evidence improves.

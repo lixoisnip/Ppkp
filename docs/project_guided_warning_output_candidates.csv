@@ -1,0 +1,4 @@
+branch,file,function_addr,output_candidate,project_label,prestart_or_mode_context,xdata_refs,downstream_functions,confidence,evidence_level,notes
+90CYE_DKS,90CYE03_19_DKS.PZU,0x6833,warning_output_prestart_1,AN_Aerosol_do_not_enter,before GOA launch,0x315B|0x3640,0x7922|0x7DC2,low,hypothesis,Separated as candidate output class only; terminal/object map unresolved.
+90CYE_DKS,90CYE03_19_DKS.PZU,0x6833,warning_output_prestart_2,AU_Aerosol_leave,before GOA launch,0x315B|0x364B,0x7922|0x7DC2,low,hypothesis,Distinct from AN by project docs; static split remains candidate-level.
+90CYE_DKS,90CYE03_19_DKS.PZU,0x728A,mode_indicator_output,AO_Automatics_disabled,manual/auto mode state,0x30E7|0x30E9,0x597F|0x5A7F,low,static_code,AO semantics tied to mode in project docs; code-level mapping still partial.

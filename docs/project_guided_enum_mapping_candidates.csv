@@ -1,0 +1,4 @@
+device_scope,branch,file,function_addr,xdata_addr,enum_value,project_term,probable_meaning,confidence,evidence_level,downstream_path,notes
+90CYE03/04,90CYE_DKS,90CYE03_19_DKS.PZU,0x84A6,0x31BF,0x01,Пожар,primary fire-class state byte candidate,medium,static_code,0x84A6->0x728A->0x5A7F,"Static branch and prior enum matrices support fire-class role, numeric semantics still not bench-confirmed."
+90CYE01,RTOS_service,ppkp2001 90cye01.PZU,0x920C,unknown,0x03,Внимание,attention/alarm pre-fire discriminator candidate,low,cross_family_pattern,0x4358->0x920C->0x53E6,Constrained by project logic (1 auto detector => attention) but still family-level pattern only.
+90CYE03/04,90CYE_DKS,90CYE03_19_DKS.PZU,0x728A,0x30E7,0xFF,Автоматика отключена,manual/disabled sentinel candidate,low,hypothesis,0x728A->0x597F,AO indicator mapping remains partial static hypothesis.
