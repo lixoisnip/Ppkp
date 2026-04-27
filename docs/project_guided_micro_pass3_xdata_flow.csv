@@ -1,0 +1,55 @@
+branch,file,function_addr,xdata_addr,access_type,access_context,predecessor_function,successor_function,possible_role,confidence,evidence_level,notes
+RTOS_service,ppkp2001 90cye01.PZU,0x9275,0x75A7,read,near_0x9275,0x4382,"0x8F8C,0x90D1,0x93BC,0x92C5",status_table_or_service_context,low_to_medium,static_code,proximity-based extraction
+RTOS_service,ppkp2001 90cye01.PZU,0x9275,0x75AA,read,near_0x9275,0x4382,"0x8F8C,0x90D1,0x93BC,0x92C5",status_table_or_service_context,low_to_medium,static_code,proximity-based extraction
+RTOS_service,ppkp2001 90cye01.PZU,0x9275,0x75AB,read,near_0x9275,0x4382,"0x8F8C,0x90D1,0x93BC,0x92C5",status_table_or_service_context,low_to_medium,static_code,proximity-based extraction
+RTOS_service,ppkp2001 90cye01.PZU,0x9275,0x75AA,read,near_0x9275,0x4382,"0x8F8C,0x90D1,0x93BC,0x92C5",status_table_or_service_context,low_to_medium,static_code,proximity-based extraction
+RTOS_service,ppkp2001 90cye01.PZU,0x9275,0x75AB,read,near_0x9275,0x4382,"0x8F8C,0x90D1,0x93BC,0x92C5",status_table_or_service_context,low_to_medium,static_code,proximity-based extraction
+RTOS_service,ppkp2001 90cye01.PZU,0x9275,0x75AA,read,near_0x9275,0x4382,"0x8F8C,0x90D1,0x93BC,0x92C5",status_table_or_service_context,low_to_medium,static_code,proximity-based extraction
+RTOS_service,ppkp2001 90cye01.PZU,0x9275,0x75AB,read,near_0x9275,0x4382,"0x8F8C,0x90D1,0x93BC,0x92C5",status_table_or_service_context,low_to_medium,static_code,proximity-based extraction
+RTOS_service,ppkp2001 90cye01.PZU,0x9275,0x75A7,read,near_0x9275,0x4382,"0x8F8C,0x90D1,0x93BC,0x92C5",status_table_or_service_context,low_to_medium,static_code,proximity-based extraction
+RTOS_service,ppkp2001 90cye01.PZU,0x9275,0x75A7,read,near_0x9275,0x4382,"0x8F8C,0x90D1,0x93BC,0x92C5",status_table_or_service_context,low_to_medium,static_code,proximity-based extraction
+RTOS_service,ppkp2001 90cye01.PZU,0x9275,0x78E7,read,near_0x9275,0x4382,"0x8F8C,0x90D1,0x93BC,0x92C5",status_table_or_service_context,low_to_medium,static_code,proximity-based extraction
+RTOS_service,ppkp2001 90cye01.PZU,0x9275,0x7626,read,near_0x9275,0x4382,"0x8F8C,0x90D1,0x93BC,0x92C5",status_table_or_service_context,low_to_medium,static_code,proximity-based extraction
+RTOS_service,ppkp2001 90cye01.PZU,0x9275,0x7626,write,near_0x9275,0x4382,"0x8F8C,0x90D1,0x93BC,0x92C5",status_table_or_service_context,low_to_medium,static_code,proximity-based extraction
+RTOS_service,ppkp2001 90cye01.PZU,0x9275,0x7626,read,near_0x9275,0x4382,"0x8F8C,0x90D1,0x93BC,0x92C5",status_table_or_service_context,low_to_medium,static_code,proximity-based extraction
+RTOS_service,ppkp2001 90cye01.PZU,0x9275,0x7626,read,near_0x9275,0x4382,"0x8F8C,0x90D1,0x93BC,0x92C5",status_table_or_service_context,low_to_medium,static_code,proximity-based extraction
+RTOS_service,ppkp2001 90cye01.PZU,0x9275,0x7639,read,near_0x9275,0x4382,"0x8F8C,0x90D1,0x93BC,0x92C5",status_table_or_service_context,low_to_medium,static_code,proximity-based extraction
+RTOS_service,ppkp2001 90cye01.PZU,0x9275,0x75A9,read,near_0x9275,0x4382,"0x8F8C,0x90D1,0x93BC,0x92C5",status_table_or_service_context,low_to_medium,static_code,proximity-based extraction
+RTOS_service,ppkp2001 90cye01.PZU,0x9275,0x7640,write,near_0x9275,0x4382,"0x8F8C,0x90D1,0x93BC,0x92C5",status_table_or_service_context,low_to_medium,static_code,proximity-based extraction
+RTOS_service,ppkp2001 90cye01.PZU,0x9275,0x7638,read,near_0x9275,0x4382,"0x8F8C,0x90D1,0x93BC,0x92C5",status_table_or_service_context,low_to_medium,static_code,proximity-based extraction
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,0x7773,0x30B4,read,near_0x7773,,"0x6331,0x7866,0x604B,0x7851",status_table_or_service_context,low_to_medium,static_code,proximity-based extraction
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,0x7773,0x30B0,read,near_0x7773,,"0x6331,0x7866,0x604B,0x7851",status_table_or_service_context,low_to_medium,static_code,proximity-based extraction
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,0x7773,0x3104,write,near_0x7773,,"0x6331,0x7866,0x604B,0x7851",status_table_or_service_context,low_to_medium,static_code,proximity-based extraction
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,0x7773,0x30AF,read,near_0x7773,,"0x6331,0x7866,0x604B,0x7851",status_table_or_service_context,low_to_medium,static_code,proximity-based extraction
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,0x7773,0x30B2,write,near_0x7773,,"0x6331,0x7866,0x604B,0x7851",status_table_or_service_context,low_to_medium,static_code,proximity-based extraction
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,0x7773,0x30AF,read,near_0x7773,,"0x6331,0x7866,0x604B,0x7851",status_table_or_service_context,low_to_medium,static_code,proximity-based extraction
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,0x7773,0x30B4,read,near_0x7773,,"0x6331,0x7866,0x604B,0x7851",status_table_or_service_context,low_to_medium,static_code,proximity-based extraction
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,0x7773,0x317B,write,near_0x7773,,"0x6331,0x7866,0x604B,0x7851",status_table_or_service_context,low_to_medium,static_code,proximity-based extraction
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,0x7773,0x30B4,write,near_0x7773,,"0x6331,0x7866,0x604B,0x7851",status_table_or_service_context,low_to_medium,static_code,proximity-based extraction
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,0x7773,0x30AF,write,near_0x7773,,"0x6331,0x7866,0x604B,0x7851",status_table_or_service_context,low_to_medium,static_code,proximity-based extraction
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,0x7773,0x3104,read,near_0x7773,,"0x6331,0x7866,0x604B,0x7851",status_table_or_service_context,low_to_medium,static_code,proximity-based extraction
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,0x7773,0x321D,read,near_0x7773,,"0x6331,0x7866,0x604B,0x7851",status_table_or_service_context,low_to_medium,static_code,proximity-based extraction
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,0x7773,0x318E,read,near_0x7773,,"0x6331,0x7866,0x604B,0x7851",status_table_or_service_context,low_to_medium,static_code,proximity-based extraction
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,0x7773,0x0001,read,near_0x7773,,"0x6331,0x7866,0x604B,0x7851",status_table_or_service_context,low_to_medium,static_code,proximity-based extraction
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,0x7773,0x318E,read,near_0x7773,,"0x6331,0x7866,0x604B,0x7851",status_table_or_service_context,low_to_medium,static_code,proximity-based extraction
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,0x7773,0x0001,read,near_0x7773,,"0x6331,0x7866,0x604B,0x7851",status_table_or_service_context,low_to_medium,static_code,proximity-based extraction
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,0x7773,0x0001,read,near_0x7773,,"0x6331,0x7866,0x604B,0x7851",status_table_or_service_context,low_to_medium,static_code,proximity-based extraction
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,0x7773,0x439E,read,near_0x7773,,"0x6331,0x7866,0x604B,0x7851",status_table_or_service_context,low_to_medium,static_code,proximity-based extraction
+90CYE_DKS,90CYE03_19_DKS.PZU,0x73FD,0x0001,read,near_0x73FD,,"0x84A6,0x5A7F,0x74C0,0x597F",status_table_or_service_context,low_to_medium,static_code,proximity-based extraction
+90CYE_DKS,90CYE03_19_DKS.PZU,0x73FD,0x0001,read,near_0x73FD,,"0x84A6,0x5A7F,0x74C0,0x597F",status_table_or_service_context,low_to_medium,static_code,proximity-based extraction
+90CYE_DKS,90CYE03_19_DKS.PZU,0x73FD,0x301A,read,near_0x73FD,,"0x84A6,0x5A7F,0x74C0,0x597F",status_table_or_service_context,low_to_medium,static_code,proximity-based extraction
+90CYE_DKS,90CYE03_19_DKS.PZU,0x73FD,0x30A1,read,near_0x73FD,,"0x84A6,0x5A7F,0x74C0,0x597F",status_table_or_service_context,low_to_medium,static_code,proximity-based extraction
+90CYE_DKS,90CYE03_19_DKS.PZU,0x73FD,0x30E7,read,near_0x73FD,,"0x84A6,0x5A7F,0x74C0,0x597F",status_table_or_service_context,low_to_medium,static_code,proximity-based extraction
+90CYE_DKS,90CYE03_19_DKS.PZU,0x73FD,0x30A2,write,near_0x73FD,,"0x84A6,0x5A7F,0x74C0,0x597F",status_table_or_service_context,low_to_medium,static_code,proximity-based extraction
+90CYE_DKS,90CYE03_19_DKS.PZU,0x73FD,0x30A4,read,near_0x73FD,,"0x84A6,0x5A7F,0x74C0,0x597F",status_table_or_service_context,low_to_medium,static_code,proximity-based extraction
+90CYE_DKS,90CYE03_19_DKS.PZU,0x73FD,0x30A2,read,near_0x73FD,,"0x84A6,0x5A7F,0x74C0,0x597F",status_table_or_service_context,low_to_medium,static_code,proximity-based extraction
+90CYE_DKS,90CYE03_19_DKS.PZU,0x73FD,0x30E7,read,near_0x73FD,,"0x84A6,0x5A7F,0x74C0,0x597F",status_table_or_service_context,low_to_medium,static_code,proximity-based extraction
+90CYE_DKS,90CYE03_19_DKS.PZU,0x73FD,0x30E8,write,near_0x73FD,,"0x84A6,0x5A7F,0x74C0,0x597F",status_table_or_service_context,low_to_medium,static_code,proximity-based extraction
+90CYE_DKS,90CYE03_19_DKS.PZU,0x73FD,0x30E5,write,near_0x73FD,,"0x84A6,0x5A7F,0x74C0,0x597F",status_table_or_service_context,low_to_medium,static_code,proximity-based extraction
+90CYE_DKS,90CYE03_19_DKS.PZU,0x73FD,0x30E9,write,near_0x73FD,,"0x84A6,0x5A7F,0x74C0,0x597F",status_table_or_service_context,low_to_medium,static_code,proximity-based extraction
+90CYE_DKS,90CYE03_19_DKS.PZU,0x73FD,0x30E7,read,near_0x73FD,,"0x84A6,0x5A7F,0x74C0,0x597F",status_table_or_service_context,low_to_medium,static_code,proximity-based extraction
+90CYE_DKS,90CYE03_19_DKS.PZU,0x73FD,0x30E7,read,near_0x73FD,,"0x84A6,0x5A7F,0x74C0,0x597F",status_table_or_service_context,low_to_medium,static_code,proximity-based extraction
+90CYE_DKS,90CYE03_19_DKS.PZU,0x73FD,0x30E9,write,near_0x73FD,,"0x84A6,0x5A7F,0x74C0,0x597F",status_table_or_service_context,low_to_medium,static_code,proximity-based extraction
+90CYE_DKS,90CYE03_19_DKS.PZU,0x73FD,0x30E7,read,near_0x73FD,,"0x84A6,0x5A7F,0x74C0,0x597F",status_table_or_service_context,low_to_medium,static_code,proximity-based extraction
+90CYE_DKS,90CYE03_19_DKS.PZU,0x73FD,0x30E5,read,near_0x73FD,,"0x84A6,0x5A7F,0x74C0,0x597F",status_table_or_service_context,low_to_medium,static_code,proximity-based extraction
+90CYE_DKS,90CYE03_19_DKS.PZU,0x73FD,0x30E5,read,near_0x73FD,,"0x84A6,0x5A7F,0x74C0,0x597F",status_table_or_service_context,low_to_medium,static_code,proximity-based extraction

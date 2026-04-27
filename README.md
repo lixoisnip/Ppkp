@@ -201,6 +201,17 @@ Generated extraction layer (project-level evidence, separated from static/decomp
 - docs/project_guided_micro_pass2_xdata_flow.csv
 - docs/project_guided_micro_pass2_callsite_matrix.csv
 - docs/project_guided_micro_pass2_unknowns_update.csv
+- docs/project_guided_micro_decompile_pass3.md — micro-decompile pass #3 for 0x9275, 0x7773, 0x73FD with caller-envelope/table-origin focus.
+- docs/project_guided_micro_pass3_summary.csv
+- docs/project_guided_micro_pass3_pseudocode.csv
+- docs/project_guided_micro_pass3_constants.csv
+- docs/project_guided_micro_pass3_xdata_flow.csv
+- docs/project_guided_micro_pass3_callsite_matrix.csv
+- docs/project_guided_uart_baud_candidates.csv
+- docs/project_guided_checksum_candidates_v2.csv
+- docs/project_guided_5a7f_caller_block_expansion.csv
+- docs/project_guided_timer_output_downstream_candidates.csv
+- docs/project_guided_micro_pass3_unknowns_update.csv
 
 
 Добавлен целевой статический этап, где project-documentation используется как ограничитель поиска (без переноса семантики без code evidence):

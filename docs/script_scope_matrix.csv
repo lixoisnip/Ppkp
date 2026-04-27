@@ -47,3 +47,4 @@ scripts/cross_family_packet_output_comparator.py,true,false,true,true,true,true,
 scripts/cross_family_enum_state_comparator.py,true,false,true,true,true,true,Compares enum/state byte vocabulary across families while keeping branch-specific semantics separate.
 scripts/project_guided_micro_decompiler.py,true,false,true,true,true,true,project-guided micro-decompile pass over top static targets with conservative evidence-level gating
 scripts/project_guided_micro_decompiler_pass2.py,false,false,true,true,true,true,Pass2 project-guided micro-decompile for follow-up targets in DKS/RTOS_service/shifted_DKS with conservative evidence gating.
+scripts/project_guided_micro_decompiler_pass3.py,false,false,true,true,true,true,Pass3 project-guided micro-decompile for unresolved caller envelopes/table origins plus UART/checksum/timer conservative searches.

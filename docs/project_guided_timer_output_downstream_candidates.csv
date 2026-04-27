@@ -1,0 +1,6 @@
+branch,file,function_addr,candidate_type,constant_or_xdata,timer_or_output_context,related_path,confidence,evidence_level,notes
+90CYE_DKS,90CYE03_19_DKS.PZU,0x728A,timer_or_output_downstream,bit checks E0/E1/E2,mode gate branch,0x728A->0x6833 or 0x5A7F,low_to_medium,probable_static,manual path can skip output-start and go packet/event only
+90CYE_DKS,90CYE03_19_DKS.PZU,0x597F,timer_or_output_downstream,A & 0x07 candidate,condition guard,0x597F->0x6833,low_to_medium,manual_decompile,guard candidate before output/start transition
+90CYE_DKS,90CYE03_19_DKS.PZU,0x7922,timer_or_output_downstream,table/context value,state table read/service helper,0x7922->0x6833,low_to_medium,manual_decompile,supplies state-context used by downstream start path
+90CYE_DKS,90CYE03_19_DKS.PZU,0x6833,timer_or_output_downstream,0x04,write start marker,0x6833->0x7DC2,low_to_medium,manual_decompile,interpretation remains conservative: state/command/event marker candidate
+90CYE_DKS,90CYE03_19_DKS.PZU,0x7DC2,timer_or_output_downstream,contextual,downstream transition finalize,0x7DC2->0x5A7F,low_to_medium,manual_decompile,final bridge before packet/export helper
