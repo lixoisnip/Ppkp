@@ -40,3 +40,4 @@ scripts/dks_packet_export_reconstructor.py,false,true,true,true,true,true,DKS pa
 scripts/dks_output_action_reconstructor.py,false,true,true,true,true,true,DKS output/start action reconstruction for 0x6833/0x597F/0x7922/0x7DC2 with bench test matrix.
 scripts/dks_module_handler_attribution.py,true,false,true,true,true,true,Refines DKS screen slot to handler attribution and unresolved candidates while preserving shared-dispatcher semantics.
 scripts/dks_final_techdoc_builder.py,true,false,true,true,true,true,Builds consolidated DKS firmware technical reconstruction v1 report plus confidence dashboard/unknowns/next plan CSVs.
+scripts/dks_runtime_validation_planner.py,false,false,true,true,true,true,Builds consolidated DKS runtime validation package (plan/matrix/watchlists/schemas/uplift/roadmap) without claiming bench-confirmed evidence.

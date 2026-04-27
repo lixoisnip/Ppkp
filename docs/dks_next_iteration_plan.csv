@@ -1,6 +1,6 @@
 iteration_id,goal,expected_outputs,depends_on,estimated_impact,priority,notes
-v1.1,Resolve packet framing around 0x5A7F,packet byte map + validated format CSV,bench packet capture rig,high,high,focus on 90CYE03 and cross-check 90CYE04
-v1.2,Validate output-start semantics,confirmed meaning for write 0x04 and guard behavior,output-action bench tests OA-01..OA-04,high,high,no physical naming until evidence is direct
-v1.3,Narrow unresolved module handlers,reduced unresolved handler CSV,slot-isolated traces,medium,medium,keep families separated
+v1.1_runtime_validation_package,Build consolidated runtime validation/test package,runtime validation plan + matrix + watchlists + capture schemas + uplift model,v1 reconstruction artifacts,high,high,prepares bench verification without claiming runtime proof
+v1.2_bench_capture_importer,Standardize bench capture import workflow,bench result import template + mapped packet/io capture records,v1.1_runtime_validation_package + real bench logs,high,high,keep static and runtime evidence separated
+v1.3_validated_reconstruction_v2,Publish validated v2 reconstruction from imported bench evidence,validated v2 report + updated unknowns/confidence,v1.2_bench_capture_importer,high,high,no confidence uplift without imported bench evidence
 v1.4,Cross-family consistency audit,updated architecture comparison deltas,v1.1-v1.3 results,medium,medium,no semantics transfer without fingerprint match
 v2.0,Publish validated technical reconstruction v2,v2 report + confidence uplift,bench-confirmed unknown closures,high,high,target fewer but deeper tasks

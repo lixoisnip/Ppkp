@@ -443,6 +443,23 @@ def main() -> int:
             ],
             "consolidated DKS technical reconstruction v1 report and confidence/unknown/plan dashboards",
         ),
+        SmokeCommand(
+            "dks_runtime_validation_planner.py",
+            "dks_module_followup",
+            [sys.executable, "scripts/dks_runtime_validation_planner.py"],
+            [
+                "docs/dks_runtime_validation_plan_v1.md",
+                "docs/dks_runtime_validation_matrix.csv",
+                "docs/dks_xdata_watchlist_v2.csv",
+                "docs/dks_function_watchlist_v2.csv",
+                "docs/dks_packet_capture_schema.csv",
+                "docs/dks_io_capture_schema.csv",
+                "docs/dks_bench_result_import_template.csv",
+                "docs/dks_validation_confidence_uplift.csv",
+                "docs/dks_v1_to_v2_validation_roadmap.md",
+            ],
+            "consolidated DKS runtime/bench validation planning package and schema templates",
+        ),
     ]
 
     rows: list[dict[str, str]] = []

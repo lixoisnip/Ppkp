@@ -1,0 +1,7 @@
+area,current_percent,target_percent_if_validated,required_tests,reason,notes
+packet_export,56%,75-85%,PKT-01..PKT-07,Frame boundary/byte order and call-path correlation,U-001 closure candidate
+output_action,54%,75-85%,OA-01..OA-08,Output-start path and 0x04 write correlation,U-002 core
+enum_state_values,61%,80-90%,ENUM-01..ENUM-10,Per-value operational mapping with scenario controls,U-003 core
+MUP_handler,49%,65-80%,MOD-01;MOD-02;MOD-05;MOD-06,Slot-isolated evidence for exclusive handler attribution,U-004
+PVK_handler,47%,60-75%,MOD-03;MOD-04;MOD-05;MOD-06,PVK-specific slot attribution and cross-firmware consistency,U-005
+physical_output_semantics,29%,55-75%,OA-06 + synchronized IO captures,Direct IO evidence needed before naming physical classes,U-006

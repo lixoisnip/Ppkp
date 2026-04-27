@@ -105,6 +105,11 @@ python3 scripts/run_analysis_smoke_test.py
 - `docs/dks_output_action_reconstruction.md`, `docs/dks_output_action_matrix.csv`, `docs/dks_output_start_path_trace.csv`, `docs/dks_output_action_bench_tests.csv`
 - `docs/dks_module_handler_attribution.md`, `docs/dks_module_handler_attribution_matrix.csv`, `docs/dks_module_unresolved_handlers.csv`
 - `docs/dks_firmware_technical_reconstruction_v1.md`, `docs/dks_reconstruction_confidence_dashboard.csv`, `docs/dks_remaining_unknowns.csv`, `docs/dks_next_iteration_plan.csv`
+- `docs/dks_runtime_validation_plan_v1.md`, `docs/dks_runtime_validation_matrix.csv`
+- `docs/dks_xdata_watchlist_v2.csv`, `docs/dks_function_watchlist_v2.csv`
+- `docs/dks_packet_capture_schema.csv`, `docs/dks_io_capture_schema.csv`
+- `docs/dks_bench_result_import_template.csv`, `docs/dks_validation_confidence_uplift.csv`
+- `docs/dks_v1_to_v2_validation_roadmap.md`
 
 Для полного прогона v1:
 ```bash
@@ -113,5 +118,6 @@ python3 scripts/dks_packet_export_reconstructor.py
 python3 scripts/dks_output_action_reconstructor.py
 python3 scripts/dks_module_handler_attribution.py
 python3 scripts/dks_final_techdoc_builder.py
+python3 scripts/dks_runtime_validation_planner.py
 python3 scripts/run_analysis_smoke_test.py
 ```
