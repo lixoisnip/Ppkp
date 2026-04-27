@@ -4,12 +4,15 @@ P1,RS-485,RTOS_service,ppkp2001 90cye01.PZU,0x920C,search address/baud constants
 P1,Delay/Interlock,90CYE_DKS,90CYE03_19_DKS.PZU,0x6833,extract timer arithmetic proving 30s base,PU-006 and delay confidence uplift,Need block-level immediate extraction around countdown updates.,completed_2026-04-27,docs/project_guided_micro_decompile.md
 P2,Valve feedback,90CYE_shifted_DKS,90CYE02_27 DKS.PZU,0x673C,separate open/closed/fault bit pathways,PU-010 narrowing,Link object table writes to limit-switch read sequence.,completed_2026-04-27,docs/project_guided_micro_decompile.md
 P2,Aerosol outputs,90CYE_DKS,90CYE03_19_DKS.PZU,0x7DC2,separate GOA launch pulse from AN/AU warnings,PU-009/PU-011 narrowing,Track writes immediately after delay-complete branch.,completed_2026-04-27,docs/project_guided_micro_decompile.md
-P2,Delay/Output-start,90CYE_DKS,90CYE03_19_DKS.PZU,0x597F,discovered during micro-decompile pass,follow-up narrowing,added by project_guided_micro_decompiler.py,pending,
-P2,Delay/Output-start,90CYE_DKS,90CYE03_19_DKS.PZU,0x7922,discovered during micro-decompile pass,follow-up narrowing,added by project_guided_micro_decompiler.py,pending,
-P2,RS-485,90CYE_DKS,90CYE03_19_DKS.PZU,0x497A,discovered during micro-decompile pass,follow-up narrowing,added by project_guided_micro_decompiler.py,pending,
-P2,RS-485,90CYE_DKS,90CYE03_19_DKS.PZU,0x737C,discovered during micro-decompile pass,follow-up narrowing,added by project_guided_micro_decompiler.py,pending,
-P2,RTOS_service,RTOS_service,ppkp2001 90cye01.PZU,0x4374,discovered during micro-decompile pass,follow-up narrowing,added by project_guided_micro_decompiler.py,pending,
-P2,RTOS_service,RTOS_service,ppkp2001 90cye01.PZU,0x9255,discovered during micro-decompile pass,follow-up narrowing,added by project_guided_micro_decompiler.py,pending,
-P2,Valve status,90CYE_shifted_DKS,90CYE02_27 DKS.PZU,0x613C,discovered during micro-decompile pass,follow-up narrowing,added by project_guided_micro_decompiler.py,pending,
-P3,Aerosol outputs,90CYE_DKS,90CYE03_19_DKS.PZU,0x84A6,discovered during micro-decompile pass,follow-up narrowing,added by project_guided_micro_decompiler.py,pending,
-P3,Valve status,90CYE_shifted_DKS,90CYE02_27 DKS.PZU,0x758B,discovered during micro-decompile pass,follow-up narrowing,added by project_guided_micro_decompiler.py,pending,
+P2,Delay/Output-start,90CYE_DKS,90CYE03_19_DKS.PZU,0x597F,discovered during micro-decompile pass,follow-up narrowing,added by project_guided_micro_decompiler.py,completed_pass2_2026-04-27,docs/project_guided_micro_decompile_pass2.md
+P2,Delay/Output-start,90CYE_DKS,90CYE03_19_DKS.PZU,0x7922,discovered during micro-decompile pass,follow-up narrowing,added by project_guided_micro_decompiler.py,completed_pass2_2026-04-27,docs/project_guided_micro_decompile_pass2.md
+P2,RS-485,90CYE_DKS,90CYE03_19_DKS.PZU,0x497A,discovered during micro-decompile pass,follow-up narrowing,added by project_guided_micro_decompiler.py,completed_pass2_2026-04-27,docs/project_guided_micro_decompile_pass2.md
+P2,RS-485,90CYE_DKS,90CYE03_19_DKS.PZU,0x737C,discovered during micro-decompile pass,follow-up narrowing,added by project_guided_micro_decompiler.py,completed_pass2_2026-04-27,docs/project_guided_micro_decompile_pass2.md
+P2,RTOS_service,RTOS_service,ppkp2001 90cye01.PZU,0x4374,discovered during micro-decompile pass,follow-up narrowing,added by project_guided_micro_decompiler.py,completed_pass2_2026-04-27,docs/project_guided_micro_decompile_pass2.md
+P2,RTOS_service,RTOS_service,ppkp2001 90cye01.PZU,0x9255,discovered during micro-decompile pass,follow-up narrowing,added by project_guided_micro_decompiler.py,completed_pass2_2026-04-27,docs/project_guided_micro_decompile_pass2.md
+P2,Valve status,90CYE_shifted_DKS,90CYE02_27 DKS.PZU,0x613C,discovered during micro-decompile pass,follow-up narrowing,added by project_guided_micro_decompiler.py,completed_pass2_2026-04-27,docs/project_guided_micro_decompile_pass2.md
+P3,Aerosol outputs,90CYE_DKS,90CYE03_19_DKS.PZU,0x84A6,discovered during micro-decompile pass,follow-up narrowing,added by project_guided_micro_decompiler.py,completed_pass2_2026-04-27,docs/project_guided_micro_decompile_pass2.md
+P3,Valve status,90CYE_shifted_DKS,90CYE02_27 DKS.PZU,0x758B,discovered during micro-decompile pass,follow-up narrowing,added by project_guided_micro_decompiler.py,completed_pass2_2026-04-27,docs/project_guided_micro_decompile_pass2.md
+P2,RTOS_service,RTOS_service,ppkp2001 90cye01.PZU,0x9275,post-0x4374 helper window,pass2 follow-up,added by project_guided_micro_decompiler_pass2.py,pending,
+P2,Shifted status bridge,90CYE_shifted_DKS,90CYE02_27 DKS.PZU,0x7773,shifted context branch around 0x32B3,pass2 follow-up,added by project_guided_micro_decompiler_pass2.py,pending,
+P3,Zone/object,90CYE_DKS,90CYE03_19_DKS.PZU,0x73FD,caller envelope around 0x737C,pass2 follow-up,added by project_guided_micro_decompiler_pass2.py,pending,

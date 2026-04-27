@@ -52,3 +52,14 @@ Generated focused micro-decompile outputs (static-only, evidence-gated):
 - docs/project_guided_micro_constants.csv
 - docs/project_guided_micro_xdata_flow.csv
 - docs/project_guided_micro_unknowns_update.csv
+
+## Micro-decompile pass #2
+
+Generated artifacts:
+- docs/project_guided_micro_decompile_pass2.md
+- docs/project_guided_micro_pass2_summary.csv
+- docs/project_guided_micro_pass2_pseudocode.csv
+- docs/project_guided_micro_pass2_constants.csv
+- docs/project_guided_micro_pass2_xdata_flow.csv
+- docs/project_guided_micro_pass2_callsite_matrix.csv
+- docs/project_guided_micro_pass2_unknowns_update.csv

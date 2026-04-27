@@ -1,0 +1,97 @@
+branch,file,function_addr,caller_addr,callee_addr,call_context,pre_call_setup,post_call_behavior,confidence,evidence_level,notes
+90CYE_DKS,90CYE03_19_DKS.PZU,0x597F,0x5935,0x597F,direct_call_xref,context-dependent,returns_to_caller,high,static_code,from call_xref.csv
+90CYE_DKS,90CYE03_19_DKS.PZU,0x597F,0x7194,0x597F,direct_call_xref,context-dependent,returns_to_caller,high,static_code,from call_xref.csv
+90CYE_DKS,90CYE03_19_DKS.PZU,0x597F,0x7711,0x597F,direct_call_xref,context-dependent,returns_to_caller,high,static_code,from call_xref.csv
+90CYE_DKS,90CYE03_19_DKS.PZU,0x597F,0x6077,0x597F,direct_call_xref,context-dependent,returns_to_caller,high,static_code,from call_xref.csv
+90CYE_DKS,90CYE03_19_DKS.PZU,0x597F,0x6FA7,0x597F,direct_call_xref,context-dependent,returns_to_caller,high,static_code,from call_xref.csv
+90CYE_DKS,90CYE03_19_DKS.PZU,0x597F,0x70CC,0x597F,direct_call_xref,context-dependent,returns_to_caller,high,static_code,from call_xref.csv
+90CYE_DKS,90CYE03_19_DKS.PZU,0x597F,0x740F,0x597F,direct_call_xref,context-dependent,returns_to_caller,high,static_code,from call_xref.csv
+90CYE_DKS,90CYE03_19_DKS.PZU,0x597F,0x7439,0x597F,direct_call_xref,context-dependent,returns_to_caller,high,static_code,from call_xref.csv
+90CYE_DKS,90CYE03_19_DKS.PZU,0x597F,0x7462,0x597F,direct_call_xref,context-dependent,returns_to_caller,high,static_code,from call_xref.csv
+90CYE_DKS,90CYE03_19_DKS.PZU,0x597F,0x683A,0x597F,direct_call_xref,context-dependent,returns_to_caller,high,static_code,from call_xref.csv
+90CYE_DKS,90CYE03_19_DKS.PZU,0x7922,0x54C1,0x7922,direct_call_xref,context-dependent,returns_to_caller,high,static_code,from call_xref.csv
+90CYE_DKS,90CYE03_19_DKS.PZU,0x7922,0x7187,0x7922,direct_call_xref,context-dependent,returns_to_caller,high,static_code,from call_xref.csv
+90CYE_DKS,90CYE03_19_DKS.PZU,0x7922,0x72C8,0x7922,direct_call_xref,context-dependent,returns_to_caller,high,static_code,from call_xref.csv
+90CYE_DKS,90CYE03_19_DKS.PZU,0x7922,0x72FF,0x7922,direct_call_xref,context-dependent,returns_to_caller,high,static_code,from call_xref.csv
+90CYE_DKS,90CYE03_19_DKS.PZU,0x7922,0x7349,0x7922,direct_call_xref,context-dependent,returns_to_caller,high,static_code,from call_xref.csv
+90CYE_DKS,90CYE03_19_DKS.PZU,0x7922,0x6836,0x7922,direct_call_xref,context-dependent,returns_to_caller,high,static_code,from call_xref.csv
+90CYE_DKS,90CYE03_19_DKS.PZU,0x737C,0x8625,0x737C,direct_call_xref,context-dependent,returns_to_caller,high,static_code,from call_xref.csv
+90CYE_DKS,90CYE03_19_DKS.PZU,0x737C,0x737C,0x5AA3,callee_within_function_window,local-register/xdata context,continues_local_flow,high,static_code,code_addr=0x7385
+90CYE_DKS,90CYE03_19_DKS.PZU,0x737C,0x737C,0x5A7F,callee_within_function_window,local-register/xdata context,continues_local_flow,high,static_code,code_addr=0x738A
+90CYE_DKS,90CYE03_19_DKS.PZU,0x737C,0x737C,0x73BA,callee_within_function_window,local-register/xdata context,continues_local_flow,high,static_code,code_addr=0x739B
+90CYE_DKS,90CYE03_19_DKS.PZU,0x737C,0x737C,0x73BA,callee_within_function_window,local-register/xdata context,continues_local_flow,high,static_code,code_addr=0x73AA
+90CYE_DKS,90CYE03_19_DKS.PZU,0x737C,0x737C,0x848E,callee_within_function_window,local-register/xdata context,continues_local_flow,high,static_code,code_addr=0x73C3
+90CYE_DKS,90CYE03_19_DKS.PZU,0x737C,0x737C,0x5A7F,callee_within_function_window,local-register/xdata context,continues_local_flow,high,static_code,code_addr=0x73CB
+90CYE_DKS,90CYE03_19_DKS.PZU,0x737C,0x737C,0x848E,callee_within_function_window,local-register/xdata context,continues_local_flow,high,static_code,code_addr=0x73D6
+90CYE_DKS,90CYE03_19_DKS.PZU,0x737C,0x737C,0x5A7F,callee_within_function_window,local-register/xdata context,continues_local_flow,high,static_code,code_addr=0x73DE
+90CYE_DKS,90CYE03_19_DKS.PZU,0x737C,0x737C,0x5A7F,callee_within_function_window,local-register/xdata context,continues_local_flow,high,static_code,code_addr=0x73ED
+90CYE_DKS,90CYE03_19_DKS.PZU,0x737C,0x737C,0x84A6,callee_within_function_window,local-register/xdata context,continues_local_flow,high,static_code,code_addr=0x73FD
+90CYE_DKS,90CYE03_19_DKS.PZU,0x737C,0x737C,0x5A7F,callee_within_function_window,local-register/xdata context,continues_local_flow,high,static_code,code_addr=0x7405
+90CYE_DKS,90CYE03_19_DKS.PZU,0x737C,0x737C,0x74C0,callee_within_function_window,local-register/xdata context,continues_local_flow,high,static_code,code_addr=0x7409
+90CYE_DKS,90CYE03_19_DKS.PZU,0x737C,0x737C,0x597F,callee_within_function_window,local-register/xdata context,continues_local_flow,high,static_code,code_addr=0x740F
+90CYE_DKS,90CYE03_19_DKS.PZU,0x737C,0x737C,0x5A7F,callee_within_function_window,local-register/xdata context,continues_local_flow,high,static_code,code_addr=0x7430
+90CYE_DKS,90CYE03_19_DKS.PZU,0x737C,0x737C,0x597F,callee_within_function_window,local-register/xdata context,continues_local_flow,high,static_code,code_addr=0x7439
+90CYE_DKS,90CYE03_19_DKS.PZU,0x737C,0x737C,0x5A7F,callee_within_function_window,local-register/xdata context,continues_local_flow,high,static_code,code_addr=0x7459
+90CYE_DKS,90CYE03_19_DKS.PZU,0x84A6,0x7105,0x84A6,direct_call_xref,context-dependent,returns_to_caller,high,static_code,from call_xref.csv
+90CYE_DKS,90CYE03_19_DKS.PZU,0x84A6,0x73FD,0x84A6,direct_call_xref,context-dependent,returns_to_caller,high,static_code,from call_xref.csv
+90CYE_DKS,90CYE03_19_DKS.PZU,0x84A6,0x84A6,0x862D,callee_within_function_window,local-register/xdata context,continues_local_flow,high,static_code,code_addr=0x85A3
+90CYE_DKS,90CYE03_19_DKS.PZU,0x84A6,0x84A6,0x7D42,callee_within_function_window,local-register/xdata context,continues_local_flow,high,static_code,code_addr=0x85A9
+90CYE_DKS,90CYE03_19_DKS.PZU,0x84A6,0x84A6,0x862D,callee_within_function_window,local-register/xdata context,continues_local_flow,high,static_code,code_addr=0x85C2
+90CYE_DKS,90CYE03_19_DKS.PZU,0x84A6,0x84A6,0x6025,callee_within_function_window,local-register/xdata context,continues_local_flow,high,static_code,code_addr=0x85C7
+90CYE_DKS,90CYE03_19_DKS.PZU,0x84A6,0x84A6,0x77BF,callee_within_function_window,local-register/xdata context,continues_local_flow,high,static_code,code_addr=0x85CA
+90CYE_DKS,90CYE03_19_DKS.PZU,0x84A6,0x84A6,0x7184,callee_within_function_window,local-register/xdata context,continues_local_flow,high,static_code,code_addr=0x85CD
+90CYE_DKS,90CYE03_19_DKS.PZU,0x84A6,0x84A6,0x7889,callee_within_function_window,local-register/xdata context,continues_local_flow,high,static_code,code_addr=0x85D0
+90CYE_DKS,90CYE03_19_DKS.PZU,0x84A6,0x84A6,0x728A,callee_within_function_window,local-register/xdata context,continues_local_flow,high,static_code,code_addr=0x85D3
+90CYE_DKS,90CYE03_19_DKS.PZU,0x84A6,0x84A6,0x770C,callee_within_function_window,local-register/xdata context,continues_local_flow,high,static_code,code_addr=0x85D6
+90CYE_DKS,90CYE03_19_DKS.PZU,0x84A6,0x84A6,0x6EF2,callee_within_function_window,local-register/xdata context,continues_local_flow,high,static_code,code_addr=0x85D9
+90CYE_DKS,90CYE03_19_DKS.PZU,0x84A6,0x84A6,0x7017,callee_within_function_window,local-register/xdata context,continues_local_flow,high,static_code,code_addr=0x85DC
+90CYE_DKS,90CYE03_19_DKS.PZU,0x84A6,0x84A6,0x6E32,callee_within_function_window,local-register/xdata context,continues_local_flow,high,static_code,code_addr=0x85DF
+90CYE_DKS,90CYE03_19_DKS.PZU,0x84A6,0x84A6,0x7A9A,callee_within_function_window,local-register/xdata context,continues_local_flow,high,static_code,code_addr=0x85E2
+90CYE_DKS,90CYE03_19_DKS.PZU,0x84A6,0x84A6,0x85FB,callee_within_function_window,local-register/xdata context,continues_local_flow,high,static_code,code_addr=0x85ED
+90CYE_DKS,90CYE03_19_DKS.PZU,0x84A6,0x84A6,0x7BC2,callee_within_function_window,local-register/xdata context,continues_local_flow,high,static_code,code_addr=0x85EF
+90CYE_DKS,90CYE03_19_DKS.PZU,0x84A6,0x84A6,0x7B31,callee_within_function_window,local-register/xdata context,continues_local_flow,high,static_code,code_addr=0x85F8
+RTOS_service,ppkp2001 90cye01.PZU,0x4374,0x4374,0x920C,callee_within_function_window,local-register/xdata context,continues_local_flow,high,static_code,code_addr=0x4374
+RTOS_service,ppkp2001 90cye01.PZU,0x4374,0x4374,0x916D,callee_within_function_window,local-register/xdata context,continues_local_flow,high,static_code,code_addr=0x4377
+RTOS_service,ppkp2001 90cye01.PZU,0x4374,0x4374,0x9275,callee_within_function_window,local-register/xdata context,continues_local_flow,high,static_code,code_addr=0x4382
+RTOS_service,ppkp2001 90cye01.PZU,0x4374,0x4374,0x8F8C,callee_within_function_window,local-register/xdata context,continues_local_flow,high,static_code,code_addr=0x4399
+RTOS_service,ppkp2001 90cye01.PZU,0x4374,0x4374,0x8F8C,callee_within_function_window,local-register/xdata context,continues_local_flow,high,static_code,code_addr=0x43BF
+RTOS_service,ppkp2001 90cye01.PZU,0x4374,0x4374,0x8F8C,callee_within_function_window,local-register/xdata context,continues_local_flow,high,static_code,code_addr=0x43D7
+RTOS_service,ppkp2001 90cye01.PZU,0x4374,0x4374,0x8F8C,callee_within_function_window,local-register/xdata context,continues_local_flow,high,static_code,code_addr=0x43EB
+RTOS_service,ppkp2001 90cye01.PZU,0x4374,0x4374,0x43FC,callee_within_function_window,local-register/xdata context,continues_local_flow,high,static_code,code_addr=0x43F7
+RTOS_service,ppkp2001 90cye01.PZU,0x4374,0x4374,0x8F8C,callee_within_function_window,local-register/xdata context,continues_local_flow,high,static_code,code_addr=0x43FC
+RTOS_service,ppkp2001 90cye01.PZU,0x4374,0x4374,0x498F,callee_within_function_window,local-register/xdata context,continues_local_flow,high,static_code,code_addr=0x4403
+RTOS_service,ppkp2001 90cye01.PZU,0x4374,0x4374,0x9143,callee_within_function_window,local-register/xdata context,continues_local_flow,high,static_code,code_addr=0x4409
+RTOS_service,ppkp2001 90cye01.PZU,0x4374,0x4374,0x9134,callee_within_function_window,local-register/xdata context,continues_local_flow,high,static_code,code_addr=0x440F
+RTOS_service,ppkp2001 90cye01.PZU,0x4374,0x4374,0x6BA4,callee_within_function_window,local-register/xdata context,continues_local_flow,high,static_code,code_addr=0x4431
+RTOS_service,ppkp2001 90cye01.PZU,0x9255,0x9255,0x53E6,callee_within_function_window,local-register/xdata context,continues_local_flow,high,static_code,code_addr=0x9255
+RTOS_service,ppkp2001 90cye01.PZU,0x9255,0x9255,0x8F8C,callee_within_function_window,local-register/xdata context,continues_local_flow,high,static_code,code_addr=0x9279
+RTOS_service,ppkp2001 90cye01.PZU,0x9255,0x9255,0x90D1,callee_within_function_window,local-register/xdata context,continues_local_flow,high,static_code,code_addr=0x9285
+RTOS_service,ppkp2001 90cye01.PZU,0x9255,0x9255,0x8F8C,callee_within_function_window,local-register/xdata context,continues_local_flow,high,static_code,code_addr=0x92A0
+RTOS_service,ppkp2001 90cye01.PZU,0x9255,0x9255,0x8F8C,callee_within_function_window,local-register/xdata context,continues_local_flow,high,static_code,code_addr=0x92AA
+RTOS_service,ppkp2001 90cye01.PZU,0x9255,0x9255,0x93BC,callee_within_function_window,local-register/xdata context,continues_local_flow,high,static_code,code_addr=0x92B3
+RTOS_service,ppkp2001 90cye01.PZU,0x9255,0x9255,0x92C5,callee_within_function_window,local-register/xdata context,continues_local_flow,high,static_code,code_addr=0x92B7
+RTOS_service,ppkp2001 90cye01.PZU,0x9255,0x9255,0x8F8C,callee_within_function_window,local-register/xdata context,continues_local_flow,high,static_code,code_addr=0x92BF
+RTOS_service,ppkp2001 90cye01.PZU,0x9255,0x9255,0x90D1,callee_within_function_window,local-register/xdata context,continues_local_flow,high,static_code,code_addr=0x92C9
+RTOS_service,ppkp2001 90cye01.PZU,0x758B,0xABF5,0x758B,direct_call_xref,context-dependent,returns_to_caller,high,static_code,from call_xref.csv
+RTOS_service,ppkp2001 90cye01.PZU,0x758B,0x758B,0x75B6,callee_within_function_window,local-register/xdata context,continues_local_flow,high,static_code,code_addr=0x75A0
+RTOS_service,ppkp2001 90cye01.PZU,0x758B,0x758B,0x75EA,callee_within_function_window,local-register/xdata context,continues_local_flow,high,static_code,code_addr=0x75DF
+RTOS_service,ppkp2001 90cye01.PZU,0x758B,0x758B,0x8F8C,callee_within_function_window,local-register/xdata context,continues_local_flow,high,static_code,code_addr=0x7620
+RTOS_service,ppkp2001 90cye01.PZU,0x758B,0x758B,0x762C,callee_within_function_window,local-register/xdata context,continues_local_flow,high,static_code,code_addr=0x7625
+RTOS_service,ppkp2001 90cye01.PZU,0x758B,0x758B,0x763E,callee_within_function_window,local-register/xdata context,continues_local_flow,high,static_code,code_addr=0x7633
+RTOS_service,ppkp2001 90cye01.PZU,0x758B,0x758B,0x764C,callee_within_function_window,local-register/xdata context,continues_local_flow,high,static_code,code_addr=0x7647
+RTOS_service,ppkp2001 90cye01.PZU,0x758B,0x758B,0x7659,callee_within_function_window,local-register/xdata context,continues_local_flow,high,static_code,code_addr=0x7654
+RTOS_service,ppkp2001 90cye01.PZU,0x758B,0x758B,0x766A,callee_within_function_window,local-register/xdata context,continues_local_flow,high,static_code,code_addr=0x7665
+RTOS_service,ppkp2001 90cye01.PZU,0x758B,0x758B,0x7677,callee_within_function_window,local-register/xdata context,continues_local_flow,high,static_code,code_addr=0x7672
+RTOS_service,ppkp2001 90cye01.PZU,0x758B,0x758B,0x7690,callee_within_function_window,local-register/xdata context,continues_local_flow,high,static_code,code_addr=0x7689
+RTOS_service,ppkp2001 90cye01.PZU,0x758B,0x758B,0x769E,callee_within_function_window,local-register/xdata context,continues_local_flow,high,static_code,code_addr=0x7697
+RTOS_service,ppkp2001 90cye01.PZU,0x758B,0x758B,0x76AC,callee_within_function_window,local-register/xdata context,continues_local_flow,high,static_code,code_addr=0x76A5
+RTOS_service,ppkp2001 90cye01.PZU,0x758B,0x758B,0x76BA,callee_within_function_window,local-register/xdata context,continues_local_flow,high,static_code,code_addr=0x76B3
+RTOS_service,ppkp2001 90cye01.PZU,0x758B,0x758B,0x76D9,callee_within_function_window,local-register/xdata context,continues_local_flow,high,static_code,code_addr=0x76CC
+RTOS_service,ppkp2001 90cye01.PZU,0x758B,0x758B,0x76D9,callee_within_function_window,local-register/xdata context,continues_local_flow,high,static_code,code_addr=0x76D4
+RTOS_service,ppkp2001 90cye01.PZU,0x758B,0x758B,0x76EF,callee_within_function_window,local-register/xdata context,continues_local_flow,high,static_code,code_addr=0x76E9
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,0x613C,0x613C,0x61F6,callee_within_function_window,local-register/xdata context,continues_local_flow,high,static_code,code_addr=0x61EC
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,0x613C,0x613C,0x791E,callee_within_function_window,local-register/xdata context,continues_local_flow,high,static_code,code_addr=0x615A
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,0x613C,0x613C,0x61D0,callee_within_function_window,local-register/xdata context,continues_local_flow,high,static_code,code_addr=0x61FA
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,0x613C,0x613C,0x6215,callee_within_function_window,local-register/xdata context,continues_local_flow,high,static_code,code_addr=0x622B
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,0x613C,0x613C,0x61F6,callee_within_function_window,local-register/xdata context,continues_local_flow,high,static_code,code_addr=0x61F1
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,0x613C,0x613C,0x61CC,callee_within_function_window,local-register/xdata context,continues_local_flow,high,static_code,code_addr=0x61E7
