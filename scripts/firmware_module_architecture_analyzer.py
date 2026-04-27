@@ -58,6 +58,7 @@ INPUT_FILES = [
     "input_board_to_event_chains.csv",
     "input_board_core_matrix.csv",
     "family_module_architecture_map.csv",
+    "dks_real_configuration_evidence.csv",
 ]
 
 OPTIONAL_INPUTS = {
@@ -65,6 +66,7 @@ OPTIONAL_INPUTS = {
     "input_board_command_candidates.csv",
     "paired_input_logic_candidates.csv",
     "input_board_to_event_chains.csv",
+    "dks_real_configuration_evidence.csv",
 }
 
 CORE_ROLES = [
@@ -184,6 +186,29 @@ def main() -> int:
     enum_rows = data.get("enum_branch_value_map.csv", [])
     xdata_trace = data.get("xdata_branch_trace_map.csv", [])
     module_handlers = data.get("module_handler_summary.csv", [])
+    dks_screen_rows = data.get("dks_real_configuration_evidence.csv", [])
+
+    screen_by_file: dict[str, dict[str, set[str]]] = defaultdict(lambda: defaultdict(set))
+    for r in dks_screen_rows:
+        fw = (r.get("firmware_file", "") or "").strip()
+        mod = (r.get("module_label", "") or "").upper()
+        conf = (r.get("label_confidence", "") or "").strip().lower()
+        if not fw:
+            continue
+        if "MDS" in mod:
+            screen_by_file[fw]["MDS"].add(conf or "uncertain_from_screen")
+        if "MUP" in mod:
+            screen_by_file[fw]["MUP"].add(conf or "uncertain_from_screen")
+        if "PVK" in mod:
+            screen_by_file[fw]["PVK"].add(conf or "uncertain_from_screen")
+        if "MASH" in mod:
+            screen_by_file[fw]["MASH"].add(conf or "uncertain_from_screen")
+    def screen_confidence(values: set[str]) -> str:
+        if any(v == "confirmed_from_screen" for v in values):
+            return "confirmed"
+        if any(v == "probable_from_screen" for v in values):
+            return "probable"
+        return "hypothesis"
 
     funcs_by_key: dict[tuple[str, str], list[dict[str, str]]] = defaultdict(list)
     for r in function_rows:
@@ -353,7 +378,18 @@ def main() -> int:
                 "packet_export_score": f"{clip01(packet_score):.3f}",
                 "probable_device_family": probable_family,
                 "confidence": conf,
-                "notes": anchor_note or "heuristic cross-artifact scoring; weak claims kept hypothesis/unknown",
+                "config_evidence_notes": (
+                    "screen_configuration evidence present; module labels and runtime states are config-level only, not function-level confirmation"
+                    if f in screen_by_file
+                    else ""
+                ),
+                "screen_confirmed_modules": "|".join(sorted(screen_by_file.get(f, {}).keys())),
+                "notes": (anchor_note + " ; " if anchor_note else "")
+                + (
+                    "screen evidence integrated conservatively; function addresses remain code-evidence only"
+                    if f in screen_by_file
+                    else "heuristic cross-artifact scoring; weak claims kept hypothesis/unknown"
+                ),
             }
         )
 
@@ -382,6 +418,27 @@ def main() -> int:
                     "confidence": conf_from_score(score),
                     "evidence": "function_map|call_xref|runtime_state_machine_nodes|zone_output|input_board_core_matrix",
                     "notes": "MDS/MUP separated heuristically; never merged with MVK/input without evidence",
+                }
+            )
+
+        module_label_map = {
+            "MDS": "mds_discrete_signal_module",
+            "MUP": "mup_module",
+            "MASH": "mash_address_loop",
+            "PVK": "unknown_module",
+        }
+        for label, confs in screen_by_file.get(f, {}).items():
+            module_rows.append(
+                {
+                    "branch": b,
+                    "file": f,
+                    "module_type": module_label_map.get(label, "unknown_module"),
+                    "presence_score": "0.700" if "confirmed_from_screen" in confs else "0.550",
+                    "strongest_function": "unknown",
+                    "secondary_functions": "",
+                    "confidence": screen_confidence(confs),
+                    "evidence": "screen_configuration",
+                    "notes": f"screen confirms {label} presence, function handler not confirmed (configuration-level only)",
                 }
             )
 
@@ -500,7 +557,7 @@ def main() -> int:
                     "bit_masks": "unknown",
                     "call_targets": "unknown",
                     "packet_export_path": "possible",
-                    "notes": "separate from ordinary input boards; heuristic only",
+                    "notes": "separate from ordinary input boards; heuristic only" + ("; screen-visible module label present (config-level only)" if "MDS" in screen_by_file.get(f, {}) else ""),
                 }
             )
             mds_mup_rows.append(
@@ -516,7 +573,7 @@ def main() -> int:
                     "bit_masks": "unknown",
                     "call_targets": "unknown",
                     "packet_export_path": "possible",
-                    "notes": "kept distinct from MVK unless direct code-evidence appears",
+                    "notes": "kept distinct from MVK unless direct code-evidence appears" + ("; screen-visible module label present (config-level only)" if "MUP" in screen_by_file.get(f, {}) else ""),
                 }
             )
 
@@ -595,6 +652,8 @@ def main() -> int:
             "packet_export_score",
             "probable_device_family",
             "confidence",
+            "config_evidence_notes",
+            "screen_confirmed_modules",
             "notes",
         ],
         arch_rows,
@@ -697,6 +756,8 @@ def main() -> int:
             "shared_evidence",
             "application_variants",
             "confidence",
+            "config_evidence_notes",
+            "screen_confirmed_modules",
             "notes",
         ],
         patt_rows,
@@ -802,32 +863,42 @@ def main() -> int:
     lines.append("- Next manual decompile targets: top per module from `docs/shared_core_function_map.csv`, `docs/mvk_output_semantics.csv`, `docs/mds_mup_module_candidates.csv`.")
 
     lines.append("")
-    lines.append("## 12. APS/aerosol/water-like differences")
+    lines.append("## 12. Real DKS configuration evidence")
+    lines.append("")
+    lines.append("- Screenshots map to repository firmware files and are recorded in `docs/dks_real_configuration_evidence.md` and `docs/dks_real_configuration_evidence.csv`.")
+    lines.append("- The screenshots confirm module presence at configuration/HMI level, but do not prove exact handler function addresses.")
+    lines.append("- DKS 90CYE03/90CYE04 confirms MDS, MUP and PVK as separate modules.")
+    lines.append("- DKS 90CYE01 confirms MDS, PVK and two MASH modules (X05/X06).")
+    lines.append("- DKS 90CYE02 confirms multiple MDS-like modules and object-status layer (`90SAE...` tags).")
+    lines.append("- This strengthens module-separation interpretation (MDS/MUP/PVK/MASH, shleif status, object-status layer) without raising function-level confidence by itself.")
+
+    lines.append("")
+    lines.append("## 13. APS/aerosol/water-like differences")
     lines.append("")
     lines.append("Heuristic family scores are in `docs/firmware_architecture_matrix.csv`; they do not assert functional identity between branches.")
 
     lines.append("")
-    lines.append("## 13. MVK output semantics")
+    lines.append("## 14. MVK output semantics")
     lines.append("")
     lines.append("Covered semantics: siren/relay shutdown, aerosol GOA/start line, water valve/actuator, generic output start/reset where evidence exists.")
 
     lines.append("")
-    lines.append("## 14. Aerosol GOA line supervision")
+    lines.append("## 15. Aerosol GOA line supervision")
     lines.append("")
     lines.append("Reverse voltage / resistance window / open-short-fault / start permission are listed only as candidates. Weak evidence is marked hypothesis/unknown.")
 
     lines.append("")
-    lines.append("## 15. Water valve/actuator logic")
+    lines.append("## 16. Water valve/actuator logic")
     lines.append("")
     lines.append("Open command, paired feedback, timeout/fault indications are captured as candidate patterns with conservative confidence.")
 
     lines.append("")
-    lines.append("## 16. Cross-firmware repeated patterns")
+    lines.append("## 17. Cross-firmware repeated patterns")
     lines.append("")
     lines.append("See `docs/cross_firmware_pattern_summary.csv` for shared packet/core/front-panel/MASH/MVK/input/MDS/MUP patterns.")
 
     lines.append("")
-    lines.append("## 17. Strongest functions to manually decompile next per module")
+    lines.append("## 18. Strongest functions to manually decompile next per module")
     lines.append("")
     for mtype in ["cpu_board", "mash_address_loop", "mvk_output_module", "input_signal_board", "mds_discrete_signal_module", "mup_module", "packet_export"]:
         top = sorted([r for r in module_rows if r["module_type"] == mtype], key=lambda x: safe_float(x["presence_score"]), reverse=True)[:5]
@@ -835,7 +906,7 @@ def main() -> int:
         lines.append(f"- {mtype}: {vals or 'unknown'}")
 
     lines.append("")
-    lines.append("## 18. Bench/runtime validation checklist")
+    lines.append("## 19. Bench/runtime validation checklist")
     lines.append("")
     lines.append("- [ ] Verify mode-gate behavior around 90CYE_DKS 0x728A (E0/E1/E2 and XDATA 0x30A2/0x30E7).")
     lines.append("- [ ] Verify 0x6833 branch side effects (calls 0x7922/0x597F/0x5A7F, XDATA write value 0x04, path to 0x7DC2).")
@@ -846,7 +917,7 @@ def main() -> int:
     lines.append("- [ ] Validate water valve open/close feedback paired-limit behavior and timeouts.")
 
     lines.append("")
-    lines.append("## 19. Limitations and confidence rules")
+    lines.append("## 20. Limitations and confidence rules")
     lines.append("")
     lines.append("- Confirmed: repeated static evidence across multiple artifacts and chain consistency.")
     lines.append("- Probable: strong but incomplete structural evidence.")

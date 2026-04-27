@@ -46,6 +46,8 @@
 - docs/input_board_core_cross_family.md — issue #50 cross-cutting milestone: shared input-board core role and command vocabulary across firmware families.
 - docs/family_module_architecture_map.md — issue #52 large milestone: full cross-family comparison and shared module architecture map.
 - docs/firmware_module_architecture_comparison.md — cross-firmware architecture comparison of CPU core, keyboard/display, MASH, MVK, input boards, MDS, MUP, aerosol/water/APS-specific logic.
+- docs/dks_real_configuration_evidence.md — real DKS HMI/configuration evidence mapping repository firmware files to visible module slots MDS/MUP/PVK/MASH, shleif status and object-status screens.
+- docs/dks_real_configuration_evidence.csv — machine-readable module slot evidence from real DKS screenshots.
 - docs/module_handler_summary.csv — сводная таблица кандидатов обработчиков модулей по всем веткам.
 - Предыдущий файл анализа/журнал: `PZU_ANALYSIS.md`
 

@@ -60,8 +60,8 @@
 - ppkp2001 90cye01.PZU:0xAB40 score=6 confidence=hypothesis role=state_reader_or_packet_builder hits(core/service/secondary)=0/0/0.
 
 ## Top pipeline chains
-- ppkp2001 90cye01.PZU rank=1: 0x464B -> 0x920C -> 0x53E6, chain_score=46, confidence=probable, hits=18/124/0.
-- ppkp2001 90cye01.PZU rank=2: 0x4358 -> 0x920C -> 0x53E6, chain_score=46, confidence=probable, hits=18/125/0.
+- ppkp2001 90cye01.PZU rank=1: 0x4358 -> 0x920C -> 0x53E6, chain_score=46, confidence=probable, hits=18/125/0.
+- ppkp2001 90cye01.PZU rank=2: 0x464B -> 0x920C -> 0x53E6, chain_score=46, confidence=probable, hits=18/124/0.
 - ppkp2012 a01.PZU rank=1: 0x4658 -> 0x9920 -> 0x5436, chain_score=46, confidence=hypothesis, hits=18/122/0.
 - ppkp2012 a01.PZU rank=2: 0x4358 -> 0x9920 -> 0x5436, chain_score=46, confidence=hypothesis, hits=18/123/0.
 - ppkp2001 90cye01.PZU rank=3: 0xAB62 -> 0x44F1 -> 0x53E6, chain_score=45, confidence=probable, hits=20/125/0.
@@ -96,4 +96,4 @@
 
 ## Следующий практический milestone
 - Выполнить deep-dive 3–5 функций из top score в valid_hex файле ppkp2001, затем проверить устойчивость выводов в checksum_error образах как secondary evidence.
-- Smoke-test baseline на момент анализа: 25/25 pass.
+- Smoke-test baseline на момент анализа: 31/31 pass.

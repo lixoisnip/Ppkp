@@ -1,9 +1,9 @@
 branch,file,module_type,function_addr,candidate_role,score,confidence,xdata_refs,bit_masks,call_targets,packet_export_path,notes
-90CYE_shifted_DKS,90CYE02_27 DKS.PZU,MDS,0x497F,discrete_signal_scan,0.720,probable,17,unknown,unknown,possible,separate from ordinary input boards; heuristic only
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,MDS,0x497F,discrete_signal_scan,0.720,probable,17,unknown,unknown,possible,separate from ordinary input boards; heuristic only; screen-visible module label present (config-level only)
 90CYE_shifted_DKS,90CYE02_27 DKS.PZU,MUP,0x497F,control_or_start_command,0.800,confirmed,unknown,unknown,unknown,possible,kept distinct from MVK unless direct code-evidence appears
-90CYE_shifted_DKS,90CYE02_27 DKS.PZU,MDS,0x673C,discrete_signal_scan,0.720,probable,77,unknown,unknown,possible,separate from ordinary input boards; heuristic only
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,MDS,0x673C,discrete_signal_scan,0.720,probable,77,unknown,unknown,possible,separate from ordinary input boards; heuristic only; screen-visible module label present (config-level only)
 90CYE_shifted_DKS,90CYE02_27 DKS.PZU,MUP,0x673C,control_or_start_command,0.800,confirmed,unknown,unknown,unknown,possible,kept distinct from MVK unless direct code-evidence appears
-90CYE_shifted_DKS,90CYE02_27 DKS.PZU,MDS,0x604B,discrete_signal_scan,0.720,probable,0,unknown,unknown,possible,separate from ordinary input boards; heuristic only
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,MDS,0x604B,discrete_signal_scan,0.720,probable,0,unknown,unknown,possible,separate from ordinary input boards; heuristic only; screen-visible module label present (config-level only)
 90CYE_shifted_DKS,90CYE02_27 DKS.PZU,MUP,0x604B,control_or_start_command,0.800,confirmed,unknown,unknown,unknown,possible,kept distinct from MVK unless direct code-evidence appears
 90CYE_v2_1,90CYE03_19_2 v2_1.PZU,MDS,0x497F,discrete_signal_scan,0.120,unknown,22,unknown,unknown,possible,separate from ordinary input boards; heuristic only
 90CYE_v2_1,90CYE03_19_2 v2_1.PZU,MUP,0x497F,control_or_start_command,0.800,confirmed,unknown,unknown,unknown,possible,kept distinct from MVK unless direct code-evidence appears
@@ -11,24 +11,24 @@ branch,file,module_type,function_addr,candidate_role,score,confidence,xdata_refs
 90CYE_v2_1,90CYE03_19_2 v2_1.PZU,MUP,0x72AC,control_or_start_command,0.800,confirmed,unknown,unknown,unknown,possible,kept distinct from MVK unless direct code-evidence appears
 90CYE_v2_1,90CYE03_19_2 v2_1.PZU,MDS,0xAA96,discrete_signal_scan,0.120,unknown,22,unknown,unknown,possible,separate from ordinary input boards; heuristic only
 90CYE_v2_1,90CYE03_19_2 v2_1.PZU,MUP,0xAA96,control_or_start_command,0.800,confirmed,unknown,unknown,unknown,possible,kept distinct from MVK unless direct code-evidence appears
-90CYE_DKS,90CYE03_19_DKS.PZU,MDS,0x497A,discrete_signal_scan,0.800,confirmed,47,unknown,unknown,possible,separate from ordinary input boards; heuristic only
-90CYE_DKS,90CYE03_19_DKS.PZU,MUP,0x497A,control_or_start_command,0.800,confirmed,unknown,unknown,unknown,possible,kept distinct from MVK unless direct code-evidence appears
-90CYE_DKS,90CYE03_19_DKS.PZU,MDS,0x5A7F,discrete_signal_scan,0.800,confirmed,0,unknown,unknown,possible,separate from ordinary input boards; heuristic only
-90CYE_DKS,90CYE03_19_DKS.PZU,MUP,0x5A7F,control_or_start_command,0.800,confirmed,unknown,unknown,unknown,possible,kept distinct from MVK unless direct code-evidence appears
-90CYE_DKS,90CYE03_19_DKS.PZU,MDS,0x613C,discrete_signal_scan,0.800,confirmed,55,unknown,unknown,possible,separate from ordinary input boards; heuristic only
-90CYE_DKS,90CYE03_19_DKS.PZU,MUP,0x613C,control_or_start_command,0.800,confirmed,unknown,unknown,unknown,possible,kept distinct from MVK unless direct code-evidence appears
+90CYE_DKS,90CYE03_19_DKS.PZU,MDS,0x497A,discrete_signal_scan,0.800,confirmed,47,unknown,unknown,possible,separate from ordinary input boards; heuristic only; screen-visible module label present (config-level only)
+90CYE_DKS,90CYE03_19_DKS.PZU,MUP,0x497A,control_or_start_command,0.800,confirmed,unknown,unknown,unknown,possible,kept distinct from MVK unless direct code-evidence appears; screen-visible module label present (config-level only)
+90CYE_DKS,90CYE03_19_DKS.PZU,MDS,0x5A7F,discrete_signal_scan,0.800,confirmed,0,unknown,unknown,possible,separate from ordinary input boards; heuristic only; screen-visible module label present (config-level only)
+90CYE_DKS,90CYE03_19_DKS.PZU,MUP,0x5A7F,control_or_start_command,0.800,confirmed,unknown,unknown,unknown,possible,kept distinct from MVK unless direct code-evidence appears; screen-visible module label present (config-level only)
+90CYE_DKS,90CYE03_19_DKS.PZU,MDS,0x613C,discrete_signal_scan,0.800,confirmed,55,unknown,unknown,possible,separate from ordinary input boards; heuristic only; screen-visible module label present (config-level only)
+90CYE_DKS,90CYE03_19_DKS.PZU,MUP,0x613C,control_or_start_command,0.800,confirmed,unknown,unknown,unknown,possible,kept distinct from MVK unless direct code-evidence appears; screen-visible module label present (config-level only)
 90CYE_v2_1,90CYE04_19_2 v2_1.PZU,MDS,0x497F,discrete_signal_scan,0.120,unknown,22,unknown,unknown,possible,separate from ordinary input boards; heuristic only
 90CYE_v2_1,90CYE04_19_2 v2_1.PZU,MUP,0x497F,control_or_start_command,0.800,confirmed,unknown,unknown,unknown,possible,kept distinct from MVK unless direct code-evidence appears
 90CYE_v2_1,90CYE04_19_2 v2_1.PZU,MDS,0x72AC,discrete_signal_scan,0.120,unknown,0,unknown,unknown,possible,separate from ordinary input boards; heuristic only
 90CYE_v2_1,90CYE04_19_2 v2_1.PZU,MUP,0x72AC,control_or_start_command,0.800,confirmed,unknown,unknown,unknown,possible,kept distinct from MVK unless direct code-evidence appears
 90CYE_v2_1,90CYE04_19_2 v2_1.PZU,MDS,0xAA96,discrete_signal_scan,0.120,unknown,22,unknown,unknown,possible,separate from ordinary input boards; heuristic only
 90CYE_v2_1,90CYE04_19_2 v2_1.PZU,MUP,0xAA96,control_or_start_command,0.800,confirmed,unknown,unknown,unknown,possible,kept distinct from MVK unless direct code-evidence appears
-90CYE_DKS,90CYE04_19_DKS.PZU,MDS,0x497A,discrete_signal_scan,0.208,unknown,47,unknown,unknown,possible,separate from ordinary input boards; heuristic only
-90CYE_DKS,90CYE04_19_DKS.PZU,MUP,0x497A,control_or_start_command,0.800,confirmed,unknown,unknown,unknown,possible,kept distinct from MVK unless direct code-evidence appears
-90CYE_DKS,90CYE04_19_DKS.PZU,MDS,0x5A7F,discrete_signal_scan,0.208,unknown,0,unknown,unknown,possible,separate from ordinary input boards; heuristic only
-90CYE_DKS,90CYE04_19_DKS.PZU,MUP,0x5A7F,control_or_start_command,0.800,confirmed,unknown,unknown,unknown,possible,kept distinct from MVK unless direct code-evidence appears
-90CYE_DKS,90CYE04_19_DKS.PZU,MDS,0x613C,discrete_signal_scan,0.208,unknown,55,unknown,unknown,possible,separate from ordinary input boards; heuristic only
-90CYE_DKS,90CYE04_19_DKS.PZU,MUP,0x613C,control_or_start_command,0.800,confirmed,unknown,unknown,unknown,possible,kept distinct from MVK unless direct code-evidence appears
+90CYE_DKS,90CYE04_19_DKS.PZU,MDS,0x497A,discrete_signal_scan,0.208,unknown,47,unknown,unknown,possible,separate from ordinary input boards; heuristic only; screen-visible module label present (config-level only)
+90CYE_DKS,90CYE04_19_DKS.PZU,MUP,0x497A,control_or_start_command,0.800,confirmed,unknown,unknown,unknown,possible,kept distinct from MVK unless direct code-evidence appears; screen-visible module label present (config-level only)
+90CYE_DKS,90CYE04_19_DKS.PZU,MDS,0x5A7F,discrete_signal_scan,0.208,unknown,0,unknown,unknown,possible,separate from ordinary input boards; heuristic only; screen-visible module label present (config-level only)
+90CYE_DKS,90CYE04_19_DKS.PZU,MUP,0x5A7F,control_or_start_command,0.800,confirmed,unknown,unknown,unknown,possible,kept distinct from MVK unless direct code-evidence appears; screen-visible module label present (config-level only)
+90CYE_DKS,90CYE04_19_DKS.PZU,MDS,0x613C,discrete_signal_scan,0.208,unknown,55,unknown,unknown,possible,separate from ordinary input boards; heuristic only; screen-visible module label present (config-level only)
+90CYE_DKS,90CYE04_19_DKS.PZU,MUP,0x613C,control_or_start_command,0.800,confirmed,unknown,unknown,unknown,possible,kept distinct from MVK unless direct code-evidence appears; screen-visible module label present (config-level only)
 A03_A04,A03_26.PZU,MDS,0x497A,discrete_signal_scan,0.800,confirmed,13,unknown,unknown,possible,separate from ordinary input boards; heuristic only
 A03_A04,A03_26.PZU,MUP,0x497A,control_or_start_command,0.800,confirmed,unknown,unknown,unknown,possible,kept distinct from MVK unless direct code-evidence appears
 A03_A04,A03_26.PZU,MDS,0xA900,discrete_signal_scan,0.800,confirmed,14,unknown,unknown,possible,separate from ordinary input boards; heuristic only
@@ -41,11 +41,11 @@ A03_A04,A04_28.PZU,MDS,0x722E,discrete_signal_scan,0.120,unknown,83,unknown,unkn
 A03_A04,A04_28.PZU,MUP,0x722E,control_or_start_command,0.800,confirmed,unknown,unknown,unknown,possible,kept distinct from MVK unless direct code-evidence appears
 A03_A04,A04_28.PZU,MDS,0xB310,discrete_signal_scan,0.120,unknown,13,unknown,unknown,possible,separate from ordinary input boards; heuristic only
 A03_A04,A04_28.PZU,MUP,0xB310,control_or_start_command,0.800,confirmed,unknown,unknown,unknown,possible,kept distinct from MVK unless direct code-evidence appears
-RTOS_service,ppkp2001 90cye01.PZU,MDS,0x758B,discrete_signal_scan,0.800,confirmed,68,unknown,unknown,possible,separate from ordinary input boards; heuristic only
+RTOS_service,ppkp2001 90cye01.PZU,MDS,0x758B,discrete_signal_scan,0.800,confirmed,68,unknown,unknown,possible,separate from ordinary input boards; heuristic only; screen-visible module label present (config-level only)
 RTOS_service,ppkp2001 90cye01.PZU,MUP,0x758B,control_or_start_command,0.800,confirmed,unknown,unknown,unknown,possible,kept distinct from MVK unless direct code-evidence appears
-RTOS_service,ppkp2001 90cye01.PZU,MDS,0x53E6,discrete_signal_scan,0.800,confirmed,180,unknown,unknown,possible,separate from ordinary input boards; heuristic only
+RTOS_service,ppkp2001 90cye01.PZU,MDS,0x53E6,discrete_signal_scan,0.800,confirmed,180,unknown,unknown,possible,separate from ordinary input boards; heuristic only; screen-visible module label present (config-level only)
 RTOS_service,ppkp2001 90cye01.PZU,MUP,0x53E6,control_or_start_command,0.800,confirmed,unknown,unknown,unknown,possible,kept distinct from MVK unless direct code-evidence appears
-RTOS_service,ppkp2001 90cye01.PZU,MDS,0xA3FD,discrete_signal_scan,0.800,confirmed,5,unknown,unknown,possible,separate from ordinary input boards; heuristic only
+RTOS_service,ppkp2001 90cye01.PZU,MDS,0xA3FD,discrete_signal_scan,0.800,confirmed,5,unknown,unknown,possible,separate from ordinary input boards; heuristic only; screen-visible module label present (config-level only)
 RTOS_service,ppkp2001 90cye01.PZU,MUP,0xA3FD,control_or_start_command,0.800,confirmed,unknown,unknown,unknown,possible,kept distinct from MVK unless direct code-evidence appears
 RTOS_service,ppkp2012 a01.PZU,MDS,0x75F7,discrete_signal_scan,0.208,unknown,88,unknown,unknown,possible,separate from ordinary input boards; heuristic only
 RTOS_service,ppkp2012 a01.PZU,MUP,0x75F7,control_or_start_command,0.800,confirmed,unknown,unknown,unknown,possible,kept distinct from MVK unless direct code-evidence appears
