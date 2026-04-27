@@ -57,6 +57,10 @@
 - docs/manual_dks_downstream_decompile.md — semi-manual reconstruction of downstream 90CYE_DKS functions 0x5A7F, 0x737C, 0x84A6, 0x7922, 0x597F, 0x7DC2.
 - docs/manual_dks_downstream_decompile_summary.csv — role/confidence summary for downstream DKS functions.
 - docs/manual_dks_downstream_pseudocode.csv — pseudocode skeletons for downstream DKS functions.
+- docs/dks_xdata_lifecycle_analysis.md — lifecycle reconstruction for key DKS XDATA state/mode/packet context addresses.
+- docs/dks_xdata_lifecycle_matrix.csv — address-level XDATA lifecycle matrix.
+- docs/dks_xdata_function_roles.csv — function-to-XDATA role mapping for DKS chain functions.
+- docs/dks_xdata_bench_probe_plan.csv — runtime probe plan for validating XDATA state/mode/output hypotheses.
 - docs/module_handler_summary.csv — сводная таблица кандидатов обработчиков модулей по всем веткам.
 - Предыдущий файл анализа/журнал: `PZU_ANALYSIS.md`
 

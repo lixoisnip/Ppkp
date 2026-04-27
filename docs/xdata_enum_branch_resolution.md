@@ -1,5 +1,5 @@
 # XDATA enum/branch resolution (deep milestone)
-Date: 2026-04-27 06:51 UTC.
+Date: 2026-04-27 09:14 UTC.
 
 ## 1) XDATA lifecycle coverage
 - `0x30EA..0x30F9`: reads=-; writes=-; branches=-; exports=- (probable).
@@ -59,3 +59,12 @@ Date: 2026-04-27 06:51 UTC.
       -> manual-like: packet/event only -> 0x5A7F
       -> auto-like: output start -> 0x6833 -> packet/export -> 0x5A7F
 ```
+
+## DKS lifecycle follow-up
+
+The focused DKS lifecycle reconstruction supersedes/refines this older high-level report for 90CYE_DKS XDATA state/mode/packet context mapping.
+
+- `docs/dks_xdata_lifecycle_analysis.md`
+- `docs/dks_xdata_lifecycle_matrix.csv`
+- `docs/dks_xdata_function_roles.csv`
+- `docs/dks_xdata_bench_probe_plan.csv`
