@@ -1,0 +1,5 @@
+branch,file,function_addr,output_candidate,project_label,xdata_refs,prestart_delay_context,start_pulse_context,confidence,evidence_level,notes
+90CYE_DKS,90CYE03_19_DKS.PZU,0x6833,prestart_warning_1,AN_Aerosol_do_not_enter,0x315B|0x3640,before 30s delay completion,before GOA pulse,low,hypothesis,Separated candidate output group without terminal-level proof.
+90CYE_DKS,90CYE03_19_DKS.PZU,0x6833,prestart_warning_2,AU_Aerosol_leave,0x315B|0x364B,before 30s delay completion,before GOA pulse,low,hypothesis,Separated candidate output group without terminal-level proof.
+90CYE_DKS,90CYE03_19_DKS.PZU,0x728A,mode_indicator,AO_Automatics_disabled,0x30E7|0x30E9,mode gate stage,not a launch pulse,low,static_code,AO tied to mode/interlock path candidate.
+90CYE_DKS,90CYE03_19_DKS.PZU,0x7DC2,launch_line_pulse,GOA_launch_pulse,0x315B|0x3181,after delay path,final stage of start chain,low,manual_decompile,Most plausible launch pulse stage candidate; pulse width parameters unresolved.

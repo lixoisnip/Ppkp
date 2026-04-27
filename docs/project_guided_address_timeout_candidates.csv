@@ -1,0 +1,4 @@
+branch,file,function_addr,candidate_type,constants,xdata_refs,related_device,confidence,evidence_level,notes
+90CYE_DKS,90CYE03_19_DKS.PZU,0x84A6,address_dispatch,0x31BF,0x31BF|0x364B,90CYE03/04,low,static_code,"Likely dispatch/state selector, but explicit 90CYE01/02/03/04 numeric map not yet found (PU-002)."
+RTOS_service,ppkp2001 90cye01.PZU,0x53E6,timeout_counter,unknown,,90CYE01,low,cross_family_pattern,Imported from RTOS_service chain summary as retry/timeout pattern candidate (PU-005).
+all,all,unknown,uart_baud_config,unresolved,,90CYE01/02/03/04,unknown,unknown,No reliable baud divisor constant isolated from current static inputs (PU-003).

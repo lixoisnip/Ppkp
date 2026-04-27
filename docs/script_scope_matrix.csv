@@ -52,3 +52,7 @@ scripts/shifted_v2_xdata_offset_validator.py,false,false,true,true,true,true,Val
 scripts/rtos_service_chain_decompiler.py,false,true,true,true,true,true,Produces RTOS_service chain-focused manual-static decompile summary/pseudocode/comparison with evidence-level separation.
 scripts/cross_family_static_deepening_builder.py,true,false,true,true,true,true,Builds consolidated cross-family static deepening v1 report/dashboard/next-target/confidence update outputs.
 scripts/integrate_project_scan_extraction.py,false,false,false,true,true,true,Generates docs/extracted project-scan evidence layer from user-supplied structured extraction data; does not parse PDFs/images and does not modify .PZU files.
+scripts/project_guided_rs485_analyzer.py,true,false,true,true,true,true,project-driven RS-485 static narrowing with evidence-level separation
+scripts/project_guided_enum_delay_interlock_analyzer.py,true,false,true,true,true,true,project-driven enum/delay/door-interlock/AO candidate search with conservative confidence
+scripts/project_guided_mds_mvk_valve_output_analyzer.py,true,false,true,true,true,true,project-driven MDS/MVK/valve/aerosol candidate narrowing and MUP/PVK split ledger
+scripts/project_guided_static_summary_builder.py,true,false,true,true,true,true,consolidates project-guided outputs into summary/confidence/next-target/unknowns-v2 artifacts

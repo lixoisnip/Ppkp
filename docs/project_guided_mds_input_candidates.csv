@@ -1,0 +1,9 @@
+branch,file,function_addr,input_signal_candidate,project_tag,terminal_hint,xdata_refs,bitmask_or_channel_hint,confidence,evidence_level,notes
+RTOS_service,ppkp2001 90cye01.PZU,0x4358,CP051,MDS_input,X03:1,unknown,channel_group_0,low,project_documentation,Project-doc confirmed signal; static channel-bit mapping unresolved.
+RTOS_service,ppkp2001 90cye01.PZU,0x4358,CF051,MDS_input,X03:3,unknown,channel_group_0,low,project_documentation,Constrained by extracted terminals; keep static mapping unresolved.
+RTOS_service,ppkp2001 90cye01.PZU,0x4358,CF052,MDS_input,X03:5,unknown,channel_group_0,low,project_documentation,Needs direct code-channel join evidence.
+RTOS_service,ppkp2001 90cye01.PZU,0x4358,CF053,MDS_input,X03:7,unknown,channel_group_0,low,project_documentation,Needs direct code-channel join evidence.
+RTOS_service,ppkp2001 90cye01.PZU,0x920C,CH001,MDS_input,X03:9/10,unknown,channel_group_1,low,hypothesis,CH-lines likely grouped; bit split unresolved.
+RTOS_service,ppkp2001 90cye01.PZU,0x920C,CH002,MDS_input,X03:11/12,unknown,channel_group_1,low,hypothesis,CH-lines likely grouped; bit split unresolved.
+RTOS_service,ppkp2001 90cye01.PZU,0x920C,CH003,MDS_input,X03:13/14,unknown,channel_group_1,low,hypothesis,CH-lines likely grouped; bit split unresolved.
+RTOS_service,ppkp2001 90cye01.PZU,0x920C,CH004,MDS_input,X03:15/16,unknown,channel_group_1,low,hypothesis,CH-lines likely grouped; bit split unresolved.

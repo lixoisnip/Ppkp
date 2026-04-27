@@ -1,0 +1,6 @@
+priority,area,branch,file,function_addr,target_reason,expected_gain,notes
+P1,RS-485,90CYE_DKS,90CYE03_19_DKS.PZU,0x5A7F,disambiguate bridge vs builder responsibilities,PU-001/PU-004 narrowing,Extract immediate-byte loops and table accesses around all direct callers.
+P1,RS-485,RTOS_service,ppkp2001 90cye01.PZU,0x920C,search address/baud constants and parser windows,PU-002/PU-003 narrowing,Compare with UART init signatures and code-table candidates.
+P1,Delay/Interlock,90CYE_DKS,90CYE03_19_DKS.PZU,0x6833,extract timer arithmetic proving 30s base,PU-006 and delay confidence uplift,Need block-level immediate extraction around countdown updates.
+P2,Valve feedback,90CYE_shifted_DKS,90CYE02_27 DKS.PZU,0x673C,separate open/closed/fault bit pathways,PU-010 narrowing,Link object table writes to limit-switch read sequence.
+P2,Aerosol outputs,90CYE_DKS,90CYE03_19_DKS.PZU,0x7DC2,separate GOA launch pulse from AN/AU warnings,PU-009/PU-011 narrowing,Track writes immediately after delay-complete branch.

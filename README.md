@@ -185,3 +185,28 @@ Generated extraction layer (project-level evidence, separated from static/decomp
 - `docs/extracted/project_to_firmware_linkage.csv`
 - `docs/extracted/firmware_search_targets.md`
 - `docs/extracted/states_enum_candidates.md`
+
+
+## Project-guided static search milestone (issue-driven)
+
+Добавлен целевой статический этап, где project-documentation используется как ограничитель поиска (без переноса семантики без code evidence):
+
+- `docs/project_guided_static_analysis_summary.md`
+- `docs/project_guided_rs485_analysis.md`
+- `docs/project_guided_enum_delay_interlock_analysis.md`
+- `docs/project_guided_mds_mvk_valve_output_analysis.md`
+
+Скрипты:
+- `scripts/project_guided_rs485_analyzer.py`
+- `scripts/project_guided_enum_delay_interlock_analyzer.py`
+- `scripts/project_guided_mds_mvk_valve_output_analyzer.py`
+- `scripts/project_guided_static_summary_builder.py`
+
+Запуск:
+```bash
+python3 scripts/project_guided_rs485_analyzer.py
+python3 scripts/project_guided_enum_delay_interlock_analyzer.py
+python3 scripts/project_guided_mds_mvk_valve_output_analyzer.py
+python3 scripts/project_guided_static_summary_builder.py
+python3 scripts/run_analysis_smoke_test.py
+```

@@ -94,3 +94,13 @@ See `docs/extracted/firmware_search_targets.md`.
 
 ## Conclusions
 Project scans materially strengthen physical/system-level meaning but do not directly prove code-level handler addresses or numeric protocol/enum values. Evidence levels must stay separated and conservative until static/bench confirmation is added.
+
+## Project-guided static analysis linkage
+
+This extraction now feeds dedicated static analyzers:
+- `scripts/project_guided_rs485_analyzer.py`
+- `scripts/project_guided_enum_delay_interlock_analyzer.py`
+- `scripts/project_guided_mds_mvk_valve_output_analyzer.py`
+- `scripts/project_guided_static_summary_builder.py`
+
+Outputs remain evidence-separated and do not imply bench confirmation.

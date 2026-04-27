@@ -1,0 +1,4 @@
+area,previous_status,project_evidence,static_search_result,new_status,confidence,evidence_level,notes
+RS-485_transfer_path,high_unknown,90CYE01->90CYE02/03/04 fire transfer confirmed,212 candidates; strongest bridge 0x5A7F,partial_static_narrowing,medium,project_documentation+static_code,Frame format/address/baud/CRC still unresolved.
+enum_delay_interlock,medium_unknown,30s delay + door interlock + AO semantics confirmed,3 enum links and 2 delay candidates,improved_static_alignment,medium,project_documentation+static_code+manual_decompile,Numeric enum semantics remain confidence-capped.
+MDS_MVK_valve_output,medium_unknown,MDS CP/CF/CH + MVK + damper + aerosol outputs confirmed,"8 MDS, 2 valve, 4 aerosol candidates",partial_narrowing,low_to_medium,project_documentation+static_code,Terminal/object maps and pulse parameters unresolved.

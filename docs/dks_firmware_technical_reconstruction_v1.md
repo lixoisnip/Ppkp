@@ -1,6 +1,6 @@
 # DKS firmware technical reconstruction v1
 
-Generated: 2026-04-27 13:40:59Z
+Generated: 2026-04-27 14:56:50Z
 
 ## 1. Scope and evidence rules
 This report keeps strict evidence levels: `confirmed_static`, `probable_static`, `manual_decompile`, `chain_adjacency`, `screen_configuration`, `hypothesis`, `unknown`.
@@ -72,22 +72,6 @@ See `dks_next_iteration_plan.csv`.
 
 These values are intentionally conservative and should rise only with bench-confirmed evidence.
 
-## Project documentation evidence follow-up
+## Project-guided static follow-up
 
-Project scan extraction adds `project_documentation` evidence that confirms physical/system roles:
-- `90CYE01` is an address fire alarm controller and fire-state source.
-- `90CYE02` is a fire damper controller using voltage-removal behavior.
-- `90CYE03/90CYE04` are aerosol extinguishing start controllers.
-- `MDS еФ5.104.156` is present in `90CYE01` with project-confirmed CP/CF/CH physical signals.
-
-This strengthens physical hypotheses for:
-- fire-state transfer from `90CYE01` to `90CYE03/90CYE04`;
-- aerosol 30-second delay behavior;
-- door interlock and auto/manual gating semantics;
-- warning board sequence and aerosol start path intent.
-
-Guardrails:
-- Project docs do **not** confirm numeric enum codes.
-- Project docs do **not** confirm RS-485 packet format/CRC/addresses.
-- Project docs do **not** confirm launch-line resistance/open/short supervision.
-- MUP/PVK remain split evidence: screen labels are confirmed in configuration evidence, while handler attribution remains unresolved.
+Project-guided scripts were added to narrow RS-485 (PU-001..PU-005), enum/delay/interlock (PU-006), and MDS/MVK/valve/aerosol mapping unknowns while preserving evidence-level separation and avoiding bench-confirmed claims. See `docs/project_guided_static_analysis_summary.md`.
