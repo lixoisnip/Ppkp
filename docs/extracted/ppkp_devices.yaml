@@ -1,0 +1,97 @@
+devices:
+  90CYE01:
+    type: ППКП-01Ф-20.01
+    role:
+      - address_fire_alarm
+      - zone_control
+      - fire_state_source
+      - water_extinguishing_discrete_input_collector
+    confirmed_functions:
+      - one_automatic_detector_attention
+      - two_automatic_detectors_fire
+      - one_manual_detector_fire
+      - soue_activation
+      - ventilation_shutdown
+      - mvk_2_1_any_zone_fire
+      - rs485_fire_export_to_90CYE02_03_04
+    modules:
+      MDS:
+        type: еФ5.104.156
+        evidence: project_documentation
+        inputs:
+          - tag: 03SGC01CP051
+            physical: pressure_switch_PS10
+            meaning: water_pressure_after_stop_chamber
+          - tag: 03SGC01CF051
+            physical: flow_switch_VSR
+            meaning: flow_after_water_alarm_valve
+          - tag: 03SGC01CF052
+            physical: flow_switch_VSR_6
+            meaning: sprinkler_pipe_flow
+          - tag: 03SGC01CF053
+            physical: flow_switch_VSR_6
+            meaning: sprinkler_pipe_flow
+          - tag: 90CYE01CH001
+            physical: remote_pump_start
+          - tag: 90CYE01CH002
+            physical: remote_pump_start
+          - tag: 90CYE01CH003
+            physical: remote_pump_start
+          - tag: 90CYE01CH004
+            physical: remote_pump_start
+      MVK_2_1:
+        evidence: project_documentation
+        role: any_zone_fire_output
+    communications:
+      rs485_fire_export_to:
+        - 90CYE02
+        - 90CYE03
+        - 90CYE04
+
+  90CYE02:
+    type: ППКП-01Ф-27
+    role:
+      - fire_damper_control
+    confirmed_functions:
+      - receives_fire_from_90CYE01_rs485
+      - removes_voltage_from_damper_control_circuits
+      - monitors_limit_switches
+    unknowns:
+      - full_terminal_table
+      - timeout
+      - rs485_protocol
+
+  90CYE03:
+    type: ППКП-01Ф-19
+    role:
+      - aerosol_extinguishing_start
+    confirmed_functions:
+      - receives_fire_from_90CYE01_rs485
+      - auto_manual_modes
+      - warning_boards
+      - start_delay_30s
+      - launch_pulse
+      - door_open_auto_disable
+
+  90CYE04:
+    type: ППКП-01Ф-19
+    role:
+      - aerosol_extinguishing_start
+    confirmed_functions:
+      - same_as_90CYE03_unless_project_specific_difference_found
+
+equipment:
+  GH003:
+    type: BC-12-A
+    role: terminal_box_for_CH001_CH004
+  tabs:
+    - Газ! Не входи
+    - Автоматика отключена
+    - Аэрозоль - не входи
+  sensors:
+    - ИО 102-26
+    - PS10
+    - VSR
+    - VSR-6
+    - MCP5A
+    - WR4001I.S

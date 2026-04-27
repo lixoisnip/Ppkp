@@ -1,6 +1,6 @@
 # DKS runtime validation plan v1
 
-Generated: 2026-04-27 10:35:10Z
+Generated: 2026-04-27 13:40:59Z
 
 ## Scope and safety
 - This document is a **validation plan** and does not contain bench-confirmed runtime evidence.
@@ -117,5 +117,13 @@ If required tests succeed with synchronized evidence, projected uplift targets a
 - `PVK_handler`: `47% -> 60–75%`
 - `physical_output_semantics`: `29% -> 55–75%`
 
-## Cross-family guardrail addendum
-This validation plan is DKS-specific. For A03/A04, v2_1, shifted_DKS, and RTOS_service use separate family plans and do not assume DKS physical semantics without family-local evidence.
+## Project-doc driven validation additions
+
+Additional validation scenarios derived from project-documentation extraction:
+- verify 30-second aerosol delay behavior;
+- verify door-open disables auto mode and forces manual mode behavior;
+- verify AO (`Автоматика отключена`) indicator ON in manual and OFF in auto;
+- verify RS-485 fire transfer `90CYE01 -> 90CYE03/90CYE04`;
+- verify `90CYE02` voltage removal on fire event;
+- verify valve limit-switch status transitions and fault hypotheses;
+- verify MDS CP/CF/CH event ingestion and state reporting in `90CYE01`.

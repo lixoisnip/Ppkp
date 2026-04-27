@@ -1,0 +1,7 @@
+area,previous_confidence,new_project_evidence_confidence,code_confidence_changed,reason,notes
+90CYE03_90CYE04_aerosol_physical_role,medium,high,no,Project docs explicitly describe aerosol start role with 30s delay and door interlock,Function-address ownership still requires static+bench confirmation
+90CYE01_MDS_physical_role,medium,high,no,Project docs explicitly identify MDS еФ5.104.156 and CP/CF/CH signals,Runtime word/bit mapping remains unknown
+90CYE02_damper_voltage_removal_role,medium,high,no,Project docs explicitly describe voltage removal and limit-switch monitoring,Exact terminals and timeout logic still unknown
+RS485_packet_format,low,low,no,Project docs confirm transfer intent but no frame specification,Format/address/CRC/retry remain unknown
+numeric_enum_codes,low,low,no,Project docs contain labels but no numeric codes,Enum numeric mapping remains evidence-gated
+launch_line_supervision,low,low,no,No direct project confirmation of resistance/open/short supervision,Keep unknown until direct evidence
