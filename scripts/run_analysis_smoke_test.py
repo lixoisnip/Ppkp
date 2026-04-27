@@ -284,6 +284,20 @@ def main() -> int:
             "project-guided consolidated summary",
         ),
         SmokeCommand(
+            "project_guided_micro_decompiler.py",
+            "project_guided_static",
+            [sys.executable, "scripts/project_guided_micro_decompiler.py"],
+            [
+                "docs/project_guided_micro_decompile.md",
+                "docs/project_guided_micro_decompile_summary.csv",
+                "docs/project_guided_micro_pseudocode.csv",
+                "docs/project_guided_micro_constants.csv",
+                "docs/project_guided_micro_xdata_flow.csv",
+                "docs/project_guided_micro_unknowns_update.csv",
+            ],
+            "project-guided focused micro-decompile pass over top static targets",
+        ),
+        SmokeCommand(
             "mash_code_evidence_analyzer.py",
             "global_mash_analysis",
             [sys.executable, "scripts/mash_code_evidence_analyzer.py"],

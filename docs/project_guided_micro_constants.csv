@@ -1,0 +1,31 @@
+branch,file,function_addr,constant,constant_format,nearby_operation,possible_meaning,confidence,evidence_level,notes
+90CYE_DKS,90CYE03_19_DKS.PZU,0x5A7F,0x82,hex_immediate,disassembly_window,address/mask/state/timer candidate,low_to_medium,static_code,micro window extraction
+90CYE_DKS,90CYE03_19_DKS.PZU,0x5A7F,0x83,hex_immediate,disassembly_window,address/mask/state/timer candidate,low_to_medium,static_code,micro window extraction
+RTOS_service,ppkp2001 90cye01.PZU,0x920C,0x7638,hex_immediate,disassembly_window,address/mask/state/timer candidate,low_to_medium,static_code,micro window extraction
+RTOS_service,ppkp2001 90cye01.PZU,0x920C,0x75A9,hex_immediate,disassembly_window,address/mask/state/timer candidate,low_to_medium,static_code,micro window extraction
+RTOS_service,ppkp2001 90cye01.PZU,0x920C,0x7640,hex_immediate,disassembly_window,address/mask/state/timer candidate,low_to_medium,static_code,micro window extraction
+RTOS_service,ppkp2001 90cye01.PZU,0x920C,0xCA,hex_immediate,disassembly_window,address/mask/state/timer candidate,low_to_medium,static_code,micro window extraction
+RTOS_service,ppkp2001 90cye01.PZU,0x920C,0x49D5,hex_immediate,disassembly_window,address/mask/state/timer candidate,low_to_medium,static_code,micro window extraction
+RTOS_service,ppkp2001 90cye01.PZU,0x920C,0x90CD,hex_immediate,disassembly_window,address/mask/state/timer candidate,low_to_medium,static_code,micro window extraction
+RTOS_service,ppkp2001 90cye01.PZU,0x920C,0x4A0F,hex_immediate,disassembly_window,address/mask/state/timer candidate,low_to_medium,static_code,micro window extraction
+RTOS_service,ppkp2001 90cye01.PZU,0x920C,0x0B,hex_immediate,disassembly_window,address/mask/state/timer candidate,low_to_medium,static_code,micro window extraction
+90CYE_DKS,90CYE03_19_DKS.PZU,0x6833,0x5A7F,hex_immediate,disassembly_window,address/mask/state/timer candidate,low_to_medium,static_code,micro window extraction
+90CYE_DKS,90CYE03_19_DKS.PZU,0x6833,0x7108,hex_immediate,disassembly_window,address/mask/state/timer candidate,low_to_medium,static_code,micro window extraction
+90CYE_DKS,90CYE03_19_DKS.PZU,0x6833,0x7922,hex_immediate,disassembly_window,address/mask/state/timer candidate,low_to_medium,static_code,micro window extraction
+90CYE_DKS,90CYE03_19_DKS.PZU,0x6833,0x597F,hex_immediate,disassembly_window,address/mask/state/timer candidate,low_to_medium,static_code,micro window extraction
+90CYE_DKS,90CYE03_19_DKS.PZU,0x6833,0xEA,hex_immediate,disassembly_window,address/mask/state/timer candidate,low_to_medium,static_code,micro window extraction
+90CYE_DKS,90CYE03_19_DKS.PZU,0x6833,0xEF,hex_immediate,disassembly_window,address/mask/state/timer candidate,low_to_medium,static_code,micro window extraction
+90CYE_DKS,90CYE03_19_DKS.PZU,0x6833,0x04,hex_immediate,disassembly_window,address/mask/state/timer candidate,low_to_medium,static_code,micro window extraction
+90CYE_DKS,90CYE03_19_DKS.PZU,0x6833,0x71A8,hex_immediate,disassembly_window,address/mask/state/timer candidate,low_to_medium,static_code,micro window extraction
+90CYE_DKS,90CYE03_19_DKS.PZU,0x6833,0x04,byte_write,XDATA[DPTR]=0x04,start_marker_or_state_code,medium,manual_decompile+static_code,exact semantic (state/output/event) unresolved
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,0x673C,0x3104,hex_immediate,disassembly_window,address/mask/state/timer candidate,low_to_medium,static_code,micro window extraction
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,0x673C,0x30CE,hex_immediate,disassembly_window,address/mask/state/timer candidate,low_to_medium,static_code,micro window extraction
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,0x673C,0xE2,hex_immediate,disassembly_window,address/mask/state/timer candidate,low_to_medium,static_code,micro window extraction
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,0x673C,0x30B0,hex_immediate,disassembly_window,address/mask/state/timer candidate,low_to_medium,static_code,micro window extraction
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,0x673C,0x321D,hex_immediate,disassembly_window,address/mask/state/timer candidate,low_to_medium,static_code,micro window extraction
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,0x673C,0xF0,hex_immediate,disassembly_window,address/mask/state/timer candidate,low_to_medium,static_code,micro window extraction
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,0x673C,0x20,hex_immediate,disassembly_window,address/mask/state/timer candidate,low_to_medium,static_code,micro window extraction
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,0x673C,0x4575,hex_immediate,disassembly_window,address/mask/state/timer candidate,low_to_medium,static_code,micro window extraction
+90CYE_DKS,90CYE03_19_DKS.PZU,0x7DC2,0x7121,hex_immediate,disassembly_window,address/mask/state/timer candidate,low_to_medium,static_code,micro window extraction
+90CYE_DKS,90CYE03_19_DKS.PZU,0x7DC2,0xF0,hex_immediate,disassembly_window,address/mask/state/timer candidate,low_to_medium,static_code,micro window extraction
+90CYE_DKS,90CYE03_19_DKS.PZU,0x6833,0x1E,timer_like,project/delay candidate neighborhood,30-second symbolic candidate,low,hypothesis,not directly proven in 0x6833 body
