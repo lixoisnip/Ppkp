@@ -217,6 +217,7 @@ XDATA-адреса для подтверждения:
 - Добавлен отдельный анализатор `scripts/firmware_module_architecture_analyzer.py` для модульного сравнения по всем веткам с разделением CPU/runtime core, keyboard/display, MASH, MVK, input board, MDS, MUP, aerosol/water-specific и packet/export.
 - Выходные артефакты: `docs/firmware_architecture_matrix.csv`, `docs/shared_core_function_map.csv`, `docs/module_presence_matrix.csv`, `docs/mvk_output_semantics.csv`, `docs/aerosol_line_supervision_candidates.csv`, `docs/input_board_presence_matrix.csv`, `docs/cross_firmware_pattern_summary.csv`, `docs/mds_mup_module_candidates.csv`, `docs/firmware_module_architecture_comparison.md`.
 - Правило интерпретации: слабые выводы помечаются `hypothesis/unknown`; MUP не приравнивается к MVK, MDS не приравнивается к обычной input-board логике без прямого code evidence.
+- Дополнительное правило confidence: score MUP не наследуется от MVK/output score, а score MDS не наследуется от generic input-board score; screen/config evidence и code-handler evidence маркируются отдельно.
 
 ## Real DKS screen/configuration evidence (Issue #52 follow-up)
 

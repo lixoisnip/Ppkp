@@ -26,3 +26,8 @@ Date: 2026-04-27 (UTC).
 ## Machine-readable source
 
 - `docs/dks_real_configuration_evidence.csv`
+
+## Confidence boundary note
+
+- This evidence may raise module-presence confidence.
+- It must not raise handler/function confidence by itself.

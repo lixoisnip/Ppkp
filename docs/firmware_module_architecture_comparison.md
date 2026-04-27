@@ -155,9 +155,9 @@ CPU board / runtime core
 
 ## 11. MDS and MUP modules
 
-- MDS evidence appears where discrete-like loops/state updates exist, but many remain hypothesis.
-- MUP evidence appears in control/start-adjacent chains. MUP is not equated with MVK.
-- MDS is treated separately from ordinary input board logic.
+- MDS code confidence is based on discrete-signal-like indicators; generic input-board evidence is weak support only.
+- MUP code confidence is based on control/start-specific indicators; MUP is not derived from MVK/runtime score.
+- Screen evidence and code-level handler candidates are tracked separately.
 - Strongest current candidates are listed in `docs/mds_mup_module_candidates.csv`.
 - Confidence labels used: confirmed / probable / hypothesis / unknown.
 - Next manual decompile targets: top per module from `docs/shared_core_function_map.csv`, `docs/mvk_output_semantics.csv`, `docs/mds_mup_module_candidates.csv`.
@@ -170,6 +170,18 @@ CPU board / runtime core
 - DKS 90CYE01 confirms MDS, PVK and two MASH modules (X05/X06).
 - DKS 90CYE02 confirms multiple MDS-like modules and object-status layer (`90SAE...` tags).
 - This strengthens module-separation interpretation (MDS/MUP/PVK/MASH, shleif status, object-status layer) without raising function-level confidence by itself.
+
+## 12.1 MDS/MUP confidence audit
+
+- PR #55 added real screen-confirmed module presence.
+- Screen evidence confirms slot/module presence, not function addresses.
+- Analyzer now separates screen-confirmed module presence, code-level handler candidates, and heuristic-only weak signals.
+- MUP is not derived from MVK automatically.
+- MDS is not derived from generic input-board evidence automatically.
+- Screen-confirmed MUP files: `90CYE03_19_DKS.PZU`, `90CYE04_19_DKS.PZU`.
+- Screen-confirmed MDS files: `ppkp2001 90cye01.PZU`, `90CYE02_27 DKS.PZU`, `90CYE03_19_DKS.PZU`, `90CYE04_19_DKS.PZU`.
+- Screen-confirmed MASH files: `ppkp2001 90cye01.PZU`.
+- Screen-confirmed PVK files: `ppkp2001 90cye01.PZU`, `90CYE03_19_DKS.PZU`, `90CYE04_19_DKS.PZU`.
 
 ## 13. APS/aerosol/water-like differences
 
@@ -197,8 +209,8 @@ See `docs/cross_firmware_pattern_summary.csv` for shared packet/core/front-panel
 - mash_address_loop: 90CYE_shifted_DKS:0x497F, 90CYE_DKS:0x497A, A03_A04:0x497A, RTOS_service:0x758B, RTOS_service:unknown
 - mvk_output_module: 90CYE_shifted_DKS:0x497F, 90CYE_v2_1:0x497F, 90CYE_DKS:0x497A, 90CYE_v2_1:0x497F, 90CYE_DKS:0x497A
 - input_signal_board: 90CYE_DKS:0x497A, 90CYE_DKS:0x497A, RTOS_service:0x758B, RTOS_service:0x75F7, RTOS_service:0x57DB
-- mds_discrete_signal_module: 90CYE_DKS:0x497A, A03_A04:0x497A, RTOS_service:0x758B, 90CYE_shifted_DKS:0x497F, 90CYE_shifted_DKS:unknown
-- mup_module: 90CYE_shifted_DKS:0x497F, 90CYE_v2_1:0x497F, 90CYE_DKS:0x497A, 90CYE_v2_1:0x497F, 90CYE_DKS:0x497A
+- mds_discrete_signal_module: 90CYE_shifted_DKS:0x497F, 90CYE_DKS:0x497A, 90CYE_DKS:0x497A, RTOS_service:0x758B, A03_A04:0x497A
+- mup_module: 90CYE_DKS:0x497A, 90CYE_DKS:0x497A, 90CYE_DKS:unknown, 90CYE_DKS:unknown, A03_A04:0x497A
 - packet_export: 90CYE_DKS:0x497A, 90CYE_DKS:0x497A, 90CYE_shifted_DKS:0x497F, 90CYE_v2_1:0x497F, 90CYE_v2_1:0x497F
 
 ## 19. Bench/runtime validation checklist
