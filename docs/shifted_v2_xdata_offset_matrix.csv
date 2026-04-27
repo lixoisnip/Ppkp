@@ -1,0 +1,32 @@
+reference_branch,target_branch,reference_file,target_file,reference_xdata,target_xdata,cluster,offset_delta,match_type,confidence,evidence_level,reference_functions,target_functions,notes
+90CYE_DKS,90CYE_shifted_DKS,90CYE03_19_DKS.PZU,90CYE02_27 DKS.PZU,0x3010,0x3010,cluster_3010_301B,mixed,partial_cluster_match,hypothesis,manual_static,0x5A7F|0x6833|0x737C,0x5FDF|0x7769|0x77A1|0x77C6|0x783F|0x7DFD|0x7E0B,Family-specific mapping; no DKS physical semantic transfer
+90CYE_DKS,90CYE_shifted_DKS,90CYE03_19_DKS.PZU,90CYE02_27 DKS.PZU,0x30E7,0x31DB,cluster_30E7,244,constant_offset,probable,xdata_pattern_match,0x5A7F|0x6833|0x737C,0x7A8A|0x7A97,Family-specific mapping; no DKS physical semantic transfer
+90CYE_DKS,90CYE_shifted_DKS,90CYE03_19_DKS.PZU,90CYE02_27 DKS.PZU,0x30E9,0x3102,cluster_30E9,25,constant_offset,probable,xdata_pattern_match,0x5A7F|0x6833|0x737C,0x7DEA|0x7F77,Family-specific mapping; no DKS physical semantic transfer
+90CYE_DKS,90CYE_shifted_DKS,90CYE03_19_DKS.PZU,90CYE02_27 DKS.PZU,0x30EA,,cluster_30EA_30F9,,unknown,unknown,unknown,,,No direct mapping row in current static artifacts
+90CYE_DKS,90CYE_shifted_DKS,90CYE03_19_DKS.PZU,90CYE02_27 DKS.PZU,0x315B,0x3158,cluster_315B,-3,constant_offset,probable,xdata_pattern_match,0x5A7F|0x6833|0x737C,0x85B6|0x8643,Family-specific mapping; no DKS physical semantic transfer
+90CYE_DKS,90CYE_shifted_DKS,90CYE03_19_DKS.PZU,90CYE02_27 DKS.PZU,0x3181,0x3184,cluster_3181,3,constant_offset,probable,xdata_pattern_match,0x5A7F|0x6833|0x737C,0x6A4E|0x6A5B|0x6A70|0x6A9F|0x6BB2|0x6BD6,Family-specific mapping; no DKS physical semantic transfer
+90CYE_DKS,90CYE_shifted_DKS,90CYE03_19_DKS.PZU,90CYE02_27 DKS.PZU,0x31BF,0x32B3,cluster_31BF,244,constant_offset,probable,xdata_pattern_match,0x5A7F|0x6833|0x737C,0x7773|0x7A81,Family-specific mapping; no DKS physical semantic transfer
+90CYE_DKS,90CYE_shifted_DKS,90CYE03_19_DKS.PZU,90CYE02_27 DKS.PZU,0x3640,,cluster_3640,,unknown,unknown,unknown,,,No direct mapping row in current static artifacts
+90CYE_DKS,90CYE_shifted_DKS,90CYE03_19_DKS.PZU,90CYE02_27 DKS.PZU,0x364B,,cluster_364B,,unknown,unknown,unknown,,,No direct mapping row in current static artifacts
+90CYE_DKS,90CYE_shifted_DKS,90CYE03_19_DKS.PZU,90CYE02_27 DKS.PZU,0x36D3,,cluster_36D3_36FD,,unknown,unknown,unknown,,,No direct mapping row in current static artifacts
+90CYE_DKS,90CYE_v2_1,90CYE03_19_DKS.PZU,90CYE03_19_2 v2_1.PZU,0x3010,0x3010,cluster_3010_301B,mixed,partial_cluster_match,hypothesis,manual_static,0x5A7F|0x6833|0x737C,0x7262|0x9400|0x9421|0x9425|0x9483|0x94BB|0x9774|0x977F|0xA969,Family-specific mapping; no DKS physical semantic transfer
+90CYE_DKS,90CYE_v2_1,90CYE03_19_DKS.PZU,90CYE04_19_2 v2_1.PZU,0x3010,0x3010,cluster_3010_301B,mixed,partial_cluster_match,hypothesis,manual_static,0x5A7F|0x6833|0x737C,0x7262|0x9400|0x9421|0x9425|0x9483|0x94BB|0x9774|0x977F|0xA969,Family-specific mapping; no DKS physical semantic transfer
+90CYE_DKS,90CYE_v2_1,90CYE03_19_DKS.PZU,90CYE03_19_2 v2_1.PZU,0x30E7,,cluster_30E7,,unknown,unknown,unknown,,,No direct mapping row in current static artifacts
+90CYE_DKS,90CYE_v2_1,90CYE03_19_DKS.PZU,90CYE04_19_2 v2_1.PZU,0x30E7,,cluster_30E7,,unknown,unknown,unknown,,,No direct mapping row in current static artifacts
+90CYE_DKS,90CYE_v2_1,90CYE03_19_DKS.PZU,90CYE03_19_2 v2_1.PZU,0x30E9,,cluster_30E9,,unknown,unknown,unknown,,,No direct mapping row in current static artifacts
+90CYE_DKS,90CYE_v2_1,90CYE03_19_DKS.PZU,90CYE04_19_2 v2_1.PZU,0x30E9,,cluster_30E9,,unknown,unknown,unknown,,,No direct mapping row in current static artifacts
+90CYE_DKS,90CYE_v2_1,90CYE03_19_DKS.PZU,90CYE03_19_2 v2_1.PZU,0x30EA,,cluster_30EA_30F9,,unknown,unknown,unknown,,,No direct mapping row in current static artifacts
+90CYE_DKS,90CYE_v2_1,90CYE03_19_DKS.PZU,90CYE04_19_2 v2_1.PZU,0x30EA,,cluster_30EA_30F9,,unknown,unknown,unknown,,,No direct mapping row in current static artifacts
+90CYE_DKS,90CYE_v2_1,90CYE03_19_DKS.PZU,90CYE03_19_2 v2_1.PZU,0x315B,0x315B,cluster_315B,0,constant_offset,probable,xdata_pattern_match,0x5A7F|0x6833|0x737C,0x73DA,Family-specific mapping; no DKS physical semantic transfer
+90CYE_DKS,90CYE_v2_1,90CYE03_19_DKS.PZU,90CYE04_19_2 v2_1.PZU,0x315B,0x315B,cluster_315B,0,constant_offset,probable,xdata_pattern_match,0x5A7F|0x6833|0x737C,0x73DA,Family-specific mapping; no DKS physical semantic transfer
+90CYE_DKS,90CYE_v2_1,90CYE03_19_DKS.PZU,90CYE03_19_2 v2_1.PZU,0x3181,0x317D,cluster_3181,-4,constant_offset,probable,xdata_pattern_match,0x5A7F|0x6833|0x737C,0x90B6|0x98E0|0xABDE|0xABF3|0xABFB,Family-specific mapping; no DKS physical semantic transfer
+90CYE_DKS,90CYE_v2_1,90CYE03_19_DKS.PZU,90CYE04_19_2 v2_1.PZU,0x3181,0x317D,cluster_3181,-4,constant_offset,probable,xdata_pattern_match,0x5A7F|0x6833|0x737C,0x90B6|0x98E0|0xABDE|0xABF3|0xABFB,Family-specific mapping; no DKS physical semantic transfer
+90CYE_DKS,90CYE_v2_1,90CYE03_19_DKS.PZU,90CYE03_19_2 v2_1.PZU,0x31BF,0x31A0,cluster_31BF,-31,constant_offset,probable,xdata_pattern_match,0x5A7F|0x6833|0x737C,0x8794,Family-specific mapping; no DKS physical semantic transfer
+90CYE_DKS,90CYE_v2_1,90CYE03_19_DKS.PZU,90CYE04_19_2 v2_1.PZU,0x31BF,0x31A0,cluster_31BF,-31,constant_offset,probable,xdata_pattern_match,0x5A7F|0x6833|0x737C,0x8794,Family-specific mapping; no DKS physical semantic transfer
+90CYE_DKS,90CYE_v2_1,90CYE03_19_DKS.PZU,90CYE03_19_2 v2_1.PZU,0x3640,,cluster_3640,,unknown,unknown,unknown,,,No direct mapping row in current static artifacts
+90CYE_DKS,90CYE_v2_1,90CYE03_19_DKS.PZU,90CYE04_19_2 v2_1.PZU,0x3640,,cluster_3640,,unknown,unknown,unknown,,,No direct mapping row in current static artifacts
+90CYE_DKS,90CYE_v2_1,90CYE03_19_DKS.PZU,90CYE03_19_2 v2_1.PZU,0x364B,,cluster_364B,,unknown,unknown,unknown,,,No direct mapping row in current static artifacts
+90CYE_DKS,90CYE_v2_1,90CYE03_19_DKS.PZU,90CYE04_19_2 v2_1.PZU,0x364B,,cluster_364B,,unknown,unknown,unknown,,,No direct mapping row in current static artifacts
+90CYE_DKS,90CYE_v2_1,90CYE03_19_DKS.PZU,90CYE03_19_2 v2_1.PZU,0x36D3,,cluster_36D3_36FD,,unknown,unknown,unknown,,,No direct mapping row in current static artifacts
+90CYE_DKS,90CYE_v2_1,90CYE03_19_DKS.PZU,90CYE04_19_2 v2_1.PZU,0x36D3,,cluster_36D3_36FD,,unknown,unknown,unknown,,,No direct mapping row in current static artifacts
+90CYE_DKS,90CYE_shifted_DKS,90CYE03_19_DKS.PZU,90CYE02_27 DKS.PZU,0x3104,0x3104,shifted_object_status_probe,0,exact_same_addr,hypothesis,manual_static,0x673C,0x673C,0x3104 persists in shifted_DKS; treated as object-status pattern candidate only

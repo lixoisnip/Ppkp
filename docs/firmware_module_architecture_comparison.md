@@ -231,14 +231,8 @@ See `docs/cross_firmware_pattern_summary.csv` for shared packet/core/front-panel
 - Unknown: insufficient evidence.
 - No `.PZU` files were modified.
 
-## 22. Cross-family static reconstruction v1 linkage
-
-Новый межсемейный milestone вынесен в отдельный пакет артефактов:
-- `docs/cross_family_function_analogs.*`
-- `docs/cross_family_xdata_schema_map.*`
-- `docs/cross_family_packet_output_comparison.md` + `docs/cross_family_packet_bridge_candidates.csv` + `docs/cross_family_output_action_candidates.csv`
-- `docs/cross_family_enum_state_comparison.md` + `docs/cross_family_enum_state_*`
-- `docs/cross_family_module_semantics.*`
-- `docs/cross_family_static_reconstruction_v1.md` + dashboard/unknowns/next-plan CSV
-
-Правило интерпретации сохранено: DKS используется как reference-pattern, но не как универсальное доказательство семантики для A03/A04, v2_1, shifted_DKS и RTOS_service.
+## 21. v1.1 static deepening addendum
+- `docs/a03_a04_packet_bridge_deepening.md` deepens A03/A04 packet bridge adjacency.
+- `docs/shifted_v2_xdata_offset_validation.md` validates shifted_DKS/v2_1 XDATA offsets/divergence.
+- `docs/rtos_service_chain_decompile_v1.md` provides RTOS_service family-specific chain decompile.
+- `docs/cross_family_static_deepening_v1.md` consolidates confidence/targets updates for this milestone.

@@ -4,3 +4,6 @@ CF-N2,high,Shifted_DKS + v2_1 xdata offset validation,xdata schema map + functio
 CF-N3,high,RTOS_service chain-specific manual decompile,0x758B/0x53E6/0xAB62 neighborhoods,separate family chain report
 CF-N4,medium,Enum divergence trace per family,enum matrix + branch traces,reduced enum ambiguity
 CF-N5,medium,Prepare cross-family bench matrix,unknowns dashboard,minimal-risk validation plan
+CF-N1.1,high,A03/A04 packet bridge callsite micro-decompile,a03_a04_packet_bridge_candidates_v2 + callsite_trace_v2,bridge/builder split refinement without DKS semantic carryover
+CF-N2.1,high,Shifted/v2_1 cluster lineage trace,shifted_v2_xdata_offset_matrix + function_anchor_map,determine conserved vs evolved schema segments
+CF-N3.1,high,RTOS_service chain pseudocode deepening,rtos_service_chain_summary + rtos_service_pseudocode,anchor-level block pseudocode and xdata timeline

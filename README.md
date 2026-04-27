@@ -151,3 +151,27 @@ python3 scripts/cross_family_module_semantics_reporter.py
 python3 scripts/cross_family_static_reconstruction_builder.py
 python3 scripts/run_analysis_smoke_test.py
 ```
+
+## Cross-family static deepening milestone v1.1
+
+Добавлен следующий углублённый статический этап (с разделением семейств и без слепого переноса DKS-семантики):
+
+- `docs/a03_a04_packet_bridge_deepening.md`
+- `docs/shifted_v2_xdata_offset_validation.md`
+- `docs/rtos_service_chain_decompile_v1.md`
+- `docs/cross_family_static_deepening_v1.md`
+
+Новые скрипты:
+- `scripts/a03_a04_packet_bridge_deepener.py`
+- `scripts/shifted_v2_xdata_offset_validator.py`
+- `scripts/rtos_service_chain_decompiler.py`
+- `scripts/cross_family_static_deepening_builder.py`
+
+Запуск v1.1:
+```bash
+python3 scripts/a03_a04_packet_bridge_deepener.py
+python3 scripts/shifted_v2_xdata_offset_validator.py
+python3 scripts/rtos_service_chain_decompiler.py
+python3 scripts/cross_family_static_deepening_builder.py
+python3 scripts/run_analysis_smoke_test.py
+```

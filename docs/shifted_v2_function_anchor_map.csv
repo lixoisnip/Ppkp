@@ -1,0 +1,15 @@
+target_branch,target_file,reference_function,target_function,role_candidate,match_type,confidence,evidence_level,xdata_overlap,callgraph_overlap,notes
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,0x497A,0x497F,shared runtime/state dispatcher,xdata_pattern_match,hypothesis,xdata_pattern_match,0x0035,,Analog candidate only unless fingerprint-level evidence
+90CYE_v2_1,90CYE03_19_2 v2_1.PZU,0x497A,0x497F,shared runtime/state dispatcher,xdata_pattern_match,hypothesis,xdata_pattern_match,0x0035,,Analog candidate only unless fingerprint-level evidence
+90CYE_v2_1,90CYE04_19_2 v2_1.PZU,0x497A,0x497F,shared runtime/state dispatcher,xdata_pattern_match,hypothesis,xdata_pattern_match,0x0035,,Analog candidate only unless fingerprint-level evidence
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,0x597F,0x8405,condition-check helper,hypothesis,unknown,hypothesis,,,Analog candidate only unless fingerprint-level evidence
+90CYE_v2_1,90CYE03_19_2 v2_1.PZU,0x597F,0xA496,condition-check helper,hypothesis,unknown,hypothesis,,,Analog candidate only unless fingerprint-level evidence
+90CYE_v2_1,90CYE04_19_2 v2_1.PZU,0x597F,0xA496,condition-check helper,hypothesis,unknown,hypothesis,,,Analog candidate only unless fingerprint-level evidence
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,0x5A7F,0x8405,packet/export bridge,hypothesis,unknown,hypothesis,,,Analog candidate only unless fingerprint-level evidence
+90CYE_v2_1,90CYE03_19_2 v2_1.PZU,0x5A7F,0xA496,packet/export bridge,hypothesis,unknown,hypothesis,,,Analog candidate only unless fingerprint-level evidence
+90CYE_v2_1,90CYE04_19_2 v2_1.PZU,0x5A7F,0xA496,packet/export bridge,hypothesis,unknown,hypothesis,,,Analog candidate only unless fingerprint-level evidence
+90CYE_v2_1,90CYE03_19_2 v2_1.PZU,0x728A,0xA5A9,mode gate,hypothesis,unknown,hypothesis,0x3013,0x7316,Analog candidate only unless fingerprint-level evidence
+90CYE_v2_1,90CYE04_19_2 v2_1.PZU,0x728A,0xA5A9,mode gate,hypothesis,unknown,hypothesis,0x3013,0x7316,Analog candidate only unless fingerprint-level evidence
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,0x7922,0x605A,table/state reader helper,hypothesis,unknown,hypothesis,,,Analog candidate only unless fingerprint-level evidence
+90CYE_v2_1,90CYE03_19_2 v2_1.PZU,0x7922,0x72BB,table/state reader helper,hypothesis,unknown,hypothesis,0x315B,,Analog candidate only unless fingerprint-level evidence
+90CYE_v2_1,90CYE04_19_2 v2_1.PZU,0x7922,0x72BB,table/state reader helper,hypothesis,unknown,hypothesis,0x315B,,Analog candidate only unless fingerprint-level evidence

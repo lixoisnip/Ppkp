@@ -1,0 +1,8 @@
+family,area,before_percent,after_percent,confidence,evidence,remaining_unknowns,next_step
+A03_A04,A03_A04_packet_bridge,64,74,probable,callgraph+xdata+manual_static,packet field semantics,target DPTR/callsite micro-trace
+90CYE_shifted_DKS,shifted_DKS_xdata_schema,76,74,probable,xdata cluster offset map,cluster semantics in shifted branch,function-scoped xdata lineage
+90CYE_v2_1,v2_1_xdata_schema,68,74,probable,offset/divergence matrix,evolution vs direct analog split,branch-local decompile around divergent clusters
+RTOS_service,RTOS_service_chain,58,74,probable,manual-static chain summary,module-side effects,deeper pseudocode with xdata timeline
+cross_family,cross_family_enum_vocab,66,67,probable,enum matrix v1 reuse,family-specific value behavior,family-specific branch probes
+cross_family,cross_family_output_action,56,58,hypothesis,existing output-action comparison,physical output equivalence,runtime capture plan
+cross_family,module_semantics,63,65,probable,module semantics matrix + RTOS update,MDS/MASH/PVK physical mapping,module-focused static+bench loop

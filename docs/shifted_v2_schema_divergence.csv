@@ -1,0 +1,31 @@
+branch,file,cluster,reference_pattern,target_pattern,divergence_type,severity,notes
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,cluster_3010_301B,contiguous DKS cluster,partial_cluster_match,partial_cluster_match,medium,Static-only evidence
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,cluster_30E7,contiguous DKS cluster,constant_offset,shifted,low,Static-only evidence
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,cluster_30E9,contiguous DKS cluster,constant_offset,shifted,low,Static-only evidence
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,cluster_30EA_30F9,DKS cluster static map,missing_or_unresolved,unknown,medium,Needs deeper function-scoped XDATA trace
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,cluster_315B,contiguous DKS cluster,constant_offset,shifted,low,Static-only evidence
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,cluster_3181,contiguous DKS cluster,constant_offset,shifted,low,Static-only evidence
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,cluster_31BF,contiguous DKS cluster,constant_offset,shifted,low,Static-only evidence
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,cluster_3640,DKS cluster static map,missing_or_unresolved,unknown,medium,Needs deeper function-scoped XDATA trace
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,cluster_364B,DKS cluster static map,missing_or_unresolved,unknown,medium,Needs deeper function-scoped XDATA trace
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,cluster_36D3_36FD,DKS cluster static map,missing_or_unresolved,unknown,medium,Needs deeper function-scoped XDATA trace
+90CYE_v2_1,90CYE03_19_2 v2_1.PZU,cluster_3010_301B,contiguous DKS cluster,partial_cluster_match,partial_cluster_match,medium,Static-only evidence
+90CYE_v2_1,90CYE04_19_2 v2_1.PZU,cluster_3010_301B,contiguous DKS cluster,partial_cluster_match,partial_cluster_match,medium,Static-only evidence
+90CYE_v2_1,90CYE03_19_2 v2_1.PZU,cluster_30E7,DKS cluster static map,missing_or_unresolved,unknown,medium,Needs deeper function-scoped XDATA trace
+90CYE_v2_1,90CYE04_19_2 v2_1.PZU,cluster_30E7,DKS cluster static map,missing_or_unresolved,unknown,medium,Needs deeper function-scoped XDATA trace
+90CYE_v2_1,90CYE03_19_2 v2_1.PZU,cluster_30E9,DKS cluster static map,missing_or_unresolved,unknown,medium,Needs deeper function-scoped XDATA trace
+90CYE_v2_1,90CYE04_19_2 v2_1.PZU,cluster_30E9,DKS cluster static map,missing_or_unresolved,unknown,medium,Needs deeper function-scoped XDATA trace
+90CYE_v2_1,90CYE03_19_2 v2_1.PZU,cluster_30EA_30F9,DKS cluster static map,missing_or_unresolved,unknown,medium,Needs deeper function-scoped XDATA trace
+90CYE_v2_1,90CYE04_19_2 v2_1.PZU,cluster_30EA_30F9,DKS cluster static map,missing_or_unresolved,unknown,medium,Needs deeper function-scoped XDATA trace
+90CYE_v2_1,90CYE03_19_2 v2_1.PZU,cluster_315B,contiguous DKS cluster,constant_offset,shifted,low,Static-only evidence
+90CYE_v2_1,90CYE04_19_2 v2_1.PZU,cluster_315B,contiguous DKS cluster,constant_offset,shifted,low,Static-only evidence
+90CYE_v2_1,90CYE03_19_2 v2_1.PZU,cluster_3181,contiguous DKS cluster,constant_offset,shifted,low,Static-only evidence
+90CYE_v2_1,90CYE04_19_2 v2_1.PZU,cluster_3181,contiguous DKS cluster,constant_offset,shifted,low,Static-only evidence
+90CYE_v2_1,90CYE03_19_2 v2_1.PZU,cluster_31BF,contiguous DKS cluster,constant_offset,shifted,low,Static-only evidence
+90CYE_v2_1,90CYE04_19_2 v2_1.PZU,cluster_31BF,contiguous DKS cluster,constant_offset,shifted,low,Static-only evidence
+90CYE_v2_1,90CYE03_19_2 v2_1.PZU,cluster_3640,DKS cluster static map,missing_or_unresolved,unknown,medium,Needs deeper function-scoped XDATA trace
+90CYE_v2_1,90CYE04_19_2 v2_1.PZU,cluster_3640,DKS cluster static map,missing_or_unresolved,unknown,medium,Needs deeper function-scoped XDATA trace
+90CYE_v2_1,90CYE03_19_2 v2_1.PZU,cluster_364B,DKS cluster static map,missing_or_unresolved,unknown,medium,Needs deeper function-scoped XDATA trace
+90CYE_v2_1,90CYE04_19_2 v2_1.PZU,cluster_364B,DKS cluster static map,missing_or_unresolved,unknown,medium,Needs deeper function-scoped XDATA trace
+90CYE_v2_1,90CYE03_19_2 v2_1.PZU,cluster_36D3_36FD,DKS cluster static map,missing_or_unresolved,unknown,medium,Needs deeper function-scoped XDATA trace
+90CYE_v2_1,90CYE04_19_2 v2_1.PZU,cluster_36D3_36FD,DKS cluster static map,missing_or_unresolved,unknown,medium,Needs deeper function-scoped XDATA trace

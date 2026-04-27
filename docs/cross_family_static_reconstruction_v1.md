@@ -1,6 +1,6 @@
 # Cross-family static reconstruction v1
 
-Generated: 2026-04-27 10:35:11Z
+Generated: 2026-04-27 11:08:18Z
 
 ## 1. Scope and evidence rules
 Evidence levels used: exact_fingerprint, near_fingerprint, callgraph_match, xdata_pattern_match, string_marker_match, screen_configuration, chain_adjacency, hypothesis, unknown.
@@ -60,3 +60,11 @@ See `cross_family_remaining_unknowns.csv`.
 
 ## 17. Next static iteration plan
 See `cross_family_next_static_plan.csv`.
+
+## 18. v1.1 deepening linkage
+- Follow-up artifacts:
+  - `docs/a03_a04_packet_bridge_deepening.md`
+  - `docs/shifted_v2_xdata_offset_validation.md`
+  - `docs/rtos_service_chain_decompile_v1.md`
+  - `docs/cross_family_static_deepening_v1.md`
+- DKS remains structural reference only; family-specific semantics are not transferred without direct evidence.

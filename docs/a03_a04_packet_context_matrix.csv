@@ -1,0 +1,4 @@
+branch,file,xdata_addr,context_role,readers,writers,packet_adjacency,confidence,evidence_level,notes
+A03_A04,A04_28.PZU,0x5004,packet_context_window_candidate,,0x497A,direct_window,probable,xdata_pattern_match,Context-only; no packet frame semantics claimed
+A03_A04,A04_28.PZU,0x5005,packet_context_window_candidate,,0x497A,direct_window,probable,xdata_pattern_match,Context-only; no packet frame semantics claimed
+A03_A04,A04_28.PZU,0x500F,packet_context_window_candidate,,0x89C9,direct_window,probable,xdata_pattern_match,Context-only; no packet frame semantics claimed

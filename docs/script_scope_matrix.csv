@@ -47,3 +47,7 @@ scripts/cross_family_packet_output_comparator.py,true,false,true,true,true,true,
 scripts/cross_family_enum_state_comparator.py,true,false,true,true,true,true,Compares enum/state byte vocabulary across families while keeping branch-specific semantics separate.
 scripts/cross_family_module_semantics_reporter.py,true,false,true,true,true,true,Builds cross-family module semantics matrix with confidence, unknowns and next static/external evidence steps.
 scripts/cross_family_static_reconstruction_builder.py,true,false,true,true,true,true,Builds consolidated cross-family static reconstruction v1 report plus confidence dashboard/unknowns/next plan.
+scripts/a03_a04_packet_bridge_deepener.py,false,true,true,true,true,true,Deepens A03/A04 packet bridge adjacency with family-specific guardrails and DKS-as-structure-only comparison.
+scripts/shifted_v2_xdata_offset_validator.py,false,false,true,true,true,true,Validates shifted_DKS and v2_1 XDATA clusters for exact/offset/divergent/unknown mapping relative to DKS references.
+scripts/rtos_service_chain_decompiler.py,false,true,true,true,true,true,Produces RTOS_service chain-focused manual-static decompile summary/pseudocode/comparison with evidence-level separation.
+scripts/cross_family_static_deepening_builder.py,true,false,true,true,true,true,Builds consolidated cross-family static deepening v1 report/dashboard/next-target/confidence update outputs.
