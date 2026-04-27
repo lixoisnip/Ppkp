@@ -1,0 +1,31 @@
+branch,file,module_type,unknown_reason,next_static_step,next_external_evidence_needed
+90CYE_DKS,90CYE03_19_DKS.PZU,PVK,no strong static function candidate,cross-check with function analog map + xdata map,module-level runtime trace or docs
+90CYE_DKS,90CYE03_19_DKS.PZU,output/action,no strong static function candidate,cross-check with function analog map + xdata map,module-level runtime trace or docs
+90CYE_DKS,90CYE03_19_DKS.PZU,object/status layer,no strong static function candidate,cross-check with function analog map + xdata map,module-level runtime trace or docs
+90CYE_DKS,90CYE04_19_DKS.PZU,PVK,no strong static function candidate,cross-check with function analog map + xdata map,module-level runtime trace or docs
+90CYE_DKS,90CYE04_19_DKS.PZU,output/action,no strong static function candidate,cross-check with function analog map + xdata map,module-level runtime trace or docs
+90CYE_DKS,90CYE04_19_DKS.PZU,object/status layer,no strong static function candidate,cross-check with function analog map + xdata map,module-level runtime trace or docs
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,PVK,no strong static function candidate,cross-check with function analog map + xdata map,module-level runtime trace or docs
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,output/action,no strong static function candidate,cross-check with function analog map + xdata map,module-level runtime trace or docs
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,object/status layer,no strong static function candidate,cross-check with function analog map + xdata map,module-level runtime trace or docs
+90CYE_v2_1,90CYE03_19_2 v2_1.PZU,PVK,no strong static function candidate,cross-check with function analog map + xdata map,module-level runtime trace or docs
+90CYE_v2_1,90CYE03_19_2 v2_1.PZU,output/action,no strong static function candidate,cross-check with function analog map + xdata map,module-level runtime trace or docs
+90CYE_v2_1,90CYE03_19_2 v2_1.PZU,object/status layer,no strong static function candidate,cross-check with function analog map + xdata map,module-level runtime trace or docs
+90CYE_v2_1,90CYE04_19_2 v2_1.PZU,PVK,no strong static function candidate,cross-check with function analog map + xdata map,module-level runtime trace or docs
+90CYE_v2_1,90CYE04_19_2 v2_1.PZU,output/action,no strong static function candidate,cross-check with function analog map + xdata map,module-level runtime trace or docs
+90CYE_v2_1,90CYE04_19_2 v2_1.PZU,object/status layer,no strong static function candidate,cross-check with function analog map + xdata map,module-level runtime trace or docs
+A03_A04,A03_26.PZU,PVK,no strong static function candidate,cross-check with function analog map + xdata map,module-level runtime trace or docs
+A03_A04,A03_26.PZU,output/action,no strong static function candidate,cross-check with function analog map + xdata map,module-level runtime trace or docs
+A03_A04,A03_26.PZU,object/status layer,no strong static function candidate,cross-check with function analog map + xdata map,module-level runtime trace or docs
+A03_A04,A04_28.PZU,PVK,no strong static function candidate,cross-check with function analog map + xdata map,module-level runtime trace or docs
+A03_A04,A04_28.PZU,output/action,no strong static function candidate,cross-check with function analog map + xdata map,module-level runtime trace or docs
+A03_A04,A04_28.PZU,object/status layer,no strong static function candidate,cross-check with function analog map + xdata map,module-level runtime trace or docs
+RTOS_service,ppkp2001 90cye01.PZU,PVK,no strong static function candidate,cross-check with function analog map + xdata map,module-level runtime trace or docs
+RTOS_service,ppkp2001 90cye01.PZU,output/action,no strong static function candidate,cross-check with function analog map + xdata map,module-level runtime trace or docs
+RTOS_service,ppkp2001 90cye01.PZU,object/status layer,no strong static function candidate,cross-check with function analog map + xdata map,module-level runtime trace or docs
+RTOS_service,ppkp2012 a01.PZU,PVK,no strong static function candidate,cross-check with function analog map + xdata map,module-level runtime trace or docs
+RTOS_service,ppkp2012 a01.PZU,output/action,no strong static function candidate,cross-check with function analog map + xdata map,module-level runtime trace or docs
+RTOS_service,ppkp2012 a01.PZU,object/status layer,no strong static function candidate,cross-check with function analog map + xdata map,module-level runtime trace or docs
+RTOS_service,ppkp2019 a02.PZU,PVK,no strong static function candidate,cross-check with function analog map + xdata map,module-level runtime trace or docs
+RTOS_service,ppkp2019 a02.PZU,output/action,no strong static function candidate,cross-check with function analog map + xdata map,module-level runtime trace or docs
+RTOS_service,ppkp2019 a02.PZU,object/status layer,no strong static function candidate,cross-check with function analog map + xdata map,module-level runtime trace or docs

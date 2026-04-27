@@ -1,0 +1,13 @@
+area,understanding_percent,confidence,main_evidence,main_unknowns,next_step
+DKS_reference_model,82%,confirmed,manual + static chain; analog rows=33,family-specific semantics and packet framing,targeted manual deep trace + bench/runtime capture
+shifted_DKS_mapping,60%,probable,address-shift and xdata-shift mapping,family-specific semantics and packet framing,targeted manual deep trace + bench/runtime capture
+v2_1_mapping,52%,probable,callgraph/xdata analog candidates,family-specific semantics and packet framing,targeted manual deep trace + bench/runtime capture
+A03_A04_mapping,64%,probable,structural analogs without semantic transfer,family-specific semantics and packet framing,targeted manual deep trace + bench/runtime capture
+RTOS_service_mapping,58%,hypothesis,"separate family, partial structural overlap",family-specific semantics and packet framing,targeted manual deep trace + bench/runtime capture
+cross_family_packet_export,62%,probable,0x5A7F-like bridge candidate density,family-specific semantics and packet framing,targeted manual deep trace + bench/runtime capture
+cross_family_output_action,56%,hypothesis,output-start analogs and helper paths,family-specific semantics and packet framing,targeted manual deep trace + bench/runtime capture
+cross_family_enum_values,66%,probable,shared enum vocabulary matrix,family-specific semantics and packet framing,targeted manual deep trace + bench/runtime capture
+cross_family_xdata_schema,70%,probable,conserved + shifted xdata clusters,family-specific semantics and packet framing,targeted manual deep trace + bench/runtime capture
+cross_family_module_semantics,63%,probable,module map by family,family-specific semantics and packet framing,targeted manual deep trace + bench/runtime capture
+menu_keyboard_display,44%,hypothesis,limited direct static markers,family-specific semantics and packet framing,targeted manual deep trace + bench/runtime capture
+physical_semantics,24%,unknown,no direct bench evidence in this milestone,family-specific semantics and packet framing,targeted manual deep trace + bench/runtime capture

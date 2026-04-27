@@ -231,13 +231,14 @@ See `docs/cross_firmware_pattern_summary.csv` for shared packet/core/front-panel
 - Unknown: insufficient evidence.
 - No `.PZU` files were modified.
 
-## 21. DKS technical reconstruction v1 linkage
+## 22. Cross-family static reconstruction v1 linkage
 
-Для ветки DKS этот документ теперь связан с отдельными v1-артефактами:
-- `docs/dks_enum_state_reconstruction.md`
-- `docs/dks_packet_export_reconstruction.md`
-- `docs/dks_output_action_reconstruction.md`
-- `docs/dks_module_handler_attribution.md`
-- `docs/dks_firmware_technical_reconstruction_v1.md`
+Новый межсемейный milestone вынесен в отдельный пакет артефактов:
+- `docs/cross_family_function_analogs.*`
+- `docs/cross_family_xdata_schema_map.*`
+- `docs/cross_family_packet_output_comparison.md` + `docs/cross_family_packet_bridge_candidates.csv` + `docs/cross_family_output_action_candidates.csv`
+- `docs/cross_family_enum_state_comparison.md` + `docs/cross_family_enum_state_*`
+- `docs/cross_family_module_semantics.*`
+- `docs/cross_family_static_reconstruction_v1.md` + dashboard/unknowns/next-plan CSV
 
-Shared-chain функции (`0x497A`, `0x613C`, `0x737C`, `0x84A6`, `0x728A`, `0x6833`, `0x5A7F`) остаются общими диспетчерно-мостовыми кандидатами и не назначаются эксклюзивно на один экранный модуль без дополнительного доказательства.
+Правило интерпретации сохранено: DKS используется как reference-pattern, но не как универсальное доказательство семантики для A03/A04, v2_1, shifted_DKS и RTOS_service.

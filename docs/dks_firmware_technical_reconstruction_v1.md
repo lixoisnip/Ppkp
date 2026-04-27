@@ -1,6 +1,6 @@
 # DKS firmware technical reconstruction v1
 
-Generated: 2026-04-27 10:12:33Z
+Generated: 2026-04-27 10:35:10Z
 
 ## 1. Scope and evidence rules
 This report keeps strict evidence levels: `confirmed_static`, `probable_static`, `manual_decompile`, `chain_adjacency`, `screen_configuration`, `hypothesis`, `unknown`.
@@ -52,13 +52,13 @@ Manual/auto split around `0x84A6/0x728A` remains probable; manual path can go pa
 See `dks_remaining_unknowns.csv`.
 
 ## 16. Bench validation plan
-Consolidated in `dks_runtime_validation_plan_v1.md`, `dks_runtime_validation_matrix.csv`, and capture/import schemas (`dks_packet_capture_schema.csv`, `dks_io_capture_schema.csv`, `dks_bench_result_import_template.csv`).
+Consolidated in `dks_output_action_bench_tests.csv` and prior lifecycle/enum probe plans.
 
 ## 17. Development implications for future compatible firmware
 Use shared runtime-chain abstractions and keep module-specific mappings behind evidence-gated interfaces; avoid hard-coding physical semantics before validation.
 
 ## 18. Next iteration plan
-See `dks_next_iteration_plan.csv` and `dks_v1_to_v2_validation_roadmap.md`.
+See `dks_next_iteration_plan.csv`.
 
 ---
 
@@ -71,3 +71,7 @@ See `dks_next_iteration_plan.csv` and `dks_v1_to_v2_validation_roadmap.md`.
 - Full physical semantics: **29%**
 
 These values are intentionally conservative and should rise only with bench-confirmed evidence.
+
+## 19. Cross-family context (v1 addendum)
+Cross-family analysis is maintained in `docs/cross_family_static_reconstruction_v1.md` and related `cross_family_*` artifacts.
+DKS conclusions from this document are not transferred to A03/A04, v2_1, shifted_DKS, or RTOS_service without separate structural evidence.

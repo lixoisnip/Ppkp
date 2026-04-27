@@ -460,6 +460,74 @@ def main() -> int:
             ],
             "consolidated DKS runtime/bench validation planning package and schema templates",
         ),
+        SmokeCommand(
+            "cross_family_function_analog_mapper.py",
+            "cross_family_static_v1",
+            [sys.executable, "scripts/cross_family_function_analog_mapper.py"],
+            [
+                "docs/cross_family_function_analogs.md",
+                "docs/cross_family_function_analogs.csv",
+                "docs/cross_family_unmatched_dks_functions.csv",
+            ],
+            "cross-family mapping of DKS reference functions to structural analogs",
+        ),
+        SmokeCommand(
+            "cross_family_xdata_schema_mapper.py",
+            "cross_family_static_v1",
+            [sys.executable, "scripts/cross_family_xdata_schema_mapper.py"],
+            [
+                "docs/cross_family_xdata_schema_map.md",
+                "docs/cross_family_xdata_schema_map.csv",
+                "docs/cross_family_xdata_unresolved.csv",
+            ],
+            "cross-family mapping of DKS XDATA clusters to conserved/shifted/family-specific candidates",
+        ),
+        SmokeCommand(
+            "cross_family_packet_output_comparator.py",
+            "cross_family_static_v1",
+            [sys.executable, "scripts/cross_family_packet_output_comparator.py"],
+            [
+                "docs/cross_family_packet_output_comparison.md",
+                "docs/cross_family_packet_bridge_candidates.csv",
+                "docs/cross_family_output_action_candidates.csv",
+                "docs/cross_family_packet_format_variants.csv",
+            ],
+            "cross-family packet/export and output-action structural comparison",
+        ),
+        SmokeCommand(
+            "cross_family_enum_state_comparator.py",
+            "cross_family_static_v1",
+            [sys.executable, "scripts/cross_family_enum_state_comparator.py"],
+            [
+                "docs/cross_family_enum_state_comparison.md",
+                "docs/cross_family_enum_state_matrix.csv",
+                "docs/cross_family_enum_state_divergences.csv",
+            ],
+            "cross-family enum/state value vocabulary comparison",
+        ),
+        SmokeCommand(
+            "cross_family_module_semantics_reporter.py",
+            "cross_family_static_v1",
+            [sys.executable, "scripts/cross_family_module_semantics_reporter.py"],
+            [
+                "docs/cross_family_module_semantics.md",
+                "docs/cross_family_module_semantics_matrix.csv",
+                "docs/cross_family_module_semantics_unknowns.csv",
+            ],
+            "cross-family consolidated module semantics map with confidence and unknowns",
+        ),
+        SmokeCommand(
+            "cross_family_static_reconstruction_builder.py",
+            "cross_family_static_v1",
+            [sys.executable, "scripts/cross_family_static_reconstruction_builder.py"],
+            [
+                "docs/cross_family_static_reconstruction_v1.md",
+                "docs/cross_family_confidence_dashboard.csv",
+                "docs/cross_family_remaining_unknowns.csv",
+                "docs/cross_family_next_static_plan.csv",
+            ],
+            "final cross-family static reconstruction v1 builder",
+        ),
     ]
 
     rows: list[dict[str, str]] = []

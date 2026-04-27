@@ -1,0 +1,5 @@
+branch,bridge_candidates,output_action_candidates,model_variant,confidence,notes
+90CYE_shifted_DKS,1,2,shared_like,probable,Structural summary only; packet format remains unresolved
+90CYE_v2_1,2,4,shared_like,probable,Structural summary only; packet format remains unresolved
+A03_A04,2,4,shared_like,probable,Structural summary only; packet format remains unresolved
+RTOS_service,3,4,shared_like,probable,Structural summary only; packet format remains unresolved

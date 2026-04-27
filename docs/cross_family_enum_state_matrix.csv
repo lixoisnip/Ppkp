@@ -1,0 +1,10 @@
+enum_value,reference_meaning,branch,file,function_addr,xdata_addr,branch_context,downstream_path,confidence,evidence_level,notes
+0x01,fire_primary_or_attention_candidate,90CYE_DKS,90CYE03_19_DKS.PZU,0x497A,-,"CJNE A,#0x01,+27",output_or_state,hypothesis,enum_branch_value_map,reference meaning is DKS-local; cross-family meaning not asserted
+0x02,fire_secondary_or_fire_candidate,90CYE_DKS,90CYE03_19_DKS.PZU,0x497A,-,"CJNE A,#0x02,+27",output_or_state,hypothesis,enum_branch_value_map,reference meaning is DKS-local; cross-family meaning not asserted
+0x03,attention_or_alarm_fault_candidate,90CYE_DKS,90CYE03_19_DKS.PZU,0x737C,-,"ANL A,#0x03",output_or_state,hypothesis,enum_branch_value_map,reference meaning is DKS-local; cross-family meaning not asserted
+0x04,fault_or_output_start_marker_candidate,90CYE_DKS,90CYE03_19_DKS.PZU,0x497A,-,CLR 0x04,output_or_state,hypothesis,enum_branch_value_map,reference meaning is DKS-local; cross-family meaning not asserted
+0x05,disabled_candidate,90CYE_DKS,90CYE03_19_DKS.PZU,0x497A,-,"CJNE A,#0x05,+2",output_or_state,hypothesis,enum_branch_value_map,reference meaning is DKS-local; cross-family meaning not asserted
+0x07,service_candidate,90CYE_DKS,90CYE03_19_DKS.PZU,0x737C,-,"ORL A,#0x07",output_or_state,hypothesis,enum_branch_value_map,reference meaning is DKS-local; cross-family meaning not asserted
+0x08,not_detected_candidate,90CYE_DKS,90CYE03_19_DKS.PZU,0x497A,-,"CJNE R0,#0x08,-43",output_or_state,hypothesis,enum_branch_value_map,reference meaning is DKS-local; cross-family meaning not asserted
+0x7E,address_conflict_candidate,90CYE_DKS,90CYE03_19_DKS.PZU,0x497A,-,"CJNE A,#0x7E,-13",output_or_state,hypothesis,enum_branch_value_map,reference meaning is DKS-local; cross-family meaning not asserted
+0xFF,absent_or_invalid_candidate,90CYE_DKS,90CYE03_19_DKS.PZU,0x497A,-,"CJNE A,#0xFF,-13",output_or_state,hypothesis,enum_branch_value_map,reference meaning is DKS-local; cross-family meaning not asserted
