@@ -77,3 +77,12 @@ Generated artifacts:
 - docs/project_guided_5a7f_caller_block_expansion.csv
 - docs/project_guided_timer_output_downstream_candidates.csv
 - docs/project_guided_micro_pass3_unknowns_update.csv
+
+## Final static boundary pass
+Generated artifacts:
+- docs/project_guided_final_static_boundary.md
+- docs/project_guided_final_static_boundary_dashboard.csv
+- docs/project_guided_final_pending_targets.csv
+- docs/project_guided_final_unknowns_status.csv
+- docs/project_guided_5a7f_caller_synthesis.csv
+- docs/project_guided_do_not_repeat_until.csv

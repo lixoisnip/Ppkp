@@ -212,6 +212,12 @@ Generated extraction layer (project-level evidence, separated from static/decomp
 - docs/project_guided_5a7f_caller_block_expansion.csv
 - docs/project_guided_timer_output_downstream_candidates.csv
 - docs/project_guided_micro_pass3_unknowns_update.csv
+- docs/project_guided_final_static_boundary.md — final static boundary pass and stop conditions for reanalysis.
+- docs/project_guided_final_static_boundary_dashboard.csv
+- docs/project_guided_final_pending_targets.csv
+- docs/project_guided_final_unknowns_status.csv
+- docs/project_guided_5a7f_caller_synthesis.csv
+- docs/project_guided_do_not_repeat_until.csv
 
 
 Добавлен целевой статический этап, где project-documentation используется как ограничитель поиска (без переноса семантики без code evidence):

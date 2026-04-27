@@ -332,6 +332,20 @@ def main() -> int:
             "project-guided micro-decompile pass #3 over unresolved caller envelopes/table origins and checksum/UART/timer searches",
         ),
         SmokeCommand(
+            "project_guided_final_static_boundary.py",
+            "project_guided_static",
+            [sys.executable, "scripts/project_guided_final_static_boundary.py"],
+            [
+                "docs/project_guided_final_static_boundary.md",
+                "docs/project_guided_final_static_boundary_dashboard.csv",
+                "docs/project_guided_final_pending_targets.csv",
+                "docs/project_guided_final_unknowns_status.csv",
+                "docs/project_guided_5a7f_caller_synthesis.csv",
+                "docs/project_guided_do_not_repeat_until.csv",
+            ],
+            "final static boundary pass for remaining 0x5A7F caller-block targets and evidence stop conditions",
+        ),
+        SmokeCommand(
             "mash_code_evidence_analyzer.py",
             "global_mash_analysis",
             [sys.executable, "scripts/mash_code_evidence_analyzer.py"],
