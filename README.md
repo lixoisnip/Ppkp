@@ -48,6 +48,9 @@
 - docs/firmware_module_architecture_comparison.md — cross-firmware architecture comparison of CPU core, keyboard/display, MASH, MVK, input boards, MDS, MUP, aerosol/water/APS-specific logic.
 - docs/dks_real_configuration_evidence.md — real DKS HMI/configuration evidence mapping repository firmware files to visible module slots MDS/MUP/PVK/MASH, shleif status and object-status screens.
 - docs/dks_real_configuration_evidence.csv — machine-readable module slot evidence from real DKS screenshots.
+- docs/dks_module_deep_trace_analysis.md — deep-trace mapping of screen-confirmed DKS module slots MDS/MUP/PVK/MASH to code-level handler candidates.
+- docs/dks_module_deep_trace_candidates.csv — function-level candidate evidence for screen-confirmed DKS modules.
+- docs/dks_module_slot_summary.csv — per-slot module resolution status.
 - docs/module_handler_summary.csv — сводная таблица кандидатов обработчиков модулей по всем веткам.
 - Предыдущий файл анализа/журнал: `PZU_ANALYSIS.md`
 
