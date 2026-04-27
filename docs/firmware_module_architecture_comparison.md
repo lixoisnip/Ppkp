@@ -231,11 +231,9 @@ See `docs/cross_firmware_pattern_summary.csv` for shared packet/core/front-panel
 - Unknown: insufficient evidence.
 - No `.PZU` files were modified.
 
-## 21. Manual DKS decompile follow-up
+## 21. DKS XDATA lifecycle reconstruction follow-up
 
-- `docs/manual_dks_module_decompile.md`
-- `docs/manual_dks_module_decompile_summary.csv`
-- `docs/manual_dks_module_pseudocode.csv`
-- `docs/manual_dks_downstream_decompile.md`
-- `docs/manual_dks_downstream_decompile_summary.csv`
-- `docs/manual_dks_downstream_pseudocode.csv`
+- `docs/dks_xdata_lifecycle_analysis.md`
+- `docs/dks_xdata_lifecycle_matrix.csv`
+- `docs/dks_xdata_function_roles.csv`
+- `docs/dks_xdata_bench_probe_plan.csv`

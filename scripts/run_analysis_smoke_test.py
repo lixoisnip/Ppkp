@@ -373,6 +373,18 @@ def main() -> int:
             ],
             "semi-manual downstream DKS decompile follow-up report plus machine-readable summary and pseudocode CSVs",
         ),
+        SmokeCommand(
+            "dks_xdata_lifecycle_reconstructor.py",
+            "dks_module_followup",
+            [sys.executable, "scripts/dks_xdata_lifecycle_reconstructor.py"],
+            [
+                "docs/dks_xdata_lifecycle_analysis.md",
+                "docs/dks_xdata_lifecycle_matrix.csv",
+                "docs/dks_xdata_function_roles.csv",
+                "docs/dks_xdata_bench_probe_plan.csv",
+            ],
+            "focused DKS XDATA lifecycle reconstruction for zone/object state, mode flags and packet context",
+        ),
     ]
 
     rows: list[dict[str, str]] = []
