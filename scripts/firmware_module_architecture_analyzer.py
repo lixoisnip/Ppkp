@@ -130,6 +130,16 @@ def conf_from_score(score: float) -> str:
     return "unknown"
 
 
+def screen_score(values: set[str]) -> float:
+    if any(v == "confirmed_from_screen" for v in values):
+        return 1.0
+    if any(v == "probable_from_screen" for v in values):
+        return 0.65
+    if any(v == "uncertain_from_screen" for v in values):
+        return 0.35
+    return 0.0
+
+
 def merge_conf(values: Iterable[str]) -> str:
     rank = {"unknown": 0, "hypothesis": 1, "probable": 2, "confirmed": 3}
     best = "unknown"
@@ -204,11 +214,7 @@ def main() -> int:
         if "MASH" in mod:
             screen_by_file[fw]["MASH"].add(conf or "uncertain_from_screen")
     def screen_confidence(values: set[str]) -> str:
-        if any(v == "confirmed_from_screen" for v in values):
-            return "confirmed"
-        if any(v == "probable_from_screen" for v in values):
-            return "probable"
-        return "hypothesis"
+        return conf_from_score(screen_score(values))
 
     funcs_by_key: dict[tuple[str, str], list[dict[str, str]]] = defaultdict(list)
     for r in function_rows:
@@ -321,8 +327,87 @@ def main() -> int:
         if m:
             input_score = 0.65 if (m.get("command_cluster_present", "").lower() == "yes") else 0.25
 
-        mds_score = clip01(max(mash_score * 0.3, input_score * 0.4, 0.15))
-        mup_score = clip01(max(mvk_score * 0.45, runtime_score * 0.25, 0.2))
+        output_rows_for_file = [r for r in output_candidates if r.get("branch") == b and r.get("file") == f]
+        mds_best_addr = ""
+        mds_best_signal_count = 0
+        mds_direct = False
+        mds_code_score = 0.0
+        for r in output_rows_for_file:
+            txt = " ".join([r.get("candidate_type", ""), r.get("role_candidate", ""), r.get("notes", ""), r.get("string_refs", "")]).lower()
+            mask_signal = 1.0 if safe_float(r.get("bit_operation_count", "0")) >= 64 else 0.0
+            state_compare = 1.0 if (
+                safe_float(r.get("conditional_branch_count", "0")) >= 10
+                and safe_float(r.get("xdata_read_count", "0")) >= 10
+                and safe_float(r.get("xdata_write_count", "0")) >= 3
+            ) else 0.0
+            xdata_state_table = 1.0 if safe_float(r.get("movc_count", "0")) >= 1 else 0.0
+            event_after_change = 1.0 if safe_float(r.get("event_input_hits", "0")) >= 250 else 0.0
+            packet_path = 1.0 if safe_float(r.get("packet_export_hits", "0")) >= 1 else 0.0
+            repeated_scan = 1.0 if (safe_float(r.get("call_count", "0")) >= 10 and safe_float(r.get("basic_block_count", "0")) >= 12) else 0.0
+            direct_label = 1.0 if any(k in txt for k in ["mds", "мдс", "discrete"]) else 0.0
+            weak_input_support = 0.10 if m and (m.get("command_cluster_present", "").lower() == "yes") else 0.0
+            strong_count = int(mask_signal + state_compare + xdata_state_table + event_after_change + packet_path + repeated_scan + direct_label)
+            row_score = clip01(
+                0.15 * mask_signal
+                + 0.20 * state_compare
+                + 0.15 * xdata_state_table
+                + 0.15 * event_after_change
+                + 0.15 * packet_path
+                + 0.15 * repeated_scan
+                + 0.15 * direct_label
+                + weak_input_support
+            )
+            if strong_count == 0:
+                row_score = min(row_score, 0.2)
+            elif strong_count == 1:
+                row_score = min(row_score, 0.4)
+            if row_score > mds_code_score:
+                mds_code_score = row_score
+                mds_best_addr = r.get("function_addr", "")
+                mds_best_signal_count = strong_count
+                mds_direct = bool(direct_label)
+
+        mup_best_addr = ""
+        mup_best_signal_count = 0
+        mup_direct = False
+        mup_code_score = 0.0
+        for r in output_rows_for_file:
+            txt = " ".join([r.get("candidate_type", ""), r.get("role_candidate", ""), r.get("notes", ""), r.get("string_refs", "")]).lower()
+            command_builder = 1.0 if safe_float(r.get("control_action_hits", "0")) >= 2 else 0.0
+            start_control = 1.0 if any(k in txt for k in ["start", "control", "activ", "relay_output", "aerosol_start"]) else 0.0
+            feedback_check = 1.0 if ("feedback" in txt or "actuator_feedback_candidate" in txt) else 0.0
+            fault_detection = 1.0 if any(k in txt for k in ["fault", "ненорма", "open", "short", "disable"]) else 0.0
+            event_after_control = 1.0 if safe_float(r.get("event_input_hits", "0")) >= 250 else 0.0
+            packet_path = 1.0 if safe_float(r.get("packet_export_hits", "0")) >= 1 else 0.0
+            direct_label = 1.0 if any(k in txt for k in ["mup", "муп"]) else 0.0
+            weak_start_chain = 1.0 if (mvk_score >= 0.6 or runtime_score >= 0.7) else 0.0
+            strong_count = int(command_builder + start_control + feedback_check + fault_detection + event_after_control + packet_path + direct_label)
+            row_score = clip01(
+                0.18 * command_builder
+                + 0.18 * start_control
+                + 0.12 * feedback_check
+                + 0.12 * fault_detection
+                + 0.15 * event_after_control
+                + 0.15 * packet_path
+                + 0.18 * direct_label
+                + 0.10 * weak_start_chain
+            )
+            if strong_count == 0:
+                row_score = min(row_score, 0.2)
+            elif strong_count == 1:
+                row_score = min(row_score, 0.38)
+            if row_score > mup_code_score:
+                mup_code_score = row_score
+                mup_best_addr = r.get("function_addr", "")
+                mup_best_signal_count = strong_count
+                mup_direct = bool(direct_label)
+
+        mds_screen_score = screen_score(screen_by_file.get(f, {}).get("MDS", set()))
+        mup_screen_score = screen_score(screen_by_file.get(f, {}).get("MUP", set()))
+        mds_score = clip01(max(mds_code_score, mds_screen_score))
+        mup_score = clip01(max(mup_code_score, mup_screen_score))
+        mds_conf = "confirmed" if mds_direct else ("probable" if mds_best_signal_count >= 3 else ("hypothesis" if mds_best_signal_count >= 1 else "unknown"))
+        mup_conf = "confirmed" if mup_direct else ("probable" if mup_best_signal_count >= 3 else ("hypothesis" if mup_best_signal_count >= 1 else "unknown"))
 
         aerosol_score = 0.0
         water_score = 0.0
@@ -371,7 +456,11 @@ def main() -> int:
                 "mash_score": f"{clip01(mash_score):.3f}",
                 "mvk_score": f"{clip01(mvk_score):.3f}",
                 "input_board_score": f"{clip01(input_score):.3f}",
+                "mds_code_score": f"{mds_code_score:.3f}",
+                "mds_screen_score": f"{mds_screen_score:.3f}",
                 "mds_score": f"{mds_score:.3f}",
+                "mup_code_score": f"{mup_code_score:.3f}",
+                "mup_screen_score": f"{mup_screen_score:.3f}",
                 "mup_score": f"{mup_score:.3f}",
                 "aerosol_specific_score": f"{aerosol_score:.3f}",
                 "water_specific_score": f"{water_score:.3f}",
@@ -386,9 +475,9 @@ def main() -> int:
                 "screen_confirmed_modules": "|".join(sorted(screen_by_file.get(f, {}).keys())),
                 "notes": (anchor_note + " ; " if anchor_note else "")
                 + (
-                    "screen evidence integrated conservatively; function addresses remain code-evidence only"
+                    "screen-confirmed presence; code handler unresolved where code evidence is weak"
                     if f in screen_by_file
-                    else "heuristic cross-artifact scoring; weak claims kept hypothesis/unknown"
+                    else "code-level candidates and heuristic-only signals are kept separate"
                 ),
             }
         )
@@ -407,6 +496,14 @@ def main() -> int:
 
         for module_type in MODULE_TYPES:
             score = module_evidence.get(module_type, 0.0)
+            row_conf = conf_from_score(score)
+            row_notes = "cross-artifact heuristic score"
+            if module_type == "mds_discrete_signal_module":
+                row_conf = mds_conf
+                row_notes = "heuristic-only, no direct module handler proof; not configuration-confirmed; not function-level confirmed"
+            elif module_type == "mup_module":
+                row_conf = mup_conf
+                row_notes = "heuristic-only, no direct module handler proof; not configuration-confirmed; not function-level confirmed"
             module_rows.append(
                 {
                     "branch": b,
@@ -415,9 +512,9 @@ def main() -> int:
                     "presence_score": f"{clip01(score):.3f}",
                     "strongest_function": strongest_default,
                     "secondary_functions": "|".join(x.get("function_addr", "") for x in best_funcs[1:4] if x.get("function_addr")),
-                    "confidence": conf_from_score(score),
+                    "confidence": row_conf,
                     "evidence": "function_map|call_xref|runtime_state_machine_nodes|zone_output|input_board_core_matrix",
-                    "notes": "MDS/MUP separated heuristically; never merged with MVK/input without evidence",
+                    "notes": row_notes,
                 }
             )
 
@@ -551,13 +648,16 @@ def main() -> int:
                     "module_type": "MDS",
                     "function_addr": addr,
                     "candidate_role": "discrete_signal_scan",
-                    "score": f"{clip01(mds_score * 0.8):.3f}",
-                    "confidence": conf_from_score(mds_score * 0.8),
+                    "score": f"{clip01(mds_code_score * 0.8):.3f}",
+                    "confidence": mds_conf,
                     "xdata_refs": str(int(safe_float(r.get("xdata_read_count", "0")) + safe_float(r.get("xdata_write_count", "0")))),
                     "bit_masks": "unknown",
                     "call_targets": "unknown",
                     "packet_export_path": "possible",
-                    "notes": "separate from ordinary input boards; heuristic only" + ("; screen-visible module label present (config-level only)" if "MDS" in screen_by_file.get(f, {}) else ""),
+                    "evidence_level": "code_indirect" if mds_best_signal_count else "heuristic_only",
+                    "evidence_source": "function_map|output_control_candidates|input_board_core_matrix",
+                    "handler_status": "handler_candidate" if mds_best_signal_count else "handler_unknown",
+                    "notes": "separate from ordinary input boards; heuristic-only, no direct module handler proof" + ("; screen-visible module label present (configuration-level only, function handler not confirmed)" if "MDS" in screen_by_file.get(f, {}) else ""),
                 }
             )
             mds_mup_rows.append(
@@ -567,13 +667,38 @@ def main() -> int:
                     "module_type": "MUP",
                     "function_addr": addr,
                     "candidate_role": "control_or_start_command",
-                    "score": f"{clip01(mup_score * 0.8):.3f}",
-                    "confidence": conf_from_score(mup_score * 0.8),
+                    "score": f"{clip01(mup_code_score * 0.8):.3f}",
+                    "confidence": mup_conf,
                     "xdata_refs": "unknown",
                     "bit_masks": "unknown",
                     "call_targets": "unknown",
                     "packet_export_path": "possible",
-                    "notes": "kept distinct from MVK unless direct code-evidence appears" + ("; screen-visible module label present (config-level only)" if "MUP" in screen_by_file.get(f, {}) else ""),
+                    "evidence_level": "code_indirect" if mup_best_signal_count else "heuristic_only",
+                    "evidence_source": "output_control_candidates|function_map|runtime_state_machine_nodes",
+                    "handler_status": "handler_candidate" if mup_best_signal_count else "handler_unknown",
+                    "notes": "kept distinct from MVK unless direct code-evidence appears; not function-level confirmed" + ("; screen-visible module label present (configuration-level only, function handler not confirmed)" if "MUP" in screen_by_file.get(f, {}) else ""),
+                }
+            )
+        for label in ("MDS", "MUP"):
+            if label not in screen_by_file.get(f, {}):
+                continue
+            mds_mup_rows.append(
+                {
+                    "branch": b,
+                    "file": f,
+                    "module_type": label,
+                    "function_addr": "unknown",
+                    "candidate_role": "screen_confirmed_presence",
+                    "score": f"{screen_score(screen_by_file.get(f, {}).get(label, set())):.3f}",
+                    "confidence": screen_confidence(screen_by_file.get(f, {}).get(label, set())),
+                    "xdata_refs": "",
+                    "bit_masks": "",
+                    "call_targets": "",
+                    "packet_export_path": "unknown",
+                    "evidence_level": "screen_configuration",
+                    "evidence_source": "dks_real_configuration_evidence.csv",
+                    "handler_status": "handler_unknown",
+                    "notes": "screen confirms module presence, function handler not confirmed (configuration-level only)",
                 }
             )
 
@@ -645,7 +770,11 @@ def main() -> int:
             "mash_score",
             "mvk_score",
             "input_board_score",
+            "mds_code_score",
+            "mds_screen_score",
             "mds_score",
+            "mup_code_score",
+            "mup_screen_score",
             "mup_score",
             "aerosol_specific_score",
             "water_specific_score",
@@ -776,6 +905,9 @@ def main() -> int:
             "bit_masks",
             "call_targets",
             "packet_export_path",
+            "evidence_level",
+            "evidence_source",
+            "handler_status",
             "notes",
         ],
         mds_mup_rows,
@@ -855,9 +987,9 @@ def main() -> int:
     lines.append("")
     lines.append("## 11. MDS and MUP modules")
     lines.append("")
-    lines.append("- MDS evidence appears where discrete-like loops/state updates exist, but many remain hypothesis.")
-    lines.append("- MUP evidence appears in control/start-adjacent chains. MUP is not equated with MVK.")
-    lines.append("- MDS is treated separately from ordinary input board logic.")
+    lines.append("- MDS code confidence is based on discrete-signal-like indicators; generic input-board evidence is weak support only.")
+    lines.append("- MUP code confidence is based on control/start-specific indicators; MUP is not derived from MVK/runtime score.")
+    lines.append("- Screen evidence and code-level handler candidates are tracked separately.")
     lines.append("- Strongest current candidates are listed in `docs/mds_mup_module_candidates.csv`.")
     lines.append("- Confidence labels used: confirmed / probable / hypothesis / unknown.")
     lines.append("- Next manual decompile targets: top per module from `docs/shared_core_function_map.csv`, `docs/mvk_output_semantics.csv`, `docs/mds_mup_module_candidates.csv`.")
@@ -871,6 +1003,18 @@ def main() -> int:
     lines.append("- DKS 90CYE01 confirms MDS, PVK and two MASH modules (X05/X06).")
     lines.append("- DKS 90CYE02 confirms multiple MDS-like modules and object-status layer (`90SAE...` tags).")
     lines.append("- This strengthens module-separation interpretation (MDS/MUP/PVK/MASH, shleif status, object-status layer) without raising function-level confidence by itself.")
+    lines.append("")
+    lines.append("## 12.1 MDS/MUP confidence audit")
+    lines.append("")
+    lines.append("- PR #55 added real screen-confirmed module presence.")
+    lines.append("- Screen evidence confirms slot/module presence, not function addresses.")
+    lines.append("- Analyzer now separates screen-confirmed module presence, code-level handler candidates, and heuristic-only weak signals.")
+    lines.append("- MUP is not derived from MVK automatically.")
+    lines.append("- MDS is not derived from generic input-board evidence automatically.")
+    lines.append("- Screen-confirmed MUP files: `90CYE03_19_DKS.PZU`, `90CYE04_19_DKS.PZU`.")
+    lines.append("- Screen-confirmed MDS files: `ppkp2001 90cye01.PZU`, `90CYE02_27 DKS.PZU`, `90CYE03_19_DKS.PZU`, `90CYE04_19_DKS.PZU`.")
+    lines.append("- Screen-confirmed MASH files: `ppkp2001 90cye01.PZU`.")
+    lines.append("- Screen-confirmed PVK files: `ppkp2001 90cye01.PZU`, `90CYE03_19_DKS.PZU`, `90CYE04_19_DKS.PZU`.")
 
     lines.append("")
     lines.append("## 13. APS/aerosol/water-like differences")
