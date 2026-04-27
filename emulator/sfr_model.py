@@ -1,0 +1,87 @@
+#!/usr/bin/env python3
+from __future__ import annotations
+
+from dataclasses import dataclass
+
+
+SFR_ROLE_HINTS: dict[int, str] = {
+    0xE0: "ACC",
+    0xF0: "B",
+    0xD0: "PSW",
+    0x81: "SP",
+    0x98: "SCON_uart0",
+    0x99: "SBUF_uart0",
+    0xC8: "T2CON_or_uart1_control",
+    0x9A: "SBUF_uart1_candidate",
+    0x88: "TCON",
+    0x89: "TMOD",
+    0x8A: "TL0",
+    0x8B: "TL1",
+    0x8C: "TH0",
+    0x8D: "TH1",
+    0xA8: "IE",
+    0xB8: "IP",
+    0x86: "DPS_dual_dptr",
+}
+
+
+@dataclass
+class SfrTraceEvent:
+    step: int
+    pc: int
+    sfr_addr: int
+    access_type: str
+    value: int
+    previous_value: int | None
+    possible_role: str
+    notes: str
+
+
+class SfrModel:
+    """Minimal dictionary-backed SFR model with explicit access tracing.
+
+    Unknown SFRs are kept as plain bytes with role `unknown_sfr` and never receive
+    synthetic behavioral side effects.
+    """
+
+    def __init__(self) -> None:
+        self._values: dict[int, int] = {}
+        self.events: list[SfrTraceEvent] = []
+
+    def read(self, addr: int, *, step: int, pc: int, notes: str = "") -> int:
+        a = addr & 0xFF
+        value = self._values.get(a, 0)
+        self.events.append(
+            SfrTraceEvent(
+                step=step,
+                pc=pc,
+                sfr_addr=a,
+                access_type="read",
+                value=value,
+                previous_value=None,
+                possible_role=SFR_ROLE_HINTS.get(a, "unknown_sfr"),
+                notes=notes,
+            )
+        )
+        return value
+
+    def write(self, addr: int, value: int, *, step: int, pc: int, notes: str = "") -> None:
+        a = addr & 0xFF
+        v = value & 0xFF
+        prev = self._values.get(a)
+        self._values[a] = v
+        self.events.append(
+            SfrTraceEvent(
+                step=step,
+                pc=pc,
+                sfr_addr=a,
+                access_type="write",
+                value=v,
+                previous_value=prev,
+                possible_role=SFR_ROLE_HINTS.get(a, "unknown_sfr"),
+                notes=notes,
+            )
+        )
+
+    def get(self, addr: int, default: int = 0) -> int:
+        return self._values.get(addr & 0xFF, default) & 0xFF

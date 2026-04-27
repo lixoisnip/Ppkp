@@ -5,6 +5,7 @@ from dataclasses import dataclass, field
 from typing import Callable
 
 from emulator.pzu_memory import CodeImage
+from emulator.sfr_model import SfrModel
 from emulator.trace import TraceLog
 
 
@@ -17,6 +18,7 @@ class CPU8051State:
     psw: int = 0
     sp: int = 0x07
     regs: list[int] = field(default_factory=lambda: [0] * 8)
+    idata: list[int] = field(default_factory=lambda: [0] * 256)
     xdata: dict[int, int] = field(default_factory=dict)
     call_stack: list[int] = field(default_factory=list)
     step_counter: int = 0
@@ -31,6 +33,7 @@ class CPU8051Subset:
         watchpoints: set[int] | None = None,
         stub_calls: dict[int, Callable[[CPU8051State, TraceLog], None]] | None = None,
         allow_skip_unsupported: bool = False,
+        sfr: SfrModel | None = None,
     ) -> None:
         self.code = code_image
         self.s = state
@@ -38,6 +41,7 @@ class CPU8051Subset:
         self.watchpoints = watchpoints or set()
         self.stub_calls = stub_calls or {}
         self.allow_skip_unsupported = allow_skip_unsupported
+        self.sfr = sfr or SfrModel()
 
     def fetch(self, addr: int) -> int:
         return self.code.get_byte(addr)
@@ -46,6 +50,7 @@ class CPU8051Subset:
         return offset - 256 if offset & 0x80 else offset
 
     def _log_instr(self, op: str, args: str, pc: int, acc_before: int, dptr_before: int, notes: str = "") -> None:
+        bank = (self.s.psw >> 3) & 0x03
         self.trace.add(
             {
                 "step": self.s.step_counter,
@@ -65,9 +70,30 @@ class CPU8051Subset:
                 "r6": f"0x{self.s.regs[6]:02X}",
                 "r7": f"0x{self.s.regs[7]:02X}",
                 "trace_type": "instruction",
-                "notes": notes,
+                "notes": f"bank={bank};{notes}".strip(";"),
             }
         )
+
+    def _sync_regs_from_idata(self) -> None:
+        bank = ((self.s.psw >> 3) & 0x03) * 8
+        for i in range(8):
+            self.s.regs[i] = self.s.idata[(bank + i) & 0xFF] & 0xFF
+
+    def _set_reg(self, n: int, value: int) -> None:
+        bank = ((self.s.psw >> 3) & 0x03) * 8
+        self.s.idata[(bank + n) & 0xFF] = value & 0xFF
+        self._sync_regs_from_idata()
+
+    def _push_stack(self, value: int) -> None:
+        self.s.sp = (self.s.sp + 1) & 0xFF
+        self.s.idata[self.s.sp] = value & 0xFF
+        self.sfr.write(0x81, self.s.sp, step=self.s.step_counter, pc=self.s.pc, notes="stack_sp_update")
+
+    def _pop_stack(self) -> int:
+        value = self.s.idata[self.s.sp] & 0xFF
+        self.s.sp = (self.s.sp - 1) & 0xFF
+        self.sfr.write(0x81, self.s.sp, step=self.s.step_counter, pc=self.s.pc, notes="stack_sp_update")
+        return value
 
     def step(self) -> tuple[bool, str | None]:
         s = self.s
@@ -75,6 +101,7 @@ class CPU8051Subset:
         op = self.fetch(pc)
         acc_before = s.acc
         dptr_before = s.dptr
+        self._sync_regs_from_idata()
 
         if op == 0x74:  # MOV A,#imm
             imm = self.fetch(pc + 1)
@@ -92,7 +119,7 @@ class CPU8051Subset:
 
         if 0xF8 <= op <= 0xFF:  # MOV Rn,A
             n = op - 0xF8
-            s.regs[n] = s.acc
+            self._set_reg(n, s.acc)
             s.pc += 1
             self._log_instr("MOV", f"R{n},A", pc, acc_before, dptr_before)
             return True, None
@@ -100,7 +127,7 @@ class CPU8051Subset:
         if 0x78 <= op <= 0x7F:  # MOV Rn,#imm
             n = op - 0x78
             imm = self.fetch(pc + 1)
-            s.regs[n] = imm
+            self._set_reg(n, imm)
             s.pc += 2
             self._log_instr("MOV", f"R{n},#0x{imm:02X}", pc, acc_before, dptr_before)
             return True, None
@@ -140,7 +167,7 @@ class CPU8051Subset:
 
         if 0x08 <= op <= 0x0F:  # INC Rn
             n = op - 0x08
-            s.regs[n] = (s.regs[n] + 1) & 0xFF
+            self._set_reg(n, (s.regs[n] + 1) & 0xFF)
             s.pc += 1
             self._log_instr("INC", f"R{n}", pc, acc_before, dptr_before)
             return True, None
@@ -165,10 +192,29 @@ class CPU8051Subset:
 
         if op == 0x25:  # ADD A,direct
             direct = self.fetch(pc + 1)
-            value = s.xdata.get(direct, 0)
+            if direct >= 0x80:
+                value = self.sfr.read(direct, step=s.step_counter, pc=pc, notes="direct_sfr_read")
+            else:
+                value = s.idata[direct]
             s.acc = (s.acc + value) & 0xFF
             s.pc += 2
-            self._log_instr("ADD", f"A,0x{direct:02X}", pc, acc_before, dptr_before, notes="direct_read_model=xdata")
+            self._log_instr("ADD", f"A,0x{direct:02X}", pc, acc_before, dptr_before, notes="direct_read_model=idata_or_sfr")
+            return True, None
+
+        if op == 0x93:  # MOVC A,@A+DPTR
+            code_addr = (s.dptr + s.acc) & 0xFFFF
+            s.acc = self.fetch(code_addr)
+            s.pc += 1
+            self.trace.add({"step": s.step_counter, "pc": pc, "op": "MOVC", "args": "A,@A+DPTR", "trace_type": "code_read", "xdata_addr": code_addr, "xdata_value": f"0x{s.acc:02X}", "notes": "code_table_candidate"})
+            self._log_instr("MOVC", "A,@A+DPTR", pc, acc_before, dptr_before)
+            return True, None
+
+        if op == 0x83:  # MOVC A,@A+PC
+            code_addr = (pc + 1 + s.acc) & 0xFFFF
+            s.acc = self.fetch(code_addr)
+            s.pc += 1
+            self.trace.add({"step": s.step_counter, "pc": pc, "op": "MOVC", "args": "A,@A+PC", "trace_type": "code_read", "xdata_addr": code_addr, "xdata_value": f"0x{s.acc:02X}", "notes": "code_table_candidate_pc_relative"})
+            self._log_instr("MOVC", "A,@A+PC", pc, acc_before, dptr_before)
             return True, None
 
         if op == 0xE4:
@@ -206,6 +252,8 @@ class CPU8051Subset:
                 s.pc = ret
                 self.trace.add({"step": s.step_counter, "pc": s.pc, "op": "RET(stub)", "args": f"0x{target:04X}", "trace_type": "ret"})
             else:
+                self._push_stack(ret & 0xFF)
+                self._push_stack((ret >> 8) & 0xFF)
                 s.call_stack.append(ret)
                 s.pc = target
             self._log_instr("LCALL", f"0x{target:04X}", pc, acc_before, dptr_before)
@@ -222,6 +270,9 @@ class CPU8051Subset:
         if op == 0x22:
             self.trace.add({"step": s.step_counter, "pc": pc, "op": "RET", "trace_type": "ret"})
             if s.call_stack:
+                hi = self._pop_stack()
+                lo = self._pop_stack()
+                _stack_ret = ((hi << 8) | lo) & 0xFFFF
                 s.pc = s.call_stack.pop()
                 self._log_instr("RET", "", pc, acc_before, dptr_before)
                 return True, None

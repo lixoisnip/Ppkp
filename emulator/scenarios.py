@@ -61,6 +61,14 @@ SCENARIOS = {
         watchpoints=default_rtos_service_watchpoints(),
         purpose="Observe service-table reads/writes from RTOS_service candidates.",
     ),
+    "boot_probe_static": Scenario(
+        name="boot_probe_static",
+        firmware_file="90CYE03_19_DKS.PZU",
+        functions=[0x4000, 0x4100],
+        seed_xdata={},
+        watchpoints=default_dks_watchpoints(),
+        purpose="Diagnostic boot-entry probe only; stop on unsupported low-level behavior without claiming full emulation.",
+    ),
 }
 
 

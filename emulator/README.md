@@ -17,7 +17,8 @@ This is **not** a full hardware emulator and does not claim full CPU/device accu
 
 Limitations currently include:
 
-- no verified UART/SFR mapping yet;
+- SFR model is skeleton-only and trace-oriented (dictionary-backed, no synthetic peripheral effects);
+- UART/SBUF behavior is recorded as SFR access evidence only (no protocol emulation yet);
 - no real RS-485 frame decoding yet;
 - no timer/interrupt accuracy yet;
 - no bench confirmation.

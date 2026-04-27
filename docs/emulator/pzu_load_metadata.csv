@@ -1,0 +1,2 @@
+firmware_file,min_code_addr,max_code_addr,has_0x4000,has_0x4100,reset_vector_bytes,entrypoint_candidate,confidence,notes
+90CYE03_19_DKS.PZU,0x0000,0xFFFF,True,True,02 41 00,0x4100,external_analysis,reset_ljmp_detected;covers_0x4000_0xBFFF=True
