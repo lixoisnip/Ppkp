@@ -1,0 +1,27 @@
+branch,file,function_addr,pseudocode_block,known_operations,unknown_operations,confidence,notes
+90CYE_DKS,90CYE03_19_DKS.PZU,0x597F,"uint8_t fn_597F(uint8_t in_a) {
+    // return in_a & 0x07
+}",compact helper; likely A & 0x07; used by 0x6833 before output-start write,exact permission/fault/mode semantics of bitmask result,probable,No XDATA access in helper body; caller-side meaning (permission/mode/fault) remains unresolved.
+90CYE_DKS,90CYE03_19_DKS.PZU,0x7922,"void fn_7922(void) {
+    // A = XDATA[DPTR]; R0 = A
+    // DPTR++
+    // A = XDATA[DPTR]; R1 = A
+    // return
+}",tiny helper; reads two bytes from XDATA @DPTR into R0/R1; no direct packet/export call inside,exact table/service semantic meaning of fetched bytes,probable,"Confirmed MOVX->R0, INC DPTR, MOVX->R1 pattern; table semantic remains context-dependent."
+90CYE_DKS,90CYE03_19_DKS.PZU,0x497A,void fn_497A(...) { /* branch helper / state transition / call fanout */ },call/context/xdata evidence from static window,exact physical semantics unresolved,medium,Many callsites into 0x5A7F exist; caller-side loops/state fanout dominate over in-body serializer proof.
+90CYE_DKS,90CYE03_19_DKS.PZU,0x737C,"void fn_737C(...) {
+    // read object/zone context (0x31BF + 0x36xx cluster)
+    // branch on masked enum/state values
+    // call 0x84A6 and 0x5A7F on selected paths
+    // update 0x3010/0x3011/0x3012/0x3013/0x3014/0x301A/0x301B state-table fields
+}",reads/writes 0x3010/0x3011/0x3012/0x3013/0x3014/0x301A/0x301B; reads 0x31BF and 0x36xx cluster; calls 0x84A6 and 0x5A7F; enum-like values 0x03/0x07,exact physical semantics for branch outcomes and object-state meaning,medium,Touches 0x3010..0x301B and reads 0x31BF/0x36xx cluster before calling 0x84A6 and 0x5A7F.
+90CYE_DKS,90CYE03_19_DKS.PZU,0x84A6,"void fn_84A6(...) {
+    // read mode/state cluster (0x315B/0x3181/0x3640/0x36D3/0x36D9)
+    // evaluate branch flags / thresholds
+    // call 0x728A for downstream gate path
+    // call 0x5A7F for packet/pointer bridge on selected paths
+}",reads 0x315B/0x3181/0x3640/0x36D3/0x36D9; calls 0x728A; calls 0x5A7F,manual/auto physical mapping remains hypothesis; exact event semantics unknown,low_to_medium,Mode/event bridge plausible from XDATA cluster 0x315B/0x3181/0x3640/0x36D3/0x36D9 but physical mapping stays hypothesis.
+RTOS_service,ppkp2001 90cye01.PZU,0x4374,void fn_4374(...) { /* branch helper / state transition / call fanout */ },call/context/xdata evidence from static window,exact physical semantics unresolved,medium,Contains looped MOVX writes and immediate table initialization after 0x920C/0x916D.
+RTOS_service,ppkp2001 90cye01.PZU,0x9255,void fn_9255(...) { /* branch helper / state transition / call fanout */ },call/context/xdata evidence from static window,exact physical semantics unresolved,medium,Calls 0x53E6 then copies multi-byte XDATA sequence into R6..R1; checksum/baud role not proven.
+RTOS_service,ppkp2001 90cye01.PZU,0x758B,void fn_758B(...) { /* branch helper / state transition / call fanout */ },call/context/xdata evidence from static window,exact physical semantics unresolved,medium,"Writes 0x3011/0x3014 markers, checks 0x66EA mask, updates 0x3010, mirrors 0x6406(+1)."
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,0x613C,void fn_613C(...) { /* branch helper / state transition / call fanout */ },call/context/xdata evidence from static window,exact physical semantics unresolved,low_to_medium,Reads 0x32B2 and writes around 0x3108/0x31DD windows; suggests status-bridge logic with shifted mapping.

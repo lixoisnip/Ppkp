@@ -298,6 +298,21 @@ def main() -> int:
             "project-guided focused micro-decompile pass over top static targets",
         ),
         SmokeCommand(
+            "project_guided_micro_decompiler_pass2.py",
+            "project_guided_static",
+            [sys.executable, "scripts/project_guided_micro_decompiler_pass2.py"],
+            [
+                "docs/project_guided_micro_decompile_pass2.md",
+                "docs/project_guided_micro_pass2_summary.csv",
+                "docs/project_guided_micro_pass2_pseudocode.csv",
+                "docs/project_guided_micro_pass2_constants.csv",
+                "docs/project_guided_micro_pass2_xdata_flow.csv",
+                "docs/project_guided_micro_pass2_callsite_matrix.csv",
+                "docs/project_guided_micro_pass2_unknowns_update.csv",
+            ],
+            "project-guided micro-decompile pass #2 over follow-up target set",
+        ),
+        SmokeCommand(
             "mash_code_evidence_analyzer.py",
             "global_mash_analysis",
             [sys.executable, "scripts/mash_code_evidence_analyzer.py"],

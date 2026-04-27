@@ -194,6 +194,13 @@ Generated extraction layer (project-level evidence, separated from static/decomp
 - docs/project_guided_micro_constants.csv
 - docs/project_guided_micro_xdata_flow.csv
 - docs/project_guided_micro_unknowns_update.csv
+- docs/project_guided_micro_decompile_pass2.md — micro-decompile pass #2 for 0x597F, 0x7922, 0x497A, 0x737C, 0x84A6, 0x4374, 0x9255, 0x758B, 0x613C.
+- docs/project_guided_micro_pass2_summary.csv
+- docs/project_guided_micro_pass2_pseudocode.csv
+- docs/project_guided_micro_pass2_constants.csv
+- docs/project_guided_micro_pass2_xdata_flow.csv
+- docs/project_guided_micro_pass2_callsite_matrix.csv
+- docs/project_guided_micro_pass2_unknowns_update.csv
 
 
 Добавлен целевой статический этап, где project-documentation используется как ограничитель поиска (без переноса семантики без code evidence):

@@ -1,0 +1,68 @@
+branch,file,function_addr,constant,constant_format,nearby_operation,possible_meaning,confidence,evidence_level,notes
+90CYE_DKS,90CYE03_19_DKS.PZU,0x597F,0x07,hex_immediate,disassembly_local_window,mask/table/xdata selector,low_to_medium,static_code,pass2 constant extraction
+90CYE_DKS,90CYE03_19_DKS.PZU,0x497A,0x0F,hex_immediate,disassembly_local_window,mask/table/xdata selector,low_to_medium,static_code,pass2 constant extraction
+90CYE_DKS,90CYE03_19_DKS.PZU,0x497A,0x0035,hex_immediate,disassembly_local_window,mask/table/xdata selector,low_to_medium,static_code,pass2 constant extraction
+90CYE_DKS,90CYE03_19_DKS.PZU,0x497A,0xF0,hex_immediate,disassembly_local_window,mask/table/xdata selector,low_to_medium,static_code,pass2 constant extraction
+90CYE_DKS,90CYE03_19_DKS.PZU,0x497A,0x04,hex_immediate,disassembly_local_window,mask/table/xdata selector,low_to_medium,static_code,pass2 constant extraction
+90CYE_DKS,90CYE03_19_DKS.PZU,0x737C,0x5A7F,hex_immediate,disassembly_local_window,mask/table/xdata selector,low_to_medium,static_code,pass2 constant extraction
+90CYE_DKS,90CYE03_19_DKS.PZU,0x737C,0x31BF,hex_immediate,disassembly_local_window,mask/table/xdata selector,low_to_medium,static_code,pass2 constant extraction
+90CYE_DKS,90CYE03_19_DKS.PZU,0x737C,0x00,hex_immediate,disassembly_local_window,mask/table/xdata selector,low_to_medium,static_code,pass2 constant extraction
+90CYE_DKS,90CYE03_19_DKS.PZU,0x737C,0x01,hex_immediate,disassembly_local_window,mask/table/xdata selector,low_to_medium,static_code,pass2 constant extraction
+90CYE_DKS,90CYE03_19_DKS.PZU,0x737C,0x03,hex_immediate,disassembly_local_window,mask/table/xdata selector,low_to_medium,static_code,pass2 constant extraction
+90CYE_DKS,90CYE03_19_DKS.PZU,0x737C,0x0F,hex_immediate,disassembly_local_window,mask/table/xdata selector,low_to_medium,static_code,pass2 constant extraction
+90CYE_DKS,90CYE03_19_DKS.PZU,0x737C,0xF0,hex_immediate,disassembly_local_window,mask/table/xdata selector,low_to_medium,static_code,pass2 constant extraction
+90CYE_DKS,90CYE03_19_DKS.PZU,0x737C,0x597F,hex_immediate,disassembly_local_window,mask/table/xdata selector,low_to_medium,static_code,pass2 constant extraction
+90CYE_DKS,90CYE03_19_DKS.PZU,0x737C,0x07,hex_immediate,disassembly_local_window,mask/table/xdata selector,low_to_medium,static_code,pass2 constant extraction
+90CYE_DKS,90CYE03_19_DKS.PZU,0x737C,0x848E,hex_immediate,disassembly_local_window,mask/table/xdata selector,low_to_medium,static_code,pass2 constant extraction
+90CYE_DKS,90CYE03_19_DKS.PZU,0x84A6,0x36D3,hex_immediate,disassembly_local_window,mask/table/xdata selector,low_to_medium,static_code,pass2 constant extraction
+90CYE_DKS,90CYE03_19_DKS.PZU,0x84A6,0x862D,hex_immediate,disassembly_local_window,mask/table/xdata selector,low_to_medium,static_code,pass2 constant extraction
+90CYE_DKS,90CYE03_19_DKS.PZU,0x84A6,0x3181,hex_immediate,disassembly_local_window,mask/table/xdata selector,low_to_medium,static_code,pass2 constant extraction
+90CYE_DKS,90CYE03_19_DKS.PZU,0x84A6,0x315B,hex_immediate,disassembly_local_window,mask/table/xdata selector,low_to_medium,static_code,pass2 constant extraction
+90CYE_DKS,90CYE03_19_DKS.PZU,0x84A6,0xAF,hex_immediate,disassembly_local_window,mask/table/xdata selector,low_to_medium,static_code,pass2 constant extraction
+90CYE_DKS,90CYE03_19_DKS.PZU,0x84A6,0x30D4,hex_immediate,disassembly_local_window,mask/table/xdata selector,low_to_medium,static_code,pass2 constant extraction
+90CYE_DKS,90CYE03_19_DKS.PZU,0x84A6,0x5A7F,hex_immediate,disassembly_local_window,mask/table/xdata selector,low_to_medium,static_code,pass2 constant extraction
+90CYE_DKS,90CYE03_19_DKS.PZU,0x84A6,0xE3,hex_immediate,disassembly_local_window,mask/table/xdata selector,low_to_medium,static_code,pass2 constant extraction
+90CYE_DKS,90CYE03_19_DKS.PZU,0x84A6,0xE5,hex_immediate,disassembly_local_window,mask/table/xdata selector,low_to_medium,static_code,pass2 constant extraction
+90CYE_DKS,90CYE03_19_DKS.PZU,0x84A6,0x7D42,hex_immediate,disassembly_local_window,mask/table/xdata selector,low_to_medium,static_code,pass2 constant extraction
+RTOS_service,ppkp2001 90cye01.PZU,0x4374,0x8F8C,hex_immediate,disassembly_local_window,mask/table/xdata selector,low_to_medium,static_code,pass2 constant extraction
+RTOS_service,ppkp2001 90cye01.PZU,0x4374,0x80,hex_immediate,disassembly_local_window,mask/table/xdata selector,low_to_medium,static_code,pass2 constant extraction
+RTOS_service,ppkp2001 90cye01.PZU,0x4374,0x10,hex_immediate,disassembly_local_window,mask/table/xdata selector,low_to_medium,static_code,pass2 constant extraction
+RTOS_service,ppkp2001 90cye01.PZU,0x4374,0x05,hex_immediate,disassembly_local_window,mask/table/xdata selector,low_to_medium,static_code,pass2 constant extraction
+RTOS_service,ppkp2001 90cye01.PZU,0x4374,0x0C,hex_immediate,disassembly_local_window,mask/table/xdata selector,low_to_medium,static_code,pass2 constant extraction
+RTOS_service,ppkp2001 90cye01.PZU,0x4374,0x04,hex_immediate,disassembly_local_window,mask/table/xdata selector,low_to_medium,static_code,pass2 constant extraction
+RTOS_service,ppkp2001 90cye01.PZU,0x4374,0x66EB,hex_immediate,disassembly_local_window,mask/table/xdata selector,low_to_medium,static_code,pass2 constant extraction
+RTOS_service,ppkp2001 90cye01.PZU,0x4374,0x6408,hex_immediate,disassembly_local_window,mask/table/xdata selector,low_to_medium,static_code,pass2 constant extraction
+RTOS_service,ppkp2001 90cye01.PZU,0x4374,0x07,hex_immediate,disassembly_local_window,mask/table/xdata selector,low_to_medium,static_code,pass2 constant extraction
+RTOS_service,ppkp2001 90cye01.PZU,0x4374,0x920C,hex_immediate,disassembly_local_window,mask/table/xdata selector,low_to_medium,static_code,pass2 constant extraction
+RTOS_service,ppkp2001 90cye01.PZU,0x9255,0x8F8C,hex_immediate,disassembly_local_window,mask/table/xdata selector,low_to_medium,static_code,pass2 constant extraction
+RTOS_service,ppkp2001 90cye01.PZU,0x9255,0x66FF,hex_immediate,disassembly_local_window,mask/table/xdata selector,low_to_medium,static_code,pass2 constant extraction
+RTOS_service,ppkp2001 90cye01.PZU,0x9255,0x03,hex_immediate,disassembly_local_window,mask/table/xdata selector,low_to_medium,static_code,pass2 constant extraction
+RTOS_service,ppkp2001 90cye01.PZU,0x9255,0x90D1,hex_immediate,disassembly_local_window,mask/table/xdata selector,low_to_medium,static_code,pass2 constant extraction
+RTOS_service,ppkp2001 90cye01.PZU,0x9255,0x0F,hex_immediate,disassembly_local_window,mask/table/xdata selector,low_to_medium,static_code,pass2 constant extraction
+RTOS_service,ppkp2001 90cye01.PZU,0x9255,0x01,hex_immediate,disassembly_local_window,mask/table/xdata selector,low_to_medium,static_code,pass2 constant extraction
+RTOS_service,ppkp2001 90cye01.PZU,0x9255,0x53E6,hex_immediate,disassembly_local_window,mask/table/xdata selector,low_to_medium,static_code,pass2 constant extraction
+RTOS_service,ppkp2001 90cye01.PZU,0x9255,0x7640,hex_immediate,disassembly_local_window,mask/table/xdata selector,low_to_medium,static_code,pass2 constant extraction
+RTOS_service,ppkp2001 90cye01.PZU,0x9255,0x75A9,hex_immediate,disassembly_local_window,mask/table/xdata selector,low_to_medium,static_code,pass2 constant extraction
+RTOS_service,ppkp2001 90cye01.PZU,0x9255,0x763A,hex_immediate,disassembly_local_window,mask/table/xdata selector,low_to_medium,static_code,pass2 constant extraction
+RTOS_service,ppkp2001 90cye01.PZU,0x758B,0x06,hex_immediate,disassembly_local_window,mask/table/xdata selector,low_to_medium,static_code,pass2 constant extraction
+RTOS_service,ppkp2001 90cye01.PZU,0x758B,0x00,hex_immediate,disassembly_local_window,mask/table/xdata selector,low_to_medium,static_code,pass2 constant extraction
+RTOS_service,ppkp2001 90cye01.PZU,0x758B,0x01,hex_immediate,disassembly_local_window,mask/table/xdata selector,low_to_medium,static_code,pass2 constant extraction
+RTOS_service,ppkp2001 90cye01.PZU,0x758B,0x03,hex_immediate,disassembly_local_window,mask/table/xdata selector,low_to_medium,static_code,pass2 constant extraction
+RTOS_service,ppkp2001 90cye01.PZU,0x758B,0x8F8C,hex_immediate,disassembly_local_window,mask/table/xdata selector,low_to_medium,static_code,pass2 constant extraction
+RTOS_service,ppkp2001 90cye01.PZU,0x758B,0x6406,hex_immediate,disassembly_local_window,mask/table/xdata selector,low_to_medium,static_code,pass2 constant extraction
+RTOS_service,ppkp2001 90cye01.PZU,0x758B,0x02,hex_immediate,disassembly_local_window,mask/table/xdata selector,low_to_medium,static_code,pass2 constant extraction
+RTOS_service,ppkp2001 90cye01.PZU,0x758B,0x08,hex_immediate,disassembly_local_window,mask/table/xdata selector,low_to_medium,static_code,pass2 constant extraction
+RTOS_service,ppkp2001 90cye01.PZU,0x758B,0x04,hex_immediate,disassembly_local_window,mask/table/xdata selector,low_to_medium,static_code,pass2 constant extraction
+RTOS_service,ppkp2001 90cye01.PZU,0x758B,0x14,hex_immediate,disassembly_local_window,mask/table/xdata selector,low_to_medium,static_code,pass2 constant extraction
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,0x613C,0xF0,hex_immediate,disassembly_local_window,mask/table/xdata selector,low_to_medium,static_code,pass2 constant extraction
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,0x613C,0x10,hex_immediate,disassembly_local_window,mask/table/xdata selector,low_to_medium,static_code,pass2 constant extraction
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,0x613C,0x82,hex_immediate,disassembly_local_window,mask/table/xdata selector,low_to_medium,static_code,pass2 constant extraction
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,0x613C,0x83,hex_immediate,disassembly_local_window,mask/table/xdata selector,low_to_medium,static_code,pass2 constant extraction
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,0x613C,0x4575,hex_immediate,disassembly_local_window,mask/table/xdata selector,low_to_medium,static_code,pass2 constant extraction
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,0x613C,0x00,hex_immediate,disassembly_local_window,mask/table/xdata selector,low_to_medium,static_code,pass2 constant extraction
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,0x613C,0x30AF,hex_immediate,disassembly_local_window,mask/table/xdata selector,low_to_medium,static_code,pass2 constant extraction
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,0x613C,0xE6,hex_immediate,disassembly_local_window,mask/table/xdata selector,low_to_medium,static_code,pass2 constant extraction
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,0x613C,0xE5,hex_immediate,disassembly_local_window,mask/table/xdata selector,low_to_medium,static_code,pass2 constant extraction
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,0x613C,0x31DD,hex_immediate,disassembly_local_window,mask/table/xdata selector,low_to_medium,static_code,pass2 constant extraction
+90CYE_DKS,90CYE03_19_DKS.PZU,0x597F,0x07,bitmask,"ANL A,#0x07",guard/normalizer mask,probable,static_code+manual_decompile,exact semantic label unresolved
+RTOS_service,ppkp2001 90cye01.PZU,0x4374,0x646E,xdata_addr,"MOV DPTR,#0x646E ; MOVX @DPTR,#0xFF",service init flag/cache,medium,static_code,from direct disassembly window
