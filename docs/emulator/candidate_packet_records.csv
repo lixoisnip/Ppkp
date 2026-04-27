@@ -1,1 +1,2 @@
 run_id,scenario,function_addr,record_base,record_bytes,source_xdata_addrs,possible_role,confidence,evidence_level,notes
+packet_bridge_seeded_context_5602_20260427T180838Z,packet_bridge_seeded_context,0x5602,0x0000,1,0x0000,unknown_record,low,emulation_observed,Grouped contiguous observed XDATA writes only; format not decoded.

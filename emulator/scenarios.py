@@ -20,6 +20,10 @@ def _seed_addrs(addrs: list[int], base: int = 1) -> dict[int, int]:
     return {a: (base + i) & 0xFF for i, a in enumerate(addrs)}
 
 
+def _seed_with_pattern(addrs: list[int], pattern: list[int]) -> dict[int, int]:
+    return {a: pattern[i % len(pattern)] & 0xFF for i, a in enumerate(addrs)}
+
+
 SCENARIOS = {
     "packet_bridge_default": Scenario(
         name="packet_bridge_default",
@@ -68,6 +72,28 @@ SCENARIOS = {
         seed_xdata={},
         watchpoints=default_dks_watchpoints(),
         purpose="Diagnostic boot-entry probe only; stop on unsupported low-level behavior without claiming full emulation.",
+    ),
+    "packet_bridge_seeded_context": Scenario(
+        name="packet_bridge_seeded_context",
+        firmware_file="90CYE03_19_DKS.PZU",
+        functions=[0x55AD, 0x5602, 0x5A7F],
+        seed_xdata=_seed_with_pattern(
+            [0x30BC, 0x30E1, 0x7160] + expand_range("0x3010..0x301B") + [0x31BF] + expand_range("0x36D3..0x36FD"),
+            [0x00, 0x01, 0x02, 0x04, 0x07, 0x55, 0xAA],
+        ),
+        watchpoints=default_dks_watchpoints(),
+        purpose="Seed context bytes for packet bridge candidates while preserving conservative trace-only interpretation.",
+    ),
+    "packet_bridge_stub_5a7f": Scenario(
+        name="packet_bridge_stub_5a7f",
+        firmware_file="90CYE03_19_DKS.PZU",
+        functions=[0x5A7F],
+        seed_xdata=_seed_with_pattern(
+            [0x30BC, 0x30E1, 0x7160, 0x31BF],
+            [0x00, 0x01, 0x02, 0x04, 0x07, 0x55, 0xAA],
+        ),
+        watchpoints=default_dks_watchpoints(),
+        purpose="Focused 0x5A7F probe with deterministic seed context to inspect opcode coverage and trace outputs.",
     ),
 }
 

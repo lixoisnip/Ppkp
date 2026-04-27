@@ -12,16 +12,25 @@ Unsupported opcodes are logged and never silently ignored.
 90CYE03_19_DKS.PZU via pzu_intel_hex
 
 ## Target functions tested
-Scenario: boot_probe_static
-Functions: 0x4000, 0x4100
+Scenario: packet_bridge_seeded_context
+Functions: 0x55AD, 0x5602, 0x5A7F
 
 ## Unsupported opcodes encountered
-2
+3
 
 ## XDATA writes observed
-0
+1
 
 ## Candidate packet/event records
 See docs/emulator/candidate_packet_records.csv (contiguous observed writes only; no packet format invention).
+
+## Issue #78 progress checks
+Did 0x55AD advance past 0xB8? no
+Did 0x5602 advance past 0xB8? no
+Did 0x5A7F advance past 0xF5? yes
+Were any SBUF candidate writes observed? no
+Were any UART TX candidate bytes observed? no
+Were any new candidate packet/event records observed? yes
+Are RS-485 commands still unresolved? yes
 
 No real RS-485 command is confirmed unless UART/SBUF writes or decoded packet bytes are observed.
