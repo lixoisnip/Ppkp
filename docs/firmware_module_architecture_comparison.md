@@ -42,6 +42,7 @@ This report separates shared low-level patterns from application-specific behavi
 - ⚠️ docs/input_board_to_event_chains.csv
 - ✅ docs/input_board_core_matrix.csv
 - ✅ docs/family_module_architecture_map.csv
+- ✅ docs/dks_real_configuration_evidence.csv
 
 ## 3. Missing optional inputs/warnings
 
@@ -118,6 +119,7 @@ CPU board / runtime core
 | A03_A04 | A03_26.PZU | 0x497A | confirmed | score=1.000 |
 | A03_A04 | A04_28.PZU | 0x497A | unknown | score=0.000 |
 | RTOS_service | ppkp2001 90cye01.PZU | 0x758B | confirmed | score=1.000 |
+| RTOS_service | ppkp2001 90cye01.PZU | unknown | confirmed | score=0.700 |
 | RTOS_service | ppkp2012 a01.PZU | 0x75F7 | unknown | score=0.000 |
 | RTOS_service | ppkp2019 a02.PZU | 0x57DB | unknown | score=0.000 |
 
@@ -160,37 +162,46 @@ CPU board / runtime core
 - Confidence labels used: confirmed / probable / hypothesis / unknown.
 - Next manual decompile targets: top per module from `docs/shared_core_function_map.csv`, `docs/mvk_output_semantics.csv`, `docs/mds_mup_module_candidates.csv`.
 
-## 12. APS/aerosol/water-like differences
+## 12. Real DKS configuration evidence
+
+- Screenshots map to repository firmware files and are recorded in `docs/dks_real_configuration_evidence.md` and `docs/dks_real_configuration_evidence.csv`.
+- The screenshots confirm module presence at configuration/HMI level, but do not prove exact handler function addresses.
+- DKS 90CYE03/90CYE04 confirms MDS, MUP and PVK as separate modules.
+- DKS 90CYE01 confirms MDS, PVK and two MASH modules (X05/X06).
+- DKS 90CYE02 confirms multiple MDS-like modules and object-status layer (`90SAE...` tags).
+- This strengthens module-separation interpretation (MDS/MUP/PVK/MASH, shleif status, object-status layer) without raising function-level confidence by itself.
+
+## 13. APS/aerosol/water-like differences
 
 Heuristic family scores are in `docs/firmware_architecture_matrix.csv`; they do not assert functional identity between branches.
 
-## 13. MVK output semantics
+## 14. MVK output semantics
 
 Covered semantics: siren/relay shutdown, aerosol GOA/start line, water valve/actuator, generic output start/reset where evidence exists.
 
-## 14. Aerosol GOA line supervision
+## 15. Aerosol GOA line supervision
 
 Reverse voltage / resistance window / open-short-fault / start permission are listed only as candidates. Weak evidence is marked hypothesis/unknown.
 
-## 15. Water valve/actuator logic
+## 16. Water valve/actuator logic
 
 Open command, paired feedback, timeout/fault indications are captured as candidate patterns with conservative confidence.
 
-## 16. Cross-firmware repeated patterns
+## 17. Cross-firmware repeated patterns
 
 See `docs/cross_firmware_pattern_summary.csv` for shared packet/core/front-panel/MASH/MVK/input/MDS/MUP patterns.
 
-## 17. Strongest functions to manually decompile next per module
+## 18. Strongest functions to manually decompile next per module
 
 - cpu_board: 90CYE_shifted_DKS:0x497F, 90CYE_v2_1:0x497F, 90CYE_DKS:0x497A, 90CYE_v2_1:0x497F, 90CYE_DKS:0x497A
-- mash_address_loop: 90CYE_shifted_DKS:0x497F, 90CYE_DKS:0x497A, A03_A04:0x497A, RTOS_service:0x758B, 90CYE_v2_1:0x497F
+- mash_address_loop: 90CYE_shifted_DKS:0x497F, 90CYE_DKS:0x497A, A03_A04:0x497A, RTOS_service:0x758B, RTOS_service:unknown
 - mvk_output_module: 90CYE_shifted_DKS:0x497F, 90CYE_v2_1:0x497F, 90CYE_DKS:0x497A, 90CYE_v2_1:0x497F, 90CYE_DKS:0x497A
 - input_signal_board: 90CYE_DKS:0x497A, 90CYE_DKS:0x497A, RTOS_service:0x758B, RTOS_service:0x75F7, RTOS_service:0x57DB
-- mds_discrete_signal_module: 90CYE_DKS:0x497A, A03_A04:0x497A, RTOS_service:0x758B, 90CYE_shifted_DKS:0x497F, 90CYE_DKS:0x497A
+- mds_discrete_signal_module: 90CYE_DKS:0x497A, A03_A04:0x497A, RTOS_service:0x758B, 90CYE_shifted_DKS:0x497F, 90CYE_shifted_DKS:unknown
 - mup_module: 90CYE_shifted_DKS:0x497F, 90CYE_v2_1:0x497F, 90CYE_DKS:0x497A, 90CYE_v2_1:0x497F, 90CYE_DKS:0x497A
 - packet_export: 90CYE_DKS:0x497A, 90CYE_DKS:0x497A, 90CYE_shifted_DKS:0x497F, 90CYE_v2_1:0x497F, 90CYE_v2_1:0x497F
 
-## 18. Bench/runtime validation checklist
+## 19. Bench/runtime validation checklist
 
 - [ ] Verify mode-gate behavior around 90CYE_DKS 0x728A (E0/E1/E2 and XDATA 0x30A2/0x30E7).
 - [ ] Verify 0x6833 branch side effects (calls 0x7922/0x597F/0x5A7F, XDATA write value 0x04, path to 0x7DC2).
@@ -200,7 +211,7 @@ See `docs/cross_firmware_pattern_summary.csv` for shared packet/core/front-panel
 - [ ] Validate aerosol line supervision thresholds (reverse/open/short/resistance window) on bench.
 - [ ] Validate water valve open/close feedback paired-limit behavior and timeouts.
 
-## 19. Limitations and confidence rules
+## 20. Limitations and confidence rules
 
 - Confirmed: repeated static evidence across multiple artifacts and chain consistency.
 - Probable: strong but incomplete structural evidence.

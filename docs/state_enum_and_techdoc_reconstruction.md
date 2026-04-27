@@ -52,10 +52,3 @@ Sensor state
   -> Output feedback
   -> Packet/export
 ```
-
-## 13. Deep follow-up resolver
-
-Для углубления качества после этого оркестратора используется `scripts/xdata_enum_branch_resolver.py`.
-Он строит trace-level карты XDATA/enum/branch и обновляет `xdata_lifecycle_map.csv`, `state_enum_hypotheses.csv`,
-`auto_manual_mode_hypotheses.csv`, `output_action_map.csv` на основании более узко сфокусированной evidence-базы
-для `90CYE_DKS / 90CYE03_19_DKS.PZU`.

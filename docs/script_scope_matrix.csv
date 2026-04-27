@@ -17,6 +17,7 @@ scripts/find_packet_window_writers.py,false,true,true,true,false,true,Поиск
 scripts/find_a03_analogs_for_a04_writers.py,false,true,true,true,true,true,Строит CSV и MD по structural-analog кандидатам A03 для A04 writer-функций.
 scripts/run_analysis_smoke_test.py,false,false,false,true,false,true,Оркестратор smoke-проверки; создает docs/analysis_smoke_test_results.csv.
 scripts/mash_sensor_evidence_report.py,false,false,false,true,true,true,Генерирует seed-evidence CSV/MD по адресно-аналоговым датчикам МАШ из PDF; связь с прошивкой помечает как hypothesis.
+scripts/dks_configuration_evidence.py,false,false,false,true,true,true,Генерирует docs/dks_real_configuration_evidence.csv и .md из вручную транскрибированных полевых фото DKS; evidence только configuration-level.
 scripts/global_packet_pipeline_miner.py,true,false,true,true,true,true,Глобальный майнинг packet/runtime pipeline candidates/chains по всем веткам; не доказывает packet format.
 scripts/rtos_service_pipeline_analysis.py,false,true,true,true,true,true,Branch-specific RTOS_service runtime/service pipeline analysis with confidence-capped candidates/chains/XDATA roles.
 scripts/rtos_chain_deep_trace.py,false,true,true,true,true,true,Branch-specific RTOS_service deep trace for valid chain 0x4358->0x920C->0x53E6 with confidence-capped role interpretation.

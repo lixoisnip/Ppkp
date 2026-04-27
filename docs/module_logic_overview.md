@@ -217,3 +217,11 @@ XDATA-адреса для подтверждения:
 - Добавлен отдельный анализатор `scripts/firmware_module_architecture_analyzer.py` для модульного сравнения по всем веткам с разделением CPU/runtime core, keyboard/display, MASH, MVK, input board, MDS, MUP, aerosol/water-specific и packet/export.
 - Выходные артефакты: `docs/firmware_architecture_matrix.csv`, `docs/shared_core_function_map.csv`, `docs/module_presence_matrix.csv`, `docs/mvk_output_semantics.csv`, `docs/aerosol_line_supervision_candidates.csv`, `docs/input_board_presence_matrix.csv`, `docs/cross_firmware_pattern_summary.csv`, `docs/mds_mup_module_candidates.csv`, `docs/firmware_module_architecture_comparison.md`.
 - Правило интерпретации: слабые выводы помечаются `hypothesis/unknown`; MUP не приравнивается к MVK, MDS не приравнивается к обычной input-board логике без прямого code evidence.
+
+## Real DKS screen/configuration evidence (Issue #52 follow-up)
+
+- Реальные экраны DKS подтверждают, что `MDS` и `MUP` выводятся как отдельные модульные ярлыки на приборах; формулировки анализатора не должны схлопывать `MDS` в generic input board и `MUP` в `MVK`.
+- На экранах также виден модуль `PVK`, но его точная функциональная роль остаётся `unknown` без прямого code evidence.
+- Для `ppkp2001 90cye01.PZU` на экране подтверждены `X05=МАШ` и `X06=МАШ` (две МАШ-позиции).
+- Это evidence относится к конфигурационному/экранному уровню и не доказывает конкретные адреса обработчиков функций.
+- Детализация: `docs/dks_real_configuration_evidence.md` и `docs/dks_real_configuration_evidence.csv`.

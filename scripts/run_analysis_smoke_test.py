@@ -204,6 +204,13 @@ def main() -> int:
             "seed evidence for MASH/address-loop sensors from PDF (firmware linkage remains hypothesis)",
         ),
         SmokeCommand(
+            "dks_configuration_evidence.py",
+            "documentation_seed",
+            [sys.executable, "scripts/dks_configuration_evidence.py"],
+            ["docs/dks_real_configuration_evidence.csv", "docs/dks_real_configuration_evidence.md"],
+            "manual real-device DKS screen evidence transcription (configuration-level evidence only)",
+        ),
+        SmokeCommand(
             "mash_code_evidence_analyzer.py",
             "global_mash_analysis",
             [sys.executable, "scripts/mash_code_evidence_analyzer.py"],

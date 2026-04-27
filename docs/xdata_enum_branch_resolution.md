@@ -1,5 +1,5 @@
 # XDATA enum/branch resolution (deep milestone)
-Date: 2026-04-26 16:54 UTC.
+Date: 2026-04-27 06:51 UTC.
 
 ## 1) XDATA lifecycle coverage
 - `0x30EA..0x30F9`: reads=-; writes=-; branches=-; exports=- (probable).
