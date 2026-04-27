@@ -1,0 +1,6 @@
+step_order,function_addr,operation,xdata_addr,value,condition,next_function,evidence_level,notes
+1,0x728A,mode gate branch,0x30E7/0x315B,bit checks E0/E1/E2,manual/auto mode split,0x6833 or 0x5A7F,probable_static,manual path can skip output-start and go packet/event only
+2,0x597F,condition guard,ACC-context,A & 0x07 candidate,mask/mode class check,0x6833,manual_decompile,guard candidate before output/start transition
+3,0x7922,state table read/service helper,0x30EA..0x30F9 candidate,table/context value,state/mode dependent,0x6833,manual_decompile,supplies state-context used by downstream start path
+4,0x6833,write start marker,XDATA[DPTR],0x04,output-start eligible branch,0x7DC2,manual_decompile,interpretation remains conservative: state/command/event marker candidate
+5,0x7DC2,downstream transition finalize,0x36D3..0x36FD context,contextual,after start marker path,0x5A7F,manual_decompile,final bridge before packet/export helper

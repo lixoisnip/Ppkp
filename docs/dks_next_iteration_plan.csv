@@ -1,0 +1,6 @@
+iteration_id,goal,expected_outputs,depends_on,estimated_impact,priority,notes
+v1.1,Resolve packet framing around 0x5A7F,packet byte map + validated format CSV,bench packet capture rig,high,high,focus on 90CYE03 and cross-check 90CYE04
+v1.2,Validate output-start semantics,confirmed meaning for write 0x04 and guard behavior,output-action bench tests OA-01..OA-04,high,high,no physical naming until evidence is direct
+v1.3,Narrow unresolved module handlers,reduced unresolved handler CSV,slot-isolated traces,medium,medium,keep families separated
+v1.4,Cross-family consistency audit,updated architecture comparison deltas,v1.1-v1.3 results,medium,medium,no semantics transfer without fingerprint match
+v2.0,Publish validated technical reconstruction v2,v2 report + confidence uplift,bench-confirmed unknown closures,high,high,target fewer but deeper tasks

@@ -1,0 +1,7 @@
+unknown_id,area,description,why_unknown,needed_evidence,priority,next_action
+U-001,packet_export,Exact frame boundary and byte order around 0x5A7F,static traces show adjacency but not serialized bytes,bench packet capture aligned with call path,high,instrument packet buffer and trigger known states
+U-002,output_action,Physical meaning of XDATA[DPTR]=0x04,write is visible but target channel semantics are not,bench mapping from write timing to external output,high,run OA-02 and OA-03 tests
+U-003,enum_state_values,Per-value operational meaning across modules,current evidence mixes branch labels and inferred meaning,controlled scenario replay with XDATA watch,high,execute enum bench probes
+U-004,MUP_handler,Exclusive MUP handler function identity,shared dispatch chain dominates evidence,slot-isolated traces + dynamic correlation,medium,bench with X06 enabled/disabled
+U-005,PVK_handler,PVK-specific handler attribution,screen evidence present but code signature still broad,targeted static deep trace around PVK-related calls,medium,expand unresolved handler candidates
+U-006,physical_output_semantics,Whether paths correspond to valve/siren/GOA/MVK classes,no direct hardware confirmation,external IO captures with synchronized firmware events,high,prepare isolated load tests

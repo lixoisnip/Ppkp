@@ -385,6 +385,64 @@ def main() -> int:
             ],
             "focused DKS XDATA lifecycle reconstruction for zone/object state, mode flags and packet context",
         ),
+        SmokeCommand(
+            "dks_enum_state_reconstructor.py",
+            "dks_module_followup",
+            [sys.executable, "scripts/dks_enum_state_reconstructor.py"],
+            [
+                "docs/dks_enum_state_reconstruction.md",
+                "docs/dks_enum_state_matrix.csv",
+                "docs/dks_enum_state_transition_candidates.csv",
+            ],
+            "DKS enum/state value reconstruction and transition candidates",
+        ),
+        SmokeCommand(
+            "dks_packet_export_reconstructor.py",
+            "dks_module_followup",
+            [sys.executable, "scripts/dks_packet_export_reconstructor.py"],
+            [
+                "docs/dks_packet_export_reconstruction.md",
+                "docs/dks_packet_export_callsite_matrix.csv",
+                "docs/dks_packet_context_xdata_matrix.csv",
+                "docs/dks_packet_format_hypothesis.csv",
+            ],
+            "DKS packet/export path reconstruction around 0x5A7F and packet context XDATA",
+        ),
+        SmokeCommand(
+            "dks_output_action_reconstructor.py",
+            "dks_module_followup",
+            [sys.executable, "scripts/dks_output_action_reconstructor.py"],
+            [
+                "docs/dks_output_action_reconstruction.md",
+                "docs/dks_output_action_matrix.csv",
+                "docs/dks_output_start_path_trace.csv",
+                "docs/dks_output_action_bench_tests.csv",
+            ],
+            "DKS output/start action reconstruction for 0x6833/0x597F/0x7922/0x7DC2",
+        ),
+        SmokeCommand(
+            "dks_module_handler_attribution.py",
+            "dks_module_followup",
+            [sys.executable, "scripts/dks_module_handler_attribution.py"],
+            [
+                "docs/dks_module_handler_attribution.md",
+                "docs/dks_module_handler_attribution_matrix.csv",
+                "docs/dks_module_unresolved_handlers.csv",
+            ],
+            "DKS slot-label to handler attribution refinement with unresolved matrix",
+        ),
+        SmokeCommand(
+            "dks_final_techdoc_builder.py",
+            "dks_module_followup",
+            [sys.executable, "scripts/dks_final_techdoc_builder.py"],
+            [
+                "docs/dks_firmware_technical_reconstruction_v1.md",
+                "docs/dks_reconstruction_confidence_dashboard.csv",
+                "docs/dks_remaining_unknowns.csv",
+                "docs/dks_next_iteration_plan.csv",
+            ],
+            "consolidated DKS technical reconstruction v1 report and confidence/unknown/plan dashboards",
+        ),
     ]
 
     rows: list[dict[str, str]] = []

@@ -1,0 +1,10 @@
+branch,file,function_addr,xdata_addr,enum_value,probable_meaning,confidence,evidence_level,branch_context,downstream_path,notes
+90CYE_DKS,90CYE03_19_DKS.PZU,0x497A,0x3010,0x01,fire_primary_or_attention_candidate,probable,manual_decompile,"CJNE A,#0x01,+27",output_or_state,focused 90CYE_DKS trace
+90CYE_DKS,90CYE03_19_DKS.PZU,0x497A,0x3010,0x02,fire_secondary_or_fire_candidate,probable,manual_decompile,"CJNE A,#0x02,+27",output_or_state,focused 90CYE_DKS trace
+90CYE_DKS,90CYE03_19_DKS.PZU,0x497A,0x3010,0x04,fault_or_output_start_marker_candidate,probable,manual_decompile,CLR 0x04,output_or_state,focused 90CYE_DKS trace
+90CYE_DKS,90CYE03_19_DKS.PZU,0x497A,0x3010,0x05,disabled_candidate,probable,manual_decompile,"CJNE A,#0x05,+2",output_or_state,focused 90CYE_DKS trace
+90CYE_DKS,90CYE03_19_DKS.PZU,0x497A,0x3010,0x08,not_detected_candidate,probable,manual_decompile,"CJNE R0,#0x08,-43",output_or_state,focused 90CYE_DKS trace
+90CYE_DKS,90CYE03_19_DKS.PZU,0x497A,0x3010,0x7E,address_conflict_candidate,probable,manual_decompile,"CJNE A,#0x7E,-13",output_or_state,focused 90CYE_DKS trace
+90CYE_DKS,90CYE03_19_DKS.PZU,0x497A,0x3010,0xFF,absent_or_invalid_candidate,probable,manual_decompile,"CJNE A,#0xFF,-13",output_or_state,focused 90CYE_DKS trace
+90CYE_DKS,90CYE03_19_DKS.PZU,0x737C,0x3010,0x03,attention_or_alarm_fault_candidate,probable,manual_decompile,"ANL A,#0x03",output_or_state,focused 90CYE_DKS trace
+90CYE_DKS,90CYE03_19_DKS.PZU,0x737C,0x3010,0x07,service_candidate,probable,manual_decompile,"ORL A,#0x07",output_or_state,focused 90CYE_DKS trace
