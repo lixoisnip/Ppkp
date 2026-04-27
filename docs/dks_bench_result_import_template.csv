@@ -1,0 +1,2 @@
+capture_id,test_id,firmware_file,scenario,observed_function_path,observed_xdata_changes,observed_packet_raw_hex,observed_io_changes,screen_result,pass_fail,confidence_delta,notes
+template-001,PKT-01,90CYE03_19_DKS.PZU,manual event packet,,,,,,pending,0,Fill after bench capture import

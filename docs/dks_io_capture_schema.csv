@@ -1,0 +1,14 @@
+capture_field,description,required,example,notes
+capture_id,Unique capture record id,yes,OA06-20260427-001,Join key
+firmware_file,Firmware under test,yes,90CYE04_19_DKS.PZU,Family separated
+test_id,Validation matrix test id,yes,OA-06,Must match matrix
+timestamp_trigger,Trigger timestamp,yes,2026-04-27T11:20:01.005Z,Synchronize with packet/XDATA
+io_channel,Measured IO channel id,yes,CH3,Analyzer channel
+io_label_if_known,Known label for channel,no,Output relay candidate,Do not assert semantics without proof
+voltage_before,Voltage/state before trigger,yes,0.0V,Or logical low/high
+voltage_after,Voltage/state after trigger,yes,24.0V,Or logical low/high
+transition_time_ms,Time from trigger to transition,no,48,ms resolution preferred
+related_xdata,Correlated XDATA change,no,315B:00->04,Watchlist subset
+related_function,Correlated function entry,no,0x6833,From trace if available
+screen_status,HMI status during IO capture,yes,AUTO START ACTIVE,Photo/video cross-ref allowed
+notes,Capture notes,no,Transition repeated all 3 runs,Record anomalies

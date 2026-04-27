@@ -1,0 +1,12 @@
+function_addr,current_role,watch_reason,related_tests,expected_call_context,confidence,notes
+0x497A,upstream dispatcher,Entry for event/object flow,PKT-01..PKT-07;ENUM-*;MOD-*,Scenario trigger dispatch,probable,Chain anchor
+0x737C,state/context transformer,Prepares downstream state for packet/output,PKT-*;ENUM-*;MOD-*,After dispatcher with state bytes,probable,Chain anchor
+0x613C,mid-chain branch hub,Module/output branch split candidate,OA-*;MOD-*,Before mode gate/output branch,probable,Shared dispatcher region
+0x84A6,mode/state gate,Separates event-only vs output-start paths,PKT-*;OA-*;ENUM-*,Before 0x728A/0x5A7F handoff,probable,Gate candidate
+0x728A,manual/auto branch gate,Critical split for OA-02 vs OA-03,PKT-02;OA-01..OA-04,Pre-0x6833 decision point,probable,Manual decompile support exists
+0x6833,output-start entry candidate,Contains 0x04 write hypothesis,PKT-02;OA-02..OA-08,Auto/output-start branch,probable,No physical semantics without IO capture
+0x5A7F,packet/export bridge helper candidate,U-001 frame boundary target,PKT-*;ENUM-*;OBJ-*,High fan-in downstream packet context,probable,Exact frame role unresolved
+0x7922,downstream output helper,Output-start continuation path,OA-02;OA-05;OA-08,After 0x6833,hypothesis,Finalize/start sequencing unknown
+0x597F,guard/check helper,Guard behavior in OA-07,OA-01;OA-04;OA-07,Before or around output-start gating,hypothesis,Guard semantics to validate
+0x7DC2,finalization candidate,End-of-cycle behavior in OA-08,OA-02;OA-05;OA-08,Downstream after start path,hypothesis,Needs timing evidence
+0x673C,90CYE02 object-status handler candidate,OBJ tests + 0x3104 correlation,OBJ-01..OBJ-04,Object status update path,probable,Secondary scope

@@ -1,0 +1,15 @@
+capture_field,description,required,example,notes
+capture_id,Unique capture record id,yes,PKT02-20260427-001,Stable key for joins
+firmware_file,Firmware under test,yes,90CYE03_19_DKS.PZU,Family separation required
+device_name,Bench device identifier,yes,DKS-bench-A,Physical unit traceability
+timestamp_start,Capture start timestamp,yes,2026-04-27T10:15:30Z,UTC recommended
+timestamp_trigger,Scenario trigger timestamp,yes,2026-04-27T10:15:42.120Z,Must align with IO/XDATA logs
+test_id,Validation matrix test id,yes,PKT-02,Must match runtime matrix
+scenario,Human-readable scenario label,yes,auto event + output-start packet,Use matrix wording
+packet_raw_hex,Raw packet payload/frame hex,yes,AA55...,No reinterpretation in raw field
+packet_direction,Direction of packet,yes,tx,tx/rx/bidirectional
+suspected_function_path,Observed/suspected function path,no,0x497A->0x737C->0x6833->0x5A7F,From trace if available
+xdata_snapshot_before,Relevant XDATA state before trigger,no,31BF=01;315B=00,Subset allowed
+xdata_snapshot_after,Relevant XDATA state after trigger,no,31BF=02;315B=04,Subset allowed
+screen_status,HMI/screen state text or code,yes,FIRE AUTO START,Can reference photo/video id
+operator_notes,Operator notes,no,Repeat 2/3 with same framing,Include anomalies

@@ -1,0 +1,12 @@
+xdata_addr,cluster,watch_reason,related_functions,related_tests,expected_change,confidence,notes
+0x3010..0x301B,state_table,Enum/state byte candidates,0x497A;0x737C;0x84A6,ENUM-01..ENUM-10;PKT-03..PKT-05,State byte varies by scenario,probable,Primary enum/value cluster
+0x30E7,mode_flags,Manual/auto gate context,0x728A;0x597F,OA-01..OA-04,Mode-dependent branch gate changes,probable,Mode flag candidate
+0x30E9,mode_flags,Manual/auto companion flag,0x728A;0x597F,OA-01..OA-04,Correlates with event-only vs output-start split,probable,Mode gate companion
+0x30EA..0x30F9,module_config,Slot/module configuration state,0x497A;0x613C,MOD-01..MOD-06;PKT-04,Enable/disable slot transitions,hypothesis,Module slot condition candidates
+0x315B,output_state,Output-start lifecycle context,0x6833;0x7922;0x7DC2,OA-02..OA-08,Changes on output-start/finalization,probable,Output status candidate
+0x3181,output_state,Output cycle companion byte,0x6833;0x7922;0x7DC2,OA-02..OA-08,Transitions during start/reset,hypothesis,Needs runtime correlation
+0x31BF,selector_context,Packet/context selector candidate,0x497A;0x737C;0x5A7F,PKT-01..PKT-07;ENUM-01..ENUM-10,Selector changes by event/object,probable,Packet-context anchor
+0x3640,packet_output_context,Output/packet adjacent context,0x6833;0x5A7F,PKT-02;OA-02;OA-06,Changes near output-start export,hypothesis,Needs synchronized trace
+0x364B,packet_output_context,Packet window anchor candidate,0x737C;0x6833;0x5A7F,PKT-01..PKT-07;OA-02,Frame-context dependent bytes,probable,Likely packet-context byte
+0x36D3..0x36FD,packet_payload_cluster,Packet payload/state cluster hypothesis,0x737C;0x84A6;0x5A7F,PKT-01..PKT-07;ENUM-02..ENUM-10,Payload byte deltas by scenario,hypothesis,Byte order unknown (U-001)
+0x3104,object_status,90CYE02 object-status watchpoint,0x673C,OBJ-01..OBJ-04,Object status update correlation,probable,Secondary scope only
