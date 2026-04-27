@@ -1,0 +1,38 @@
+branch,file,function_addr,pseudocode_block,known_operations,unknown_operations,confidence,notes
+90CYE_DKS,90CYE03_19_DKS.PZU / 90CYE04_19_DKS.PZU,0x497A,"void fn_497A(...) {
+    // read runtime flags/context from XDATA
+    // branch on bit masks and loop through state buckets
+    // call packet/export bridge, notably 0x5A7F
+    // call helper handlers
+    // update runtime state flags
+}",branch-heavy dispatcher; XDATA reads/writes; direct 0x5A7F call; helper calls; loop/bitmask behavior,exact module ownership of each branch; exact event payload semantics; physical meaning of state values,confirmed,Shared central dispatcher interpretation is strongest; avoid exclusive MDS/MUP labeling.
+90CYE_DKS,90CYE03_19_DKS.PZU / 90CYE04_19_DKS.PZU,0x613C,"void fn_613C(...) {
+    // read state latch value
+    // branch on zero/non-zero gate
+    // write back latch/state bytes
+    // return to upstream dispatcher
+}",small read/branch/write latch updater; XDATA reads/writes; low fan-out,exact upstream owner module; precise semantic of compared latch bytes,probable,Treat as state bridge/updater; physical ownership unknown.
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,0x673C,"void fn_673C(...) {
+    // read object/status byte
+    // branch on state flag
+    // write updated status and side-state bytes
+    // return
+}",compact status updater; branch-gated writes; object/status adjacency,exact mapping from status values to physical signals; direct object-tag binding,confirmed,Consistent with object/status updater role; keep semantics conservative.
+RTOS_service,ppkp2001 90cye01.PZU,0x758B,"void fn_758B(...) {
+    // read broad context and multiple state bits
+    // dispatch across many branch paths
+    // call shared helper/service routines
+    // write state/event outputs
+}",high-fanout dispatcher; branch-heavy control flow; many helper calls; shared service adjacency,exact split of MDS vs MASH sub-branches; exact payload meaning for each path,confirmed,Best treated as shared runtime bridge/module dispatcher.
+RTOS_service,ppkp2001 90cye01.PZU,0x53E6,"void fn_53E6(...) {
+    // copy/normalize state values
+    // run checksum/aggregation-like loop
+    // call downstream service/update helpers
+    // commit updated state
+}",state preparation/update path; loop behavior; downstream service helper calls; heavy XDATA interaction,exact checksum/aggregation semantics; exact module-private state schema,confirmed,State-preparation routine feeding service path is most defensible.
+RTOS_service,ppkp2001 90cye01.PZU,0xAB62,"void fn_AB62(...) {
+    // decode/compare sensor-like state bytes
+    // branch per code/state value
+    // call helper routines and shared dispatcher (0x758B)
+    // update event/state outputs
+}",decoder/dispatcher structure; compare/branch-heavy logic; calls into 0x758B,exact sensor code vocabulary; physical meaning of decoded states,probable,MASH-side decoder/dispatcher interpretation remains probable.

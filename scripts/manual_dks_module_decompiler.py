@@ -120,6 +120,14 @@ def format_list(values: Iterable[str], empty: str = "none") -> str:
     return ", ".join(vals)
 
 
+def write_csv(path: Path, fieldnames: list[str], rows: list[dict[str, str]]) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with path.open("w", encoding="utf-8", newline="") as f:
+        writer = csv.DictWriter(f, fieldnames=fieldnames)
+        writer.writeheader()
+        writer.writerows(rows)
+
+
 def main() -> int:
     data = {name: read_csv(name) for name in INPUT_FILES}
 
@@ -352,7 +360,226 @@ def main() -> int:
     sections.append("}")
     sections.append("```")
 
+    summary_rows: list[dict[str, str]] = [
+        {
+            "branch": "90CYE_DKS",
+            "file": "90CYE03_19_DKS.PZU",
+            "function_addr": "0x497A",
+            "screen_context": "X03/X04/X05/X06/X07 DKS modules",
+            "previous_candidate_roles": "MDS event candidate; MUP feedback candidate; runtime dispatcher candidate",
+            "manual_role": "shared_runtime_bridge",
+            "confidence": "confirmed",
+            "evidence_sources": "code_direct+code_indirect; deep_trace; screen_configuration",
+            "xdata_refs": format_list(evidence[("90CYE03_19_DKS.PZU", "0x497A")]["xdata"]),
+            "callers": format_list(evidence[("90CYE03_19_DKS.PZU", "0x497A")]["incoming"]),
+            "callees": format_list(evidence[("90CYE03_19_DKS.PZU", "0x497A")]["outgoing_targets"]),
+            "downstream_chain": "0x497A->0x737C->0x613C->0x84A6->0x728A (adjacency evidence)",
+            "notes": "Generic runtime state dispatcher with packet-export adjacency; not exclusively MDS or MUP.",
+        },
+        {
+            "branch": "90CYE_DKS",
+            "file": "90CYE04_19_DKS.PZU",
+            "function_addr": "0x497A",
+            "screen_context": "X03/X04/X05/X06/X07 DKS modules",
+            "previous_candidate_roles": "MDS event candidate; MUP feedback candidate; runtime dispatcher candidate",
+            "manual_role": "shared_runtime_bridge",
+            "confidence": "confirmed",
+            "evidence_sources": "code_direct+code_indirect; deep_trace; screen_configuration",
+            "xdata_refs": format_list(evidence[("90CYE04_19_DKS.PZU", "0x497A")]["xdata"]),
+            "callers": format_list(evidence[("90CYE04_19_DKS.PZU", "0x497A")]["incoming"]),
+            "callees": format_list(evidence[("90CYE04_19_DKS.PZU", "0x497A")]["outgoing_targets"]),
+            "downstream_chain": "0x497A->0x737C->0x613C->0x84A6->0x728A (adjacency evidence)",
+            "notes": "Same role as 90CYE03; identical instruction fingerprint with 90CYE03.",
+        },
+        {
+            "branch": "90CYE_DKS",
+            "file": "90CYE03_19_DKS.PZU",
+            "function_addr": "0x613C",
+            "screen_context": "X03/X04/X05/X06/X07 DKS modules",
+            "previous_candidate_roles": "MDS event candidate; MUP feedback candidate; upstream state bridge candidate",
+            "manual_role": "mds_state_update",
+            "confidence": "probable",
+            "evidence_sources": "code_indirect; deep_trace; screen_configuration",
+            "xdata_refs": format_list(evidence[("90CYE03_19_DKS.PZU", "0x613C")]["xdata"]),
+            "callers": format_list(evidence[("90CYE03_19_DKS.PZU", "0x613C")]["incoming"]),
+            "callees": format_list(evidence[("90CYE03_19_DKS.PZU", "0x613C")]["outgoing_targets"]),
+            "downstream_chain": "near 0x497A chain; direct callee proof not present",
+            "notes": "Small state latch/bridge updater; physical module ownership unknown.",
+        },
+        {
+            "branch": "90CYE_DKS",
+            "file": "90CYE04_19_DKS.PZU",
+            "function_addr": "0x613C",
+            "screen_context": "X03/X04/X05/X06/X07 DKS modules",
+            "previous_candidate_roles": "MDS event candidate; MUP feedback candidate; upstream state bridge candidate",
+            "manual_role": "mds_state_update",
+            "confidence": "probable",
+            "evidence_sources": "code_indirect; deep_trace; screen_configuration",
+            "xdata_refs": format_list(evidence[("90CYE04_19_DKS.PZU", "0x613C")]["xdata"]),
+            "callers": format_list(evidence[("90CYE04_19_DKS.PZU", "0x613C")]["incoming"]),
+            "callees": format_list(evidence[("90CYE04_19_DKS.PZU", "0x613C")]["outgoing_targets"]),
+            "downstream_chain": "near 0x497A chain; direct callee proof not present",
+            "notes": "Same role as 90CYE03; identical instruction fingerprint with 90CYE03.",
+        },
+        {
+            "branch": "90CYE_shifted_DKS",
+            "file": "90CYE02_27 DKS.PZU",
+            "function_addr": "0x673C",
+            "screen_context": "X03/X04(+X06/X07/X08 unknown modules)",
+            "previous_candidate_roles": "MDS event candidate; shifted DKS top candidate; unknown module state update candidate",
+            "manual_role": "object_status_updater",
+            "confidence": "confirmed",
+            "evidence_sources": "code_direct; deep_trace; screen_configuration",
+            "xdata_refs": format_list(evidence[("90CYE02_27 DKS.PZU", "0x673C")]["xdata"]),
+            "callers": format_list(evidence[("90CYE02_27 DKS.PZU", "0x673C")]["incoming"]),
+            "callees": format_list(evidence[("90CYE02_27 DKS.PZU", "0x673C")]["outgoing_targets"]),
+            "downstream_chain": "local updater path; no direct packet bridge call in-body",
+            "notes": "Small object/status updater; possible relation to 90SAE object-status layer; no direct tag/string binding.",
+        },
+        {
+            "branch": "RTOS_service",
+            "file": "ppkp2001 90cye01.PZU",
+            "function_addr": "0x758B",
+            "screen_context": "X03(MDS), X05/X06(MASH), X04(PVK unknown)",
+            "previous_candidate_roles": "MDS event candidate; MASH event candidate; runtime dispatcher candidate",
+            "manual_role": "shared_runtime_bridge",
+            "confidence": "confirmed",
+            "evidence_sources": "code_direct+code_indirect; deep_trace; screen_configuration",
+            "xdata_refs": format_list(evidence[("ppkp2001 90cye01.PZU", "0x758B")]["xdata"]),
+            "callers": format_list(evidence[("ppkp2001 90cye01.PZU", "0x758B")]["incoming"]),
+            "callees": format_list(evidence[("ppkp2001 90cye01.PZU", "0x758B")]["outgoing_targets"]),
+            "downstream_chain": "shared dispatcher fan-out to service helpers",
+            "notes": "Shared high-fanout dispatcher; overlaps MDS and MASH; not exclusive module handler.",
+        },
+        {
+            "branch": "RTOS_service",
+            "file": "ppkp2001 90cye01.PZU",
+            "function_addr": "0x53E6",
+            "screen_context": "X03(MDS), X04(PVK unknown)",
+            "previous_candidate_roles": "MDS event candidate; upstream state preparation candidate",
+            "manual_role": "mds_state_update",
+            "confidence": "confirmed",
+            "evidence_sources": "code_direct+code_indirect; deep_trace; screen_configuration",
+            "xdata_refs": format_list(evidence[("ppkp2001 90cye01.PZU", "0x53E6")]["xdata"]),
+            "callers": format_list(evidence[("ppkp2001 90cye01.PZU", "0x53E6")]["incoming"]),
+            "callees": format_list(evidence[("ppkp2001 90cye01.PZU", "0x53E6")]["outgoing_targets"]),
+            "downstream_chain": "state preparation -> service helper handoff",
+            "notes": "State preparation + update routine feeding service path.",
+        },
+        {
+            "branch": "RTOS_service",
+            "file": "ppkp2001 90cye01.PZU",
+            "function_addr": "0xAB62",
+            "screen_context": "X05/X06(MASH), X04(PVK unknown)",
+            "previous_candidate_roles": "MASH event candidate; decoder/dispatcher candidate",
+            "manual_role": "mash_sensor_state_decoder",
+            "confidence": "probable",
+            "evidence_sources": "code_indirect; deep_trace; screen_configuration",
+            "xdata_refs": format_list(evidence[("ppkp2001 90cye01.PZU", "0xAB62")]["xdata"]),
+            "callers": format_list(evidence[("ppkp2001 90cye01.PZU", "0xAB62")]["incoming"]),
+            "callees": format_list(evidence[("ppkp2001 90cye01.PZU", "0xAB62")]["outgoing_targets"]),
+            "downstream_chain": "MASH-side decode path with 0x758B linkage",
+            "notes": "MASH-side decoder/dispatcher with calls into 0x758B.",
+        },
+    ]
+
+    pseudocode_rows: list[dict[str, str]] = [
+        {
+            "branch": "90CYE_DKS",
+            "file": "90CYE03_19_DKS.PZU / 90CYE04_19_DKS.PZU",
+            "function_addr": "0x497A",
+            "pseudocode_block": "void fn_497A(...) {\n    // read runtime flags/context from XDATA\n    // branch on bit masks and loop through state buckets\n    // call packet/export bridge, notably 0x5A7F\n    // call helper handlers\n    // update runtime state flags\n}",
+            "known_operations": "branch-heavy dispatcher; XDATA reads/writes; direct 0x5A7F call; helper calls; loop/bitmask behavior",
+            "unknown_operations": "exact module ownership of each branch; exact event payload semantics; physical meaning of state values",
+            "confidence": "confirmed",
+            "notes": "Shared central dispatcher interpretation is strongest; avoid exclusive MDS/MUP labeling.",
+        },
+        {
+            "branch": "90CYE_DKS",
+            "file": "90CYE03_19_DKS.PZU / 90CYE04_19_DKS.PZU",
+            "function_addr": "0x613C",
+            "pseudocode_block": "void fn_613C(...) {\n    // read state latch value\n    // branch on zero/non-zero gate\n    // write back latch/state bytes\n    // return to upstream dispatcher\n}",
+            "known_operations": "small read/branch/write latch updater; XDATA reads/writes; low fan-out",
+            "unknown_operations": "exact upstream owner module; precise semantic of compared latch bytes",
+            "confidence": "probable",
+            "notes": "Treat as state bridge/updater; physical ownership unknown.",
+        },
+        {
+            "branch": "90CYE_shifted_DKS",
+            "file": "90CYE02_27 DKS.PZU",
+            "function_addr": "0x673C",
+            "pseudocode_block": "void fn_673C(...) {\n    // read object/status byte\n    // branch on state flag\n    // write updated status and side-state bytes\n    // return\n}",
+            "known_operations": "compact status updater; branch-gated writes; object/status adjacency",
+            "unknown_operations": "exact mapping from status values to physical signals; direct object-tag binding",
+            "confidence": "confirmed",
+            "notes": "Consistent with object/status updater role; keep semantics conservative.",
+        },
+        {
+            "branch": "RTOS_service",
+            "file": "ppkp2001 90cye01.PZU",
+            "function_addr": "0x758B",
+            "pseudocode_block": "void fn_758B(...) {\n    // read broad context and multiple state bits\n    // dispatch across many branch paths\n    // call shared helper/service routines\n    // write state/event outputs\n}",
+            "known_operations": "high-fanout dispatcher; branch-heavy control flow; many helper calls; shared service adjacency",
+            "unknown_operations": "exact split of MDS vs MASH sub-branches; exact payload meaning for each path",
+            "confidence": "confirmed",
+            "notes": "Best treated as shared runtime bridge/module dispatcher.",
+        },
+        {
+            "branch": "RTOS_service",
+            "file": "ppkp2001 90cye01.PZU",
+            "function_addr": "0x53E6",
+            "pseudocode_block": "void fn_53E6(...) {\n    // copy/normalize state values\n    // run checksum/aggregation-like loop\n    // call downstream service/update helpers\n    // commit updated state\n}",
+            "known_operations": "state preparation/update path; loop behavior; downstream service helper calls; heavy XDATA interaction",
+            "unknown_operations": "exact checksum/aggregation semantics; exact module-private state schema",
+            "confidence": "confirmed",
+            "notes": "State-preparation routine feeding service path is most defensible.",
+        },
+        {
+            "branch": "RTOS_service",
+            "file": "ppkp2001 90cye01.PZU",
+            "function_addr": "0xAB62",
+            "pseudocode_block": "void fn_AB62(...) {\n    // decode/compare sensor-like state bytes\n    // branch per code/state value\n    // call helper routines and shared dispatcher (0x758B)\n    // update event/state outputs\n}",
+            "known_operations": "decoder/dispatcher structure; compare/branch-heavy logic; calls into 0x758B",
+            "unknown_operations": "exact sensor code vocabulary; physical meaning of decoded states",
+            "confidence": "probable",
+            "notes": "MASH-side decoder/dispatcher interpretation remains probable.",
+        },
+    ]
+
     (DOCS / "manual_dks_module_decompile.md").write_text("\n".join(sections) + "\n", encoding="utf-8")
+    write_csv(
+        DOCS / "manual_dks_module_decompile_summary.csv",
+        [
+            "branch",
+            "file",
+            "function_addr",
+            "screen_context",
+            "previous_candidate_roles",
+            "manual_role",
+            "confidence",
+            "evidence_sources",
+            "xdata_refs",
+            "callers",
+            "callees",
+            "downstream_chain",
+            "notes",
+        ],
+        summary_rows,
+    )
+    write_csv(
+        DOCS / "manual_dks_module_pseudocode.csv",
+        [
+            "branch",
+            "file",
+            "function_addr",
+            "pseudocode_block",
+            "known_operations",
+            "unknown_operations",
+            "confidence",
+            "notes",
+        ],
+        pseudocode_rows,
+    )
     return 0
 
 

@@ -230,9 +230,9 @@ See `docs/cross_firmware_pattern_summary.csv` for shared packet/core/front-panel
 - Hypothesis: partial evidence, ambiguous semantics.
 - Unknown: insufficient evidence.
 - No `.PZU` files were modified.
-## DKS module deep-trace follow-up
 
-- `docs/dks_module_deep_trace_analysis.md`
-- `docs/dks_module_deep_trace_candidates.csv`
-- `docs/dks_module_slot_summary.csv`
+## 21. Manual DKS decompile follow-up
 
+- `docs/manual_dks_module_decompile.md`
+- `docs/manual_dks_module_decompile_summary.csv`
+- `docs/manual_dks_module_pseudocode.csv`
