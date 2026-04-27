@@ -63,3 +63,17 @@ Generated artifacts:
 - docs/project_guided_micro_pass2_xdata_flow.csv
 - docs/project_guided_micro_pass2_callsite_matrix.csv
 - docs/project_guided_micro_pass2_unknowns_update.csv
+
+## Micro-decompile pass #3
+Generated artifacts:
+- docs/project_guided_micro_decompile_pass3.md
+- docs/project_guided_micro_pass3_summary.csv
+- docs/project_guided_micro_pass3_pseudocode.csv
+- docs/project_guided_micro_pass3_constants.csv
+- docs/project_guided_micro_pass3_xdata_flow.csv
+- docs/project_guided_micro_pass3_callsite_matrix.csv
+- docs/project_guided_uart_baud_candidates.csv
+- docs/project_guided_checksum_candidates_v2.csv
+- docs/project_guided_5a7f_caller_block_expansion.csv
+- docs/project_guided_timer_output_downstream_candidates.csv
+- docs/project_guided_micro_pass3_unknowns_update.csv

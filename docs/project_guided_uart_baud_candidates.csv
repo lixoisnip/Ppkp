@@ -1,0 +1,26 @@
+branch,file,function_addr,candidate_role,constants,register_or_timer_hint,callers,callees,confidence,evidence_level,notes
+90CYE_shifted_DKS,90CYE02_27 DKS.PZU,0x419A,uart_init_candidate,0xE8,"SUBB A,#0xE8",-,-,low,static_code,token hit only; not enough to prove configured baud/framing
+90CYE_v2_1,90CYE03_19_2 v2_1.PZU,0x419A,uart_init_candidate,0xE8,"SUBB A,#0xE8",-,-,low,static_code,token hit only; not enough to prove configured baud/framing
+90CYE_DKS,90CYE03_19_DKS.PZU,0x419A,uart_init_candidate,0xE8,"SUBB A,#0xE8",-,-,low,static_code,token hit only; not enough to prove configured baud/framing
+90CYE_v2_1,90CYE04_19_2 v2_1.PZU,0x419A,uart_init_candidate,0xE8,"SUBB A,#0xE8",-,-,low,static_code,token hit only; not enough to prove configured baud/framing
+90CYE_DKS,90CYE04_19_DKS.PZU,0x419A,uart_init_candidate,0xE8,"SUBB A,#0xE8",-,-,low,static_code,token hit only; not enough to prove configured baud/framing
+A03_A04,A03_26.PZU,0x419A,uart_init_candidate,0xE8,"SUBB A,#0xE8",-,-,low,static_code,token hit only; not enough to prove configured baud/framing
+A03_A04,A04_28.PZU,0x419A,uart_init_candidate,0xE8,"SUBB A,#0xE8",-,-,low,static_code,token hit only; not enough to prove configured baud/framing
+RTOS_service,ppkp2001 90cye01.PZU,0x419A,uart_init_candidate,0xE8,"SUBB A,#0xE8",-,-,low,static_code,token hit only; not enough to prove configured baud/framing
+RTOS_service,ppkp2001 90cye01.PZU,0x496F,uart_init_candidate,0xE8,"CJNE A,#0xE8,+2",-,-,low,static_code,token hit only; not enough to prove configured baud/framing
+RTOS_service,ppkp2001 90cye01.PZU,0xA38E,uart_init_candidate,0xFD,"ANL A,#0xFD",-,-,low,static_code,token hit only; not enough to prove configured baud/framing
+RTOS_service,ppkp2001 90cye01.PZU,0xA3B7,uart_init_candidate,0xFD,"ANL A,#0xFD",-,-,low,static_code,token hit only; not enough to prove configured baud/framing
+RTOS_service,ppkp2001 90cye01.PZU,0xA973,uart_init_candidate,0xFD,"ANL A,#0xFD",-,-,low,static_code,token hit only; not enough to prove configured baud/framing
+RTOS_service,ppkp2001 90cye01.PZU,0xAADA,uart_init_candidate,0xFD,"ANL A,#0xFD",-,-,low,static_code,token hit only; not enough to prove configured baud/framing
+RTOS_service,ppkp2012 a01.PZU,0x419A,uart_init_candidate,0xE8,"SUBB A,#0xE8",-,-,low,static_code,token hit only; not enough to prove configured baud/framing
+RTOS_service,ppkp2012 a01.PZU,0x49BA,uart_init_candidate,0xE8,"CJNE A,#0xE8,+2",-,-,low,static_code,token hit only; not enough to prove configured baud/framing
+RTOS_service,ppkp2012 a01.PZU,0xAA59,uart_init_candidate,0xFD,"ANL A,#0xFD",-,-,low,static_code,token hit only; not enough to prove configured baud/framing
+RTOS_service,ppkp2012 a01.PZU,0xAABC,uart_init_candidate,0xFD,"ANL A,#0xFD",-,-,low,static_code,token hit only; not enough to prove configured baud/framing
+RTOS_service,ppkp2012 a01.PZU,0xB137,uart_init_candidate,0xFD,"ANL A,#0xFD",-,-,low,static_code,token hit only; not enough to prove configured baud/framing
+RTOS_service,ppkp2012 a01.PZU,0xB29E,uart_init_candidate,0xFD,"ANL A,#0xFD",-,-,low,static_code,token hit only; not enough to prove configured baud/framing
+RTOS_service,ppkp2012 a01.PZU,0xB405,uart_init_candidate,0xFD,"ANL A,#0xFD",-,-,low,static_code,token hit only; not enough to prove configured baud/framing
+RTOS_service,ppkp2012 a01.PZU,0xB56C,uart_init_candidate,0xFD,"ANL A,#0xFD",-,-,low,static_code,token hit only; not enough to prove configured baud/framing
+RTOS_service,ppkp2019 a02.PZU,0x419A,uart_init_candidate,0xE8,"SUBB A,#0xE8",-,-,low,static_code,token hit only; not enough to prove configured baud/framing
+RTOS_service,ppkp2019 a02.PZU,0x4B70,uart_init_candidate,0xE8,"CJNE A,#0xE8,+2",-,-,low,static_code,token hit only; not enough to prove configured baud/framing
+RTOS_service,ppkp2019 a02.PZU,0xA99F,uart_init_candidate,0xFD,"ANL A,#0xFD",-,-,low,static_code,token hit only; not enough to prove configured baud/framing
+RTOS_service,ppkp2019 a02.PZU,0xAF06,uart_init_candidate,0xFD,"ANL A,#0xFD",-,-,low,static_code,token hit only; not enough to prove configured baud/framing
