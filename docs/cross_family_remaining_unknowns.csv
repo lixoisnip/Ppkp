@@ -4,3 +4,5 @@ CF-U02,output_action,meaning of 0x04-like write in non-DKS,high,bench IO correla
 CF-U03,enum_values,"same byte value, different behavior risk",high,scenario-controlled runtime traces
 CF-U04,module_semantics,MDS/MUP/PVK attribution in non-DKS,medium,slot-isolated tests and docs
 CF-U05,RTOS_service,service-family specific chain semantics,high,service firmware documentation
+CF-U06,A03_A04_packet_bridge,A03 vs A04 bridge-vs-builder responsibility split,high,function-local manual decompile with packet window traces
+CF-U07,shifted_v2_schema,whether v2_1 divergent clusters indicate evolution branch or remap,high,cluster-level lineage plus targeted runtime probes

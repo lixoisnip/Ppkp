@@ -1,0 +1,5 @@
+area,before_confidence,after_confidence,reason,evidence_level,notes
+A03_A04_packet_bridge,probable,probable,Added v2 candidate/context/callsite matrices,manual_static,bridge adjacency improved but semantics unknown
+shifted_DKS_xdata_schema,probable,probable,Offset matrix validated per cluster rows,xdata_pattern_match,preserved shifted vs divergent labels
+v2_1_xdata_schema,probable,probable,v2_1 cluster-level mapping and divergence rows,xdata_pattern_match,possible evolution branch
+RTOS_service_chain,hypothesis,probable,chain summary + pseudocode + family comparison,manual_static,family-specific decompile baseline created

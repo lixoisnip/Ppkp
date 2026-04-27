@@ -1,0 +1,7 @@
+priority,family,file,function_addr,target_reason,current_role,needed_analysis,notes
+P1,A03_A04,A04_28.PZU,0x89C9,high packet-window adjacency and outgoing calls,packet_bridge_analog_candidate,manual block decompile + DPTR trace,avoid DKS semantic transfer
+P1,A03_A04,A03_26.PZU,0x8A2E,A03-side analog of A04 packet candidate neighborhood,packet_bridge_analog_candidate,cross-build block-level alignment,preserve family-local conclusions
+P1,90CYE_shifted_DKS,90CYE02_27 DKS.PZU,0x673C,0x3104 object-status shifted probe,object_status_chain_candidate,xdata lineage + caller set,determine shifted vs independent schema
+P1,90CYE_v2_1,90CYE03_19_2 v2_1.PZU,0xA496,v2_1 packet bridge analog candidate,packet_export_analog_candidate,callsite + context window trace,do not assert same packet format
+P1,RTOS_service,ppkp2001 90cye01.PZU,0x758B,shared high-fanout dispatcher anchor,shared_dispatcher_candidate,manual decompile w/ xdata timeline,confirm branch-specific role split
+P2,RTOS_service,ppkp2001 90cye01.PZU,0xAB62,MASH-side decoder/dispatcher anchor,mash_decoder_candidate,neighbor chain extraction + pseudocode expansion,module semantics still hypothesis

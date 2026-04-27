@@ -1,6 +1,6 @@
 # DKS firmware technical reconstruction v1
 
-Generated: 2026-04-27 10:35:10Z
+Generated: 2026-04-27 11:08:16Z
 
 ## 1. Scope and evidence rules
 This report keeps strict evidence levels: `confirmed_static`, `probable_static`, `manual_decompile`, `chain_adjacency`, `screen_configuration`, `hypothesis`, `unknown`.
@@ -72,6 +72,6 @@ See `dks_next_iteration_plan.csv`.
 
 These values are intentionally conservative and should rise only with bench-confirmed evidence.
 
-## 19. Cross-family context (v1 addendum)
-Cross-family analysis is maintained in `docs/cross_family_static_reconstruction_v1.md` and related `cross_family_*` artifacts.
-DKS conclusions from this document are not transferred to A03/A04, v2_1, shifted_DKS, or RTOS_service without separate structural evidence.
+## 20. Cross-family deepening note (v1.1)
+The v1.1 deepening package is documented in `docs/cross_family_static_deepening_v1.md` and supporting artifacts.
+This DKS document stays DKS-scoped: DKS semantics are not auto-applied to A03/A04, shifted_DKS, v2_1, or RTOS_service without direct family-specific evidence.

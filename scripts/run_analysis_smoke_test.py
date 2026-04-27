@@ -528,6 +528,54 @@ def main() -> int:
             ],
             "final cross-family static reconstruction v1 builder",
         ),
+        SmokeCommand(
+            "a03_a04_packet_bridge_deepener.py",
+            "cross_family_static_v1_1",
+            [sys.executable, "scripts/a03_a04_packet_bridge_deepener.py"],
+            [
+                "docs/a03_a04_packet_bridge_deepening.md",
+                "docs/a03_a04_packet_bridge_candidates_v2.csv",
+                "docs/a03_a04_packet_context_matrix.csv",
+                "docs/a03_a04_packet_callsite_trace_v2.csv",
+            ],
+            "A03/A04 packet bridge adjacency deepening (family-local semantics only)",
+        ),
+        SmokeCommand(
+            "shifted_v2_xdata_offset_validator.py",
+            "cross_family_static_v1_1",
+            [sys.executable, "scripts/shifted_v2_xdata_offset_validator.py"],
+            [
+                "docs/shifted_v2_xdata_offset_validation.md",
+                "docs/shifted_v2_xdata_offset_matrix.csv",
+                "docs/shifted_v2_function_anchor_map.csv",
+                "docs/shifted_v2_schema_divergence.csv",
+            ],
+            "Shifted_DKS/v2_1 XDATA cluster offset/divergence validation",
+        ),
+        SmokeCommand(
+            "rtos_service_chain_decompiler.py",
+            "cross_family_static_v1_1",
+            [sys.executable, "scripts/rtos_service_chain_decompiler.py"],
+            [
+                "docs/rtos_service_chain_decompile_v1.md",
+                "docs/rtos_service_chain_summary.csv",
+                "docs/rtos_service_pseudocode.csv",
+                "docs/rtos_service_family_comparison.csv",
+            ],
+            "RTOS_service family-specific chain decompile summary",
+        ),
+        SmokeCommand(
+            "cross_family_static_deepening_builder.py",
+            "cross_family_static_v1_1",
+            [sys.executable, "scripts/cross_family_static_deepening_builder.py"],
+            [
+                "docs/cross_family_static_deepening_v1.md",
+                "docs/cross_family_static_deepening_dashboard.csv",
+                "docs/cross_family_deep_targets_next.csv",
+                "docs/cross_family_confidence_updates.csv",
+            ],
+            "Cross-family static deepening v1 milestone builder",
+        ),
     ]
 
     rows: list[dict[str, str]] = []
