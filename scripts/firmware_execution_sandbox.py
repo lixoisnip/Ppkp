@@ -144,9 +144,10 @@ def _write_report(source_note: str, runs: list[FunctionRunResult], scenario_name
                 "Experimental function-level 8051-subset tracing for selected targets. Evidence level: emulation_observed.",
                 "",
                 "## CPU subset status",
-                "Implemented subset includes MOV/MOVX/DPTR ops, simple ALU immediates, limited branches, LCALL/LJMP/RET.",
+                "Implemented subset includes MOV/MOVX/DPTR ops, simple ALU/immediate ops (including RL A and ADDC A,direct), limited branches, LCALL/LJMP/RET.",
                 "Includes initial MOVC table reads and dictionary-backed SFR access tracing (no synthetic UART behavior).",
                 "Unsupported opcodes are logged and never silently ignored.",
+                "ADDC currently models carry (PSW.7); auxiliary carry/overflow are not yet modeled.",
                 "",
                 "## Loaded firmware/artifact source",
                 source_note,
@@ -165,9 +166,12 @@ def _write_report(source_note: str, runs: list[FunctionRunResult], scenario_name
                 "See docs/emulator/candidate_packet_records.csv (contiguous observed writes only; no packet format invention).",
                 "",
                 "## Issue #78 progress checks",
-                f"Did 0x55AD advance past 0xB8? {'yes' if _advanced_past_opcode(runs, 0x55AD, 0x55D0) else 'no'}",
-                f"Did 0x5602 advance past 0xB8? {'yes' if _advanced_past_opcode(runs, 0x5602, 0x5609) else 'no'}",
-                f"Did 0x5A7F advance past 0xF5? {'yes' if _advanced_past_opcode(runs, 0x5A7F, 0x5A81) else 'no'}",
+                f"Did 0x55AD pass 0x55AC (0x23 RL A)? {'yes' if _advanced_past_opcode(runs, 0x55AD, 0x55AC) else 'no'}",
+                f"Did 0x5602 pass 0x55E5 (0x23 RL A)? {'yes' if _advanced_past_opcode(runs, 0x5602, 0x55E5) else 'no'}",
+                f"Did 0x5A7F pass 0x5A84 (0x35 ADDC A,direct)? {'yes' if _advanced_past_opcode(runs, 0x5A7F, 0x5A84) else 'no'}",
+                f"Next unsupported opcode for 0x55AD: {_next_unsupported(runs, 0x55AD)}",
+                f"Next unsupported opcode for 0x5602: {_next_unsupported(runs, 0x5602)}",
+                f"Next unsupported opcode for 0x5A7F: {_next_unsupported(runs, 0x5A7F)}",
                 f"Were any SBUF candidate writes observed? {'yes' if _has_trace_type(runs, 'uart_sbuf_write') else 'no'}",
                 f"Were any UART TX candidate bytes observed? {'yes' if _has_trace_type(runs, 'uart_sbuf_write') else 'no'}",
                 f"Were any new candidate packet/event records observed? {'yes' if writes > 0 else 'no'}",
@@ -197,6 +201,16 @@ def _advanced_past_opcode(runs: list[FunctionRunResult], function_addr: int, blo
             except ValueError:
                 continue
     return False
+
+
+def _next_unsupported(runs: list[FunctionRunResult], function_addr: int) -> str:
+    for run in runs:
+        if run.function_addr != function_addr:
+            continue
+        for row in run.trace.rows:
+            if row.get("trace_type") == "unsupported_opcode":
+                return f"{row.get('op', 'unknown')} at {row.get('pc', 'unknown')}"
+    return "none observed"
 
 
 def run_scenario(name: str, max_steps: int) -> None:
@@ -433,6 +447,8 @@ def _write_cpu_subset_coverage(runs: list[FunctionRunResult]) -> None:
     coverage_rows = [
         {"opcode": "0xF5", "mnemonic": "MOV direct,A", "implemented": "yes", "observed_in_runs": "yes" if "MOV" in observed_ops else "unknown", "notes": "issue_78_blocker"},
         {"opcode": "0xB8..0xBF", "mnemonic": "CJNE Rn,#imm,rel", "implemented": "yes", "observed_in_runs": "yes" if "CJNE" in observed_ops else "no", "notes": "issue_78_blocker"},
+        {"opcode": "0x23", "mnemonic": "RL A", "implemented": "yes", "observed_in_runs": "yes" if "RL" in observed_ops else "no", "notes": "issue_78_next_blocker"},
+        {"opcode": "0x35", "mnemonic": "ADDC A,direct", "implemented": "yes", "observed_in_runs": "yes" if "ADDC" in observed_ops else "no", "notes": "issue_78_next_blocker"},
         {"opcode": "0xB4", "mnemonic": "CJNE A,#imm,rel", "implemented": "yes", "observed_in_runs": "yes" if "CJNE" in observed_ops else "no", "notes": "extended_support"},
         {"opcode": "0xB5", "mnemonic": "CJNE A,direct,rel", "implemented": "yes", "observed_in_runs": "yes" if "CJNE" in observed_ops else "no", "notes": "extended_support"},
         {"opcode": "0xB6/0xB7", "mnemonic": "CJNE @R0/@R1,#imm,rel", "implemented": "yes", "observed_in_runs": "yes" if "CJNE" in observed_ops else "no", "notes": "extended_support"},
