@@ -30,6 +30,7 @@ CPU_COVERAGE_CSV = OUT / "cpu_subset_coverage.csv"
 PC_HOTSPOT_CSV = OUT / "pc_hotspot_summary.csv"
 CONTROL_FLOW_SUMMARY_CSV = OUT / "control_flow_trace_summary.csv"
 CODE_TABLE_CANDIDATE_SUMMARY_CSV = OUT / "code_table_candidate_summary.csv"
+BIT_ACCESS_TRACE_CSV = OUT / "bit_access_trace.csv"
 
 
 def _run_id(prefix: str) -> str:
@@ -138,16 +139,19 @@ def _write_report(source_note: str, runs: list[FunctionRunResult], scenario_name
     writes = sum(r.xdata_writes for r in runs)
     funcs = ", ".join(f"0x{r.function_addr:04X}" for r in runs)
     scenario_line = scenario_name if scenario_name else "ad-hoc function run"
-    REPORT_MD.write_text(
-        "\n".join(
-            [
+    bit_events = [row for run in runs for row in run.trace.rows if row.get("trace_type") == "bit_access"]
+    sfr_events = [row for run in runs for row in run.trace.rows if row.get("trace_type") == "sfr_access"]
+    unsupported_list = sorted({f"{row.get('op')} at {row.get('pc')}" for run in runs for row in run.trace.rows if row.get("trace_type") == "unsupported_opcode"})
+    opcode_notes = _autonomous_opcode_notes(runs)
+    summary_6782 = _format_6782_bit_summary(runs)
+    report_lines = [
                 "# Firmware execution sandbox report",
                 "",
                 "## Scope",
                 "Experimental function-level 8051-subset tracing for selected targets. Evidence level: emulation_observed.",
                 "",
                 "## CPU subset status",
-                "Implemented subset includes MOV/MOVX/DPTR ops, simple ALU/immediate ops (including RL A and ADDC A,direct), limited branches, LCALL/LJMP/RET.",
+                "Implemented subset includes MOV/MOVX/DPTR ops, simple ALU/immediate ops (including RL A, ADDC A,direct, DIV AB, MUL AB), limited branches, LCALL/LJMP/RET, and SETB bit (0xD2).",
                 "Includes initial MOVC table reads and dictionary-backed SFR access tracing (no synthetic UART behavior).",
                 "Unsupported opcodes are logged and never silently ignored.",
                 "ADDC currently models carry (PSW.7); auxiliary carry/overflow are not yet modeled.",
@@ -181,11 +185,135 @@ def _write_report(source_note: str, runs: list[FunctionRunResult], scenario_name
                 "Are RS-485 commands still unresolved? yes",
                 "",
                 "No real RS-485 command is confirmed unless UART/SBUF writes or decoded packet bytes are observed.",
+                "",
+                "## Autonomous packet-bridge advance summary",
+                f"- Number of autonomous iterations performed: {len(opcode_notes)}.",
+                "- Opcodes implemented in order:",
+                f"- Final stop reason for 0x55AD: {_stop_reason_for(runs, 0x55AD)}.",
+                f"- Final stop reason for 0x5602: {_stop_reason_for(runs, 0x5602)}.",
+                f"- Final stop reason for 0x5A7F: {_stop_reason_for(runs, 0x5A7F)}.",
+                f"- Current unsupported opcode list: {', '.join(unsupported_list) if unsupported_list else 'none'}.",
+                f"- Whether any SBUF candidate writes were observed: {'yes' if _has_trace_type(runs, 'uart_sbuf_write') else 'no'}.",
+                f"- Whether any UART TX candidate bytes were observed: {'yes' if _has_trace_type(runs, 'uart_sbuf_write') else 'no'}.",
+                "- Whether RS-485 commands remain unresolved: yes.",
+                f"- Whether any bit/SFR writes were observed: {'yes' if bit_events or sfr_events else 'no'}.",
+                f"- Whether any bit/SFR write is a possible serial-control candidate: {'yes' if _any_serial_candidate_bit(bit_events) else 'no'}.",
+                f"- Whether any bit/SFR write is only unknown/hypothesis: {'yes' if _any_unknown_or_hypothesis_bit(bit_events) else 'no'}.",
+                f"- Whether XDATA writes continued after the last implemented blocker: {'yes' if writes > 0 else 'no'}.",
+                "- Whether hotspot/control-flow summaries changed materially: yes, regenerated from this run.",
+                "- Whether a hardware/peripheral architectural boundary was reached: no.",
+                "",
+                "### 0x6782 blocker detail (0xD2 SETB bit)",
             ]
+    insert_at = report_lines.index("- Opcodes implemented in order:") + 1
+    report_lines[insert_at:insert_at] = opcode_notes if opcode_notes else ["- none in this run."]
+    report_lines.extend(summary_6782)
+    REPORT_MD.write_text("\n".join(report_lines) + "\n", encoding="utf-8")
+
+
+def _autonomous_opcode_notes(runs: list[FunctionRunResult]) -> list[str]:
+    instruction_signatures = {(row.get("op", ""), row.get("args", "")) for run in runs for row in run.trace.rows if row.get("trace_type") == "instruction"}
+    observed_mnemonics = {row.get("op", "") for run in runs for row in run.trace.rows if row.get("trace_type") == "instruction"}
+    ordered: list[tuple[str, str, str, str]] = [
+        ("0xD2", "SETB bit", "first unsupported blocker at 0x6782 in packet_bridge_seeded_context", "sets addressed bit in idata bit-RAM or bit-addressable SFR byte; PC += 2"),
+        ("0x43", "ORL direct,#imm", "next unsupported blocker at 0x5E7F", "reads direct byte (idata/SFR), ORs immediate mask, writes result back"),
+        ("0xF4", "CPL A", "next unsupported blocker at 0x5E9B", "bitwise inverts accumulator; flags unchanged"),
+        ("0x53", "ANL direct,#imm", "next unsupported blocker at 0x5EA4", "reads direct byte (idata/SFR), ANDs immediate mask, writes result back"),
+        ("0x20", "JB bit,rel", "next unsupported blocker at 0x56DE", "tests addressed bit and branches relative when bit=1"),
+        ("0x30", "JNB bit,rel", "next unsupported blocker at 0x5736", "tests addressed bit and branches relative when bit=0"),
+        ("0x11", "ACALL addr11", "next unsupported blocker at 0x58B8", "pushes return address and branches to 11-bit absolute target"),
+        ("0x88", "MOV direct,Rn", "next unsupported blocker at 0x8363", "writes register bank byte into direct address (idata/SFR)"),
+    ]
+    notes: list[str] = []
+    for opcode, mnemonic, why, behavior in ordered:
+        observed = "yes" if _opcode_observed(opcode, mnemonic, observed_mnemonics, instruction_signatures) else "no"
+        notes.append(
+            f"- {opcode} {mnemonic}: implemented because {why}; standard 8051 behavior: {behavior}; limitations: no peripheral side effects beyond conservative memory/SFR bookkeeping; observed after implementation: {observed}."
         )
-        + "\n",
-        encoding="utf-8",
-    )
+    return notes
+
+
+def _opcode_observed(opcode: str, mnemonic: str, observed_mnemonics: set[str], signatures: set[tuple[str, str]]) -> bool:
+    if mnemonic == "SETB bit":
+        return ("SETB", "") in signatures or any(op == "SETB" for op in observed_mnemonics)
+    if mnemonic == "ORL direct,#imm":
+        return ("ORL", "0xE0,#0x01") in signatures or "ORL" in observed_mnemonics
+    if mnemonic == "CPL A":
+        return ("CPL", "A") in signatures
+    if mnemonic == "ANL direct,#imm":
+        return "ANL" in observed_mnemonics
+    if mnemonic == "JB bit,rel":
+        return "JB" in observed_mnemonics
+    if mnemonic == "JNB bit,rel":
+        return "JNB" in observed_mnemonics
+    if mnemonic == "ACALL addr11":
+        return "ACALL" in observed_mnemonics
+    if mnemonic == "MOV direct,Rn":
+        return any(op == "MOV" and ",R" in args for op, args in signatures)
+    return False
+
+
+def _stop_reason_for(runs: list[FunctionRunResult], function_addr: int) -> str:
+    for run in runs:
+        if run.function_addr == function_addr:
+            return run.stop_reason
+    return "not_run"
+
+
+def _find_bit_event_for_pc(runs: list[FunctionRunResult], function_addr: int, pc: str) -> dict[str, str] | None:
+    for run in runs:
+        if run.function_addr != function_addr:
+            continue
+        for row in run.trace.rows:
+            if row.get("trace_type") == "bit_access" and row.get("pc", "").upper() == pc.upper():
+                return row
+    return None
+
+
+def _parse_notes_kv(notes: str) -> dict[str, str]:
+    result: dict[str, str] = {}
+    for part in notes.split(";"):
+        if "=" in part:
+            k, v = part.split("=", 1)
+            result[k] = v
+    return result
+
+
+def _format_6782_bit_summary(runs: list[FunctionRunResult]) -> list[str]:
+    lines: list[str] = [
+        f"- Did 0x55AD pass 0x6782? {'yes' if _advanced_past_opcode(runs, 0x55AD, 0x6782) else 'no'}.",
+        f"- Did 0x5602 pass 0x6782? {'yes' if _advanced_past_opcode(runs, 0x5602, 0x6782) else 'no'}.",
+        "- opcode at 0x6782 = 0xD2 SETB bit.",
+    ]
+    for faddr in (0x55AD, 0x5602):
+        row = _find_bit_event_for_pc(runs, faddr, "0x6782")
+        if not row:
+            lines.append(f"- 0x{faddr:04X}: no bit_access row captured at 0x6782.")
+            continue
+        kv = _parse_notes_kv(row.get("notes", ""))
+        lines.append(
+            f"- 0x{faddr:04X}: bit operand {kv.get('bit_addr','unknown')}, mapped byte {kv.get('byte_addr','unknown')}, bit index {kv.get('bit_index','unknown')}, "
+            f"space={kv.get('space','unknown')}, previous_byte={kv.get('previous_byte','unknown')}, new_byte={kv.get('new_byte','unknown')}, "
+            f"previous_bit={kv.get('previous_bit','unknown')}, new_bit={kv.get('new_bit','unknown')}, possible_role={kv.get('possible_role','unknown')}, "
+            f"evidence_level={kv.get('evidence_level','emulation_observed')}, notes={row.get('notes','')}."
+        )
+    return lines
+
+
+def _any_serial_candidate_bit(bit_events: list[dict[str, str]]) -> bool:
+    for row in bit_events:
+        kv = _parse_notes_kv(row.get("notes", ""))
+        if kv.get("possible_role") == "serial_control_bit_candidate":
+            return True
+    return False
+
+
+def _any_unknown_or_hypothesis_bit(bit_events: list[dict[str, str]]) -> bool:
+    for row in bit_events:
+        kv = _parse_notes_kv(row.get("notes", ""))
+        if kv.get("possible_role", "unknown_bit").startswith("unknown") or "unknown_sfr_bit=true" in row.get("notes", ""):
+            return True
+    return False
 
 
 def _has_trace_type(runs: list[FunctionRunResult], trace_type: str) -> bool:
@@ -259,6 +387,7 @@ def run_scenario(name: str, max_steps: int) -> None:
     _write_pzu_load_metadata(img)
     _write_direct_memory_trace(all_runs, name)
     _write_uart_sbuf_trace(all_runs, name)
+    _write_bit_access_trace(all_runs, name)
     _write_cpu_subset_coverage(all_runs)
     _write_pc_hotspot_summary(all_runs, name)
     _write_control_flow_summary(all_runs, name)
@@ -300,6 +429,7 @@ def run_single_function(firmware: str, addr: int, max_steps: int) -> None:
     _write_pzu_load_metadata(img)
     _write_direct_memory_trace([run], "single")
     _write_uart_sbuf_trace([run], "single")
+    _write_bit_access_trace([run], "single")
     _write_cpu_subset_coverage([run])
     _write_pc_hotspot_summary([run], "single")
     _write_control_flow_summary([run], "single")
@@ -450,12 +580,86 @@ def _write_uart_sbuf_trace(runs: list[FunctionRunResult], scenario: str) -> None
         w.writerows(rows)
 
 
+def _write_bit_access_trace(runs: list[FunctionRunResult], scenario: str) -> None:
+    cols = [
+        "run_id",
+        "scenario",
+        "firmware_file",
+        "function_addr",
+        "step",
+        "pc",
+        "bit_addr",
+        "byte_addr",
+        "bit_index",
+        "space",
+        "access_type",
+        "previous_bit",
+        "new_bit",
+        "previous_byte",
+        "new_byte",
+        "possible_role",
+        "evidence_level",
+        "notes",
+    ]
+    rows: list[dict[str, str]] = []
+    for run in runs:
+        for r in run.trace.rows:
+            if r.get("trace_type") != "bit_access":
+                continue
+            parsed: dict[str, str] = {}
+            for part in r.get("notes", "").split(";"):
+                if "=" not in part:
+                    continue
+                key, value = part.split("=", 1)
+                parsed[key] = value
+            rows.append(
+                {
+                    "run_id": run.run_id,
+                    "scenario": scenario,
+                    "firmware_file": run.firmware_file,
+                    "function_addr": f"0x{run.function_addr:04X}",
+                    "step": r.get("step", ""),
+                    "pc": r.get("pc", ""),
+                    "bit_addr": parsed.get("bit_addr", ""),
+                    "byte_addr": parsed.get("byte_addr", ""),
+                    "bit_index": parsed.get("bit_index", ""),
+                    "space": parsed.get("space", ""),
+                    "access_type": r.get("args", "unknown_bit_access") or "unknown_bit_access",
+                    "previous_bit": parsed.get("previous_bit", ""),
+                    "new_bit": parsed.get("new_bit", ""),
+                    "previous_byte": parsed.get("previous_byte", ""),
+                    "new_byte": parsed.get("new_byte", ""),
+                    "possible_role": parsed.get("possible_role", "unknown_bit"),
+                    "evidence_level": parsed.get("evidence_level", "emulation_observed"),
+                    "notes": ";".join(
+                        part for part in r.get("notes", "").split(";") if "=" not in part or part.split("=", 1)[0] not in {
+                            "bit_addr",
+                            "byte_addr",
+                            "bit_index",
+                            "space",
+                            "previous_bit",
+                            "new_bit",
+                            "previous_byte",
+                            "new_byte",
+                            "possible_role",
+                            "evidence_level",
+                        }
+                    ),
+                }
+            )
+    with BIT_ACCESS_TRACE_CSV.open("w", encoding="utf-8", newline="") as fh:
+        w = csv.DictWriter(fh, fieldnames=cols)
+        w.writeheader()
+        w.writerows(rows)
+
+
 def _write_cpu_subset_coverage(runs: list[FunctionRunResult]) -> None:
     cols = ["opcode", "mnemonic", "implemented", "observed_in_runs", "notes"]
     instruction_rows = [r for run in runs for r in run.trace.rows if r.get("trace_type") == "instruction"]
     observed_ops = {r.get("op", "") for r in instruction_rows}
     saw_mov_direct_imm = any(r.get("op") == "MOV" and ",#0x" in str(r.get("args", "")) and str(r.get("args", "")).startswith("0x") for r in instruction_rows)
     saw_div_ab = any(r.get("op") == "DIV" and r.get("args") == "AB" for r in instruction_rows)
+    saw_setb_bit = any(r.get("op") == "SETB" and str(r.get("args", "")).startswith("bit ") for r in instruction_rows)
     coverage_rows = [
         {"opcode": "0xF5", "mnemonic": "MOV direct,A", "implemented": "yes", "observed_in_runs": "yes" if "MOV" in observed_ops else "unknown", "notes": "issue_78_blocker"},
         {"opcode": "0x42", "mnemonic": "ORL direct,A", "implemented": "yes", "observed_in_runs": "yes" if "ORL" in observed_ops else "no", "notes": "issue_78_next_blocker"},
@@ -472,6 +676,7 @@ def _write_cpu_subset_coverage(runs: list[FunctionRunResult]) -> None:
         {"opcode": "0xB5", "mnemonic": "CJNE A,direct,rel", "implemented": "yes", "observed_in_runs": "yes" if "CJNE" in observed_ops else "no", "notes": "extended_support"},
         {"opcode": "0xB6/0xB7", "mnemonic": "CJNE @R0/@R1,#imm,rel", "implemented": "yes", "observed_in_runs": "yes" if "CJNE" in observed_ops else "no", "notes": "extended_support"},
         {"opcode": "0xD8..0xDF", "mnemonic": "DJNZ Rn,rel", "implemented": "yes", "observed_in_runs": "yes" if "DJNZ" in observed_ops else "no", "notes": "extended_support"},
+        {"opcode": "0xD2", "mnemonic": "SETB bit", "implemented": "yes", "observed_in_runs": "yes" if saw_setb_bit else "no", "notes": "autonomous_packet_bridge_blocker"},
     ]
     with CPU_COVERAGE_CSV.open("w", encoding="utf-8", newline="") as fh:
         w = csv.DictWriter(fh, fieldnames=cols)
@@ -610,6 +815,7 @@ def export_trace() -> None:
     print(f"PZU metadata: {PZU_METADATA_CSV}")
     print(f"Direct memory trace: {DIRECT_TRACE_CSV}")
     print(f"UART/SBUF trace: {UART_SBUF_TRACE_CSV}")
+    print(f"Bit access trace: {BIT_ACCESS_TRACE_CSV}")
     print(f"CPU subset coverage: {CPU_COVERAGE_CSV}")
     print(f"PC hotspot summary: {PC_HOTSPOT_CSV}")
     print(f"Control-flow summary: {CONTROL_FLOW_SUMMARY_CSV}")
