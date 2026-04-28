@@ -52,6 +52,67 @@ Evidence legend: `static_code`, `emulation_observed`, `unknown`.
 | 0x571A | 12 5A 7F | LCALL 0x5A7F | 0x5A7F | static_code |
 | 0x5730 | 12 5A 7F | LCALL 0x5A7F | 0x5A7F | static_code |
 
+## Forced-loop-exit decode window (post-0x5733)
+
+### Region 0x5733..0x5750
+
+| code_addr | bytes | decode | branch_target | fallthrough | evidence |
+|---|---|---|---|---|---|
+| 0x5733 | DB E0 | DJNZ R3,-32 | 0x5715 | 0x5735 | static_code |
+| 0x5735 | ED | MOV A,R5 | - | 0x5736 | static_code |
+| 0x5736 | 30 E0 03 | JNB 0xE0,+3 | 0x573C | 0x5739 | static_code |
+| 0x5739 | 02 58 B1 | LJMP 0x58B1 | 0x58B1 | - | static_code |
+| 0x573C | 00 | NOP | - | 0x573D | static_code + emulation_observed |
+| 0x573D | 78 00 | MOV R0,#0x00 | - | 0x573F | static_code + emulation_observed |
+| 0x573F | 79 01 | MOV R1,#0x01 | - | 0x5741 | static_code + emulation_observed |
+| 0x5741 | E8 | MOV A,R0 | - | 0x5742 | static_code + emulation_observed |
+| 0x5742 | 90 30 E1 | MOV DPTR,#0x30E1 | - | 0x5745 | static_code + emulation_observed |
+| 0x5745 | 12 59 35 | LCALL 0x5935 | 0x5935 | 0x5748 | static_code + emulation_observed |
+| 0x5748 | 60 1B | JZ +27 | 0x5765 | 0x574A | static_code |
+| 0x574A | E8 | MOV A,R0 | - | 0x574B | static_code |
+| 0x574B | 90 30 C4 | MOV DPTR,#0x30C4 | - | 0x574E | static_code |
+| 0x574E | 12 5A 7F | LCALL 0x5A7F | 0x5A7F | 0x5751 | static_code |
+
+### Slice 0x5735..0x573C
+
+| code_addr | bytes | decode | branch_target | fallthrough | evidence |
+|---|---|---|---|---|---|
+| 0x5735 | ED | MOV A,R5 | - | 0x5736 | static_code + emulation_observed |
+| 0x5736 | 30 E0 03 | JNB 0xE0,+3 | 0x573C | 0x5739 | static_code + emulation_observed |
+| 0x5739 | 02 58 B1 | LJMP 0x58B1 | 0x58B1 | - | static_code |
+| 0x573C | 00 | NOP | - | 0x573D | static_code + emulation_observed |
+
+### Slice 0x573C..0x5750
+
+| code_addr | bytes | decode | branch_target | fallthrough | evidence |
+|---|---|---|---|---|---|
+| 0x573C | 00 | NOP | - | 0x573D | static_code + emulation_observed |
+| 0x573D | 78 00 | MOV R0,#0x00 | - | 0x573F | static_code + emulation_observed |
+| 0x573F | 79 01 | MOV R1,#0x01 | - | 0x5741 | static_code + emulation_observed |
+| 0x5741 | E8 | MOV A,R0 | - | 0x5742 | static_code + emulation_observed |
+| 0x5742 | 90 30 E1 | MOV DPTR,#0x30E1 | - | 0x5745 | static_code + emulation_observed |
+| 0x5745 | 12 59 35 | LCALL 0x5935 | 0x5935 | 0x5748 | static_code + emulation_observed |
+| 0x5748 | 60 1B | JZ +27 | 0x5765 | 0x574A | static_code |
+| 0x574A | E8 | MOV A,R0 | - | 0x574B | static_code |
+| 0x574B | 90 30 C4 | MOV DPTR,#0x30C4 | - | 0x574E | static_code |
+| 0x574E | 12 5A 7F | LCALL 0x5A7F | 0x5A7F | 0x5751 | static_code |
+
+### Branch/call targets in this area
+
+| from | decode | target | target_role | evidence |
+|---|---|---|---|---|
+| 0x5736 | JNB 0xE0,+3 | 0x573C | in-stream fallthrough-aligned code entry | static_code + emulation_observed |
+| 0x5739 | LJMP 0x58B1 | 0x58B1 | external branch target outside local window | static_code |
+| 0x5745 | LCALL 0x5935 | 0x5935 | callee executed in forced-exit scenarios | static_code + emulation_observed |
+| 0x5748 | JZ +27 | 0x5765 | forward local branch beyond shown window | static_code |
+| 0x574E | LCALL 0x5A7F | 0x5A7F | previously known helper/callee | static_code |
+
+### 0x573C classification
+
+- `0x573C` is **inside a valid instruction stream**, because `JNB 0xE0,+3` at `0x5736` explicitly targets it and decode alignment remains coherent through `0x574E`. Evidence: `static_code`.
+- Byte `0x00` at `0x573C` behaves as **executable NOP**, not dead padding, in forced-loop-exit emulation; execution continues into `0x573D..`. Evidence: `emulation_observed`.
+- Local byte pattern near `0x573C` (`00 78 00 79 01 E8 90 30 E1 12 59 35 ...`) matches register setup + call flow, which is characteristic of code, not a data table/padding fill. Evidence: `static_code`.
+
 ## Later hotspot check 0x8365..0x837F
 
 | code_addr | bytes | decode | branch_target | fallthrough | evidence |

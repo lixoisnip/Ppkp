@@ -388,6 +388,11 @@ class CPU8051Subset:
             self._log_instr("CLR", "A", pc, acc_before, dptr_before)
             return True, None
 
+        if op == 0x00:  # NOP
+            s.pc += 1
+            self._log_instr("NOP", "", pc, acc_before, dptr_before, notes="flags_unchanged=true;memory_unchanged=true")
+            return True, None
+
         if op == 0xF4:  # CPL A
             s.acc = (~s.acc) & 0xFF
             s.pc += 1
