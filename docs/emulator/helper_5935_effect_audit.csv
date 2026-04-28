@@ -1,0 +1,4 @@
+iteration,scenario,function_addr,call_pc,helper_addr,entry_step,return_step,returned,acc_before,acc_after,r0_before,r0_after,r1_before,r1_after,dptr_before,dptr_after,psw_before,psw_after,xdata_reads_digest,xdata_writes_digest,notes
+1,packet_bridge_loop_force_r3_01,0x5715,0x5745,0x5935,29,35,yes,0x00,0x00,0x00,0x00,0x01,0x01,0x30E1,0x30E1,unknown,unknown,0x30E1,,first_call_only_compact
+1,packet_bridge_loop_force_djnz_exit_candidate,0x5715,0x5745,0x5935,29,35,yes,0x00,0x00,0x00,0x00,0x01,0x01,0x30E1,0x30E1,unknown,unknown,0x30E1,,first_call_only_compact
+1,packet_bridge_loop_force_jb_not_taken_candidate,0x5715,0x5745,0x5935,50,56,yes,0x00,0x00,0x00,0x00,0x01,0x01,0x30E1,0x30E1,unknown,unknown,0x30E1,,first_call_only_compact

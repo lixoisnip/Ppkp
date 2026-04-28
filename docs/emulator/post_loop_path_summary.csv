@@ -1,0 +1,5 @@
+iteration,scenario,function_addr,max_steps,steps,stop_reason,reached_573C,reached_5745,reached_5748,reached_574E,reached_5765,reached_58B1,reached_5A7F_after_loop,sbuf_writes,uart_tx_candidates,next_blocker,notes
+1,packet_bridge_loop_force_r3_01,0x5715,2000,2000,max_steps,yes,yes,yes,yes,yes,yes,no,0,0,missing_runtime_or_peripheral_context,emulation_observed_compact
+1,packet_bridge_loop_force_djnz_exit_candidate,0x5715,2000,2000,max_steps,yes,yes,yes,yes,yes,yes,no,0,0,missing_runtime_or_peripheral_context,emulation_observed_compact
+1,packet_bridge_loop_force_jb_not_taken_candidate,0x5715,2000,2000,max_steps,yes,yes,yes,yes,yes,yes,no,0,0,missing_runtime_or_peripheral_context,emulation_observed_compact
+1,packet_bridge_loop_force_r3_01_deep5000,0x5715,5000,5000,max_steps,yes,yes,yes,yes,yes,yes,no,0,0,missing_runtime_or_peripheral_context,emulation_observed_compact_deep_run

@@ -39,6 +39,10 @@ SCENARIO_SEED_MANIFEST_CSV = OUT / "scenario_seed_manifest.csv"
 SEED_APPLICATION_AUDIT_CSV = OUT / "seed_application_audit.csv"
 BRANCH_DEPENDENCY_AUDIT_CSV = OUT / "branch_dependency_audit.csv"
 LOOP_STATE_DIGEST_CSV = OUT / "loop_state_digest.csv"
+POST_LOOP_PATH_SUMMARY_CSV = OUT / "post_loop_path_summary.csv"
+POST_LOOP_BRANCH_AUDIT_CSV = OUT / "post_loop_branch_audit.csv"
+HELPER_5935_EFFECT_AUDIT_CSV = OUT / "helper_5935_effect_audit.csv"
+AUTONOMOUS_UART_PURSUIT_SUMMARY_MD = OUT / "autonomous_uart_pursuit_summary.md"
 
 LOOP_REGIONS = [(0x5715, 0x5733), (0x8365, 0x837F), (0x567F, 0x5683), (0x5935, 0x593D)]
 BRANCH_OPS = {"JB", "JNB", "CJNE", "JZ", "JNZ", "DJNZ"}
@@ -421,6 +425,270 @@ def run_scenario(name: str, max_steps: int, compact_summary: bool = False, max_t
     _write_pc_hotspot_summary(all_runs, name)
     _write_control_flow_summary(all_runs, name)
     _write_code_table_candidate_summary(all_runs, name)
+
+
+def _collect_branch_audit_rows(iteration: int, scenario_name: str, run: FunctionRunResult) -> list[dict[str, str]]:
+    rows: list[dict[str, str]] = []
+    ins = [r for r in run.trace.rows if r.get("trace_type") == "instruction"]
+    grouped: dict[tuple[str, str, str, str, str, str], list[int]] = {}
+    for idx, row in enumerate(ins[:-1]):
+        pc = _parse_hex_int(row.get("pc", "0x0"))
+        op = row.get("op", "")
+        if pc not in {0x5736, 0x5748} and not (0x5765 <= pc <= 0x5785) and not (0x58B1 <= pc <= 0x58D0):
+            continue
+        if op not in BRANCH_OPS:
+            continue
+        args = row.get("args", "")
+        target = _rel_target_from_args(pc, op, args)
+        fallthrough = _fallthrough_pc(pc, op)
+        next_pc = _parse_hex_int(ins[idx + 1].get("pc", "0x0"))
+        taken = "yes" if next_pc == target else "no" if next_pc == fallthrough else "unknown"
+        cond_src = "unknown"
+        cond_val = ""
+        if op in {"JB", "JNB"}:
+            cond_src = args.split(",")[0].strip()
+            if pc == 0x5736:
+                cond_val = "ACC.0"
+        elif op in {"JZ", "JNZ"}:
+            cond_src = "A"
+            cond_val = row.get("acc_before", "")
+        elif op == "DJNZ":
+            cond_src = args.split(",")[0].strip()
+        elif op == "CJNE":
+            parts = [p.strip() for p in args.split(",")]
+            cond_src = parts[0] if parts else "unknown"
+            cond_val = parts[1] if len(parts) > 1 else ""
+        key = (f"0x{pc:04X}", op, cond_src, cond_val, f"0x{target:04X}", taken)
+        grouped.setdefault(key, []).append(int(row.get("step", "0")))
+    for (pc, op, cond_src, cond_val, target, taken), steps in sorted(grouped.items()):
+        rows.append(
+            {
+                "iteration": str(iteration),
+                "scenario": scenario_name,
+                "function_addr": f"0x{run.function_addr:04X}",
+                "pc": pc,
+                "op": op,
+                "condition_source": cond_src,
+                "condition_value": cond_val,
+                "target_pc": target,
+                "taken": taken,
+                "count": str(len(steps)),
+                "first_step": str(min(steps)),
+                "last_step": str(max(steps)),
+                "notes": "emulation_observed",
+            }
+        )
+    return rows
+
+
+def _collect_helper_5935_rows(iteration: int, scenario_name: str, run: FunctionRunResult) -> list[dict[str, str]]:
+    rows: list[dict[str, str]] = []
+    ins = [r for r in run.trace.rows if r.get("trace_type") == "instruction"]
+    call_rows = [r for r in ins if _parse_hex_int(r.get("pc", "0x0")) == 0x5745 and r.get("op") == "LCALL" and r.get("args") == "0x5935"]
+    if not call_rows:
+        return rows
+    first_call = call_rows[0]
+    entry_step = int(first_call.get("step", "0"))
+    post_rows = [r for r in ins if int(r.get("step", "0")) > entry_step and _parse_hex_int(r.get("pc", "0x0")) == 0x5748]
+    returned = bool(post_rows)
+    return_step = int(post_rows[0].get("step", "0")) if returned else ""
+    after_row = post_rows[0] if returned else {}
+    xreads = sorted(
+        {
+            r.get("xdata_addr", "")
+            for r in run.trace.rows
+            if r.get("trace_type") == "xdata_read" and entry_step <= int(r.get("step", "0")) <= (return_step if returned else run.steps)
+        }
+    )
+    xwrites = sorted(
+        {
+            f"{r.get('xdata_addr', '')}:{r.get('xdata_value', '')}"
+            for r in run.trace.rows
+            if r.get("trace_type") == "xdata_write" and entry_step <= int(r.get("step", "0")) <= (return_step if returned else run.steps)
+        }
+    )
+    rows.append(
+        {
+            "iteration": str(iteration),
+            "scenario": scenario_name,
+            "function_addr": f"0x{run.function_addr:04X}",
+            "call_pc": "0x5745",
+            "helper_addr": "0x5935",
+            "entry_step": str(entry_step),
+            "return_step": str(return_step),
+            "returned": "yes" if returned else "no",
+            "acc_before": first_call.get("acc_before", ""),
+            "acc_after": after_row.get("acc_before", ""),
+            "r0_before": first_call.get("r0", ""),
+            "r0_after": after_row.get("r0", ""),
+            "r1_before": first_call.get("r1", ""),
+            "r1_after": after_row.get("r1", ""),
+            "dptr_before": first_call.get("dptr_before", ""),
+            "dptr_after": after_row.get("dptr_before", ""),
+            "psw_before": "unknown",
+            "psw_after": "unknown",
+            "xdata_reads_digest": ";".join(xreads[:8]),
+            "xdata_writes_digest": ";".join(xwrites[:8]),
+            "notes": "first_call_only_compact",
+        }
+    )
+    return rows
+
+
+def run_autonomous_post_loop(max_iterations: int = 1) -> None:
+    scenarios = [
+        "packet_bridge_loop_force_r3_01",
+        "packet_bridge_loop_force_djnz_exit_candidate",
+        "packet_bridge_loop_force_jb_not_taken_candidate",
+    ]
+    bounded_iterations = max(1, min(max_iterations, 6))
+    path_rows: list[dict[str, str]] = []
+    branch_rows: list[dict[str, str]] = []
+    helper_rows: list[dict[str, str]] = []
+    latest_blocker = "unknown"
+    reached_5745_any = False
+    helper_returned_any = False
+    reached_5748_any = False
+    reached_574e_any = False
+    reached_5765_any = False
+    reached_58b1_any = False
+    sbuf_total = 0
+    uart_total = 0
+    for iteration in range(1, bounded_iterations + 1):
+        for scenario_name in scenarios:
+            scenario = get_scenario(scenario_name)
+            img = load_code_image(ROOT / scenario.firmware_file)
+            harness = FunctionHarness(img, watchpoints=scenario.watchpoints)
+            run = harness.run_function(
+                _run_id(f"{scenario_name}_{scenario.functions[0]:04X}"),
+                scenario.functions[0],
+                max_steps=2000,
+                init_xdata=scenario.seed_xdata,
+                init_regs=scenario.init_regs.get(scenario.functions[0], {}),
+            )
+            pcs = {_parse_hex_int(r.get("pc", "0x0")) for r in run.trace.rows if r.get("pc")}
+            reached_573c = 0x573C in pcs
+            reached_5745 = 0x5745 in pcs
+            reached_5748 = 0x5748 in pcs
+            reached_574e = 0x574E in pcs
+            reached_5765 = 0x5765 in pcs
+            reached_58b1 = 0x58B1 in pcs
+            reached_5a7f = 0x5A7F in pcs
+            sbuf_writes = sum(1 for r in run.trace.rows if r.get("trace_type") == "uart_sbuf_write")
+            reached_5745_any = reached_5745_any or reached_5745
+            helper_returned = any(r.get("trace_type") == "instruction" and _parse_hex_int(r.get("pc", "0x0")) == 0x5748 for r in run.trace.rows)
+            helper_returned_any = helper_returned_any or helper_returned
+            reached_5748_any = reached_5748_any or reached_5748
+            reached_574e_any = reached_574e_any or reached_574e
+            reached_5765_any = reached_5765_any or reached_5765
+            reached_58b1_any = reached_58b1_any or reached_58b1
+            sbuf_total += sbuf_writes
+            uart_total += sbuf_writes
+            next_blocker = "missing_runtime_or_peripheral_context" if run.stop_reason == "max_steps" and run.unsupported_ops == 0 else run.stop_reason
+            latest_blocker = next_blocker
+            path_rows.append(
+                {
+                    "iteration": str(iteration),
+                    "scenario": scenario_name,
+                    "function_addr": f"0x{run.function_addr:04X}",
+                    "max_steps": "2000",
+                    "steps": str(run.steps),
+                    "stop_reason": run.stop_reason,
+                    "reached_573C": "yes" if reached_573c else "no",
+                    "reached_5745": "yes" if reached_5745 else "no",
+                    "reached_5748": "yes" if reached_5748 else "no",
+                    "reached_574E": "yes" if reached_574e else "no",
+                    "reached_5765": "yes" if reached_5765 else "no",
+                    "reached_58B1": "yes" if reached_58b1 else "no",
+                    "reached_5A7F_after_loop": "yes" if reached_5a7f else "no",
+                    "sbuf_writes": str(sbuf_writes),
+                    "uart_tx_candidates": str(sbuf_writes),
+                    "next_blocker": next_blocker,
+                    "notes": "emulation_observed_compact",
+                }
+            )
+            branch_rows.extend(_collect_branch_audit_rows(iteration, scenario_name, run))
+            helper_rows.extend(_collect_helper_5935_rows(iteration, scenario_name, run))
+
+        deep_scenario = "packet_bridge_loop_force_r3_01"
+        scenario = get_scenario(deep_scenario)
+        img = load_code_image(ROOT / scenario.firmware_file)
+        harness = FunctionHarness(img, watchpoints=scenario.watchpoints)
+        deep_run = harness.run_function(
+            _run_id(f"{deep_scenario}_{scenario.functions[0]:04X}_deep"),
+            scenario.functions[0],
+            max_steps=5000,
+            init_xdata=scenario.seed_xdata,
+            init_regs=scenario.init_regs.get(scenario.functions[0], {}),
+        )
+        deep_pcs = {_parse_hex_int(r.get("pc", "0x0")) for r in deep_run.trace.rows if r.get("pc")}
+        deep_sbuf = sum(1 for r in deep_run.trace.rows if r.get("trace_type") == "uart_sbuf_write")
+        path_rows.append(
+            {
+                "iteration": str(iteration),
+                "scenario": f"{deep_scenario}_deep5000",
+                "function_addr": f"0x{deep_run.function_addr:04X}",
+                "max_steps": "5000",
+                "steps": str(deep_run.steps),
+                "stop_reason": deep_run.stop_reason,
+                "reached_573C": "yes" if 0x573C in deep_pcs else "no",
+                "reached_5745": "yes" if 0x5745 in deep_pcs else "no",
+                "reached_5748": "yes" if 0x5748 in deep_pcs else "no",
+                "reached_574E": "yes" if 0x574E in deep_pcs else "no",
+                "reached_5765": "yes" if 0x5765 in deep_pcs else "no",
+                "reached_58B1": "yes" if 0x58B1 in deep_pcs else "no",
+                "reached_5A7F_after_loop": "yes" if 0x5A7F in deep_pcs else "no",
+                "sbuf_writes": str(deep_sbuf),
+                "uart_tx_candidates": str(deep_sbuf),
+                "next_blocker": "missing_runtime_or_peripheral_context" if deep_run.stop_reason == "max_steps" and deep_run.unsupported_ops == 0 else deep_run.stop_reason,
+                "notes": "emulation_observed_compact_deep_run",
+            }
+        )
+
+    with POST_LOOP_PATH_SUMMARY_CSV.open("w", encoding="utf-8", newline="") as fh:
+        cols = [
+            "iteration", "scenario", "function_addr", "max_steps", "steps", "stop_reason", "reached_573C", "reached_5745", "reached_5748",
+            "reached_574E", "reached_5765", "reached_58B1", "reached_5A7F_after_loop", "sbuf_writes", "uart_tx_candidates", "next_blocker", "notes",
+        ]
+        writer = csv.DictWriter(fh, fieldnames=cols)
+        writer.writeheader()
+        writer.writerows(path_rows)
+    with POST_LOOP_BRANCH_AUDIT_CSV.open("w", encoding="utf-8", newline="") as fh:
+        cols = ["iteration", "scenario", "function_addr", "pc", "op", "condition_source", "condition_value", "target_pc", "taken", "count", "first_step", "last_step", "notes"]
+        writer = csv.DictWriter(fh, fieldnames=cols)
+        writer.writeheader()
+        writer.writerows(branch_rows)
+    with HELPER_5935_EFFECT_AUDIT_CSV.open("w", encoding="utf-8", newline="") as fh:
+        cols = [
+            "iteration", "scenario", "function_addr", "call_pc", "helper_addr", "entry_step", "return_step", "returned", "acc_before", "acc_after",
+            "r0_before", "r0_after", "r1_before", "r1_after", "dptr_before", "dptr_after", "psw_before", "psw_after", "xdata_reads_digest", "xdata_writes_digest", "notes",
+        ]
+        writer = csv.DictWriter(fh, fieldnames=cols)
+        writer.writeheader()
+        writer.writerows(helper_rows)
+    AUTONOMOUS_UART_PURSUIT_SUMMARY_MD.write_text(
+        "\n".join(
+            [
+                "# Autonomous UART pursuit summary",
+                "",
+                f"- Iterations performed: {bounded_iterations}.",
+                "- Fixes implemented: added compact autonomous post-loop reporting command and focused helper/branch audits.",
+                "- Scenarios run: packet_bridge_loop_force_r3_01, packet_bridge_loop_force_djnz_exit_candidate, packet_bridge_loop_force_jb_not_taken_candidate, plus deep run packet_bridge_loop_force_r3_01@5000.",
+                f"- Latest stop reason: {latest_blocker}.",
+                f"- Whether 0x5745 was reached: {'yes' if reached_5745_any else 'no'}.",
+                f"- Whether 0x5935 returned: {'yes' if helper_returned_any else 'no'}.",
+                f"- Whether 0x5748 branch decision was observed: {'yes' if reached_5748_any else 'no'}.",
+                f"- Whether 0x574E LCALL 0x5A7F was reached: {'yes' if reached_574e_any else 'no'}.",
+                f"- Whether 0x5765 or 0x58B1 was reached: {'yes' if (reached_5765_any or reached_58b1_any) else 'no'}.",
+                f"- Whether SBUF candidate writes were observed: {'yes' if sbuf_total > 0 else 'no'}.",
+                f"- Whether UART TX candidate bytes were observed: {'yes' if uart_total > 0 else 'no'}.",
+                "- Whether RS-485 commands remain unresolved: yes.",
+                "- Blocker classification: missing runtime/peripheral context.",
+            ]
+        )
+        + "\n",
+        encoding="utf-8",
+    )
 
 
 def run_single_function(firmware: str, addr: int, max_steps: int) -> None:
@@ -1325,6 +1593,8 @@ def main() -> int:
     p_run.add_argument("--max-steps", type=int, default=500)
     p_run.add_argument("--compact-summary", action="store_true", help="Write compact variant summaries only.")
     p_run.add_argument("--max-trace-rows", type=int, default=50, help="Compact-summary cap hint.")
+    p_autonomous = sub.add_parser("run-autonomous-post-loop", help="Run bounded compact autonomous post-loop pass.")
+    p_autonomous.add_argument("--max-iterations", type=int, default=1)
 
     p_func = sub.add_parser("run-function", help="Run single function entrypoint.")
     p_func.add_argument("--firmware", required=True)
@@ -1345,6 +1615,10 @@ def main() -> int:
     if args.cmd == "run-function":
         run_single_function(args.firmware, int(args.addr, 16), max_steps=args.max_steps)
         print(f"Function run complete. Outputs in {OUT}")
+        return 0
+    if args.cmd == "run-autonomous-post-loop":
+        run_autonomous_post_loop(max_iterations=args.max_iterations)
+        print(f"Autonomous post-loop pass complete. Outputs in {OUT}")
         return 0
     if args.cmd == "export-trace":
         export_trace()
