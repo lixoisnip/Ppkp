@@ -11,7 +11,7 @@ This sandbox is an **experimental, deterministic function-level trace harness** 
 
 Current focus area: packet/event bridge hypotheses around **0x5A7F** and its high-fan-in caller blocks.
 
-Current experimental scenarios include `packet_bridge_default`, `packet_bridge_seeded_context`, `packet_bridge_stub_5a7f`, and `boot_probe_static`.
+Current experimental scenarios include `packet_bridge_default`, `packet_bridge_seeded_context`, `packet_bridge_seeded_context_*` compact variants, `packet_bridge_stub_5a7f`, and `boot_probe_static`.
 
 ## What this is not
 
@@ -32,6 +32,12 @@ New trace artifacts:
 - `docs/emulator/pc_hotspot_summary.csv` for repeated-PC loop hotspots.
 - `docs/emulator/control_flow_trace_summary.csv` for repeated source→target control-flow transitions.
 - `docs/emulator/code_table_candidate_summary.csv` for conservative MOVC table-read summaries.
+- Compact variant mode (`--compact-summary`) writes only:
+  - `docs/emulator/scenario_variant_summary.csv`
+  - `docs/emulator/loop_exit_diagnostics.csv`
+  - `docs/emulator/branch_decision_summary.csv`
+  - `docs/emulator/state_variant_compact_report.md`
+  and avoids regenerating large raw per-step trace CSV artifacts unless explicitly requested.
 
 All outputs should be interpreted as constrained emulation evidence and labeled conservatively (`emulation_observed`, `static_code`, `hypothesis`, `unsupported`).
 

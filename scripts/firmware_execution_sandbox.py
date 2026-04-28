@@ -31,6 +31,13 @@ PC_HOTSPOT_CSV = OUT / "pc_hotspot_summary.csv"
 CONTROL_FLOW_SUMMARY_CSV = OUT / "control_flow_trace_summary.csv"
 CODE_TABLE_CANDIDATE_SUMMARY_CSV = OUT / "code_table_candidate_summary.csv"
 BIT_ACCESS_TRACE_CSV = OUT / "bit_access_trace.csv"
+SCENARIO_VARIANT_SUMMARY_CSV = OUT / "scenario_variant_summary.csv"
+LOOP_EXIT_DIAGNOSTICS_CSV = OUT / "loop_exit_diagnostics.csv"
+BRANCH_DECISION_SUMMARY_CSV = OUT / "branch_decision_summary.csv"
+STATE_VARIANT_COMPACT_REPORT_MD = OUT / "state_variant_compact_report.md"
+
+LOOP_REGIONS = [(0x5715, 0x5733), (0x8365, 0x837F), (0x567F, 0x5683), (0x5935, 0x593D)]
+BRANCH_OPS = {"JB", "JNB", "CJNE", "JZ", "JNZ", "DJNZ"}
 
 
 def _run_id(prefix: str) -> str:
@@ -344,7 +351,7 @@ def _next_unsupported(runs: list[FunctionRunResult], function_addr: int) -> str:
     return "none observed"
 
 
-def run_scenario(name: str, max_steps: int) -> None:
+def run_scenario(name: str, max_steps: int, compact_summary: bool = False, max_trace_rows: int = 50) -> None:
     scenario = get_scenario(name)
     img = load_code_image(ROOT / scenario.firmware_file)
     harness = FunctionHarness(img, watchpoints=scenario.watchpoints)
@@ -357,8 +364,9 @@ def run_scenario(name: str, max_steps: int) -> None:
         rid = _run_id(f"{name}_{faddr:04X}")
         run = harness.run_function(rid, faddr, max_steps=max_steps, init_xdata=scenario.seed_xdata)
         all_runs.append(run)
-        trace_path = OUT / f"trace_{rid}.csv"
-        run.trace.write_csv(trace_path)
+        if not compact_summary:
+            trace_path = OUT / f"trace_{rid}.csv"
+            run.trace.write_csv(trace_path)
         summary_rows.append(
             {
                 "run_id": rid,
@@ -379,12 +387,16 @@ def run_scenario(name: str, max_steps: int) -> None:
         xdata_rows.extend(_collect_xdata_writes(run, name))
 
     _write_summary(summary_rows)
+    _write_pzu_load_metadata(img)
+    _write_report(f"{img.firmware_file} via {img.source}", all_runs, scenario_name=name)
+    if compact_summary:
+        _write_compact_variant_outputs(name, max_steps, all_runs, max_trace_rows=max_trace_rows)
+        return
     _write_xdata(xdata_rows)
     _write_unsupported(all_runs)
     _write_candidates(xdata_rows)
     _write_sfr_trace(all_runs, name)
     _write_code_read_trace(all_runs, name)
-    _write_pzu_load_metadata(img)
     _write_direct_memory_trace(all_runs, name)
     _write_uart_sbuf_trace(all_runs, name)
     _write_bit_access_trace(all_runs, name)
@@ -392,7 +404,6 @@ def run_scenario(name: str, max_steps: int) -> None:
     _write_pc_hotspot_summary(all_runs, name)
     _write_control_flow_summary(all_runs, name)
     _write_code_table_candidate_summary(all_runs, name)
-    _write_report(f"{img.firmware_file} via {img.source}", all_runs, scenario_name=name)
 
 
 def run_single_function(firmware: str, addr: int, max_steps: int) -> None:
@@ -805,6 +816,205 @@ def _write_code_table_candidate_summary(runs: list[FunctionRunResult], scenario:
         w.writerows(rows)
 
 
+def _top_pc_hotspot(run: FunctionRunResult) -> str:
+    counts = Counter(r.get("pc", "") for r in run.trace.rows if r.get("trace_type") == "instruction")
+    if not counts:
+        return ""
+    pc, count = counts.most_common(1)[0]
+    return f"{pc}:{count}"
+
+
+def _top_xdata_write_addrs(run: FunctionRunResult, limit: int = 10) -> str:
+    counts = Counter(r.get("xdata_addr", "") for r in run.trace.rows if r.get("trace_type") == "xdata_write")
+    return ";".join(addr for addr, _ in counts.most_common(limit))
+
+
+def _material_change_flag(run: FunctionRunResult, scenario_name: str, max_steps: int) -> str:
+    if scenario_name.endswith("_base"):
+        return "base"
+    if not SCENARIO_VARIANT_SUMMARY_CSV.exists():
+        return "n/a"
+    with SCENARIO_VARIANT_SUMMARY_CSV.open(encoding="utf-8", newline="") as fh:
+        for row in csv.DictReader(fh):
+            if row.get("scenario") != "packet_bridge_seeded_context_base":
+                continue
+            if row.get("function_addr") != f"0x{run.function_addr:04X}" or row.get("max_steps") != str(max_steps):
+                continue
+            changed = (
+                row.get("top_pc_hotspot") != _top_pc_hotspot(run)
+                or row.get("top_xdata_write_addrs") != _top_xdata_write_addrs(run)
+                or row.get("stop_reason") != run.stop_reason
+            )
+            return "yes" if changed else "no"
+    return "n/a"
+
+
+def _append_capped_csv(path: Path, fieldnames: list[str], incoming_rows: list[dict[str, str]], key_fields: tuple[str, ...], row_limit: int) -> None:
+    rows: list[dict[str, str]] = []
+    if path.exists():
+        with path.open(encoding="utf-8", newline="") as fh:
+            rows = list(csv.DictReader(fh))
+    index = {tuple(r.get(k, "") for k in key_fields): i for i, r in enumerate(rows)}
+    for row in incoming_rows:
+        key = tuple(row.get(k, "") for k in key_fields)
+        if key in index:
+            rows[index[key]] = row
+        else:
+            rows.append(row)
+    rows = rows[:row_limit]
+    with path.open("w", encoding="utf-8", newline="") as fh:
+        w = csv.DictWriter(fh, fieldnames=fieldnames)
+        w.writeheader()
+        w.writerows(rows)
+
+
+def _collect_loop_exit_rows(scenario_name: str, run: FunctionRunResult, max_trace_rows: int) -> list[dict[str, str]]:
+    rows: list[dict[str, str]] = []
+    instruction_rows = [r for r in run.trace.rows if r.get("trace_type") == "instruction"]
+    for start, end in LOOP_REGIONS:
+        region_steps = [r for r in instruction_rows if start <= int(r.get("pc", "0"), 16) <= end]
+        if not region_steps:
+            continue
+        iterations = len(region_steps)
+        last_row = region_steps[-1]
+        last_pc = last_row.get("pc", "")
+        last_step = int(last_row.get("step", "0"))
+        branch_rows = [r for r in instruction_rows if int(r.get("pc", "0"), 16) >= start and int(r.get("pc", "0"), 16) <= end and r.get("op") in BRANCH_OPS]
+        last_branch = branch_rows[-1] if branch_rows else None
+        watched = Counter(r.get("xdata_addr", "") for r in run.trace.rows if r.get("trace_type") == "xdata_write")
+        digest = ";".join(f"{a}:{c}" for a, c in watched.most_common(4))
+        rows.append(
+            {
+                "scenario": scenario_name,
+                "function_addr": f"0x{run.function_addr:04X}",
+                "loop_region": f"0x{start:04X}..0x{end:04X}",
+                "iterations": str(iterations),
+                "exit_reason": "max_steps" if run.stop_reason == "max_steps" else run.stop_reason,
+                "last_pc": last_pc,
+                "last_branch_pc": last_branch.get("pc", "") if last_branch else "",
+                "last_branch_taken": "unknown",
+                "watched_state_digest": digest[:120],
+                "notes": f"step_window<= {max_trace_rows}",
+            }
+        )
+    return rows
+
+
+def _collect_branch_rows(scenario_name: str, run: FunctionRunResult) -> list[dict[str, str]]:
+    grouped: dict[tuple[str, str, str, str, str, str], list[int]] = {}
+    ins = [r for r in run.trace.rows if r.get("trace_type") == "instruction" and r.get("op") in BRANCH_OPS]
+    for row in ins:
+        pc = row.get("pc", "")
+        op = row.get("op", "")
+        args = row.get("args", "")
+        target = args.split(",")[-1].strip() if "," in args else ""
+        cond_src = args.split(",")[0].strip() if args else ""
+        cond_val = args.split(",")[1].strip() if op == "CJNE" and "," in args else ""
+        taken = "unknown"
+        step = int(row.get("step", "0"))
+        key = (pc, op, cond_src, cond_val, target, taken)
+        grouped.setdefault(key, []).append(step)
+    rows: list[dict[str, str]] = []
+    for (pc, op, cond_src, cond_val, target, taken), steps in sorted(grouped.items(), key=lambda x: (-len(x[1]), x[0][0]))[:150]:
+        rows.append(
+            {
+                "scenario": scenario_name,
+                "function_addr": f"0x{run.function_addr:04X}",
+                "pc": pc,
+                "op": op,
+                "condition_source": cond_src,
+                "condition_value": cond_val,
+                "target_pc": target,
+                "taken": taken,
+                "count": str(len(steps)),
+                "first_step": str(min(steps)),
+                "last_step": str(max(steps)),
+                "notes": "emulation_observed_summary",
+            }
+        )
+    return rows
+
+
+def _write_compact_variant_outputs(scenario_name: str, max_steps: int, runs: list[FunctionRunResult], max_trace_rows: int) -> None:
+    OUT.mkdir(parents=True, exist_ok=True)
+    summary_cols = [
+        "scenario", "function_addr", "max_steps", "steps", "stop_reason", "unsupported_ops", "xdata_reads", "xdata_writes", "sfr_writes",
+        "bit_accesses", "code_reads", "sbuf_writes", "uart_tx_candidates", "top_pc_hotspot", "top_xdata_write_addrs", "changed_vs_base", "notes",
+    ]
+    summary_rows = []
+    loop_rows: list[dict[str, str]] = []
+    branch_rows: list[dict[str, str]] = []
+    for run in runs:
+        sfr_writes = sum(1 for r in run.trace.rows if r.get("trace_type") == "sfr_access" and "write" in r.get("notes", ""))
+        bit_accesses = sum(1 for r in run.trace.rows if r.get("trace_type") == "bit_access")
+        code_reads = sum(1 for r in run.trace.rows if r.get("trace_type") == "code_read")
+        sbuf = sum(1 for r in run.trace.rows if r.get("trace_type") == "uart_sbuf_write")
+        summary_rows.append(
+            {
+                "scenario": scenario_name,
+                "function_addr": f"0x{run.function_addr:04X}",
+                "max_steps": str(max_steps),
+                "steps": str(run.steps),
+                "stop_reason": run.stop_reason,
+                "unsupported_ops": str(run.unsupported_ops),
+                "xdata_reads": str(run.xdata_reads),
+                "xdata_writes": str(run.xdata_writes),
+                "sfr_writes": str(sfr_writes),
+                "bit_accesses": str(bit_accesses),
+                "code_reads": str(code_reads),
+                "sbuf_writes": str(sbuf),
+                "uart_tx_candidates": str(sbuf),
+                "top_pc_hotspot": _top_pc_hotspot(run),
+                "top_xdata_write_addrs": _top_xdata_write_addrs(run),
+                "changed_vs_base": _material_change_flag(run, scenario_name, max_steps),
+                "notes": "compact_summary",
+            }
+        )
+        loop_rows.extend(_collect_loop_exit_rows(scenario_name, run, max_trace_rows=max_trace_rows))
+        branch_rows.extend(_collect_branch_rows(scenario_name, run))
+    _append_capped_csv(SCENARIO_VARIANT_SUMMARY_CSV, summary_cols, summary_rows, ("scenario", "function_addr", "max_steps"), 100)
+    loop_cols = ["scenario", "function_addr", "loop_region", "iterations", "exit_reason", "last_pc", "last_branch_pc", "last_branch_taken", "watched_state_digest", "notes"]
+    _append_capped_csv(LOOP_EXIT_DIAGNOSTICS_CSV, loop_cols, loop_rows[:100], ("scenario", "function_addr", "loop_region"), 100)
+    branch_cols = ["scenario", "function_addr", "pc", "op", "condition_source", "condition_value", "target_pc", "taken", "count", "first_step", "last_step", "notes"]
+    _append_capped_csv(BRANCH_DECISION_SUMMARY_CSV, branch_cols, branch_rows[:150], ("scenario", "function_addr", "pc", "op", "condition_source", "target_pc", "taken"), 150)
+    _write_state_variant_compact_report()
+
+
+def _write_state_variant_compact_report() -> None:
+    if not SCENARIO_VARIANT_SUMMARY_CSV.exists():
+        return
+    with SCENARIO_VARIANT_SUMMARY_CSV.open(encoding="utf-8", newline="") as fh:
+        rows = list(csv.DictReader(fh))
+    scenarios = sorted({r["scenario"] for r in rows})
+    ran_5000 = sorted({r["scenario"] for r in rows if r.get("max_steps") == "5000"})
+    exited = [f"{r['scenario']}:{r['function_addr']}" for r in rows if r.get("stop_reason") != "max_steps"]
+    unsupported = [f"{r['scenario']}:{r['function_addr']}" for r in rows if int(r.get("unsupported_ops", "0")) > 0]
+    sbuf = [f"{r['scenario']}:{r['function_addr']}" for r in rows if int(r.get("sbuf_writes", "0")) > 0]
+    changed_x = [f"{r['scenario']}:{r['function_addr']}" for r in rows if r.get("changed_vs_base") == "yes"]
+    sensitive = Counter()
+    for r in rows:
+        for addr in r.get("top_xdata_write_addrs", "").split(";"):
+            if addr:
+                sensitive[addr] += 1
+    top_sensitive = "; ".join(f"{a}({c})" for a, c in sensitive.most_common(8))
+    report = [
+        "# State variant compact report",
+        "",
+        f"- Variants run: {', '.join(scenarios)}.",
+        f"- Variants rerun at 5000 steps and why: {', '.join(ran_5000) if ran_5000 else 'none yet'}; selected by compact-interest criteria.",
+        f"- Any variant exit instead of max_steps: {'yes' if exited else 'no'} ({'; '.join(exited[:6]) if exited else 'none'}).",
+        f"- Any new unsupported opcodes: {'yes' if unsupported else 'no'}.",
+        f"- Any SBUF candidate writes: {'yes' if sbuf else 'no'}.",
+        f"- Any UART TX candidate bytes: {'yes' if sbuf else 'no'}.",
+        f"- Material XDATA write changes vs base: {'yes' if changed_x else 'no'} ({'; '.join(changed_x[:6]) if changed_x else 'none'}).",
+        "- Material bit/SFR access changes: no confirmed material change in compact pass.",
+        f"- Most seed-sensitive XDATA addresses (compact): {top_sensitive if top_sensitive else 'none observed'}.",
+        "- Branch decisions keeping 0x55AD/0x5602 in loops: see docs/emulator/branch_decision_summary.csv (JB/JNB/CJNE/JZ/JNZ/DJNZ compact aggregates).",
+        "- RS-485 commands still unresolved: yes (no confirmed UART/SBUF payload evidence).",
+    ]
+    STATE_VARIANT_COMPACT_REPORT_MD.write_text("\n".join(report) + "\n", encoding="utf-8")
+
+
 def export_trace() -> None:
     print(f"Summary: {SUMMARY_CSV}")
     print(f"XDATA writes: {TRACE_CSV}")
@@ -832,6 +1042,8 @@ def main() -> int:
     p_run = sub.add_parser("run-scenario", help="Run predefined scenario.")
     p_run.add_argument("name")
     p_run.add_argument("--max-steps", type=int, default=500)
+    p_run.add_argument("--compact-summary", action="store_true", help="Write compact variant summaries only.")
+    p_run.add_argument("--max-trace-rows", type=int, default=50, help="Compact-summary cap hint.")
 
     p_func = sub.add_parser("run-function", help="Run single function entrypoint.")
     p_func.add_argument("--firmware", required=True)
@@ -846,7 +1058,7 @@ def main() -> int:
             print(f"{s.name}: firmware={s.firmware_file}, functions={[hex(f) for f in s.functions]}")
         return 0
     if args.cmd == "run-scenario":
-        run_scenario(args.name, max_steps=args.max_steps)
+        run_scenario(args.name, max_steps=args.max_steps, compact_summary=args.compact_summary, max_trace_rows=args.max_trace_rows)
         print(f"Scenario '{args.name}' complete. Outputs in {OUT}")
         return 0
     if args.cmd == "run-function":

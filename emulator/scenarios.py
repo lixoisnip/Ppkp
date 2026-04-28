@@ -95,6 +95,92 @@ SCENARIOS = {
         watchpoints=default_dks_watchpoints(),
         purpose="Focused 0x5A7F probe with deterministic seed context to inspect opcode coverage and trace outputs.",
     ),
+
+    "packet_bridge_seeded_context_base": Scenario(
+        name="packet_bridge_seeded_context_base",
+        firmware_file="90CYE03_19_DKS.PZU",
+        functions=[0x55AD, 0x5602],
+        seed_xdata={},
+        watchpoints=default_dks_watchpoints(),
+        purpose="Baseline compact variant with unmodified seeded-context watchpoints.",
+    ),
+    "packet_bridge_seeded_context_zeroed": Scenario(
+        name="packet_bridge_seeded_context_zeroed",
+        firmware_file="90CYE03_19_DKS.PZU",
+        functions=[0x55AD, 0x5602],
+        seed_xdata={
+            a: 0x00
+            for a in [
+                0x30BC, 0x30E1, 0x30E7, 0x30E9, 0x31BF, 0x3165, 0x364B, 0x30AC, 0x30B4, 0x30CC, 0x30D4, 0x30E0,
+                *expand_range("0x30EA..0x30F9"), *expand_range("0x36D3..0x36FF"),
+            ]
+        },
+        watchpoints=default_dks_watchpoints(),
+        purpose="Variant with deterministic 0x00 seed across candidate state bytes.",
+    ),
+    "packet_bridge_seeded_context_ff": Scenario(
+        name="packet_bridge_seeded_context_ff",
+        firmware_file="90CYE03_19_DKS.PZU",
+        functions=[0x55AD, 0x5602],
+        seed_xdata={
+            a: 0xFF
+            for a in [
+                0x30BC, 0x30E1, 0x30E7, 0x30E9, 0x31BF, 0x3165, 0x364B, 0x30AC, 0x30B4, 0x30CC, 0x30D4, 0x30E0,
+                *expand_range("0x30EA..0x30F9"), *expand_range("0x36D3..0x36FF"),
+            ]
+        },
+        watchpoints=default_dks_watchpoints(),
+        purpose="Variant with deterministic 0xFF seed across candidate state bytes.",
+    ),
+    "packet_bridge_seeded_context_mode_e0": Scenario(
+        name="packet_bridge_seeded_context_mode_e0",
+        firmware_file="90CYE03_19_DKS.PZU",
+        functions=[0x55AD, 0x5602],
+        seed_xdata={0x30E0: 0xE0, 0x30E1: 0x00, 0x30E7: 0x00, 0x30E9: 0x00},
+        watchpoints=default_dks_watchpoints(),
+        purpose="Mode-byte focused variant forcing 0x30E0=0xE0.",
+    ),
+    "packet_bridge_seeded_context_mode_e1": Scenario(
+        name="packet_bridge_seeded_context_mode_e1",
+        firmware_file="90CYE03_19_DKS.PZU",
+        functions=[0x55AD, 0x5602],
+        seed_xdata={0x30E0: 0xE1, 0x30E1: 0x01, 0x30E7: 0x01, 0x30E9: 0x01},
+        watchpoints=default_dks_watchpoints(),
+        purpose="Mode-byte focused variant forcing 0x30E0=0xE1.",
+    ),
+    "packet_bridge_seeded_context_mode_e2": Scenario(
+        name="packet_bridge_seeded_context_mode_e2",
+        firmware_file="90CYE03_19_DKS.PZU",
+        functions=[0x55AD, 0x5602],
+        seed_xdata={0x30E0: 0xE2, 0x30E1: 0x02, 0x30E7: 0x02, 0x30E9: 0x02},
+        watchpoints=default_dks_watchpoints(),
+        purpose="Mode-byte focused variant forcing 0x30E0=0xE2.",
+    ),
+    "packet_bridge_seeded_context_output_flags": Scenario(
+        name="packet_bridge_seeded_context_output_flags",
+        firmware_file="90CYE03_19_DKS.PZU",
+        functions=[0x55AD, 0x5602],
+        seed_xdata={
+            0x30AC: 0x55,
+            0x30B4: 0xAA,
+            0x30CC: 0x10,
+            0x30D4: 0x20,
+            0x30E7: 0x40,
+            0x30E9: 0x80,
+            0x31BF: 0x01,
+            0x364B: 0x02,
+        },
+        watchpoints=default_dks_watchpoints(),
+        purpose="Output-flag walk variant using deterministic flag-like seed values.",
+    ),
+    "packet_bridge_seeded_context_bitmask_walk": Scenario(
+        name="packet_bridge_seeded_context_bitmask_walk",
+        firmware_file="90CYE03_19_DKS.PZU",
+        functions=[0x55AD, 0x5602],
+        seed_xdata={a: v for a, v in zip(expand_range("0x36F0..0x36FF"), [0x01, 0x02, 0x04, 0x08, 0x10, 0x20, 0x40, 0x80, 0x55, 0xAA, 0xFF, 0x00, 0x01, 0x02, 0x04, 0x08])},
+        watchpoints=default_dks_watchpoints(),
+        purpose="Bitmask walk across 0x36F0..0x36FF with deterministic seed set.",
+    ),
 }
 
 
