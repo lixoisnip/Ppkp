@@ -1,0 +1,151 @@
+scenario,function_addr,pc,op,condition_source,condition_value,target_pc,taken,count,first_step,last_step,notes
+packet_bridge_seeded_context_base,0x55AD,0x5729,JB,bit 0xE0,,2,unknown,56,952,1997,emulation_observed_summary
+packet_bridge_seeded_context_base,0x55AD,0x5733,DJNZ,R3,,-32,unknown,56,955,2000,emulation_observed_summary
+packet_bridge_seeded_context_base,0x55AD,0x5683,DJNZ,R3,,-6,unknown,48,432,620,emulation_observed_summary
+packet_bridge_seeded_context_base,0x55AD,0x55B1,CJNE,A,#0x01,27,unknown,8,3,59,emulation_observed_summary
+packet_bridge_seeded_context_base,0x55AD,0x55D0,CJNE,R0,#0x08,-43,unknown,8,5,61,emulation_observed_summary
+packet_bridge_seeded_context_base,0x55AD,0x55EA,CJNE,A,#0x02,27,unknown,8,75,131,emulation_observed_summary
+packet_bridge_seeded_context_base,0x55AD,0x5609,CJNE,R0,#0x08,-43,unknown,8,77,133,emulation_observed_summary
+packet_bridge_seeded_context_base,0x55AD,0x5621,JNZ,11,,,unknown,8,150,234,emulation_observed_summary
+packet_bridge_seeded_context_base,0x55AD,0x562F,CJNE,R0,#0x08,-24,unknown,8,159,236,emulation_observed_summary
+packet_bridge_seeded_context_base,0x55AD,0x5648,CJNE,R0,#0x08,-7,unknown,8,249,277,emulation_observed_summary
+packet_bridge_seeded_context_base,0x55AD,0x565C,JZ,11,,,unknown,8,291,410,emulation_observed_summary
+packet_bridge_seeded_context_base,0x55AD,0x566A,CJNE,R0,#0x08,-24,unknown,8,293,419,emulation_observed_summary
+packet_bridge_seeded_context_base,0x55AD,0x5696,JZ,11,,,unknown,8,634,753,emulation_observed_summary
+packet_bridge_seeded_context_base,0x55AD,0x56A4,CJNE,R0,#0x08,-24,unknown,8,636,762,emulation_observed_summary
+packet_bridge_seeded_context_base,0x55AD,0x6742,JZ,20,,,unknown,8,798,861,emulation_observed_summary
+packet_bridge_seeded_context_base,0x55AD,0x6759,CJNE,R7,#0x08,-30,unknown,8,800,863,emulation_observed_summary
+packet_bridge_seeded_context_base,0x55AD,0x56DE,JB,bit 0xE0,,27,unknown,1,924,924,emulation_observed_summary
+packet_bridge_seeded_context_base,0x55AD,0x5706,CJNE,A,#0x05,2,unknown,1,931,931,emulation_observed_summary
+packet_bridge_seeded_context_base,0x55AD,0x676F,DJNZ,R3,,-4,unknown,1,874,874,emulation_observed_summary
+packet_bridge_seeded_context_base,0x5602,0x5729,JB,bit 0xE0,,2,unknown,51,1041,1991,emulation_observed_summary
+packet_bridge_seeded_context_base,0x5602,0x5733,DJNZ,R3,,-32,unknown,51,1044,1994,emulation_observed_summary
+packet_bridge_seeded_context_base,0x5602,0x5683,DJNZ,R3,,-6,unknown,48,361,549,emulation_observed_summary
+packet_bridge_seeded_context_base,0x5602,0x5609,CJNE,R0,#0x08,-43,unknown,8,6,62,emulation_observed_summary
+packet_bridge_seeded_context_base,0x5602,0x5621,JNZ,11,,,unknown,8,79,163,emulation_observed_summary
+packet_bridge_seeded_context_base,0x5602,0x562F,CJNE,R0,#0x08,-24,unknown,8,88,165,emulation_observed_summary
+packet_bridge_seeded_context_base,0x5602,0x5648,CJNE,R0,#0x08,-7,unknown,8,178,206,emulation_observed_summary
+packet_bridge_seeded_context_base,0x5602,0x565C,JZ,11,,,unknown,8,220,339,emulation_observed_summary
+packet_bridge_seeded_context_base,0x5602,0x566A,CJNE,R0,#0x08,-24,unknown,8,222,348,emulation_observed_summary
+packet_bridge_seeded_context_base,0x5602,0x5696,JZ,11,,,unknown,8,563,682,emulation_observed_summary
+packet_bridge_seeded_context_base,0x5602,0x56A4,CJNE,R0,#0x08,-24,unknown,8,565,691,emulation_observed_summary
+packet_bridge_seeded_context_base,0x5602,0x6742,JZ,20,,,unknown,8,727,930,emulation_observed_summary
+packet_bridge_seeded_context_base,0x5602,0x6759,CJNE,R7,#0x08,-30,unknown,8,749,952,emulation_observed_summary
+packet_bridge_seeded_context_base,0x5602,0x55EA,CJNE,A,#0x02,27,unknown,7,12,60,emulation_observed_summary
+packet_bridge_seeded_context_base,0x5602,0x56DE,JB,bit 0xE0,,27,unknown,1,1013,1013,emulation_observed_summary
+packet_bridge_seeded_context_base,0x5602,0x5706,CJNE,A,#0x05,2,unknown,1,1020,1020,emulation_observed_summary
+packet_bridge_seeded_context_base,0x5602,0x676F,DJNZ,R3,,-4,unknown,1,963,963,emulation_observed_summary
+packet_bridge_seeded_context_zeroed,0x55AD,0x5729,JB,bit 0xE0,,2,unknown,56,952,1997,emulation_observed_summary
+packet_bridge_seeded_context_zeroed,0x55AD,0x5733,DJNZ,R3,,-32,unknown,56,955,2000,emulation_observed_summary
+packet_bridge_seeded_context_zeroed,0x55AD,0x5683,DJNZ,R3,,-6,unknown,48,432,620,emulation_observed_summary
+packet_bridge_seeded_context_zeroed,0x55AD,0x55B1,CJNE,A,#0x01,27,unknown,8,3,59,emulation_observed_summary
+packet_bridge_seeded_context_zeroed,0x55AD,0x55D0,CJNE,R0,#0x08,-43,unknown,8,5,61,emulation_observed_summary
+packet_bridge_seeded_context_zeroed,0x55AD,0x55EA,CJNE,A,#0x02,27,unknown,8,75,131,emulation_observed_summary
+packet_bridge_seeded_context_zeroed,0x55AD,0x5609,CJNE,R0,#0x08,-43,unknown,8,77,133,emulation_observed_summary
+packet_bridge_seeded_context_zeroed,0x55AD,0x5621,JNZ,11,,,unknown,8,150,234,emulation_observed_summary
+packet_bridge_seeded_context_zeroed,0x55AD,0x562F,CJNE,R0,#0x08,-24,unknown,8,159,236,emulation_observed_summary
+packet_bridge_seeded_context_zeroed,0x55AD,0x5648,CJNE,R0,#0x08,-7,unknown,8,249,277,emulation_observed_summary
+packet_bridge_seeded_context_zeroed,0x55AD,0x565C,JZ,11,,,unknown,8,291,410,emulation_observed_summary
+packet_bridge_seeded_context_zeroed,0x55AD,0x566A,CJNE,R0,#0x08,-24,unknown,8,293,419,emulation_observed_summary
+packet_bridge_seeded_context_zeroed,0x55AD,0x5696,JZ,11,,,unknown,8,634,753,emulation_observed_summary
+packet_bridge_seeded_context_zeroed,0x55AD,0x56A4,CJNE,R0,#0x08,-24,unknown,8,636,762,emulation_observed_summary
+packet_bridge_seeded_context_zeroed,0x55AD,0x6742,JZ,20,,,unknown,8,798,861,emulation_observed_summary
+packet_bridge_seeded_context_zeroed,0x55AD,0x6759,CJNE,R7,#0x08,-30,unknown,8,800,863,emulation_observed_summary
+packet_bridge_seeded_context_zeroed,0x55AD,0x56DE,JB,bit 0xE0,,27,unknown,1,924,924,emulation_observed_summary
+packet_bridge_seeded_context_zeroed,0x55AD,0x5706,CJNE,A,#0x05,2,unknown,1,931,931,emulation_observed_summary
+packet_bridge_seeded_context_zeroed,0x55AD,0x676F,DJNZ,R3,,-4,unknown,1,874,874,emulation_observed_summary
+packet_bridge_seeded_context_zeroed,0x5602,0x5729,JB,bit 0xE0,,2,unknown,51,1041,1991,emulation_observed_summary
+packet_bridge_seeded_context_zeroed,0x5602,0x5733,DJNZ,R3,,-32,unknown,51,1044,1994,emulation_observed_summary
+packet_bridge_seeded_context_zeroed,0x5602,0x5683,DJNZ,R3,,-6,unknown,48,361,549,emulation_observed_summary
+packet_bridge_seeded_context_zeroed,0x5602,0x5609,CJNE,R0,#0x08,-43,unknown,8,6,62,emulation_observed_summary
+packet_bridge_seeded_context_zeroed,0x5602,0x5621,JNZ,11,,,unknown,8,79,163,emulation_observed_summary
+packet_bridge_seeded_context_zeroed,0x5602,0x562F,CJNE,R0,#0x08,-24,unknown,8,88,165,emulation_observed_summary
+packet_bridge_seeded_context_zeroed,0x5602,0x5648,CJNE,R0,#0x08,-7,unknown,8,178,206,emulation_observed_summary
+packet_bridge_seeded_context_zeroed,0x5602,0x565C,JZ,11,,,unknown,8,220,339,emulation_observed_summary
+packet_bridge_seeded_context_zeroed,0x5602,0x566A,CJNE,R0,#0x08,-24,unknown,8,222,348,emulation_observed_summary
+packet_bridge_seeded_context_zeroed,0x5602,0x5696,JZ,11,,,unknown,8,563,682,emulation_observed_summary
+packet_bridge_seeded_context_zeroed,0x5602,0x56A4,CJNE,R0,#0x08,-24,unknown,8,565,691,emulation_observed_summary
+packet_bridge_seeded_context_zeroed,0x5602,0x6742,JZ,20,,,unknown,8,727,930,emulation_observed_summary
+packet_bridge_seeded_context_zeroed,0x5602,0x6759,CJNE,R7,#0x08,-30,unknown,8,749,952,emulation_observed_summary
+packet_bridge_seeded_context_zeroed,0x5602,0x55EA,CJNE,A,#0x02,27,unknown,7,12,60,emulation_observed_summary
+packet_bridge_seeded_context_zeroed,0x5602,0x56DE,JB,bit 0xE0,,27,unknown,1,1013,1013,emulation_observed_summary
+packet_bridge_seeded_context_zeroed,0x5602,0x5706,CJNE,A,#0x05,2,unknown,1,1020,1020,emulation_observed_summary
+packet_bridge_seeded_context_zeroed,0x5602,0x676F,DJNZ,R3,,-4,unknown,1,963,963,emulation_observed_summary
+packet_bridge_seeded_context_ff,0x55AD,0x5729,JB,bit 0xE0,,2,unknown,56,952,1997,emulation_observed_summary
+packet_bridge_seeded_context_ff,0x55AD,0x5733,DJNZ,R3,,-32,unknown,56,955,2000,emulation_observed_summary
+packet_bridge_seeded_context_ff,0x55AD,0x5683,DJNZ,R3,,-6,unknown,48,432,620,emulation_observed_summary
+packet_bridge_seeded_context_ff,0x55AD,0x55B1,CJNE,A,#0x01,27,unknown,8,3,59,emulation_observed_summary
+packet_bridge_seeded_context_ff,0x55AD,0x55D0,CJNE,R0,#0x08,-43,unknown,8,5,61,emulation_observed_summary
+packet_bridge_seeded_context_ff,0x55AD,0x55EA,CJNE,A,#0x02,27,unknown,8,75,131,emulation_observed_summary
+packet_bridge_seeded_context_ff,0x55AD,0x5609,CJNE,R0,#0x08,-43,unknown,8,77,133,emulation_observed_summary
+packet_bridge_seeded_context_ff,0x55AD,0x5621,JNZ,11,,,unknown,8,150,234,emulation_observed_summary
+packet_bridge_seeded_context_ff,0x55AD,0x562F,CJNE,R0,#0x08,-24,unknown,8,159,236,emulation_observed_summary
+packet_bridge_seeded_context_ff,0x55AD,0x5648,CJNE,R0,#0x08,-7,unknown,8,249,277,emulation_observed_summary
+packet_bridge_seeded_context_ff,0x55AD,0x565C,JZ,11,,,unknown,8,291,410,emulation_observed_summary
+packet_bridge_seeded_context_ff,0x55AD,0x566A,CJNE,R0,#0x08,-24,unknown,8,293,419,emulation_observed_summary
+packet_bridge_seeded_context_ff,0x55AD,0x5696,JZ,11,,,unknown,8,634,753,emulation_observed_summary
+packet_bridge_seeded_context_ff,0x55AD,0x56A4,CJNE,R0,#0x08,-24,unknown,8,636,762,emulation_observed_summary
+packet_bridge_seeded_context_ff,0x55AD,0x6742,JZ,20,,,unknown,8,798,861,emulation_observed_summary
+packet_bridge_seeded_context_ff,0x55AD,0x6759,CJNE,R7,#0x08,-30,unknown,8,800,863,emulation_observed_summary
+packet_bridge_seeded_context_ff,0x55AD,0x56DE,JB,bit 0xE0,,27,unknown,1,924,924,emulation_observed_summary
+packet_bridge_seeded_context_ff,0x55AD,0x5706,CJNE,A,#0x05,2,unknown,1,931,931,emulation_observed_summary
+packet_bridge_seeded_context_ff,0x55AD,0x676F,DJNZ,R3,,-4,unknown,1,874,874,emulation_observed_summary
+packet_bridge_seeded_context_ff,0x5602,0x5729,JB,bit 0xE0,,2,unknown,51,1041,1991,emulation_observed_summary
+packet_bridge_seeded_context_ff,0x5602,0x5733,DJNZ,R3,,-32,unknown,51,1044,1994,emulation_observed_summary
+packet_bridge_seeded_context_ff,0x5602,0x5683,DJNZ,R3,,-6,unknown,48,361,549,emulation_observed_summary
+packet_bridge_seeded_context_ff,0x5602,0x5609,CJNE,R0,#0x08,-43,unknown,8,6,62,emulation_observed_summary
+packet_bridge_seeded_context_ff,0x5602,0x5621,JNZ,11,,,unknown,8,79,163,emulation_observed_summary
+packet_bridge_seeded_context_ff,0x5602,0x562F,CJNE,R0,#0x08,-24,unknown,8,88,165,emulation_observed_summary
+packet_bridge_seeded_context_ff,0x5602,0x5648,CJNE,R0,#0x08,-7,unknown,8,178,206,emulation_observed_summary
+packet_bridge_seeded_context_ff,0x5602,0x565C,JZ,11,,,unknown,8,220,339,emulation_observed_summary
+packet_bridge_seeded_context_ff,0x5602,0x566A,CJNE,R0,#0x08,-24,unknown,8,222,348,emulation_observed_summary
+packet_bridge_seeded_context_ff,0x5602,0x5696,JZ,11,,,unknown,8,563,682,emulation_observed_summary
+packet_bridge_seeded_context_ff,0x5602,0x56A4,CJNE,R0,#0x08,-24,unknown,8,565,691,emulation_observed_summary
+packet_bridge_seeded_context_ff,0x5602,0x6742,JZ,20,,,unknown,8,727,930,emulation_observed_summary
+packet_bridge_seeded_context_ff,0x5602,0x6759,CJNE,R7,#0x08,-30,unknown,8,749,952,emulation_observed_summary
+packet_bridge_seeded_context_ff,0x5602,0x55EA,CJNE,A,#0x02,27,unknown,7,12,60,emulation_observed_summary
+packet_bridge_seeded_context_ff,0x5602,0x56DE,JB,bit 0xE0,,27,unknown,1,1013,1013,emulation_observed_summary
+packet_bridge_seeded_context_ff,0x5602,0x5706,CJNE,A,#0x05,2,unknown,1,1020,1020,emulation_observed_summary
+packet_bridge_seeded_context_ff,0x5602,0x676F,DJNZ,R3,,-4,unknown,1,963,963,emulation_observed_summary
+packet_bridge_seeded_context_mode_e0,0x55AD,0x5729,JB,bit 0xE0,,2,unknown,56,952,1997,emulation_observed_summary
+packet_bridge_seeded_context_mode_e0,0x55AD,0x5733,DJNZ,R3,,-32,unknown,56,955,2000,emulation_observed_summary
+packet_bridge_seeded_context_mode_e0,0x55AD,0x5683,DJNZ,R3,,-6,unknown,48,432,620,emulation_observed_summary
+packet_bridge_seeded_context_mode_e0,0x55AD,0x55B1,CJNE,A,#0x01,27,unknown,8,3,59,emulation_observed_summary
+packet_bridge_seeded_context_mode_e0,0x55AD,0x55D0,CJNE,R0,#0x08,-43,unknown,8,5,61,emulation_observed_summary
+packet_bridge_seeded_context_mode_e0,0x55AD,0x55EA,CJNE,A,#0x02,27,unknown,8,75,131,emulation_observed_summary
+packet_bridge_seeded_context_mode_e0,0x55AD,0x5609,CJNE,R0,#0x08,-43,unknown,8,77,133,emulation_observed_summary
+packet_bridge_seeded_context_mode_e0,0x55AD,0x5621,JNZ,11,,,unknown,8,150,234,emulation_observed_summary
+packet_bridge_seeded_context_mode_e0,0x55AD,0x562F,CJNE,R0,#0x08,-24,unknown,8,159,236,emulation_observed_summary
+packet_bridge_seeded_context_mode_e0,0x55AD,0x5648,CJNE,R0,#0x08,-7,unknown,8,249,277,emulation_observed_summary
+packet_bridge_seeded_context_mode_e0,0x55AD,0x565C,JZ,11,,,unknown,8,291,410,emulation_observed_summary
+packet_bridge_seeded_context_mode_e0,0x55AD,0x566A,CJNE,R0,#0x08,-24,unknown,8,293,419,emulation_observed_summary
+packet_bridge_seeded_context_mode_e0,0x55AD,0x5696,JZ,11,,,unknown,8,634,753,emulation_observed_summary
+packet_bridge_seeded_context_mode_e0,0x55AD,0x56A4,CJNE,R0,#0x08,-24,unknown,8,636,762,emulation_observed_summary
+packet_bridge_seeded_context_mode_e0,0x55AD,0x6742,JZ,20,,,unknown,8,798,861,emulation_observed_summary
+packet_bridge_seeded_context_mode_e0,0x55AD,0x6759,CJNE,R7,#0x08,-30,unknown,8,800,863,emulation_observed_summary
+packet_bridge_seeded_context_mode_e0,0x55AD,0x56DE,JB,bit 0xE0,,27,unknown,1,924,924,emulation_observed_summary
+packet_bridge_seeded_context_mode_e0,0x55AD,0x5706,CJNE,A,#0x05,2,unknown,1,931,931,emulation_observed_summary
+packet_bridge_seeded_context_mode_e0,0x55AD,0x676F,DJNZ,R3,,-4,unknown,1,874,874,emulation_observed_summary
+packet_bridge_seeded_context_mode_e0,0x5602,0x5729,JB,bit 0xE0,,2,unknown,51,1041,1991,emulation_observed_summary
+packet_bridge_seeded_context_mode_e0,0x5602,0x5733,DJNZ,R3,,-32,unknown,51,1044,1994,emulation_observed_summary
+packet_bridge_seeded_context_mode_e0,0x5602,0x5683,DJNZ,R3,,-6,unknown,48,361,549,emulation_observed_summary
+packet_bridge_seeded_context_mode_e0,0x5602,0x5609,CJNE,R0,#0x08,-43,unknown,8,6,62,emulation_observed_summary
+packet_bridge_seeded_context_mode_e0,0x5602,0x5621,JNZ,11,,,unknown,8,79,163,emulation_observed_summary
+packet_bridge_seeded_context_mode_e0,0x5602,0x562F,CJNE,R0,#0x08,-24,unknown,8,88,165,emulation_observed_summary
+packet_bridge_seeded_context_mode_e0,0x5602,0x5648,CJNE,R0,#0x08,-7,unknown,8,178,206,emulation_observed_summary
+packet_bridge_seeded_context_mode_e0,0x5602,0x565C,JZ,11,,,unknown,8,220,339,emulation_observed_summary
+packet_bridge_seeded_context_mode_e0,0x5602,0x566A,CJNE,R0,#0x08,-24,unknown,8,222,348,emulation_observed_summary
+packet_bridge_seeded_context_mode_e0,0x5602,0x5696,JZ,11,,,unknown,8,563,682,emulation_observed_summary
+packet_bridge_seeded_context_mode_e0,0x5602,0x56A4,CJNE,R0,#0x08,-24,unknown,8,565,691,emulation_observed_summary
+packet_bridge_seeded_context_mode_e0,0x5602,0x6742,JZ,20,,,unknown,8,727,930,emulation_observed_summary
+packet_bridge_seeded_context_mode_e0,0x5602,0x6759,CJNE,R7,#0x08,-30,unknown,8,749,952,emulation_observed_summary
+packet_bridge_seeded_context_mode_e0,0x5602,0x55EA,CJNE,A,#0x02,27,unknown,7,12,60,emulation_observed_summary
+packet_bridge_seeded_context_mode_e0,0x5602,0x56DE,JB,bit 0xE0,,27,unknown,1,1013,1013,emulation_observed_summary
+packet_bridge_seeded_context_mode_e0,0x5602,0x5706,CJNE,A,#0x05,2,unknown,1,1020,1020,emulation_observed_summary
+packet_bridge_seeded_context_mode_e0,0x5602,0x676F,DJNZ,R3,,-4,unknown,1,963,963,emulation_observed_summary
+packet_bridge_seeded_context_mode_e1,0x55AD,0x5729,JB,bit 0xE0,,2,unknown,214,952,4999,emulation_observed_summary
+packet_bridge_seeded_context_mode_e1,0x55AD,0x5733,DJNZ,R3,,-32,unknown,213,955,4983,emulation_observed_summary
+packet_bridge_seeded_context_mode_e1,0x55AD,0x5683,DJNZ,R3,,-6,unknown,48,432,620,emulation_observed_summary
+packet_bridge_seeded_context_mode_e1,0x55AD,0x55B1,CJNE,A,#0x01,27,unknown,8,3,59,emulation_observed_summary
+packet_bridge_seeded_context_mode_e1,0x55AD,0x55D0,CJNE,R0,#0x08,-43,unknown,8,5,61,emulation_observed_summary
+packet_bridge_seeded_context_mode_e1,0x55AD,0x55EA,CJNE,A,#0x02,27,unknown,8,75,131,emulation_observed_summary
