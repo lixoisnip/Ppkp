@@ -1,0 +1,4 @@
+run_id,firmware_file,entry_pc,max_steps,steps,stop_reason,last_pc,unsupported_ops,calls_seen,returns_seen,xdata_reads,xdata_writes,sfr_reads,sfr_writes,direct_reads,direct_writes,code_reads,sbuf_writes,uart_tx_candidates,display_candidates,keypad_candidates,timer_candidates,interrupt_candidates,notes
+boot_4000_20260428T080929Z,90CYE03_19_DKS.PZU,0x4000,2000,2000,stable_runtime_loop_detected,0x415B,0,0,0,201,0,398,999,0,2,0,0,0,200,200,0,0,emulation_observed_boot_runtime
+boot_4100_20260428T080932Z,90CYE03_19_DKS.PZU,0x4100,2000,2000,stable_runtime_loop_detected,0x415B,0,0,0,201,0,398,999,0,2,0,0,0,200,200,0,0,emulation_observed_boot_runtime
+boot_4100_20260428T080933Z,90CYE03_19_DKS.PZU,0x4100,10000,10000,stable_runtime_loop_detected,0x415B,0,0,0,1001,0,1998,4999,0,2,0,0,0,200,200,0,0,emulation_observed_boot_runtime

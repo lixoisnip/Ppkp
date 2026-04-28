@@ -13,6 +13,11 @@ Current focus area: packet/event bridge hypotheses around **0x5A7F** and its hig
 
 Current experimental scenarios include `packet_bridge_default`, `packet_bridge_seeded_context`, `packet_bridge_seeded_context_*` compact variants, `packet_bridge_stub_5a7f`, and `boot_probe_static`.
 
+Boot/runtime compact tracing is available via:
+
+- `python3 scripts/firmware_execution_sandbox.py run-boot-trace --entry 0x4000 --max-steps 2000 --compact-summary`
+- `python3 scripts/firmware_execution_sandbox.py run-boot-trace --entry 0x4100 --max-steps 2000 --compact-summary`
+
 ## What this is not
 
 This is **not** a full hardware emulator and does not claim full CPU/device accuracy.
