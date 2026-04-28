@@ -1,5 +1,7 @@
 opcode,mnemonic,implemented,observed_in_runs,notes
 0xF5,"MOV direct,A",yes,yes,issue_78_blocker
+0x75,"MOV direct,#imm",yes,yes,issue_81_blocker
+0x84,DIV AB,yes,yes,issue_82_blocker
 0xB8..0xBF,"CJNE Rn,#imm,rel",yes,yes,issue_78_blocker
 0x23,RL A,yes,yes,issue_78_next_blocker
 0x35,"ADDC A,direct",yes,yes,issue_78_next_blocker

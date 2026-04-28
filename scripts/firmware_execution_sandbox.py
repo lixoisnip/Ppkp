@@ -443,9 +443,14 @@ def _write_uart_sbuf_trace(runs: list[FunctionRunResult], scenario: str) -> None
 
 def _write_cpu_subset_coverage(runs: list[FunctionRunResult]) -> None:
     cols = ["opcode", "mnemonic", "implemented", "observed_in_runs", "notes"]
-    observed_ops = {r["op"] for run in runs for r in run.trace.rows if r.get("trace_type") == "instruction"}
+    instruction_rows = [r for run in runs for r in run.trace.rows if r.get("trace_type") == "instruction"]
+    observed_ops = {r.get("op", "") for r in instruction_rows}
+    saw_mov_direct_imm = any(r.get("op") == "MOV" and ",#0x" in str(r.get("args", "")) and str(r.get("args", "")).startswith("0x") for r in instruction_rows)
+    saw_div_ab = any(r.get("op") == "DIV" and r.get("args") == "AB" for r in instruction_rows)
     coverage_rows = [
         {"opcode": "0xF5", "mnemonic": "MOV direct,A", "implemented": "yes", "observed_in_runs": "yes" if "MOV" in observed_ops else "unknown", "notes": "issue_78_blocker"},
+        {"opcode": "0x75", "mnemonic": "MOV direct,#imm", "implemented": "yes", "observed_in_runs": "yes" if saw_mov_direct_imm else "no", "notes": "issue_81_blocker"},
+        {"opcode": "0x84", "mnemonic": "DIV AB", "implemented": "yes", "observed_in_runs": "yes" if saw_div_ab else "no", "notes": "issue_82_blocker"},
         {"opcode": "0xB8..0xBF", "mnemonic": "CJNE Rn,#imm,rel", "implemented": "yes", "observed_in_runs": "yes" if "CJNE" in observed_ops else "no", "notes": "issue_78_blocker"},
         {"opcode": "0x23", "mnemonic": "RL A", "implemented": "yes", "observed_in_runs": "yes" if "RL" in observed_ops else "no", "notes": "issue_78_next_blocker"},
         {"opcode": "0x35", "mnemonic": "ADDC A,direct", "implemented": "yes", "observed_in_runs": "yes" if "ADDC" in observed_ops else "no", "notes": "issue_78_next_blocker"},

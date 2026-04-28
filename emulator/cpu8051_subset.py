@@ -239,6 +239,44 @@ class CPU8051Subset:
             self._log_instr("MOV", f"0x{direct:02X},#0x{imm:02X}", pc, acc_before, dptr_before, notes="direct_write_model=idata_or_sfr")
             return True, None
 
+        if op == 0x84:  # DIV AB
+            # Prefer SFR-backed B register when available to stay consistent with direct SFR writes.
+            dividend = s.acc & 0xFF
+            divisor = self.sfr.get(0xF0, s.b) & 0xFF
+            psw_before = s.psw & 0xFF
+            # CY is always cleared for DIV AB.
+            s.psw = s.psw & 0x7F
+            if divisor == 0:
+                # Conservative behavior on divide-by-zero:
+                # - do not synthesize quotient/remainder values;
+                # - keep ACC/B unchanged;
+                # - set OV flag and continue execution.
+                s.psw = s.psw | 0x04
+                self.sfr.write(0xD0, s.psw, step=s.step_counter, pc=pc, notes="div_ab_divide_by_zero;cy_cleared_ov_set")
+                s.pc += 1
+                self._log_instr(
+                    "DIV",
+                    "AB",
+                    pc,
+                    acc_before,
+                    dptr_before,
+                    notes="divide_by_zero=conservative;acc_b_unchanged=true;flags=cy_clear_ov_set",
+                )
+                return True, None
+
+            quotient = dividend // divisor
+            remainder = dividend % divisor
+            s.acc = quotient & 0xFF
+            s.b = remainder & 0xFF
+            self.sfr.write(0xF0, s.b, step=s.step_counter, pc=pc, notes="div_ab_remainder_write")
+            # OV cleared for non-zero divisor case.
+            s.psw = s.psw & 0xFB
+            if s.psw != psw_before:
+                self.sfr.write(0xD0, s.psw, step=s.step_counter, pc=pc, notes="div_ab_flag_update;cy_clear_ov_clear")
+            s.pc += 1
+            self._log_instr("DIV", "AB", pc, acc_before, dptr_before, notes=f"quotient=0x{s.acc:02X};remainder=0x{s.b:02X}")
+            return True, None
+
         if op == 0x93:  # MOVC A,@A+DPTR
             code_addr = (s.dptr + s.acc) & 0xFFFF
             s.acc = self.fetch(code_addr)
