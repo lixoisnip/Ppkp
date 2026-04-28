@@ -93,3 +93,35 @@
 - Actual object/site configuration may reside in battery-backed RAM, NVRAM, or external memory; exact memory technology remains unknown without hardware inspection.
 - Early boot loop `0x4100..0x4165` is now a strong candidate for config table walk/validation (CJNE checks `0xFF/0x02/0x00/0x0A`, pointer stepping, branch to ready flags).
 - Immediate priority is reconstruction of the config memory model and config-to-runtime-object/output linkage, rather than additional SBUF-only string/transport hunts.
+
+## 8-byte configuration record model
+
+### Confirmed
+- Static decode confirms root-pointer bootstrap from `XDATA[0x0030..0x0031]` into DPTR during `0x4100..0x4112`.
+- Static decode confirms arithmetic pointer step `+0x0008` at `0x4151..0x415D` before loop-back to `0x4112`.
+- Static/runtime-neighborhood decode confirms `0x5717` and `0x5725` are within the same `DJNZ R3` materialization loop (`0x5715..0x5733`).
+
+### Probable
+- `0x4100..0x4165` is a configuration-record walker/validator rather than a final runtime scheduler loop.
+- 8-byte record cadence is currently the best-fitting compact model for early boot table traversal.
+- `0x31FF..0x3268` / `0x3201..0x3267` remain strong candidates for runtime-materialized object/device-like tables.
+
+### Hypothesis
+- Tag bytes observed in compares (`0xFF`, `0x02`, `0x00`, `0x0A`) may represent terminator/type/null/special states respectively.
+- Runtime materialized table fields may include address/index/type/status tuples, but exact field mapping is unresolved.
+- The battery-backed configuration set likely feeds this walker, then downstream runtime materialization.
+
+### Current seed experiment outcome (compact)
+- New scenarios (`config_record_seed_terminator_ff`, `config_record_seed_type02_minimal`, `config_record_seed_type02_chain_to_0a`, `config_record_seed_type02_with_address_sequence`) all stopped early near `0x4128` in current emulator context.
+- No scenario reached `0x5717/0x5725`, and no writes were observed in `0x31FF..0x3268` or `0x36F2..0x36F9` during those boot-only runs.
+- Therefore, there is still no emulator-observed end-to-end link from boot seed record bytes to the 8-slot output vector.
+
+### Is 8-byte model now the best model?
+- **Yes, as a probable working model**, because the `+8` loop stride is explicit in code and aligns with prior record/materialization hypotheses.
+- It remains **not confirmed** until real-device data and fuller runtime reachability are available.
+
+### Needed from real device (highest value)
+1. Front-panel screenshots/video of configuration menus and saved values.
+2. Known installation counts (loops/devices/zones/modules) for at least one device snapshot.
+3. Battery-backed memory/NVRAM dump if obtainable (or service-mode memory export).
+4. Before/after comparison for one controlled config change (single field change per capture).

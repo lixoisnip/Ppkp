@@ -1,0 +1,5 @@
+scenario,entry_pc,max_steps,steps,stop_reason,reached_415F,reached_5717,reached_5725,writes_31FF_3268,writes_3201_3267,writes_36F2_36F9,sbuf_writes,uart_tx_candidates,evidence_level,confidence,notes
+config_record_seed_terminator_ff,0x4100,5000,40,ret_from_entry,no,no,no,no,no,no,0,0,emulation_observed,medium,last_pc=0x4128; boot trace ended before runtime materialization neighborhood
+config_record_seed_type02_minimal,0x4100,5000,40,ret_from_entry,no,no,no,no,no,no,0,0,emulation_observed,medium,last_pc=0x4128; boot trace ended before runtime materialization neighborhood
+config_record_seed_type02_chain_to_0a,0x4100,5000,40,ret_from_entry,no,no,no,no,no,no,0,0,emulation_observed,medium,last_pc=0x4128; boot trace ended before runtime materialization neighborhood
+config_record_seed_type02_with_address_sequence,0x4100,5000,40,ret_from_entry,no,no,no,no,no,no,0,0,emulation_observed,medium,last_pc=0x4128; boot trace ended before runtime materialization neighborhood
