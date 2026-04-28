@@ -29,6 +29,11 @@ TRACE_COLUMNS = [
     "xdata_value",
     "sfr_addr",
     "sfr_value",
+    "sp_before_ret",
+    "popped_low",
+    "popped_high",
+    "continued_pc",
+    "continued_inside_image",
     "trace_type",
     "notes",
 ]

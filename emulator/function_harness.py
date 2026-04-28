@@ -53,9 +53,11 @@ class FunctionHarness:
         max_steps: int = 500,
         max_calls: int = 64,
         init_regs: dict[str, int] | None = None,
+        init_idata: dict[int, int] | None = None,
         init_xdata: dict[int, int] | None = None,
         allow_skip_unsupported: bool = False,
         use_stubs: bool = True,
+        ret_mode: str = "stop_on_entry_ret",
     ) -> FunctionRunResult:
         state = CPU8051State(pc=function_addr)
         sfr = SfrModel()
@@ -68,13 +70,22 @@ class FunctionHarness:
                     state.acc = vv
                 elif k == "DPTR":
                     state.dptr = v & 0xFFFF
+                elif k == "SP":
+                    state.sp = vv
                 elif k.startswith("R") and k[1:].isdigit():
                     idx = int(k[1:])
                     if 0 <= idx <= 7:
                         state.regs[idx] = vv
                         state.idata[idx] = vv
+        sfr.write(0x81, state.sp, step=0, pc=state.pc, notes="init_sp_post_regs")
         if init_xdata:
             state.xdata.update({k & 0xFFFF: v & 0xFF for k, v in init_xdata.items()})
+        seeded_idata_addrs: set[int] = set()
+        if init_idata:
+            for addr, value in init_idata.items():
+                aa = addr & 0xFF
+                state.idata[aa] = value & 0xFF
+                seeded_idata_addrs.add(aa)
 
         trace = TraceLog(TraceContext(run_id=run_id, firmware_file=self.code.firmware_file, function_addr=function_addr))
         cpu = CPU8051Subset(
@@ -85,6 +96,8 @@ class FunctionHarness:
             stub_calls=self.default_stubs(enable=use_stubs),
             allow_skip_unsupported=allow_skip_unsupported,
             sfr=sfr,
+            ret_mode=ret_mode,
+            seeded_idata_addrs=seeded_idata_addrs,
         )
 
         stop_reason = "max_steps"
