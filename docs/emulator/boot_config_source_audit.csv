@@ -1,0 +1,10 @@
+addr,kind,operation,target_xdata_addr_or_range,source_addr_or_table,nearby_decode,caller_refs,evidence_level,confidence,notes
+0x4100,boot_config_source_candidate,"MOV 0x4E,#0xE2",0x0030..0x0031 via boot pointers,direct 0x4E/0x4F,"MOV 0x4E,#0xE2",,emulation_observed,medium,boot writes seed bytes 0x4E/0x4F
+0x4103,boot_config_source_candidate,"MOV 0x4F,#0x2E",0x0030..0x0031 via boot pointers,direct 0x4E/0x4F,"MOV 0x4F,#0x2E",,emulation_observed,medium,boot writes seed bytes 0x4E/0x4F
+0x54C9,xdata_copy_candidate,"MOVX @DPTR,A after DPTR=0x0001",0x0001,code around 0x54BE,"MOVX @DPTR,A",,static_code,low,heuristic low-xdata write sequence
+0x6ADA,xdata_copy_candidate,"MOVX @DPTR,A after DPTR=0x0001",0x0001,code around 0x6AD3,"MOVX @DPTR,A",,static_code,low,heuristic low-xdata write sequence
+0x6F5C,xdata_copy_candidate,"MOVX @DPTR,A after DPTR=0x0001",0x0001,code around 0x6F55,"MOVX @DPTR,A",,static_code,low,heuristic low-xdata write sequence
+0x7081,xdata_copy_candidate,"MOVX @DPTR,A after DPTR=0x0001",0x0001,code around 0x707A,"MOVX @DPTR,A",,static_code,low,heuristic low-xdata write sequence
+0x76A1,xdata_copy_candidate,"MOVX @DPTR,A after DPTR=0x0001",0x0001,code around 0x769A,"MOVX @DPTR,A",,static_code,low,heuristic low-xdata write sequence
+0x76E6,xdata_copy_candidate,"MOVX @DPTR,A after DPTR=0x0001",0x0001,code around 0x76DF,"MOVX @DPTR,A",,static_code,low,heuristic low-xdata write sequence
+0x82EE,xdata_copy_candidate,"MOVX @DPTR,A after DPTR=0x0010",0x0010,code around 0x82EA,"MOVX @DPTR,A",,static_code,low,heuristic low-xdata write sequence
