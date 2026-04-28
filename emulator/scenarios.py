@@ -237,6 +237,42 @@ SCENARIOS = {
         purpose="Hypothesis experiment: DJNZ-exit candidate by forcing R3=1 at loop entry.",
         init_regs={0x5715: {"R3": 0x01, "A": 0x80}},
     ),
+    "packet_bridge_post_loop_from_574E_context": Scenario(
+        name="packet_bridge_post_loop_from_574E_context",
+        firmware_file="90CYE03_19_DKS.PZU",
+        functions=[0x574E],
+        seed_xdata={0x30E1: 0x01, 0x30C4: 0x00},
+        watchpoints=default_dks_watchpoints(),
+        purpose="Hypothesis forced_entry at 0x574E with compact register/XDATA context; not treated as hardware-faithful behavior.",
+        init_regs={0x574E: {"R0": 0x00, "R1": 0x01, "A": 0x00, "DPTR": 0x30C4}},
+    ),
+    "packet_bridge_post_loop_from_5765_context": Scenario(
+        name="packet_bridge_post_loop_from_5765_context",
+        firmware_file="90CYE03_19_DKS.PZU",
+        functions=[0x5765],
+        seed_xdata={0x30E1: 0x00},
+        watchpoints=default_dks_watchpoints(),
+        purpose="Hypothesis forced_entry at 0x5765 to decode downstream call/branch behavior only.",
+        init_regs={0x5765: {"R0": 0x00, "R1": 0x01, "A": 0x00}},
+    ),
+    "packet_bridge_post_loop_from_58B1_context": Scenario(
+        name="packet_bridge_post_loop_from_58B1_context",
+        firmware_file="90CYE03_19_DKS.PZU",
+        functions=[0x58B1],
+        seed_xdata={0x30E1: 0x00},
+        watchpoints=default_dks_watchpoints(),
+        purpose="Hypothesis forced_entry at 0x58B1 to inspect compact downstream UART-adjacent path only.",
+        init_regs={0x58B1: {"A": 0x00, "R0": 0x00, "R1": 0x01}},
+    ),
+    "packet_bridge_post_loop_from_58CA_context": Scenario(
+        name="packet_bridge_post_loop_from_58CA_context",
+        firmware_file="90CYE03_19_DKS.PZU",
+        functions=[0x58CA],
+        seed_xdata={0x30E1: 0x00},
+        watchpoints=default_dks_watchpoints(),
+        purpose="Hypothesis forced_entry at 0x58CA to inspect near-target branch/call flow without firmware patching.",
+        init_regs={0x58CA: {"A": 0x00, "R0": 0x00, "R1": 0x01}},
+    ),
 }
 
 

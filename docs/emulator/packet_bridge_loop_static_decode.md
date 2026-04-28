@@ -140,3 +140,59 @@ Evidence legend: `static_code`, `emulation_observed`, `unknown`.
 - Preceding instructions that set/clear tested bit: `0x5715 MOV A,#0x80` and repeated `0x571E RLC A`; these update ACC.0 before `JB`. Evidence: static_code.
 - Preceding instructions for counter: `0x571B MOV R3,#0x14` initializes and `0x5733 DJNZ R3,-32` decrements/tests. Evidence: static_code.
 - `0xE0` here is ACC.0 (SFR bit), not PSW bit and not IDATA bit-ram. Evidence: static_code.
+
+## Compact downstream decode windows
+
+### Window 0x5765..0x5795
+
+| code_addr | raw bytes | mnemonic | branch/call target | SFR/direct/bit operands | relation_to_0x5A7F | evidence |
+|---|---|---|---|---|---|---|
+| 0x5765 | 08 B8 08 D8 | INC R0; CJNE R0,#0x08,-40 | branch 0x5765 loop | direct none; bit none | loop prologue before helper calls | static_code + emulation_observed |
+| 0x5769 | 78 00 79 01 | MOV R0,#0; MOV R1,#1 | fallthrough 0x576D | direct none | prepares helper index arguments | static_code + emulation_observed |
+| 0x576D | E8 90 30 E0 | MOV A,R0; MOV DPTR,#0x30E0 | fallthrough 0x5771 | direct/XDATA pointer 0x30E0 | setup before helper 0x5935 | static_code + emulation_observed |
+| 0x5771 | 12 59 35 | LCALL 0x5935 | call 0x5935, ret 0x5774 | none | same helper gate as 0x5745 path | static_code + emulation_observed |
+| 0x5774 | 60 1B | JZ +0x1B | target 0x5791 | bit tests A==0 | branch around 0x5A7F call block | static_code + emulation_observed |
+| 0x5776 | E8 90 30 B4 12 5A 7F | MOV A,R0; MOV DPTR,#0x30B4; LCALL 0x5A7F | call 0x5A7F | direct/XDATA pointer 0x30B4 | direct post-loop helper invocation | static_code + emulation_observed |
+| 0x577D | E0 12 5A A3 | MOVX A,@DPTR; LCALL 0x5AA3 | call 0x5AA3 | XDATA via DPTR | consumes value staged by 0x5A7F path | static_code + emulation_observed |
+| 0x5781 | 74 80 F0 74 06 12 5A 7F | MOV A,#0x80; MOVX @DPTR,A; MOV A,#0x06; LCALL 0x5A7F | call 0x5A7F | XDATA write via DPTR | second helper call with literal selector 0x06 | static_code + emulation_observed |
+| 0x5789 | 74 05 F0 A3 A3 E9 09 F0 | MOV A,#5; MOVX @DPTR,A; INC DPTR*2; MOV A,R1; INC R1; MOVX @DPTR,A | fallthrough 0x5791 | XDATA writes | staging payload fields after helper path | static_code + emulation_observed |
+
+### Window 0x5791..0x57B5
+
+| code_addr | raw bytes | mnemonic | branch/call target | SFR/direct/bit operands | relation_to_0x5A7F | evidence |
+|---|---|---|---|---|---|---|
+| 0x5791 | 08 B8 08 D8 | INC R0; CJNE R0,#0x08,-40 | branch 0x5791 loop | none | mirrors prior compact loop template | static_code |
+| 0x5795 | 78 00 E8 90 71 0C | MOV R0,#0; MOV A,R0; MOV DPTR,#0x710C | fallthrough | XDATA pointer 0x710C | alternate source table before helper | static_code |
+| 0x579B | 12 59 35 | LCALL 0x5935 | call 0x5935, ret 0x579E | none | same zero/nonzero gate helper | static_code |
+| 0x579E | 70 1B | JNZ +0x1B | target 0x57BB | A!=0 branch | skips 0x5A7F path when nonzero | static_code |
+| 0x57A0 | E8 90 30 AC 12 5A 7F | MOV A,R0; MOV DPTR,#0x30AC; LCALL 0x5A7F | call 0x5A7F | XDATA pointer 0x30AC | helper invocation on alternate buffer base | static_code |
+| 0x57A7 | E0 12 5A A3 | MOVX A,@DPTR; LCALL 0x5AA3 | call 0x5AA3 | XDATA via DPTR | same downstream callee pair as 0x577D | static_code |
+| 0x57AB | 74 80 F0 74 06 12 5A 7F | literal write + LCALL 0x5A7F | call 0x5A7F | XDATA via DPTR | repeated selector-based helper usage | static_code |
+| 0x57B3 | 74 02 F0 | MOV A,#0x02; MOVX @DPTR,A | fallthrough | XDATA write | trailing field update in block | static_code |
+
+### Window 0x58B1..0x58D5
+
+| code_addr | raw bytes | mnemonic | branch/call target | SFR/direct/bit operands | relation_to_0x5A7F | evidence |
+|---|---|---|---|---|---|---|
+| 0x58B1 | 90 30 12 E4 F0 | MOV DPTR,#0x3012; CLR A; MOVX @DPTR,A | fallthrough | XDATA addr 0x3012 | pre-loop clear in post-loop branch arm | static_code + emulation_observed |
+| 0x58B6 | FA EA | MOV R2,A; MOV A,R2 | fallthrough | none | loop/index staging | static_code + emulation_observed |
+| 0x58B8 | 11 94 | ACALL 0x5994 | call 0x5994, ret 0x58BA | none | not 0x5A7F; upstream predicate helper | static_code + emulation_observed |
+| 0x58BA | 60 0E | JZ +0x0E | target 0x58CA | A==0 branch | selects path that reaches 0x58CA window | static_code + emulation_observed |
+| 0x58BC | F5 F0 12 83 5A | MOV 0xF0,A; LCALL 0x835A | call 0x835A | direct 0xF0 (B register) | side helper; no immediate UART/SBUF evidence | static_code + emulation_observed |
+| 0x58C1 | 70 07 | JNZ +7 | target 0x58CA | A!=0 branch | converges into 0x58CA path | static_code + emulation_observed |
+| 0x58C3 | EA 90 30 12 12 59 4B | MOV A,R2; MOV DPTR,#0x3012; LCALL 0x594B | call 0x594B | XDATA addr 0x3012 | alternate helper before convergence | static_code |
+| 0x58CA | 0A BA 08 E9 | INC R2; CJNE R2,#0x08,-23 | back-edge 0x58B8 | none | loop guard entering 0x58CA.. window | static_code + emulation_observed |
+| 0x58CE | 7A 00 90 30 12 EA 12 59 | MOV R2,#0; MOV DPTR,#0x3012; MOV A,R2; LCALL 0x5935(partial) | call 0x5935 at 0x58D4.. | XDATA addr 0x3012 | starts second-stage helper sequence | static_code |
+
+### Window 0x58CA..0x58F0
+
+| code_addr | raw bytes | mnemonic | branch/call target | SFR/direct/bit operands | relation_to_0x5A7F | evidence |
+|---|---|---|---|---|---|---|
+| 0x58CA | 0A BA 08 E9 | INC R2; CJNE R2,#0x08,-23 | target 0x58B8 | none | looped predicate gate before helper chain | static_code + emulation_observed |
+| 0x58CE | 7A 00 90 30 12 EA | MOV R2,#0; MOV DPTR,#0x3012; MOV A,R2 | fallthrough | XDATA pointer 0x3012 | setup for helper 0x5935 | static_code |
+| 0x58D4 | 12 59 35 60 11 | LCALL 0x5935; JZ +0x11 | target 0x58EA when Z | none | same helper gate pattern controlling downstream 0x5A7F call | static_code |
+| 0x58D9 | EA 90 58 A1 12 5D 13 | MOV A,R2; MOV DPTR,#0x58A1; LCALL 0x5D13 | call 0x5D13 | code/data ptr 0x58A1 | external helper before writing 0x31BF path | static_code |
+| 0x58E0 | E0 90 31 BF 12 5A 7F | MOVX A,@DPTR; MOV DPTR,#0x31BF; LCALL 0x5A7F | call 0x5A7F | XDATA ptr 0x31BF | explicit post-loop 0x5A7F invocation candidate | static_code + emulation_observed |
+| 0x58E7 | 74 01 F0 | MOV A,#1; MOVX @DPTR,A | fallthrough | XDATA write | follow-up state flag after helper call | static_code + emulation_observed |
+| 0x58EA | 0A BA 08 E2 | INC R2; CJNE R2,#0x08,-30 | target 0x58BE | none | loops back toward 0x58BE helper region | static_code |
+| 0x58EE | 53 8E F8 | ANL 0x8E,#0xF8 | fallthrough | direct SFR 0x8E (serial-control candidate range unknown) | possible control-mask operation; no SBUF writes observed in compact traces | static_code |

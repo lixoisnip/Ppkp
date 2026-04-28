@@ -42,6 +42,8 @@ LOOP_STATE_DIGEST_CSV = OUT / "loop_state_digest.csv"
 POST_LOOP_PATH_SUMMARY_CSV = OUT / "post_loop_path_summary.csv"
 POST_LOOP_BRANCH_AUDIT_CSV = OUT / "post_loop_branch_audit.csv"
 HELPER_5935_EFFECT_AUDIT_CSV = OUT / "helper_5935_effect_audit.csv"
+POST_LOOP_CALLSITE_CALLEE_AUDIT_CSV = OUT / "post_loop_callsite_callee_audit.csv"
+HELPER_5A7F_CONTEXT_COMPARISON_CSV = OUT / "helper_5A7F_context_comparison.csv"
 AUTONOMOUS_UART_PURSUIT_SUMMARY_MD = OUT / "autonomous_uart_pursuit_summary.md"
 
 LOOP_REGIONS = [(0x5715, 0x5733), (0x8365, 0x837F), (0x567F, 0x5683), (0x5935, 0x593D)]
@@ -535,6 +537,178 @@ def _collect_helper_5935_rows(iteration: int, scenario_name: str, run: FunctionR
     return rows
 
 
+def _stack_digest_for_window(run: FunctionRunResult, start_step: int, end_step: int) -> str:
+    stack_rows = [
+        r
+        for r in run.trace.rows
+        if r.get("trace_type") == "sfr_access"
+        and r.get("sfr_addr") == "0x0081"
+        and start_step <= int(r.get("step", "0")) <= end_step
+    ]
+    return ";".join(f"{r.get('step')}:{r.get('sfr_value')}" for r in stack_rows[:8])
+
+
+def _serial_audit_counts(run: FunctionRunResult) -> tuple[int, int, int, int]:
+    sbuf_writes = sum(1 for r in run.trace.rows if r.get("trace_type") == "uart_sbuf_write")
+    sfr_uart = sum(1 for r in run.trace.rows if r.get("trace_type") == "sfr_access" and r.get("sfr_addr") in {"0x0098", "0x0099"})
+    bit_uart = sum(1 for r in run.trace.rows if r.get("trace_type") == "bit_access" and ("serial_control_bit_candidate" in r.get("notes", "")))
+    return sbuf_writes, sbuf_writes, sfr_uart, bit_uart
+
+
+def _collect_callsite_rows(iteration: int, scenario_name: str, run: FunctionRunResult) -> list[dict[str, str]]:
+    rows: list[dict[str, str]] = []
+    ins = [r for r in run.trace.rows if r.get("trace_type") == "instruction"]
+    if not ins:
+        return rows
+    focus: list[tuple[int, int]] = [(0x5745, 0x5935), (0x574E, 0x5A7F)]
+    for row in ins:
+        pc = _parse_hex_int(row.get("pc", "0x0"))
+        if row.get("op") != "LCALL":
+            continue
+        target = _parse_hex_int(row.get("args", "0x0"))
+        if (0x5765 <= pc <= 0x5795) or (0x58B1 <= pc <= 0x58D0) or (pc == 0x58CA):
+            focus.append((pc, target))
+    dedup_focus = sorted(set(focus))
+    for callsite_pc, expected_callee in dedup_focus:
+        callsite_rows = [r for r in ins if _parse_hex_int(r.get("pc", "0x0")) == callsite_pc]
+        call_exec_rows = [r for r in callsite_rows if r.get("op") == "LCALL" and _parse_hex_int(r.get("args", "0x0")) == expected_callee]
+        callsite_reached = bool(callsite_rows)
+        call_executed = bool(call_exec_rows)
+        if call_executed:
+            first_call = call_exec_rows[0]
+            call_step = int(first_call.get("step", "0"))
+            callee_rows = [r for r in ins if int(r.get("step", "0")) > call_step and _parse_hex_int(r.get("pc", "0x0")) == expected_callee]
+            return_pc = (callsite_pc + 3) & 0xFFFF
+            return_rows = [r for r in ins if int(r.get("step", "0")) > call_step and _parse_hex_int(r.get("pc", "0x0")) == return_pc]
+            sp_events = [r for r in run.trace.rows if r.get("trace_type") == "sfr_access" and r.get("sfr_addr") == "0x0081"]
+            sp_before = next((r.get("sfr_value", "") for r in reversed(sp_events) if int(r.get("step", "0")) <= call_step), "")
+            sp_after = next((r.get("sfr_value", "") for r in sp_events if return_rows and int(r.get("step", "0")) >= int(return_rows[0].get("step", "0"))), "")
+            sbuf_writes, uart_tx, sfr_uart, bit_uart = _serial_audit_counts(run)
+            notes = "emulation_observed"
+            if not callee_rows:
+                notes += ";callee_entry_missing_possible_stub_or_branch_gap"
+            if not return_rows:
+                notes += ";no_return_pc_seen_within_run"
+            rows.append(
+                {
+                    "scenario": scenario_name,
+                    "function_addr": f"0x{run.function_addr:04X}",
+                    "max_steps": "2000",
+                    "callsite_pc": f"0x{callsite_pc:04X}",
+                    "expected_callee": f"0x{expected_callee:04X}",
+                    "callsite_reached": "yes" if callsite_reached else "no",
+                    "call_executed": "yes" if call_executed else "no",
+                    "callee_entry_observed": "yes" if bool(callee_rows) else "no",
+                    "callee_return_observed": "yes" if bool(return_rows) else "no",
+                    "return_pc": f"0x{return_pc:04X}",
+                    "sp_before": sp_before,
+                    "sp_after": sp_after,
+                    "stack_digest": _stack_digest_for_window(run, call_step, int(return_rows[0].get("step", "0")) if return_rows else run.steps),
+                    "stop_reason": run.stop_reason,
+                    "sbuf_writes": str(sbuf_writes),
+                    "uart_tx_candidates": str(uart_tx),
+                    "notes": f"{notes};sfr_uart={sfr_uart};serial_bits={bit_uart};iteration={iteration}",
+                }
+            )
+        else:
+            sbuf_writes, uart_tx, sfr_uart, bit_uart = _serial_audit_counts(run)
+            rows.append(
+                {
+                    "scenario": scenario_name,
+                    "function_addr": f"0x{run.function_addr:04X}",
+                    "max_steps": "2000",
+                    "callsite_pc": f"0x{callsite_pc:04X}",
+                    "expected_callee": f"0x{expected_callee:04X}",
+                    "callsite_reached": "yes" if callsite_reached else "no",
+                    "call_executed": "no",
+                    "callee_entry_observed": "no",
+                    "callee_return_observed": "no",
+                    "return_pc": f"0x{(callsite_pc + 3) & 0xFFFF:04X}",
+                    "sp_before": "",
+                    "sp_after": "",
+                    "stack_digest": "",
+                    "stop_reason": run.stop_reason,
+                    "sbuf_writes": str(sbuf_writes),
+                    "uart_tx_candidates": str(uart_tx),
+                    "notes": f"emulation_observed;call_not_executed;sfr_uart={sfr_uart};serial_bits={bit_uart};iteration={iteration}",
+                }
+            )
+    return rows
+
+
+def _collect_5a7f_context_row(scenario_name: str, run: FunctionRunResult, entry_context: str, callsite_pc: str) -> dict[str, str]:
+    ins = [r for r in run.trace.rows if r.get("trace_type") == "instruction"]
+    callee_rows = [r for r in ins if _parse_hex_int(r.get("pc", "0x0")) == 0x5A7F]
+    if not callee_rows:
+        sbuf_writes, uart_tx, sfr_uart, bit_uart = _serial_audit_counts(run)
+        return {
+            "scenario": scenario_name,
+            "entry_context": entry_context,
+            "callsite_pc": callsite_pc,
+            "callee_addr": "0x5A7F",
+            "steps_in_callee": "0",
+            "returned": "no",
+            "return_pc": "",
+            "acc_entry": "",
+            "acc_exit": "",
+            "r0_entry": "",
+            "r0_exit": "",
+            "r1_entry": "",
+            "r1_exit": "",
+            "dptr_entry": "",
+            "dptr_exit": "",
+            "psw_entry": "unknown",
+            "psw_exit": "unknown",
+            "xdata_reads_digest": "",
+            "xdata_writes_digest": "",
+            "sfr_writes_digest": f"sfr_uart={sfr_uart};serial_bits={bit_uart}",
+            "sbuf_writes": str(sbuf_writes),
+            "uart_tx_candidates": str(uart_tx),
+            "notes": "callee_not_observed",
+        }
+    first = callee_rows[0]
+    first_step = int(first.get("step", "0"))
+    ret_rows = [r for r in ins if int(r.get("step", "0")) > first_step and _parse_hex_int(r.get("pc", "0x0")) != 0x5A7F]
+    returned = bool(ret_rows)
+    ret_pc = ret_rows[0].get("pc", "") if returned else ""
+    last = ret_rows[0] if returned else callee_rows[-1]
+    callee_xreads = sorted(
+        {r.get("xdata_addr", "") for r in run.trace.rows if r.get("trace_type") == "xdata_read" and int(r.get("step", "0")) >= first_step}
+    )
+    callee_xwrites = sorted(
+        {f"{r.get('xdata_addr', '')}:{r.get('xdata_value', '')}" for r in run.trace.rows if r.get("trace_type") == "xdata_write" and int(r.get("step", "0")) >= first_step}
+    )
+    callee_sfr = sorted(
+        {f"{r.get('sfr_addr', '')}:{r.get('sfr_value', '')}" for r in run.trace.rows if r.get("trace_type") == "sfr_access" and int(r.get("step", "0")) >= first_step}
+    )
+    sbuf_writes, uart_tx, _, _ = _serial_audit_counts(run)
+    return {
+        "scenario": scenario_name,
+        "entry_context": entry_context,
+        "callsite_pc": callsite_pc,
+        "callee_addr": "0x5A7F",
+        "steps_in_callee": str(len(callee_rows)),
+        "returned": "yes" if returned else "no",
+        "return_pc": ret_pc,
+        "acc_entry": first.get("acc_before", ""),
+        "acc_exit": last.get("acc_after", ""),
+        "r0_entry": first.get("r0", ""),
+        "r0_exit": last.get("r0", ""),
+        "r1_entry": first.get("r1", ""),
+        "r1_exit": last.get("r1", ""),
+        "dptr_entry": first.get("dptr_before", ""),
+        "dptr_exit": last.get("dptr_after", ""),
+        "psw_entry": "unknown",
+        "psw_exit": "unknown",
+        "xdata_reads_digest": ";".join(callee_xreads[:8]),
+        "xdata_writes_digest": ";".join(callee_xwrites[:8]),
+        "sfr_writes_digest": ";".join(callee_sfr[:8]),
+        "sbuf_writes": str(sbuf_writes),
+        "uart_tx_candidates": str(uart_tx),
+        "notes": "emulation_observed_compact",
+    }
+
+
 def run_autonomous_post_loop(max_iterations: int = 1) -> None:
     scenarios = [
         "packet_bridge_loop_force_r3_01",
@@ -545,6 +719,8 @@ def run_autonomous_post_loop(max_iterations: int = 1) -> None:
     path_rows: list[dict[str, str]] = []
     branch_rows: list[dict[str, str]] = []
     helper_rows: list[dict[str, str]] = []
+    callsite_rows: list[dict[str, str]] = []
+    helper_5a7f_rows: list[dict[str, str]] = []
     latest_blocker = "unknown"
     reached_5745_any = False
     helper_returned_any = False
@@ -609,6 +785,9 @@ def run_autonomous_post_loop(max_iterations: int = 1) -> None:
             )
             branch_rows.extend(_collect_branch_audit_rows(iteration, scenario_name, run))
             helper_rows.extend(_collect_helper_5935_rows(iteration, scenario_name, run))
+            callsite_rows.extend(_collect_callsite_rows(iteration, scenario_name, run))
+            if scenario_name == "packet_bridge_loop_force_r3_01":
+                helper_5a7f_rows.append(_collect_5a7f_context_row(scenario_name, run, "autonomous_post_loop_entry@0x5715", "0x574E?"))
 
         deep_scenario = "packet_bridge_loop_force_r3_01"
         scenario = get_scenario(deep_scenario)
@@ -644,6 +823,7 @@ def run_autonomous_post_loop(max_iterations: int = 1) -> None:
                 "notes": "emulation_observed_compact_deep_run",
             }
         )
+        callsite_rows.extend(_collect_callsite_rows(iteration, f"{deep_scenario}_deep5000", deep_run))
 
     with POST_LOOP_PATH_SUMMARY_CSV.open("w", encoding="utf-8", newline="") as fh:
         cols = [
@@ -666,6 +846,53 @@ def run_autonomous_post_loop(max_iterations: int = 1) -> None:
         writer = csv.DictWriter(fh, fieldnames=cols)
         writer.writeheader()
         writer.writerows(helper_rows)
+    helper_probe_specs = [
+        ("packet_bridge_stub_5a7f", 0x5A7F, "direct_helper_entry_hypothesis", "forced_entry"),
+        ("packet_bridge_post_loop_from_574E_context", 0x574E, "forced_entry_from_574E_hypothesis", "0x574E"),
+    ]
+    for scen_name, faddr, entry_ctx, callsite in helper_probe_specs:
+        scenario = get_scenario(scen_name)
+        img = load_code_image(ROOT / scenario.firmware_file)
+        harness = FunctionHarness(img, watchpoints=scenario.watchpoints)
+        run = harness.run_function(
+            _run_id(f"{scen_name}_{faddr:04X}_cmp"),
+            faddr,
+            max_steps=1000,
+            init_xdata=scenario.seed_xdata,
+            init_regs=scenario.init_regs.get(faddr, {}),
+            use_stubs=False,
+        )
+        helper_5a7f_rows.append(_collect_5a7f_context_row(scen_name, run, entry_ctx, callsite))
+    img = load_code_image(ROOT / "90CYE03_19_DKS.PZU")
+    harness = FunctionHarness(img, watchpoints=get_scenario("packet_bridge_default").watchpoints)
+    for faddr, callsite in [(0x571A, "0x571A"), (0x5730, "0x5730")]:
+        run = harness.run_function(
+            _run_id(f"callee_cmp_{faddr:04X}"),
+            faddr,
+            max_steps=1000,
+            init_regs={"A": 0x00, "R0": 0x00, "R1": 0x01},
+            init_xdata={0x30E1: 0x00, 0x30C4: 0x00},
+            use_stubs=False,
+        )
+        helper_5a7f_rows.append(_collect_5a7f_context_row(f"direct_callsite_{callsite}", run, "direct_callsite_entry_hypothesis", callsite))
+    with POST_LOOP_CALLSITE_CALLEE_AUDIT_CSV.open("w", encoding="utf-8", newline="") as fh:
+        cols = [
+            "scenario", "function_addr", "max_steps", "callsite_pc", "expected_callee", "callsite_reached", "call_executed",
+            "callee_entry_observed", "callee_return_observed", "return_pc", "sp_before", "sp_after", "stack_digest",
+            "stop_reason", "sbuf_writes", "uart_tx_candidates", "notes",
+        ]
+        writer = csv.DictWriter(fh, fieldnames=cols)
+        writer.writeheader()
+        writer.writerows(callsite_rows)
+    with HELPER_5A7F_CONTEXT_COMPARISON_CSV.open("w", encoding="utf-8", newline="") as fh:
+        cols = [
+            "scenario", "entry_context", "callsite_pc", "callee_addr", "steps_in_callee", "returned", "return_pc", "acc_entry", "acc_exit",
+            "r0_entry", "r0_exit", "r1_entry", "r1_exit", "dptr_entry", "dptr_exit", "psw_entry", "psw_exit", "xdata_reads_digest",
+            "xdata_writes_digest", "sfr_writes_digest", "sbuf_writes", "uart_tx_candidates", "notes",
+        ]
+        writer = csv.DictWriter(fh, fieldnames=cols)
+        writer.writeheader()
+        writer.writerows(helper_5a7f_rows)
     AUTONOMOUS_UART_PURSUIT_SUMMARY_MD.write_text(
         "\n".join(
             [
@@ -684,6 +911,19 @@ def run_autonomous_post_loop(max_iterations: int = 1) -> None:
                 f"- Whether UART TX candidate bytes were observed: {'yes' if uart_total > 0 else 'no'}.",
                 "- Whether RS-485 commands remain unresolved: yes.",
                 "- Blocker classification: missing runtime/peripheral context.",
+                "",
+                "## Post-loop 0x5A7F call verification",
+                f"- Was 0x574E reached? {'yes' if reached_574e_any else 'no'}.",
+                f"- Was LCALL at 0x574E executed? {'yes' if any(r.get('callsite_pc') == '0x574E' and r.get('call_executed') == 'yes' for r in callsite_rows) else 'no'}.",
+                f"- Was 0x5A7F entry observed after 0x574E? {'yes' if any(r.get('callsite_pc') == '0x574E' and r.get('callee_entry_observed') == 'yes' for r in callsite_rows) else 'no'}.",
+                f"- Did 0x5A7F return? {'yes' if any(r.get('callsite_pc') == '0x574E' and r.get('callee_return_observed') == 'yes' for r in callsite_rows) else 'no'}.",
+                f"- Observed return PC from 0x574E call path: {next((r.get('return_pc') for r in callsite_rows if r.get('callsite_pc') == '0x574E' and r.get('call_executed') == 'yes'), 'unknown')}.",
+                f"- Did stack/SP look consistent? {'yes' if any(r.get('callsite_pc') == '0x574E' and r.get('sp_before') and r.get('sp_after') for r in callsite_rows) else 'unknown'}.",
+                f"- Did forced 0x574E context behave differently from direct 0x5A7F? {'yes' if any(r.get('scenario') == 'packet_bridge_post_loop_from_574E_context' and r.get('notes') != 'callee_not_observed' for r in helper_5a7f_rows) else 'no_clear_difference'} (hypothesis-only forced entry).",
+                f"- Did any 0x5A7F context produce SBUF candidate writes? {'yes' if any(int(r.get('sbuf_writes', '0')) > 0 for r in helper_5a7f_rows) else 'no'}.",
+                f"- Did any context produce UART TX candidate bytes? {'yes' if any(int(r.get('uart_tx_candidates', '0')) > 0 for r in helper_5a7f_rows) else 'no'}.",
+                "- Are RS-485 commands still unresolved? yes (no direct UART/SBUF payload evidence).",
+                f"- Refined blocker classification: {'callsite_tracking_gap' if any(r.get('callsite_pc') == '0x574E' and r.get('call_executed') == 'yes' and r.get('callee_entry_observed') == 'no' for r in callsite_rows) else 'missing_runtime_or_peripheral_context'}.",
             ]
         )
         + "\n",
