@@ -3,7 +3,7 @@
 ## Confirmed
 - Reset vector `0x4000` jumps to `0x4100`.
 - Boot execution repeatedly stays in `0x4100..0x4165` pointer/init loop under default and zero/self seeds.
-- Pointer-to-`0x0200` seeds exit early via `ret_from_entry` near `0x4128`, without reaching later runtime.
+- Pointer-to-`0x0200` seeds do reach `0x415F..0x4165` boot-exit flag sets, then return at `0x4175` (`ret_from_entry`) in direct-entry harness context.
 - No emulation-observed UART SBUF writes, display outputs, or keypad scan events.
 
 ## Probable
@@ -112,7 +112,7 @@
 - The battery-backed configuration set likely feeds this walker, then downstream runtime materialization.
 
 ### Current seed experiment outcome (compact)
-- New scenarios (`config_record_seed_terminator_ff`, `config_record_seed_type02_minimal`, `config_record_seed_type02_chain_to_0a`, `config_record_seed_type02_with_address_sequence`) all stopped early near `0x4128` in current emulator context.
+- New scenarios (`config_record_seed_terminator_ff`, `config_record_seed_type02_minimal`, `config_record_seed_type02_chain_to_0a`, `config_record_seed_type02_with_address_sequence`) execute `0x4128 -> 0x412B -> LJMP 0x415F`, then return at `0x4175` in current direct-entry emulator context.
 - No scenario reached `0x5717/0x5725`, and no writes were observed in `0x31FF..0x3268` or `0x36F2..0x36F9` during those boot-only runs.
 - Therefore, there is still no emulator-observed end-to-end link from boot seed record bytes to the 8-slot output vector.
 
@@ -125,3 +125,25 @@
 2. Known installation counts (loops/devices/zones/modules) for at least one device snapshot.
 3. Battery-backed memory/NVRAM dump if obtainable (or service-mode memory export).
 4. Before/after comparison for one controlled config change (single field change per capture).
+
+
+## Boot exit / runtime handoff clarification
+
+### Confirmed
+- In all `config_record_seed_*` scenarios, the path **does reach `0x415F` and `0x4165`** before stop.
+- The observed stop reason `ret_from_entry` is tied to a `RET` at `0x4175`, not a branch stop at `0x4128`.
+- The earlier "last_pc≈0x4128" wording was a reporting/summary artifact from prior aggregation, not proof that `LJMP 0x415F` failed.
+
+### Interpretation
+- Entry at `0x4100` behaves like an init subroutine under current harness usage: it sets exit bits and returns.
+- Because the harness enters `0x4100` directly (without upstream caller stack frame), `RET` resolves as `ret_from_entry`.
+- This supports (but does not yet prove) the need for caller/reset-wrapper context for full boot-to-runtime handoff.
+
+### Post-`0x415F` reachability status
+- Hypothesis forced starts at `0x415F`, `0x4165`, and `0x4170` all converge to `RET 0x4175`.
+- None of those runs reached runtime/materialization hubs (`0x5710`, `0x5717`, `0x5725`, `0x55AD`, `0x5602`, `0x5A7F`, `0x6833`, `0x7DC2`).
+- No writes were observed in `0x31FF..0x3268` or `0x36F2..0x36F9` in these post-exit forced-context traces.
+
+### Still blocked
+- A concrete caller-context model that carries control from boot-exit return site into runtime scheduler paths.
+- End-to-end emulator-observed transition from boot record walker to `0x5710..0x5733` materialization loop.

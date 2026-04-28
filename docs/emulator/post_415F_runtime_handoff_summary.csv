@@ -1,0 +1,4 @@
+scenario,start_pc,max_steps,steps,stop_reason,reached_5710,reached_5717,reached_5725,reached_55AD,reached_5602,reached_5A7F,reached_6833,reached_7DC2,writes_31FF_3268,writes_36F2_36F9,sbuf_writes,uart_tx_candidates,evidence_level,confidence,notes
+boot_post_415F_context,0x415F,2000,15,ret_from_entry,no,no,no,no,no,no,no,no,no,no,0,0,emulation_observed,medium,Hypothesis forced-entry run; path converges to RET at 0x4175 with no runtime-hub entry observed
+boot_post_4165_context,0x4165,2000,12,ret_from_entry,no,no,no,no,no,no,no,no,no,no,0,0,emulation_observed,medium,Hypothesis forced-entry run; path converges to RET at 0x4175 with no runtime-hub entry observed
+boot_post_41xx_after_exit_context,0x4170,2000,6,ret_from_entry,no,no,no,no,no,no,no,no,no,no,0,0,emulation_observed,medium,Hypothesis forced-entry run; path converges to RET at 0x4175 with no runtime-hub entry observed
