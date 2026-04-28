@@ -369,6 +369,54 @@ SCENARIOS = {
         purpose="Hypothesis forced_entry at 0x58CA to inspect near-target branch/call flow without firmware patching.",
         init_regs={0x58CA: {"A": 0x00, "R0": 0x00, "R1": 0x01}},
     ),
+    "boot_post_415F_context": Scenario(
+        name="boot_post_415F_context",
+        firmware_file="90CYE03_19_DKS.PZU",
+        functions=[0x415F],
+        seed_xdata={0x0030: 0x00, 0x0031: 0x02, 0x0200: 0x02, 0x0202: 0x03, 0x0203: 0x20, 0x3200: 0x0A},
+        watchpoints=default_dks_watchpoints(),
+        purpose="Hypothesis forced-entry at post-walker flags to inspect immediate runtime handoff only.",
+    ),
+    "boot_post_4165_context": Scenario(
+        name="boot_post_4165_context",
+        firmware_file="90CYE03_19_DKS.PZU",
+        functions=[0x4165],
+        seed_xdata={0x0030: 0x00, 0x0031: 0x02, 0x0200: 0x02, 0x0202: 0x03, 0x0203: 0x20, 0x3200: 0x0A},
+        watchpoints=default_dks_watchpoints(),
+        purpose="Hypothesis forced-entry from final SETB byte at 0x4165 to inspect downstream caller/runtime boundary.",
+    ),
+    "materialization_5710_context": Scenario(
+        name="materialization_5710_context",
+        firmware_file="90CYE03_19_DKS.PZU",
+        functions=[0x5710],
+        seed_xdata={},
+        watchpoints=default_dks_watchpoints(),
+        purpose="Hypothesis forced-entry at object materialization loop start with neutral XDATA state.",
+    ),
+    "materialization_5710_seeded_context": Scenario(
+        name="materialization_5710_seeded_context",
+        firmware_file="90CYE03_19_DKS.PZU",
+        functions=[0x5710],
+        seed_xdata={
+            0x31FF: 0x80,
+            **{(0x3200 + i): (i & 0xFF) for i in range(0x69)},
+            **{(0x36F2 + i): 0x00 for i in range(8)},
+        },
+        watchpoints=default_dks_watchpoints(),
+        purpose="Hypothesis forced-entry at 0x5710 with seeded object-table and output-vector neighborhoods.",
+    ),
+    "output_vector_from_materialized_context": Scenario(
+        name="output_vector_from_materialized_context",
+        firmware_file="90CYE03_19_DKS.PZU",
+        functions=[0x5602, 0x55AD, 0x5A7F],
+        seed_xdata={
+            **{(0x31FF + i): ((0x80 if i % 3 == 0 else i) & 0xFF) for i in range(0x6A)},
+            **{(0x36F2 + i): 0x00 for i in range(8)},
+            0x30E1: 0x01,
+        },
+        watchpoints=default_dks_watchpoints(),
+        purpose="Hypothesis runtime-hub probe seeded from candidate materialized object table to test output vector linkage.",
+    ),
 }
 
 

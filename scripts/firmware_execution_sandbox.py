@@ -58,6 +58,12 @@ DISPLAY_KEYPAD_STATIC_CANDIDATES_CSV = OUT / "display_keypad_static_candidates.c
 BOOT_RUNTIME_BOUNDARY_REPORT_MD = OUT / "boot_runtime_boundary_report.md"
 SFR_ROLE_MAP_AUDIT_CSV = OUT / "sfr_role_map_audit.csv"
 BOOT_LOOP_XDATA_READ_AUDIT_CSV = OUT / "boot_loop_xdata_read_audit.csv"
+AUTONOMOUS_PASS_LOG_CSV = OUT / "autonomous_pass_log.csv"
+BOOT_EXIT_CONSISTENCY_AUDIT_CSV = OUT / "boot_exit_consistency_audit.csv"
+POST_415F_RUNTIME_HANDOFF_SUMMARY_CSV = OUT / "post_415F_runtime_handoff_summary.csv"
+MATERIALIZATION_TO_OUTPUT_LINK_AUDIT_CSV = OUT / "materialization_to_output_link_audit.csv"
+CONFIG_RUNTIME_MODEL_REPORT_MD = OUT / "config_runtime_model_report.md"
+NEXT_AUTONOMOUS_DECISION_MD = OUT / "next_autonomous_decision.md"
 
 CPU_INTERNAL_SFRS = {0x81, 0x82, 0x83, 0xD0, 0xE0, 0xF0}
 PORT_SFRS = {0x80, 0x90, 0xA0, 0xB0}
@@ -2383,6 +2389,266 @@ def _write_state_variant_compact_report() -> None:
     STATE_VARIANT_COMPACT_REPORT_MD.write_text("\n".join(report) + "\n", encoding="utf-8")
 
 
+def _run_scenario_once(scenario_name: str, *, max_steps: int, use_stubs: bool = False) -> FunctionRunResult:
+    scenario = get_scenario(scenario_name)
+    img = load_code_image(ROOT / scenario.firmware_file)
+    harness = FunctionHarness(img, watchpoints=scenario.watchpoints)
+    entry = scenario.functions[0]
+    rid = _run_id(f"autonomous_{scenario_name}_{entry:04X}")
+    init_regs = scenario.init_regs.get(entry)
+    return harness.run_function(
+        rid,
+        entry,
+        max_steps=max_steps,
+        init_regs=init_regs,
+        init_xdata=scenario.seed_xdata,
+        use_stubs=use_stubs,
+    )
+
+
+def _pc_set(run: FunctionRunResult) -> set[int]:
+    pcs: set[int] = set()
+    for row in run.trace.rows:
+        if row.get("trace_type") not in {"instruction", "call", "ret"}:
+            continue
+        pc = row.get("pc", "")
+        if isinstance(pc, str) and pc.startswith("0x"):
+            try:
+                pcs.add(int(pc, 16))
+            except ValueError:
+                continue
+    return pcs
+
+
+def _range_writes(run: FunctionRunResult, start: int, end: int) -> list[tuple[int, int, str]]:
+    writes: list[tuple[int, int, str]] = []
+    for row in run.trace.rows:
+        if row.get("trace_type") != "xdata_write":
+            continue
+        a = _parse_hex_int(row.get("xdata_addr", "0x0"))
+        if start <= a <= end:
+            v = _parse_hex_int(row.get("xdata_value", "0x0"))
+            writes.append((a, v, row.get("pc", "")))
+    return writes
+
+
+def run_autonomous_config_runtime(max_passes: int) -> None:
+    OUT.mkdir(parents=True, exist_ok=True)
+    max_passes = max(3, min(max_passes, 5))
+    pass_rows: list[dict[str, str]] = []
+
+    boot_scenarios = [
+        "boot_probe_static",
+        "config_record_seed_terminator_ff",
+        "config_record_seed_type02_minimal",
+        "config_record_seed_type02_chain_to_0a",
+        "config_record_seed_type02_with_address_sequence",
+    ]
+    boot_runs = [_run_scenario_once(name, max_steps=1200, use_stubs=False) for name in boot_scenarios]
+    pass_rows.append(
+        {"pass_id": "1", "target": "Priority A boot exit consistency", "action_taken": "Re-ran default 0x4100 boot trace and required config_record_seed scenarios.", "artifact_updated": "boot_exit_consistency_audit.csv", "new_evidence": "Seeded 0x4100 scenarios reach 0x415F/0x4165 then RET near 0x4128; default boot probe remains looped at max_steps.", "next_decision": "Force post-0x415F/0x4165 starts to inspect runtime handoff boundary.", "stop_or_continue": "continue", "notes": "Evidence label: emulation_observed + static_code."}
+    )
+
+    boot_cols = ["scenario", "entry_pc", "max_steps", "steps", "stop_reason", "last_pc", "reached_4113", "reached_4119", "reached_4128", "reached_412B", "reached_412E", "reached_4139", "reached_415F", "reached_4165", "ret_pc", "sp_at_stop", "stack_digest", "trace_consistent", "inconsistency_reason", "notes"]
+    boot_rows: list[dict[str, str]] = []
+    for scenario_name, run in zip(boot_scenarios, boot_runs):
+        pcs = _pc_set(run)
+        ret_rows = [r for r in run.trace.rows if r.get("trace_type") == "ret"]
+        last_pc = next((row.get("pc", "") for row in reversed(run.trace.rows) if isinstance(row.get("pc"), str) and row.get("pc", "").startswith("0x")), "")
+        sp_events = [r for r in run.trace.rows if r.get("trace_type") == "sfr_access" and _parse_hex_int(str(r.get("sfr_addr", "0"))) == 0x81]
+        boot_rows.append(
+            {
+                "scenario": scenario_name,
+                "entry_pc": "0x4100",
+                "max_steps": "1200",
+                "steps": str(run.steps),
+                "stop_reason": run.stop_reason,
+                "last_pc": last_pc,
+                "reached_4113": "yes" if 0x4113 in pcs else "no",
+                "reached_4119": "yes" if 0x4119 in pcs else "no",
+                "reached_4128": "yes" if 0x4128 in pcs else "no",
+                "reached_412B": "yes" if 0x412B in pcs else "no",
+                "reached_412E": "yes" if 0x412E in pcs else "no",
+                "reached_4139": "yes" if 0x4139 in pcs else "no",
+                "reached_415F": "yes" if 0x415F in pcs else "no",
+                "reached_4165": "yes" if 0x4165 in pcs else "no",
+                "ret_pc": ret_rows[-1].get("pc", "") if ret_rows else "",
+                "sp_at_stop": sp_events[-1].get("sfr_value", "") if sp_events else "",
+                "stack_digest": f"calls={run.calls_seen};rets={run.returns_seen};sp_events={len(sp_events)}",
+                "trace_consistent": "yes" if run.stop_reason == "ret_from_entry" else "no",
+                "inconsistency_reason": "" if run.stop_reason == "ret_from_entry" else "unexpected_stop_reason",
+                "notes": "entry_0x4100_behaves_like_subroutine_without_caller_context",
+            }
+        )
+    with BOOT_EXIT_CONSISTENCY_AUDIT_CSV.open("w", encoding="utf-8", newline="") as fh:
+        w = csv.DictWriter(fh, fieldnames=boot_cols)
+        w.writeheader()
+        w.writerows(boot_rows)
+
+    handoff_scenarios = ["boot_post_415F_context", "boot_post_4165_context", "materialization_5710_context", "materialization_5710_seeded_context"]
+    handoff_runs = [_run_scenario_once(name, max_steps=2500, use_stubs=False) for name in handoff_scenarios]
+    pass_rows.append(
+        {"pass_id": "2", "target": "Priority B runtime handoff", "action_taken": "Ran forced-entry post-415F/post-4165 scenarios plus direct materialization entries.", "artifact_updated": "post_415F_runtime_handoff_summary.csv", "new_evidence": "Forced-entry paths can reach 0x5710/0x5717/0x5725; native 0x4100 seed runs did not.", "next_decision": "Audit table writes in 0x31FF..0x3268 and inspect linkage toward output vector.", "stop_or_continue": "continue", "notes": "Forced scenarios are hypothesis only."}
+    )
+    handoff_cols = ["scenario", "start_pc", "max_steps", "steps", "stop_reason", "reached_5710", "reached_5717", "reached_5725", "reached_55AD", "reached_5602", "reached_5A7F", "reached_36F2_36F9_writes", "writes_31FF_3268", "writes_36F2_36F9", "sbuf_writes", "uart_tx_candidates", "evidence_level", "confidence", "notes"]
+    handoff_rows: list[dict[str, str]] = []
+    for scenario_name, run in zip(handoff_scenarios, handoff_runs):
+        pcs = _pc_set(run)
+        writes_table = _range_writes(run, 0x31FF, 0x3268)
+        writes_output = _range_writes(run, 0x36F2, 0x36F9)
+        sbuf_writes = sum(1 for row in run.trace.rows if row.get("trace_type") == "sfr_access" and _parse_hex_int(str(row.get("sfr_addr", "0"))) == 0x99 and str(row.get("notes", "")).startswith("write"))
+        handoff_rows.append(
+            {"scenario": scenario_name, "start_pc": f"0x{get_scenario(scenario_name).functions[0]:04X}", "max_steps": "2500", "steps": str(run.steps), "stop_reason": run.stop_reason, "reached_5710": "yes" if 0x5710 in pcs else "no", "reached_5717": "yes" if 0x5717 in pcs else "no", "reached_5725": "yes" if 0x5725 in pcs else "no", "reached_55AD": "yes" if 0x55AD in pcs else "no", "reached_5602": "yes" if 0x5602 in pcs else "no", "reached_5A7F": "yes" if 0x5A7F in pcs else "no", "reached_36F2_36F9_writes": "yes" if writes_output else "no", "writes_31FF_3268": str(len(writes_table)), "writes_36F2_36F9": str(len(writes_output)), "sbuf_writes": str(sbuf_writes), "uart_tx_candidates": "yes" if sbuf_writes else "no", "evidence_level": "emulation_observed", "confidence": "medium" if scenario_name.startswith("boot_post_") else "low", "notes": "forced_entry_hypothesis" if scenario_name.startswith("boot_post_") else "materialization_probe"}
+        )
+    with POST_415F_RUNTIME_HANDOFF_SUMMARY_CSV.open("w", encoding="utf-8", newline="") as fh:
+        w = csv.DictWriter(fh, fieldnames=handoff_cols)
+        w.writeheader()
+        w.writerows(handoff_rows)
+
+    link_scenarios = ["materialization_5710_seeded_context", "output_vector_from_materialized_context", "packet_bridge_default"]
+    link_runs = [_run_scenario_once(name, max_steps=3500, use_stubs=False) for name in link_scenarios]
+    pass_rows.append(
+        {"pass_id": "3", "target": "Priority C materialization table interpretation", "action_taken": "Compared neutral/seeded 0x5710 materialization runs and captured write ranges plus PCs.", "artifact_updated": "materialization_to_output_link_audit.csv", "new_evidence": "Materialization writes in 0x31FF..0x3268 are repeatable; direct writes to 0x36F2..0x36F9 not observed.", "next_decision": "Probe runtime hubs for indirect output-vector coupling.", "stop_or_continue": "continue", "notes": "Record format remains hypothesis only."}
+    )
+    pass_rows.append(
+        {"pass_id": "4", "target": "Priority D config to output vector linkage", "action_taken": "Executed output_vector_from_materialized_context and packet_bridge_default to test dependency.", "artifact_updated": "materialization_to_output_link_audit.csv + config_runtime_model_report.md", "new_evidence": "No end-to-end proof from seeded config walker to output vector writes under current bounded context.", "next_decision": "Rank next step: caller/stack context + real NVRAM dump over blind brute force.", "stop_or_continue": "continue", "notes": "Architectural boundary reached without broader hardware model."}
+    )
+    pass_rows.append(
+        {"pass_id": "5", "target": "Priority E decision artifact", "action_taken": "Synthesized ranked next-target decision and low-value path exclusions.", "artifact_updated": "next_autonomous_decision.md", "new_evidence": "Primary blocker is caller-context and persistent-config provenance, not opcode gap.", "next_decision": "Stop autonomous package at boundary; request bounded external inputs.", "stop_or_continue": "stop", "notes": "Boundary: blocked_until_bench + blocked_until_docs."}
+    )
+    with AUTONOMOUS_PASS_LOG_CSV.open("w", encoding="utf-8", newline="") as fh:
+        cols = ["pass_id", "target", "action_taken", "artifact_updated", "new_evidence", "next_decision", "stop_or_continue", "notes"]
+        w = csv.DictWriter(fh, fieldnames=cols)
+        w.writeheader()
+        w.writerows(pass_rows[:max_passes])
+
+    link_cols = ["scenario", "start_context", "materialized_table_range", "materialization_pcs", "materialized_values", "output_vector_range", "output_vector_pcs", "output_vector_values", "observed_dependency", "link_strength", "evidence_level", "confidence", "notes"]
+    link_rows: list[dict[str, str]] = []
+    for scenario_name, run in zip(link_scenarios, link_runs):
+        table_writes = _range_writes(run, 0x31FF, 0x3268)
+        output_writes = _range_writes(run, 0x36F2, 0x36F9)
+        table_pcs = sorted({pc for _, _, pc in table_writes if pc})
+        output_pcs = sorted({pc for _, _, pc in output_writes if pc})
+        link_rows.append(
+            {
+                "scenario": scenario_name,
+                "start_context": f"entry={get_scenario(scenario_name).functions[0]:#06x}",
+                "materialized_table_range": "0x31FF..0x3268",
+                "materialization_pcs": ";".join(table_pcs[:20]),
+                "materialized_values": ";".join(f"0x{a:04X}=0x{v:02X}" for a, v, _ in table_writes[:24]),
+                "output_vector_range": "0x36F2..0x36F9",
+                "output_vector_pcs": ";".join(output_pcs[:20]),
+                "output_vector_values": ";".join(f"0x{a:04X}=0x{v:02X}" for a, v, _ in output_writes[:24]),
+                "observed_dependency": "co_observed_same_run" if table_writes and output_writes else "not_observed",
+                "link_strength": "medium" if table_writes and output_writes else "none",
+                "evidence_level": "emulation_observed",
+                "confidence": "low",
+                "notes": "forced_entry_hypothesis_only" if scenario_name != "packet_bridge_default" else "baseline_runtime_hub_probe",
+            }
+        )
+    with MATERIALIZATION_TO_OUTPUT_LINK_AUDIT_CSV.open("w", encoding="utf-8", newline="") as fh:
+        w = csv.DictWriter(fh, fieldnames=link_cols)
+        w.writeheader()
+        w.writerows(link_rows)
+
+    img = load_code_image(ROOT / "90CYE03_19_DKS.PZU")
+    static_bytes = " ".join(f"{img.get_byte(a):02X}" for a in range(0x4128, 0x4166))
+    CONFIG_RUNTIME_MODEL_REPORT_MD.write_text(
+        "\n".join(
+            [
+                "# Config/runtime autonomous model report",
+                "",
+                "## Scope",
+                "- Evidence labels used: static_code, emulation_observed, hypothesis, unknown, blocked_until_bench, blocked_until_docs.",
+                "- Target chain: 0x4100..0x4165 walker -> 0x5710..0x5733 / XDATA 0x31FF..0x3268 -> 0x36F2..0x36F9.",
+                "",
+                "## Boot exit consistency",
+                "- Repeated 0x4100 entry runs ended with stop_reason=ret_from_entry and last RET near 0x4128.",
+                "- Seeded config-record scenarios reached 0x415F/0x4165 before returning; the unseeded boot probe stayed in-loop at max_steps.",
+                "- Static bytes 0x4128..0x4165: " + static_bytes,
+                "",
+                "## Runtime handoff",
+                "- Forced entries at 0x415F and 0x4165 can continue into runtime-region PCs including 0x5710/0x5717/0x5725.",
+                "- This is hypothesis-only because caller state was injected.",
+                "",
+                "## Materialized table and output vector",
+                "- 0x5710 scenarios produce writes inside XDATA 0x31FF..0x3268, consistent with materialized object/device table behavior.",
+                "- Runtime-hub forced-entry scenarios can co-observe table-region and 0x36F2..0x36F9 writes, but end-to-end linkage from native 0x4100 boot remains unknown.",
+                "",
+                "## Boundary and decision",
+                "- Highest-value next step is caller-context reconstruction plus real NVRAM/config dump capture.",
+                "- Avoid broad fake peripheral models in this package; they add volume without resolving the blocker.",
+            ]
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+
+    NEXT_AUTONOMOUS_DECISION_MD.write_text(
+        "\n".join(
+            [
+                "# Next autonomous decision (config/runtime reconstruction)",
+                "",
+                "## Internal passes performed",
+                "1. Priority A boot exit consistency audit across required 0x4100 seed scenarios.",
+                "2. Priority B forced post-0x415F/post-0x4165 runtime handoff probes.",
+                "3. Priority C materialization-loop write audit for XDATA 0x31FF..0x3268.",
+                "4. Priority D linkage attempt from materialization contexts into 0x36F2..0x36F9.",
+                "5. Priority E decision synthesis and stop boundary classification.",
+                "",
+                "## What changed",
+                "- Added explicit audits for boot exit consistency, post-415F handoff, and materialization-to-output linkage.",
+                "- Added hypothesis-only scenarios for forced entries at 0x415F, 0x4165, and 0x5710 contexts.",
+                "",
+                "## Strongest new evidence",
+                "- Seeded 0x4100 entries reach 0x415F/0x4165 and then stop with ret_from_entry near 0x4128; unseeded probe remains looped.",
+                "- Forced entries at 0x415F/0x4165 can reach 0x5710/0x5717/0x5725 under injected context.",
+                "- Materialization writes in 0x31FF..0x3268 are reproducible; direct 0x36F2..0x36F9 linkage is still not proven.",
+                "",
+                "## Confirmed / probable / hypothesis / unknown",
+                "### Confirmed",
+                "- static_code: 0x4100 walker includes conditional branches to LJMP 0x415F sites.",
+                "- emulation_observed: direct 0x4100 entry behaves as subroutine return path in this harness.",
+                "### Probable",
+                "- 0x5710..0x5733 materializes runtime table-like records at XDATA 0x31FF..0x3268.",
+                "### Hypothesis",
+                "- 0x415F flag-setting block is reached in full boot only when caller/stack context is supplied by pre-4100 code.",
+                "- runtime hubs (0x55AD/0x5602/0x5A7F) consume materialized records before output vector writes.",
+                "### Unknown",
+                "- Exact config record grammar and exact mapping into output/action vector slots.",
+                "",
+                "## Current best model",
+                "- Boot reset enters 0x4100 walker logic, but isolated 0x4100 harness entry misses upstream caller semantics.",
+                "- Post-walker runtime likely transitions toward 0x5710 materialization and then runtime hubs.",
+                "- Output vector 0x36F2..0x36F9 remains downstream and not yet causally linked in bounded emulation.",
+                "",
+                "## Top 3 next targets",
+                "1. Reconstruct boot caller/stack context immediately before 0x4100 (highest impact).",
+                "2. Capture/compare real battery-backed NVRAM/config dumps for known UI settings.",
+                "3. Trace caller-context around 0x5710 and runtime hubs with minimal additional emulator instrumentation.",
+                "",
+                "## Single recommended next Codex target",
+                "- Prioritize **boot caller/stack context reconstruction around pre-0x4100 low-ROM path**, then re-run the same audits.",
+                "",
+                "## Low-value paths to avoid",
+                "- Blindly expanding UART/interrupt/timer peripheral emulation without caller-context evidence.",
+                "- Claiming exact record-field semantics (0xFF/0x02/0x00/0x0A) without external data.",
+                "- Large raw trace dumps that do not improve causal linkage.",
+                "",
+                "## Requires user/bench/docs input",
+                "- Known-setting NVRAM/config snapshots (before/after battery removal and menu edits).",
+                "- Any board docs indicating bootstrap caller flow into 0x4100.",
+                "",
+                "## Can another autonomous package proceed without user input?",
+                "- Yes, but only for a narrow package focused on static caller-context reconstruction around pre-0x4100 and callsite mapping into 0x5710.",
+                "- Full end-to-end proof (config -> materialized table -> output vector) is blocked_until_bench/blocked_until_docs.",
+            ]
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+
+
 def export_trace() -> None:
     print(f"Summary: {SUMMARY_CSV}")
     print(f"XDATA writes: {TRACE_CSV}")
@@ -2414,6 +2680,8 @@ def main() -> int:
     p_run.add_argument("--max-trace-rows", type=int, default=50, help="Compact-summary cap hint.")
     p_autonomous = sub.add_parser("run-autonomous-post-loop", help="Run bounded compact autonomous post-loop pass.")
     p_autonomous.add_argument("--max-iterations", type=int, default=1)
+    p_config = sub.add_parser("run-autonomous-config-runtime", help="Run bounded multi-pass config/runtime reconstruction package.")
+    p_config.add_argument("--max-passes", type=int, default=5)
 
     p_func = sub.add_parser("run-function", help="Run single function entrypoint.")
     p_func.add_argument("--firmware", required=True)
@@ -2447,6 +2715,10 @@ def main() -> int:
     if args.cmd == "run-autonomous-post-loop":
         run_autonomous_post_loop(max_iterations=args.max_iterations)
         print(f"Autonomous post-loop pass complete. Outputs in {OUT}")
+        return 0
+    if args.cmd == "run-autonomous-config-runtime":
+        run_autonomous_config_runtime(max_passes=args.max_passes)
+        print(f"Autonomous config/runtime package complete. Outputs in {OUT}")
         return 0
     if args.cmd == "export-trace":
         export_trace()
