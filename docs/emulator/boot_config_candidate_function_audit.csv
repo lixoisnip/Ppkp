@@ -1,0 +1,8 @@
+candidate_addr,max_steps,steps,stop_reason,unsupported_ops,xdata_reads,xdata_writes,low_xdata_writes,config_range_writes,writes_0x0030_0x0031,writes_0x0000_0x03FF,code_reads,movc_to_movx_pattern,sfr_writes,sbuf_writes,uart_tx_candidates,possible_role,evidence_level,confidence,notes
+0x54C9,1000,23,unsupported_opcode 0xD5 at 0x54DF,1,1,5,1,1,no,yes,0,unknown,11,0,no,low_xdata_init_candidate,emulation_observed,medium,forced_entry_hypothesis; no boot-loop seed brute-force used
+0x6ADA,1000,2,ret_from_entry,0,0,1,1,1,no,yes,0,unknown,2,0,no,low_xdata_init_candidate,emulation_observed,medium,forced_entry_hypothesis; no boot-loop seed brute-force used
+0x6F5C,1000,2,ret_from_entry,0,0,1,1,1,no,yes,0,unknown,2,0,no,low_xdata_init_candidate,emulation_observed,medium,forced_entry_hypothesis; no boot-loop seed brute-force used
+0x7081,1000,2,ret_from_entry,0,0,1,1,1,no,yes,0,unknown,2,0,no,low_xdata_init_candidate,emulation_observed,medium,forced_entry_hypothesis; no boot-loop seed brute-force used
+0x76A1,1000,4,unsupported_opcode 0x03 at 0x76C5,1,0,1,1,1,no,yes,0,unknown,2,0,no,low_xdata_init_candidate,emulation_observed,medium,forced_entry_hypothesis; no boot-loop seed brute-force used
+0x76E6,1000,2,ret_from_entry,0,0,1,1,1,no,yes,0,unknown,2,0,no,low_xdata_init_candidate,emulation_observed,medium,forced_entry_hypothesis; no boot-loop seed brute-force used
+0x82EE,1000,11,ret_from_entry,0,1,4,3,3,no,yes,0,unknown,3,0,no,low_xdata_init_candidate,emulation_observed,medium,forced_entry_hypothesis; no boot-loop seed brute-force used

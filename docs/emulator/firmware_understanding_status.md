@@ -41,9 +41,10 @@
 
 > Warning: do **not** overfocus on additional `0x4100` seed variants unless global feature/call maps show no higher-value reachable targets.
 
-## Front-panel UI hardware evidence
-- Hardware photos confirm a front-panel LCD/text display, keypad, and labeled LED bank.
-- Real observed display messages include `УСТАНОВКА` and `АДР.МОДУЛЬ1.М2 300` / `ТИП2 НОРМА`.
-- This raises confidence in UI hardware existence and anchor vocabulary, but does **not** confirm display protocol, encoding, or key/LED bit mapping.
-- Firmware-level display routine and formatting path remain unconfirmed unless static/emulation evidence produces explicit code-path and decode matches.
-- Current state: hardware-level UI understanding increased; firmware mapping confidence remains low pending stronger code evidence.
+## Post-wide-map targeted audit results
+
+- Promising boot/config candidates: none high-confidence yet; 0x6F5C and 0x76E6 showed the most low-XDATA-touch potential in forced-entry traces, but still hypothesis-level without caller-context proof.
+- Promising runtime hubs: 0x5A7F (fan-in 142), 0x5935 (fan-in 20), 0x597F (fan-in 17), then 0x55AD/0x5602 as packet-bridge-adjacent probes.
+- Prioritized next path: runtime hub emulation with caller-context reconstruction first, then config-source reconstruction from upstream callers; static serial path search continues; bench capture after memory-mapped serial candidate isolation.
+- Continue 0x4100 seed brute force? No, not recommended now (except one evidence-driven follow-up if a boot candidate yields direct low-XDATA config-write evidence).
+- Updated understanding estimate: boot/config init path 35%, runtime/event hub map 60%, serial transport attribution 20%.
