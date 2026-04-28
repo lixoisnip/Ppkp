@@ -1,6 +1,8 @@
 opcode,mnemonic,implemented,observed_in_runs,notes
 0xF5,"MOV direct,A",yes,yes,issue_78_blocker
 0xB8..0xBF,"CJNE Rn,#imm,rel",yes,yes,issue_78_blocker
+0x23,RL A,yes,yes,issue_78_next_blocker
+0x35,"ADDC A,direct",yes,yes,issue_78_next_blocker
 0xB4,"CJNE A,#imm,rel",yes,yes,extended_support
 0xB5,"CJNE A,direct,rel",yes,yes,extended_support
 0xB6/0xB7,"CJNE @R0/@R1,#imm,rel",yes,yes,extended_support

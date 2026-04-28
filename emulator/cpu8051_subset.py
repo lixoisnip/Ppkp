@@ -172,6 +172,12 @@ class CPU8051Subset:
             self._log_instr("INC", f"R{n}", pc, acc_before, dptr_before)
             return True, None
 
+        if op == 0x23:  # RL A
+            s.acc = ((s.acc << 1) | (s.acc >> 7)) & 0xFF
+            s.pc += 1
+            self._log_instr("RL", "A", pc, acc_before, dptr_before, notes="carry_unchanged=true")
+            return True, None
+
         if op in (0x54, 0x44, 0x64, 0x24):
             imm = self.fetch(pc + 1)
             if op == 0x54:
@@ -196,6 +202,26 @@ class CPU8051Subset:
             s.acc = (s.acc + value) & 0xFF
             s.pc += 2
             self._log_instr("ADD", f"A,0x{direct:02X}", pc, acc_before, dptr_before, notes="direct_read_model=idata_or_sfr")
+            return True, None
+
+        if op == 0x35:  # ADDC A,direct
+            direct = self.fetch(pc + 1)
+            value = self._read_direct(direct, pc=pc, notes="addc_direct")
+            carry_in = (s.psw >> 7) & 0x01
+            total = (s.acc & 0xFF) + value + carry_in
+            s.acc = total & 0xFF
+            carry_out = 1 if total > 0xFF else 0
+            s.psw = ((s.psw & 0x7F) | (carry_out << 7)) & 0xFF
+            self.sfr.write(0xD0, s.psw, step=s.step_counter, pc=pc, notes="addc_carry_update")
+            s.pc += 2
+            self._log_instr(
+                "ADDC",
+                f"A,0x{direct:02X}",
+                pc,
+                acc_before,
+                dptr_before,
+                notes="direct_read_model=idata_or_sfr;flags_mode=carry_only",
+            )
             return True, None
 
         if op == 0xF5:  # MOV direct,A
