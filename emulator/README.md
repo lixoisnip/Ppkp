@@ -29,5 +29,10 @@ New trace artifacts:
 - `docs/emulator/direct_memory_trace.csv` for direct-IDATA reads/writes (separate from XDATA).
 - `docs/emulator/sfr_trace.csv` for SFR candidate accesses.
 - `docs/emulator/uart_sbuf_trace.csv` for conservative UART/SBUF candidate writes (`hypothesis` evidence only).
+- `docs/emulator/pc_hotspot_summary.csv` for repeated-PC loop hotspots.
+- `docs/emulator/control_flow_trace_summary.csv` for repeated source→target control-flow transitions.
+- `docs/emulator/code_table_candidate_summary.csv` for conservative MOVC table-read summaries.
 
 All outputs should be interpreted as constrained emulation evidence and labeled conservatively (`emulation_observed`, `static_code`, `hypothesis`, `unsupported`).
+
+RS-485 hardware note (hardware_observed): board photo shows `MAX1480ACPI` transceiver marking near `RS485` silkscreen, and the board is reported to include two such modules. Tracing/reporting must therefore remain two-channel-aware (`SBUF0`/`SBUF1` candidate mapping only) and must not claim protocol bytes from hardware photo evidence alone.

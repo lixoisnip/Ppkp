@@ -27,6 +27,9 @@ PZU_METADATA_CSV = OUT / "pzu_load_metadata.csv"
 DIRECT_TRACE_CSV = OUT / "direct_memory_trace.csv"
 UART_SBUF_TRACE_CSV = OUT / "uart_sbuf_trace.csv"
 CPU_COVERAGE_CSV = OUT / "cpu_subset_coverage.csv"
+PC_HOTSPOT_CSV = OUT / "pc_hotspot_summary.csv"
+CONTROL_FLOW_SUMMARY_CSV = OUT / "control_flow_trace_summary.csv"
+CODE_TABLE_CANDIDATE_SUMMARY_CSV = OUT / "code_table_candidate_summary.csv"
 
 
 def _run_id(prefix: str) -> str:
@@ -257,6 +260,9 @@ def run_scenario(name: str, max_steps: int) -> None:
     _write_direct_memory_trace(all_runs, name)
     _write_uart_sbuf_trace(all_runs, name)
     _write_cpu_subset_coverage(all_runs)
+    _write_pc_hotspot_summary(all_runs, name)
+    _write_control_flow_summary(all_runs, name)
+    _write_code_table_candidate_summary(all_runs, name)
     _write_report(f"{img.firmware_file} via {img.source}", all_runs, scenario_name=name)
 
 
@@ -295,6 +301,9 @@ def run_single_function(firmware: str, addr: int, max_steps: int) -> None:
     _write_direct_memory_trace([run], "single")
     _write_uart_sbuf_trace([run], "single")
     _write_cpu_subset_coverage([run])
+    _write_pc_hotspot_summary([run], "single")
+    _write_control_flow_summary([run], "single")
+    _write_code_table_candidate_summary([run], "single")
     _write_report(f"{img.firmware_file} via {img.source}", [run], scenario_name=None)
 
 
@@ -462,11 +471,133 @@ def _write_cpu_subset_coverage(runs: list[FunctionRunResult]) -> None:
         {"opcode": "0xB4", "mnemonic": "CJNE A,#imm,rel", "implemented": "yes", "observed_in_runs": "yes" if "CJNE" in observed_ops else "no", "notes": "extended_support"},
         {"opcode": "0xB5", "mnemonic": "CJNE A,direct,rel", "implemented": "yes", "observed_in_runs": "yes" if "CJNE" in observed_ops else "no", "notes": "extended_support"},
         {"opcode": "0xB6/0xB7", "mnemonic": "CJNE @R0/@R1,#imm,rel", "implemented": "yes", "observed_in_runs": "yes" if "CJNE" in observed_ops else "no", "notes": "extended_support"},
+        {"opcode": "0xD8..0xDF", "mnemonic": "DJNZ Rn,rel", "implemented": "yes", "observed_in_runs": "yes" if "DJNZ" in observed_ops else "no", "notes": "extended_support"},
     ]
     with CPU_COVERAGE_CSV.open("w", encoding="utf-8", newline="") as fh:
         w = csv.DictWriter(fh, fieldnames=cols)
         w.writeheader()
         w.writerows(coverage_rows)
+
+
+def _write_pc_hotspot_summary(runs: list[FunctionRunResult], scenario: str) -> None:
+    cols = ["run_id", "scenario", "firmware_file", "function_addr", "pc", "count", "first_step", "last_step", "possible_role", "notes"]
+    rows: list[dict[str, str]] = []
+    for run in runs:
+        pc_steps: dict[str, list[int]] = {}
+        for r in run.trace.rows:
+            if r.get("trace_type") != "instruction":
+                continue
+            pc = r.get("pc", "")
+            try:
+                step = int(r.get("step", "0"))
+            except ValueError:
+                continue
+            pc_steps.setdefault(pc, []).append(step)
+        for pc, steps in sorted(pc_steps.items(), key=lambda item: (-len(item[1]), item[0])):
+            possible_role = "loop_hotspot"
+            note_parts = ["emulation_observed"]
+            if pc.upper() in {"0X5982", "0X5984", "0X5985", "0X5986", "0X5987", "0X5988", "0X5989", "0X598A", "0X598B"}:
+                possible_role = "movc_pc_relative_table_loop_candidate"
+                note_parts.append("movc_pc_relative_region")
+            rows.append(
+                {
+                    "run_id": run.run_id,
+                    "scenario": scenario,
+                    "firmware_file": run.firmware_file,
+                    "function_addr": f"0x{run.function_addr:04X}",
+                    "pc": pc,
+                    "count": str(len(steps)),
+                    "first_step": str(min(steps)),
+                    "last_step": str(max(steps)),
+                    "possible_role": possible_role,
+                    "notes": ";".join(note_parts),
+                }
+            )
+    with PC_HOTSPOT_CSV.open("w", encoding="utf-8", newline="") as fh:
+        w = csv.DictWriter(fh, fieldnames=cols)
+        w.writeheader()
+        w.writerows(rows)
+
+
+def _write_control_flow_summary(runs: list[FunctionRunResult], scenario: str) -> None:
+    cols = ["run_id", "scenario", "firmware_file", "function_addr", "source_pc", "target_pc", "op", "count", "first_step", "last_step", "notes"]
+    rows: list[dict[str, str]] = []
+    for run in runs:
+        transitions: dict[tuple[str, str, str], list[int]] = {}
+        instruction_rows = [r for r in run.trace.rows if r.get("trace_type") == "instruction"]
+        for prev, curr in zip(instruction_rows, instruction_rows[1:]):
+            source_pc = prev.get("pc", "")
+            target_pc = curr.get("pc", "")
+            op = curr.get("op", "")
+            try:
+                step = int(curr.get("step", "0"))
+            except ValueError:
+                continue
+            transitions.setdefault((source_pc, target_pc, op), []).append(step)
+        for (source_pc, target_pc, op), steps in sorted(transitions.items(), key=lambda item: (-len(item[1]), item[0][0], item[0][1])):
+            rows.append(
+                {
+                    "run_id": run.run_id,
+                    "scenario": scenario,
+                    "firmware_file": run.firmware_file,
+                    "function_addr": f"0x{run.function_addr:04X}",
+                    "source_pc": source_pc,
+                    "target_pc": target_pc,
+                    "op": op,
+                    "count": str(len(steps)),
+                    "first_step": str(min(steps)),
+                    "last_step": str(max(steps)),
+                    "notes": "emulation_observed",
+                }
+            )
+    with CONTROL_FLOW_SUMMARY_CSV.open("w", encoding="utf-8", newline="") as fh:
+        w = csv.DictWriter(fh, fieldnames=cols)
+        w.writeheader()
+        w.writerows(rows)
+
+
+def _write_code_table_candidate_summary(runs: list[FunctionRunResult], scenario: str) -> None:
+    cols = ["run_id", "scenario", "firmware_file", "function_addr", "table_base_or_pc", "code_addr", "value", "count", "first_step", "last_step", "possible_role", "notes"]
+    rows: list[dict[str, str]] = []
+    for run in runs:
+        grouped: dict[tuple[str, str, str], list[int]] = {}
+        values_seen: set[str] = set()
+        for r in run.trace.rows:
+            if r.get("trace_type") != "code_read":
+                continue
+            pc = r.get("pc", "")
+            code_addr = r.get("xdata_addr", "")
+            value = r.get("xdata_value", "")
+            key = (pc, code_addr, value)
+            try:
+                step = int(r.get("step", "0"))
+            except ValueError:
+                continue
+            grouped.setdefault(key, []).append(step)
+            if pc.upper() == "0X5982":
+                values_seen.add(value.upper())
+        bitmask_candidate = values_seen == {"0X01", "0X02", "0X04", "0X08", "0X10", "0X20", "0X40", "0X80"}
+        for (pc, code_addr, value), steps in sorted(grouped.items(), key=lambda item: (item[0][0], item[0][1], item[0][2])):
+            rows.append(
+                {
+                    "run_id": run.run_id,
+                    "scenario": scenario,
+                    "firmware_file": run.firmware_file,
+                    "function_addr": f"0x{run.function_addr:04X}",
+                    "table_base_or_pc": pc,
+                    "code_addr": code_addr,
+                    "value": value,
+                    "count": str(len(steps)),
+                    "first_step": str(min(steps)),
+                    "last_step": str(max(steps)),
+                    "possible_role": "bitmask_table_candidate" if bitmask_candidate and pc.upper() == "0X5982" else "code_table_candidate",
+                    "notes": "emulation_observed",
+                }
+            )
+    with CODE_TABLE_CANDIDATE_SUMMARY_CSV.open("w", encoding="utf-8", newline="") as fh:
+        w = csv.DictWriter(fh, fieldnames=cols)
+        w.writeheader()
+        w.writerows(rows)
 
 
 def export_trace() -> None:
@@ -480,6 +611,9 @@ def export_trace() -> None:
     print(f"Direct memory trace: {DIRECT_TRACE_CSV}")
     print(f"UART/SBUF trace: {UART_SBUF_TRACE_CSV}")
     print(f"CPU subset coverage: {CPU_COVERAGE_CSV}")
+    print(f"PC hotspot summary: {PC_HOTSPOT_CSV}")
+    print(f"Control-flow summary: {CONTROL_FLOW_SUMMARY_CSV}")
+    print(f"Code table candidate summary: {CODE_TABLE_CANDIDATE_SUMMARY_CSV}")
     print(f"Report: {REPORT_MD}")
 
 

@@ -13,3 +13,4 @@ opcode,mnemonic,implemented,observed_in_runs,notes
 0xB4,"CJNE A,#imm,rel",yes,yes,extended_support
 0xB5,"CJNE A,direct,rel",yes,yes,extended_support
 0xB6/0xB7,"CJNE @R0/@R1,#imm,rel",yes,yes,extended_support
+0xD8..0xDF,"DJNZ Rn,rel",yes,yes,extended_support

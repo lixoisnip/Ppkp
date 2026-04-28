@@ -9,3 +9,7 @@
 - Some target functions may stop early due to unsupported opcodes or unknown hardware dependencies.
 - CJNE carry semantics are approximated in the subset model; broader PSW flag compatibility remains incomplete.
 - Results are constrained scenario observations (`emulation_observed`) and do not imply real-device behavior without bench validation.
+- Hardware-observed MAX1480 RS-485 transceivers (two modules reported) confirm physical interface presence, but MCU-UART-to-transceiver mapping remains unknown.
+- UART/SBUF reporting must remain two-channel-aware (`SBUF0`/`SBUF1` candidate only); physical channel assignment is currently `unknown` without schematic/code/bench confirmation.
+- No RS-485 command bytes, baudrate, channel roles, CRC/checksum, or packet format are inferred from board-photo evidence alone.
+

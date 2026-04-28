@@ -23,3 +23,6 @@
 ## Phase 5 — protocol reconstruction
 - Merge emulated UART observations with static evidence and future bench captures.
 - Keep confidence bounded unless verified by observed bytes and reproducible traces.
+- Incorporate hardware-observed dual MAX1480 RS-485 context: maintain explicit dual-channel uncertainty in UART reports (channel candidate 0/1 or unknown).
+- Continue treating `SBUF0` and `SBUF1` as candidate mappings until validated against MCU pinout/schematic or reproducible bench capture.
+
