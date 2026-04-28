@@ -1,0 +1,6 @@
+scenario,entry_pc,max_steps,steps,stop_reason,last_pc,reached_4113,reached_4119,reached_4128,reached_412B,reached_412E,reached_4139,reached_415F,reached_4165,ret_pc,sp_at_stop,stack_digest,trace_consistent,inconsistency_reason,notes
+boot_probe_static,0x4100,1200,1200,max_steps,0x415B,yes,yes,no,no,no,no,no,no,,0x07,calls=0;rets=0;sp_events=1,no,unexpected_stop_reason,entry_0x4100_behaves_like_subroutine_without_caller_context
+config_record_seed_terminator_ff,0x4100,1200,40,ret_from_entry,0x4128,yes,yes,yes,yes,no,no,yes,yes,0x4175,0x07,calls=0;rets=1;sp_events=1,yes,,entry_0x4100_behaves_like_subroutine_without_caller_context
+config_record_seed_type02_minimal,0x4100,1200,40,ret_from_entry,0x4128,yes,yes,yes,yes,no,no,yes,yes,0x4175,0x07,calls=0;rets=1;sp_events=1,yes,,entry_0x4100_behaves_like_subroutine_without_caller_context
+config_record_seed_type02_chain_to_0a,0x4100,1200,40,ret_from_entry,0x4128,yes,yes,yes,yes,no,no,yes,yes,0x4175,0x07,calls=0;rets=1;sp_events=1,yes,,entry_0x4100_behaves_like_subroutine_without_caller_context
+config_record_seed_type02_with_address_sequence,0x4100,1200,40,ret_from_entry,0x4128,yes,yes,yes,yes,no,no,yes,yes,0x4175,0x07,calls=0;rets=1;sp_events=1,yes,,entry_0x4100_behaves_like_subroutine_without_caller_context
