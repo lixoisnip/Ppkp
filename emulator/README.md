@@ -39,6 +39,8 @@ New trace artifacts:
   - `docs/emulator/state_variant_compact_report.md`
   and avoids regenerating large raw per-step trace CSV artifacts unless explicitly requested.
 
+- Scenario-level loop-control experiments can now declare **entry-only register overrides** via `Scenario.init_regs` (per function address). This is a one-shot setup at function entry (before first instruction), used only for hypothesis tests such as loop-control sensitivity. It does not patch firmware bytes, does not synthesize UART/SBUF behavior, and must be reported as hypothesis evidence.
+
 All outputs should be interpreted as constrained emulation evidence and labeled conservatively (`emulation_observed`, `static_code`, `hypothesis`, `unsupported`).
 
 RS-485 hardware note (hardware_observed): board photo shows `MAX1480ACPI` transceiver marking near `RS485` silkscreen, and the board is reported to include two such modules. Tracing/reporting must therefore remain two-channel-aware (`SBUF0`/`SBUF1` candidate mapping only) and must not claim protocol bytes from hardware photo evidence alone.

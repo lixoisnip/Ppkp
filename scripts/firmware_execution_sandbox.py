@@ -372,7 +372,14 @@ def run_scenario(name: str, max_steps: int, compact_summary: bool = False, max_t
 
     for faddr in scenario.functions:
         rid = _run_id(f"{name}_{faddr:04X}")
-        run = harness.run_function(rid, faddr, max_steps=max_steps, init_xdata=scenario.seed_xdata)
+        init_regs = scenario.init_regs.get(faddr, {}) if hasattr(scenario, "init_regs") else {}
+        run = harness.run_function(
+            rid,
+            faddr,
+            max_steps=max_steps,
+            init_xdata=scenario.seed_xdata,
+            init_regs=init_regs or None,
+        )
         all_runs.append(run)
         if not compact_summary:
             trace_path = OUT / f"trace_{rid}.csv"

@@ -1,0 +1,7 @@
+scenario,function_addr,loop_region,variable_kind,variable_name,first_observed_step,last_observed_step,write_pc,read_pc,value_before,value_after,source_evidence,possible_role,notes
+packet_bridge_seeded_context,0x5602,0x5715..0x5733,register,R3 (DJNZ counter),1268,1990,0x571B/0x5733,0x5733,0xA9,0x83,emulation_observed,loop_counter,DJNZ decrements R3 each iteration
+packet_bridge_seeded_context,0x5602,0x5715..0x5733,bit,bit 0xE0 (ACC.0),1198,1987,0x571E,0x5729,see bit_access previous_bit,see bit_access new_bit,emulation_observed,jb_condition,"JB bit 0xE0,+2 controls 0x572E vs 0x572C"
+packet_bridge_seeded_context,0x5602,0x5715..0x5733,register,ACC,1250,2000,0x5715/0x571E/0x572C/0x572E/0x5730,0x5729,0xAA,0x00,emulation_observed,bit_source_for_JB,ACC.0 tested via bit address 0xE0
+packet_bridge_seeded_context,0x5602,0x5715..0x5733,register,DPTR,1250,2000,none_in_loop_body,none_branch_direct,0x31FF,0x3276,emulation_observed,not_primary_loop_control,No MOVX in 0x5715..0x5733 body
+packet_bridge_seeded_context,0x5602,0x5715..0x5733,xdata,XDATA->ACC before loop branch,,,,no direct MOVX read inside loop body,,,emulation_observed,upstream_context_only,No XDATA read directly feeds JB/DJNZ in loop body
+packet_bridge_seeded_context,0x5602,0x5715..0x5733,sfr,SFR reads before loop branch,1198,1987,,0x5729 bit-read of SFR byte 0xE0,,,emulation_observed,branch_condition_source,Branch source is ACC SFR bit read
