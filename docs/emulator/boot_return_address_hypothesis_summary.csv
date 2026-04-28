@@ -1,0 +1,5 @@
+scenario,entry_pc,synthetic_return_addr,max_steps,steps,stop_reason,reached_5710,reached_5717,reached_5725,reached_55AD,reached_5602,reached_36F2_36F9_writes,writes_31FF_3268,writes_36F2_36F9,evidence_level,confidence,notes
+boot_4100_return_to_4176_context,0x4100,0x4176,2500,40,ret_from_entry,no,no,no,no,no,no,0,0,hypothesis,medium,"synthetic return + seed {0030:0200,0200:FF}; hypothesis only"
+boot_4100_return_to_4180_context,0x4100,0x4180,2500,40,ret_from_entry,no,no,no,no,no,no,0,0,hypothesis,medium,"synthetic return + seed {0030:0200,0200:FF}; hypothesis only"
+boot_4100_return_to_5710_context,0x4100,0x5710,2500,40,ret_from_entry,no,no,no,no,no,no,0,0,hypothesis,low,"synthetic return + seed {0030:0200,0200:FF}; hypothesis only"
+boot_4100_return_to_candidate_context,0x4100,0x492E,2500,40,ret_from_entry,no,no,no,no,no,no,0,0,hypothesis,low,"synthetic return + seed {0030:0200,0200:FF}; hypothesis only"
