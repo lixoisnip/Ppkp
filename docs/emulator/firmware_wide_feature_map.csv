@@ -9,3 +9,7 @@ interrupt_vector_candidate,0x4000,0x401F,reference,vector table region,static_co
 uart_init_candidate,,,,no observed uart init in boot; static scan found no direct SCON/SBUF writes,emulation_observed,low,0x98;0x99,,,unresolved
 display_output_candidate,,,,no confirmed display output path,emulation_observed,low,0x80;0x90;0xA0;0xB0,,,unresolved
 keypad_scan_candidate,,,,no confirmed keypad scan path,emulation_observed,low,0x80;0x90;0xA0;0xB0,,,unresolved
+front_panel_display_hardware_observed,,,,front-panel photos show active LCD text in Russian,hardware_observed,high,,,,hardware anchor only; firmware routine unresolved
+front_panel_keypad_hardware_observed,,,,front-panel photos show numeric/action keypad present,hardware_observed,high,,,,hardware anchor only; key scan mapping unresolved
+front_panel_led_hardware_observed,,,,front-panel photos show labeled status LED bank present,hardware_observed,high,,,,hardware anchor only; LED bit mapping unresolved
+ui_text_search_anchor,,,,hardware-observed strings used as firmware search anchors (АДР./МОДУЛЬ/ТИП/НОРМА),static_code,medium,,,,no direct cp1251/koi8-r/ascii translit text match in scanned DKS firmware
