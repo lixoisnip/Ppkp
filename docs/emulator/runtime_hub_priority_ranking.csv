@@ -1,0 +1,13 @@
+rank,function_addr,reason,callers_count,observed_in_emulation,has_xdata_activity,has_sfr_activity,has_code_table_activity,has_uart_candidate,has_display_keypad_candidate,reachable_from_4100_static,priority,next_recommended_action
+1,0x55AD,fan-in=0;xw=41;cr=24;sfrw=599,0,yes,yes,yes,yes,no,no,no,high,deeper emulation with caller context
+2,0x5602,fan-in=0;xw=37;cr=23;sfrw=540,0,yes,yes,yes,yes,no,no,no,high,deeper emulation with caller context
+3,0x5A7F,fan-in=142;xw=0;cr=0;sfrw=5,142,yes,no,yes,no,no,no,no,high,deeper emulation with caller context
+4,0x5935,fan-in=20;xw=0;cr=1;sfrw=7,20,yes,yes,yes,yes,no,no,no,high,deeper emulation with caller context
+5,0x597F,fan-in=17;xw=0;cr=1;sfrw=2,17,yes,no,yes,yes,no,no,no,medium,static decode + targeted caller seed
+6,0x7922,fan-in=9;xw=0;cr=0;sfrw=2,9,yes,yes,yes,no,no,no,no,medium,static decode + targeted caller seed
+7,0x737C,fan-in=1;xw=0;cr=0;sfrw=22,1,yes,yes,yes,no,no,no,no,medium,static decode + targeted caller seed
+8,0x84A6,fan-in=2;xw=0;cr=0;sfrw=9,2,yes,yes,yes,no,no,no,no,medium,static decode + targeted caller seed
+9,0x6833,fan-in=1;xw=0;cr=1;sfrw=10,1,yes,yes,yes,yes,no,no,no,low,defer until context found
+10,0x613C,fan-in=2;xw=3;cr=0;sfrw=3,2,yes,yes,yes,no,no,no,no,low,defer until context found
+11,0x728A,fan-in=1;xw=0;cr=0;sfrw=2,1,yes,yes,yes,no,no,no,no,low,defer until context found
+12,0x7DC2,fan-in=0;xw=0;cr=0;sfrw=4,0,yes,no,yes,no,no,no,no,low,defer until context found
