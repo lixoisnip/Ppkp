@@ -48,3 +48,32 @@
 - Prioritized next path: runtime hub emulation with caller-context reconstruction first, then config-source reconstruction from upstream callers; static serial path search continues; bench capture after memory-mapped serial candidate isolation.
 - Continue 0x4100 seed brute force? No, not recommended now (except one evidence-driven follow-up if a boot candidate yields direct low-XDATA config-write evidence).
 - Updated understanding estimate: boot/config init path 35%, runtime/event hub map 60%, serial transport attribution 20%.
+
+## Module/output configuration evidence
+
+### Field observation summary
+- Field reports indicate interchangeable hardware modules across приборs without module reflashing.
+- Reported behavior differs by firmware context: one observed setup drives only one relay on fire, another drives 8 outputs on fire.
+- This pattern supports firmware/config-side behavior selection rather than module-internal fixed behavior.
+
+### Why interchangeability points to прибор firmware/config
+- If module hardware is transferable and remains functional after moving between приборs, persistent module-local programming is less likely to explain major fanout differences.
+- A firmware-level object/module/output table (or action dispatch logic) in PZU is a conservative explanation for 1-relay vs 8-output behavior differences.
+- Evidence remains correlation-level; exact table format and runtime gating are still unresolved.
+
+### Candidate tables found
+- Code table candidate at `0x5984..0x598B`: exact `01 02 04 08 10 20 40 80` bitmask helper sequence in DKS images (`90CYE03_19_DKS.PZU`, `90CYE04_19_DKS.PZU`).
+- Runtime XDATA candidate cluster at `0x36ED..0x36FF`, especially `0x36F2..0x36F9` written as an 8-slot sequence by `0x55AD/0x5602` compact traces.
+- Global/control candidate bytes around `0x31BF`, plus object/event state candidate range `0x30EA..0x30F9`.
+- Broader object/status candidate range `0x36D3..0x36D9` referenced by multiple runtime hubs and downstream handlers.
+
+### What remains unknown
+- Exact semantic mapping of fields to loop/module/address/type/status/output numbers.
+- Direct physical relay-to-bit mapping and definitive fire-event mapping without bench confirmation.
+- Whether low-XDATA boot range `0x0000..0x03FF` is materially involved in this specific behavior split (no diff found among compared DKS images).
+- Whether non-DKS `_2 v2_1` images are address-aligned/comparable to DKS at these offsets.
+
+### Next best step
+1. Compare against an external ХВО PZU (if available) using the same candidate ranges and function neighborhoods.
+2. Run bench capture to correlate real fire events with candidate XDATA transitions (`0x36F2..0x36F9`, `0x36ED..0x36FF`, `0x31BF`).
+3. Perform targeted emulation with richer caller context around `0x55AD/0x5602/0x5935/0x5A7F` to stabilize record-field interpretation.
