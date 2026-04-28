@@ -1,0 +1,10 @@
+firmware_file,reference_type,pc_or_addr,raw_bytes,decoded_context,target,confidence,evidence_level,notes
+90CYE03_19_DKS.PZU,reset_ljmp,0x4000,02 41 00,LJMP 0x4100,0x4100,high,static_code,reset vector to 0x4100
+90CYE03_19_DKS.PZU,unknown,0x4006,02 41 76,LJMP 0x4176,0x4176,high,static_code,vector_ljmp_to_0x4176
+90CYE03_19_DKS.PZU,unknown,0x400C,02 41 D0,LJMP 0x41D0,0x41D0,high,static_code,vector_ljmp_to_0x41D0
+90CYE03_19_DKS.PZU,unknown,0x4012,02 49 2E,LJMP 0x492E,0x492E,high,static_code,vector_ljmp_to_0x492E
+90CYE03_19_DKS.PZU,unknown,0x4018,02 49 54,LJMP 0x4954,0x4954,high,static_code,vector_ljmp_to_0x4954
+90CYE03_19_DKS.PZU,unknown,0x401E,02 49 7A,LJMP 0x497A,0x497A,high,static_code,vector_ljmp_to_0x497A
+90CYE03_19_DKS.PZU,false_positive,0x4001,41 00,part of prior LJMP/LCALL immediate,0x4100,high,static_code,already accounted as direct jump immediate bytes
+90CYE03_19_DKS.PZU,unknown,summary,,direct caller presence in visible 0x4000..0xBFFF,0x4100,high,static_code,no direct LCALL/AJMP/ACALL/LJMP caller found
+90CYE03_19_DKS.PZU,unknown,summary,,is 0x4000->0x4100 only confirmed reference,0x4100,high,static_code,"yes, only confirmed explicit 0x4100-targeting reference is reset LJMP at 0x4000"
