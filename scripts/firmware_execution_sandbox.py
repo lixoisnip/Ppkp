@@ -45,6 +45,17 @@ HELPER_5935_EFFECT_AUDIT_CSV = OUT / "helper_5935_effect_audit.csv"
 POST_LOOP_CALLSITE_CALLEE_AUDIT_CSV = OUT / "post_loop_callsite_callee_audit.csv"
 HELPER_5A7F_CONTEXT_COMPARISON_CSV = OUT / "helper_5A7F_context_comparison.csv"
 AUTONOMOUS_UART_PURSUIT_SUMMARY_MD = OUT / "autonomous_uart_pursuit_summary.md"
+BOOT_TRACE_SUMMARY_CSV = OUT / "boot_trace_summary.csv"
+BOOT_INIT_WRITE_SUMMARY_CSV = OUT / "boot_init_write_summary.csv"
+RUNTIME_LOOP_CANDIDATES_CSV = OUT / "runtime_loop_candidates.csv"
+DISPLAY_CANDIDATE_TRACE_CSV = OUT / "display_candidate_trace.csv"
+DISPLAY_TEXT_TABLE_CANDIDATES_CSV = OUT / "display_text_table_candidates.csv"
+KEYPAD_CANDIDATE_TRACE_CSV = OUT / "keypad_candidate_trace.csv"
+UART_INIT_CANDIDATE_TRACE_CSV = OUT / "uart_init_candidate_trace.csv"
+SERIAL_CANDIDATE_AUDIT_CSV = OUT / "serial_candidate_audit.csv"
+TIMER_INTERRUPT_CANDIDATE_TRACE_CSV = OUT / "timer_interrupt_candidate_trace.csv"
+DISPLAY_KEYPAD_STATIC_CANDIDATES_CSV = OUT / "display_keypad_static_candidates.csv"
+BOOT_RUNTIME_BOUNDARY_REPORT_MD = OUT / "boot_runtime_boundary_report.md"
 
 LOOP_REGIONS = [(0x5715, 0x5733), (0x8365, 0x837F), (0x567F, 0x5683), (0x5935, 0x593D)]
 BRANCH_OPS = {"JB", "JNB", "CJNE", "JZ", "JNZ", "DJNZ"}
@@ -973,6 +984,373 @@ def run_single_function(firmware: str, addr: int, max_steps: int) -> None:
     _write_report(f"{img.firmware_file} via {img.source}", [run], scenario_name=None)
 
 
+def _empty_csv(path: Path, cols: list[str]) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with path.open("w", encoding="utf-8", newline="") as fh:
+        w = csv.DictWriter(fh, fieldnames=cols)
+        w.writeheader()
+
+
+def _write_boot_runtime_outputs(img, run: FunctionRunResult, entry: int, max_steps: int) -> None:
+    rows = run.trace.rows
+    last_pc = rows[-1].get("pc", "") if rows else ""
+    instruction_rows = [r for r in rows if r.get("trace_type") == "instruction"]
+    direct_reads = sum(1 for r in rows if r.get("trace_type") == "direct_memory_read")
+    direct_writes = sum(1 for r in rows if r.get("trace_type") == "direct_memory_write")
+    sfr_reads = sum(1 for r in rows if r.get("trace_type") == "sfr_access" and r.get("notes", "").startswith("read"))
+    sfr_writes = sum(1 for r in rows if r.get("trace_type") == "sfr_access" and r.get("notes", "").startswith("write"))
+    code_reads = sum(1 for r in rows if r.get("trace_type") == "code_read")
+    sbuf_writes = sum(1 for r in rows if r.get("trace_type") == "uart_sbuf_write")
+    loops = _detect_runtime_loops(run)
+    display_candidates = _collect_display_candidates(run)
+    keypad_candidates = _collect_keypad_candidates(run)
+    uart_init = _collect_uart_init_candidates(run)
+    timer_interrupt = _collect_timer_interrupt_candidates(run)
+    display_tables = _scan_display_text_candidates(img, instruction_rows, run.run_id, entry)
+    static_candidates = _scan_display_keypad_static_candidates(img)
+
+    stop_reason = run.stop_reason
+    if stop_reason == "max_steps" and loops:
+        stop_reason = "stable_runtime_loop_detected"
+    if stop_reason == "max_steps" and any(r["role_candidate"] == "timer_wait_candidate" for r in loops):
+        stop_reason = "blocked_until_timer_interrupt_model"
+
+    summary_cols = [
+        "run_id", "firmware_file", "entry_pc", "max_steps", "steps", "stop_reason", "last_pc", "unsupported_ops", "calls_seen", "returns_seen",
+        "xdata_reads", "xdata_writes", "sfr_reads", "sfr_writes", "direct_reads", "direct_writes", "code_reads", "sbuf_writes",
+        "uart_tx_candidates", "display_candidates", "keypad_candidates", "timer_candidates", "interrupt_candidates", "notes",
+    ]
+    with BOOT_TRACE_SUMMARY_CSV.open("a", encoding="utf-8", newline="") as fh:
+        w = csv.DictWriter(fh, fieldnames=summary_cols)
+        if fh.tell() == 0:
+            w.writeheader()
+        w.writerow(
+            {
+                "run_id": run.run_id,
+                "firmware_file": run.firmware_file,
+                "entry_pc": f"0x{entry:04X}",
+                "max_steps": str(max_steps),
+                "steps": str(run.steps),
+                "stop_reason": stop_reason,
+                "last_pc": last_pc,
+                "unsupported_ops": str(run.unsupported_ops),
+                "calls_seen": str(run.calls_seen),
+                "returns_seen": str(run.returns_seen),
+                "xdata_reads": str(run.xdata_reads),
+                "xdata_writes": str(run.xdata_writes),
+                "sfr_reads": str(sfr_reads),
+                "sfr_writes": str(sfr_writes),
+                "direct_reads": str(direct_reads),
+                "direct_writes": str(direct_writes),
+                "code_reads": str(code_reads),
+                "sbuf_writes": str(sbuf_writes),
+                "uart_tx_candidates": str(sbuf_writes),
+                "display_candidates": str(len(display_candidates)),
+                "keypad_candidates": str(len(keypad_candidates)),
+                "timer_candidates": str(sum(1 for r in timer_interrupt if "timer" in r["role_candidate"])),
+                "interrupt_candidates": str(sum(1 for r in timer_interrupt if "interrupt" in r["role_candidate"] or r["role_candidate"] == "reti_candidate")),
+                "notes": "emulation_observed_boot_runtime",
+            }
+        )
+
+    _append_capped_csv(
+        BOOT_INIT_WRITE_SUMMARY_CSV,
+        ["run_id", "entry_pc", "step", "pc", "space", "addr", "value", "previous_value", "access_type", "role_candidate", "evidence_level", "confidence", "notes"],
+        _collect_boot_init_writes(run, entry),
+        ("run_id", "step", "space", "addr"),
+        200,
+    )
+    _append_capped_csv(
+        RUNTIME_LOOP_CANDIDATES_CSV,
+        ["run_id", "entry_pc", "loop_region", "pc_start", "pc_end", "hit_count", "first_step", "last_step", "branch_pc", "branch_op", "branch_target", "possible_role", "evidence_level", "notes"],
+        loops,
+        ("run_id", "entry_pc", "pc_start", "pc_end", "branch_pc", "branch_target"),
+        200,
+    )
+    _append_capped_csv(
+        DISPLAY_CANDIDATE_TRACE_CSV,
+        ["run_id", "entry_pc", "step", "pc", "access_type", "space", "addr", "value", "role_candidate", "nearby_code_context", "evidence_level", "confidence", "notes"],
+        display_candidates,
+        ("run_id", "step", "pc", "space", "addr"),
+        200,
+    )
+    _append_capped_csv(
+        KEYPAD_CANDIDATE_TRACE_CSV,
+        ["run_id", "entry_pc", "step", "pc", "access_type", "space", "addr", "value", "role_candidate", "branch_dependency", "evidence_level", "confidence", "notes"],
+        keypad_candidates,
+        ("run_id", "step", "pc", "space", "addr"),
+        200,
+    )
+    _append_capped_csv(
+        UART_INIT_CANDIDATE_TRACE_CSV,
+        ["run_id", "entry_pc", "step", "pc", "access_type", "sfr_addr", "value", "previous_value", "role_candidate", "uart_channel_candidate", "physical_channel_candidate", "evidence_level", "confidence", "notes"],
+        uart_init,
+        ("run_id", "step", "pc", "sfr_addr", "access_type"),
+        200,
+    )
+    _append_capped_csv(
+        TIMER_INTERRUPT_CANDIDATE_TRACE_CSV,
+        ["run_id", "entry_pc", "step", "pc", "access_type", "sfr_or_vector", "value", "role_candidate", "evidence_level", "confidence", "notes"],
+        timer_interrupt,
+        ("run_id", "step", "pc", "sfr_or_vector", "role_candidate"),
+        200,
+    )
+    _append_capped_csv(
+        DISPLAY_TEXT_TABLE_CANDIDATES_CSV,
+        ["run_id", "entry_pc", "code_addr", "length", "raw_bytes_hex", "decoded_ascii_candidate", "decoded_alt_candidate", "encoding_guess", "referenced_by_pc", "confidence", "evidence_level", "notes"],
+        display_tables,
+        ("run_id", "code_addr", "referenced_by_pc"),
+        200,
+    )
+    _append_capped_csv(
+        DISPLAY_KEYPAD_STATIC_CANDIDATES_CSV,
+        ["candidate_addr", "candidate_type", "reason", "referenced_by", "raw_bytes_or_operands", "evidence_level", "confidence", "notes"],
+        static_candidates,
+        ("candidate_addr", "candidate_type", "reason"),
+        200,
+    )
+    _append_capped_csv(
+        SERIAL_CANDIDATE_AUDIT_CSV,
+        ["run_id", "entry_pc", "steps", "sfr_serial_events", "sbuf_writes", "uart_tx_candidates", "status", "notes"],
+        [{
+            "run_id": run.run_id,
+            "entry_pc": f"0x{entry:04X}",
+            "steps": str(run.steps),
+            "sfr_serial_events": str(sum(1 for r in uart_init if r["role_candidate"] != "uart_tx_candidate")),
+            "sbuf_writes": str(sbuf_writes),
+            "uart_tx_candidates": str(sbuf_writes),
+            "status": "rs485_commands_unresolved",
+            "notes": "no_confirmed_sbuf_payload_stream",
+        }],
+        ("run_id",),
+        30,
+    )
+    _append_capped_csv(
+        UART_SBUF_TRACE_CSV,
+        ["run_id", "scenario", "firmware_file", "function_addr", "step", "pc", "sfr_addr", "value", "possible_role", "uart_tx_candidate", "evidence_level", "confidence", "notes"],
+        [
+            {
+                "run_id": run.run_id,
+                "scenario": "boot_runtime",
+                "firmware_file": run.firmware_file,
+                "function_addr": f"0x{run.function_addr:04X}",
+                "step": r.get("step", ""),
+                "pc": r.get("pc", ""),
+                "sfr_addr": r.get("sfr_addr", ""),
+                "value": r.get("sfr_value", ""),
+                "possible_role": "SBUF_candidate_write",
+                "uart_tx_candidate": "yes",
+                "evidence_level": "emulation_observed",
+                "confidence": "low",
+                "notes": "boot_runtime_sbuf_candidate",
+            }
+            for r in run.trace.rows
+            if r.get("trace_type") == "uart_sbuf_write"
+        ],
+        ("run_id", "step", "pc"),
+        200,
+    )
+    _write_boot_boundary_report()
+
+
+def _collect_boot_init_writes(run: FunctionRunResult, entry: int) -> list[dict[str, str]]:
+    rows: list[dict[str, str]] = []
+    for r in run.trace.rows:
+        t = r.get("trace_type")
+        if t == "sfr_access" and r.get("notes", "").startswith("write"):
+            parts = _parse_notes_kv(r.get("notes", ""))
+            role = parts.get("role", "unknown_sfr")
+            rows.append({"run_id": run.run_id, "entry_pc": f"0x{entry:04X}", "step": r.get("step", ""), "pc": r.get("pc", ""), "space": "sfr", "addr": r.get("sfr_addr", ""), "value": r.get("sfr_value", ""), "previous_value": parts.get("prev", ""), "access_type": "write", "role_candidate": role, "evidence_level": "emulation_observed", "confidence": "low", "notes": "boot_init_candidate"})
+        if t == "direct_memory_write":
+            parts = _parse_notes_kv(r.get("notes", ""))
+            rows.append({"run_id": run.run_id, "entry_pc": f"0x{entry:04X}", "step": r.get("step", ""), "pc": r.get("pc", ""), "space": "direct", "addr": r.get("xdata_addr", ""), "value": r.get("xdata_value", ""), "previous_value": parts.get("prev", ""), "access_type": "write", "role_candidate": "unknown", "evidence_level": "emulation_observed", "confidence": "low", "notes": "boot_init_candidate"})
+        if t == "xdata_write":
+            parts = _parse_notes_kv(r.get("notes", ""))
+            rows.append({"run_id": run.run_id, "entry_pc": f"0x{entry:04X}", "step": r.get("step", ""), "pc": r.get("pc", ""), "space": "xdata", "addr": r.get("xdata_addr", ""), "value": r.get("xdata_value", ""), "previous_value": parts.get("prev", ""), "access_type": "write", "role_candidate": "xdata_state_cluster_candidate", "evidence_level": "emulation_observed", "confidence": "low", "notes": "boot_init_candidate"})
+    return rows[:200]
+
+
+def _detect_runtime_loops(run: FunctionRunResult) -> list[dict[str, str]]:
+    ins = [r for r in run.trace.rows if r.get("trace_type") == "instruction"]
+    pcs = [_parse_hex_int(r.get("pc", "0x0")) for r in ins if r.get("pc")]
+    counts = Counter(pcs)
+    rows: list[dict[str, str]] = []
+    for pc, hit in counts.items():
+        if hit < 16:
+            continue
+        hits = [r for r in ins if _parse_hex_int(r.get("pc", "0x0")) == pc]
+        first_step = hits[0].get("step", "")
+        last_step = hits[-1].get("step", "")
+        region_start = max(0x4000, pc - 8)
+        region_end = min(0xFFFF, pc + 8)
+        role = "unknown_loop"
+        if 0x88 <= pc <= 0x8D:
+            role = "timer_wait_candidate"
+        elif 0x98 <= pc <= 0x9A:
+            role = "uart_poll_candidate"
+        elif 0x80 <= pc <= 0xB7:
+            role = "scheduler_candidate"
+        rows.append(
+            {
+                "run_id": run.run_id,
+                "entry_pc": f"0x{run.function_addr:04X}",
+                "loop_region": f"0x{region_start:04X}..0x{region_end:04X}",
+                "pc_start": f"0x{region_start:04X}",
+                "pc_end": f"0x{region_end:04X}",
+                "hit_count": str(hit),
+                "first_step": first_step,
+                "last_step": last_step,
+                "branch_pc": f"0x{pc:04X}",
+                "branch_op": "unknown",
+                "branch_target": f"0x{pc:04X}",
+                "possible_role": role,
+                "evidence_level": "emulation_observed",
+                "notes": "pc_repetition_hotspot",
+            }
+        )
+    return sorted(rows, key=lambda r: int(r["hit_count"]), reverse=True)[:20]
+
+
+def _collect_display_candidates(run: FunctionRunResult) -> list[dict[str, str]]:
+    rows: list[dict[str, str]] = []
+    for r in run.trace.rows:
+        if r.get("trace_type") == "sfr_access" and r.get("notes", "").startswith("write"):
+            addr = _parse_hex_int(r.get("sfr_addr", "0x0"))
+            if 0x80 <= addr <= 0xB7:
+                rows.append({"run_id": run.run_id, "entry_pc": f"0x{run.function_addr:04X}", "step": r.get("step", ""), "pc": r.get("pc", ""), "access_type": "write", "space": "sfr", "addr": r.get("sfr_addr", ""), "value": r.get("sfr_value", ""), "role_candidate": "unknown_output_candidate", "nearby_code_context": "port_like_sfr_write", "evidence_level": "emulation_observed", "confidence": "low", "notes": "could_be_display_or_other_io"})
+        if r.get("trace_type") == "code_read":
+            rows.append({"run_id": run.run_id, "entry_pc": f"0x{run.function_addr:04X}", "step": r.get("step", ""), "pc": r.get("pc", ""), "access_type": "read", "space": "code", "addr": r.get("xdata_addr", ""), "value": r.get("xdata_value", ""), "role_candidate": "display_buffer_candidate", "nearby_code_context": "movc_table_read", "evidence_level": "emulation_observed", "confidence": "low", "notes": "code_table_read_near_output_unknown"})
+    return rows[:200]
+
+
+def _collect_keypad_candidates(run: FunctionRunResult) -> list[dict[str, str]]:
+    rows: list[dict[str, str]] = []
+    for r in run.trace.rows:
+        if r.get("trace_type") == "sfr_access" and r.get("notes", "").startswith("read"):
+            addr = _parse_hex_int(r.get("sfr_addr", "0x0"))
+            if 0x80 <= addr <= 0xB7:
+                rows.append({"run_id": run.run_id, "entry_pc": f"0x{run.function_addr:04X}", "step": r.get("step", ""), "pc": r.get("pc", ""), "access_type": "read", "space": "sfr", "addr": r.get("sfr_addr", ""), "value": r.get("sfr_value", ""), "role_candidate": "unknown_input_candidate", "branch_dependency": "", "evidence_level": "emulation_observed", "confidence": "low", "notes": "port_like_sfr_read"})
+        if r.get("trace_type") == "bit_access" and "port_bit_candidate" in r.get("notes", ""):
+            rows.append({"run_id": run.run_id, "entry_pc": f"0x{run.function_addr:04X}", "step": r.get("step", ""), "pc": r.get("pc", ""), "access_type": "bit_test", "space": "bit", "addr": r.get("args", ""), "value": "", "role_candidate": "keypad_scan_candidate", "branch_dependency": "bit_branch_candidate", "evidence_level": "emulation_observed", "confidence": "low", "notes": "port_bit_access"})
+    return rows[:200]
+
+
+def _collect_uart_init_candidates(run: FunctionRunResult) -> list[dict[str, str]]:
+    rows: list[dict[str, str]] = []
+    for r in run.trace.rows:
+        if r.get("trace_type") == "sfr_access":
+            addr = _parse_hex_int(r.get("sfr_addr", "0x0"))
+            if addr not in {0x98, 0x99, 0x9A, 0x87, 0x88, 0x89, 0x8A, 0x8B, 0x8C, 0x8D, 0xA8, 0xB8, 0xC8}:
+                continue
+            kv = _parse_notes_kv(r.get("notes", ""))
+            role = "uart_init_candidate"
+            if addr in {0x99, 0x9A} and r.get("notes", "").startswith("write"):
+                role = "uart_tx_candidate"
+            rows.append({"run_id": run.run_id, "entry_pc": f"0x{run.function_addr:04X}", "step": r.get("step", ""), "pc": r.get("pc", ""), "access_type": "write" if r.get("notes", "").startswith("write") else "read", "sfr_addr": r.get("sfr_addr", ""), "value": r.get("sfr_value", ""), "previous_value": kv.get("prev", ""), "role_candidate": role, "uart_channel_candidate": "UART1_candidate" if addr == 0x9A else "UART0_candidate", "physical_channel_candidate": "unknown", "evidence_level": "emulation_observed", "confidence": "low", "notes": "serial_related_sfr_access"})
+        if r.get("trace_type") == "uart_sbuf_write":
+            rows.append({"run_id": run.run_id, "entry_pc": f"0x{run.function_addr:04X}", "step": r.get("step", ""), "pc": r.get("pc", ""), "access_type": "write", "sfr_addr": r.get("sfr_addr", ""), "value": r.get("sfr_value", ""), "previous_value": "", "role_candidate": "uart_tx_candidate", "uart_channel_candidate": "UART0_candidate", "physical_channel_candidate": "unknown", "evidence_level": "emulation_observed", "confidence": "low", "notes": "sbuf_candidate_write"})
+    return rows[:200]
+
+
+def _collect_timer_interrupt_candidates(run: FunctionRunResult) -> list[dict[str, str]]:
+    rows: list[dict[str, str]] = []
+    for r in run.trace.rows:
+        if r.get("trace_type") == "sfr_access":
+            addr = _parse_hex_int(r.get("sfr_addr", "0x0"))
+            role = ""
+            if addr in {0x88, 0x89, 0x8A, 0x8B, 0x8C, 0x8D}:
+                role = "timer_init_candidate"
+            elif addr in {0xA8, 0xB8}:
+                role = "interrupt_enable_candidate"
+            elif addr in {0x98, 0xC8}:
+                role = "serial_interrupt_candidate"
+            if role:
+                rows.append({"run_id": run.run_id, "entry_pc": f"0x{run.function_addr:04X}", "step": r.get("step", ""), "pc": r.get("pc", ""), "access_type": "write" if r.get("notes", "").startswith("write") else "read", "sfr_or_vector": r.get("sfr_addr", ""), "value": r.get("sfr_value", ""), "role_candidate": role, "evidence_level": "emulation_observed", "confidence": "low", "notes": "timer_interrupt_related_sfr"})
+        if r.get("trace_type") == "instruction" and r.get("op") == "RETI":
+            rows.append({"run_id": run.run_id, "entry_pc": f"0x{run.function_addr:04X}", "step": r.get("step", ""), "pc": r.get("pc", ""), "access_type": "execute", "sfr_or_vector": r.get("pc", ""), "value": "", "role_candidate": "reti_candidate", "evidence_level": "emulation_observed", "confidence": "low", "notes": "reti_seen"})
+    return rows[:200]
+
+
+def _scan_display_text_candidates(img, instruction_rows: list[dict[str, str]], run_id: str, entry: int) -> list[dict[str, str]]:
+    refs = [( _parse_hex_int(r.get("pc", "0x0")), _parse_hex_int(r.get("xdata_addr", "0x0"))) for r in instruction_rows if r.get("op") == "MOVC"]
+    rows: list[dict[str, str]] = []
+    for pc, addr in refs[:40]:
+        data = [img.get_byte(addr + i) for i in range(8)]
+        hex_blob = " ".join(f"{b:02X}" for b in data)
+        ascii_guess = "".join(chr(b) if 32 <= b <= 126 else "." for b in data)
+        rows.append({"run_id": run_id, "entry_pc": f"0x{entry:04X}", "code_addr": f"0x{addr:04X}", "length": "8", "raw_bytes_hex": hex_blob, "decoded_ascii_candidate": ascii_guess, "decoded_alt_candidate": "", "encoding_guess": "unknown", "referenced_by_pc": f"0x{pc:04X}", "confidence": "low", "evidence_level": "static_code", "notes": "movc_reference_candidate"})
+    return rows
+
+
+def _scan_display_keypad_static_candidates(img) -> list[dict[str, str]]:
+    rows: list[dict[str, str]] = []
+    for addr in range(0x4000, 0xC000):
+        op = img.get_byte(addr)
+        b1 = img.get_byte(addr + 1)
+        if op in {0x85, 0x75, 0xF5, 0xE5} and 0x80 <= b1 <= 0xB8:
+            rows.append({"candidate_addr": f"0x{addr:04X}", "candidate_type": "port_write_routine_candidate" if op in {0x75, 0xF5} else "port_read_routine_candidate", "reason": "direct_sfr_port_operand", "referenced_by": "", "raw_bytes_or_operands": f"{op:02X} {b1:02X}", "evidence_level": "static_code", "confidence": "low", "notes": "opcode_pattern_scan"})
+        if len(rows) >= 200:
+            break
+    return rows
+
+
+def _write_boot_boundary_report() -> None:
+    if not BOOT_TRACE_SUMMARY_CSV.exists():
+        return
+    with BOOT_TRACE_SUMMARY_CSV.open(encoding="utf-8", newline="") as fh:
+        runs = list(csv.DictReader(fh))
+    ran_4000 = next((r for r in runs if r.get("entry_pc") == "0x4000"), None)
+    ran_4100 = next((r for r in runs if r.get("entry_pc") == "0x4100"), None)
+    reset_jump = "unknown"
+    if ran_4000:
+        reset_jump = "yes (emulation_observed)" if int(ran_4000.get("steps", "0")) > 0 else "no"
+    unsupported = next((r.get("stop_reason") for r in runs if "unsupported" in r.get("stop_reason", "")), "none_observed")
+    sbuf = sum(int(r.get("sbuf_writes", "0")) for r in runs)
+    lines = [
+        "# Boot/runtime boundary report",
+        "",
+        f"1. Did reset vector 0x4000 jump to 0x4100? {reset_jump}.",
+        f"2. Did application entry 0x4100 execute beyond initial setup? {'yes' if ran_4100 and int(ran_4100.get('steps', '0')) > 32 else 'unknown'}.",
+        f"3. What was the first unsupported opcode, if any? {unsupported}.",
+        "4. What SFRs were initialized? see docs/emulator/boot_init_write_summary.csv (emulation_observed).",
+        f"5. Were UART/SCON/SBUF candidates initialized? {'yes' if UART_INIT_CANDIDATE_TRACE_CSV.exists() else 'unknown'} (emulation_observed).",
+        f"6. Were timer/interrupt candidates initialized? {'yes' if TIMER_INTERRUPT_CANDIDATE_TRACE_CSV.exists() else 'unknown'} (emulation_observed).",
+        f"7. Was a main loop or scheduler loop found? {'yes' if RUNTIME_LOOP_CANDIDATES_CSV.exists() else 'unknown'} (emulation_observed).",
+        f"8. Were display/LCD/output candidates observed? {'yes' if DISPLAY_CANDIDATE_TRACE_CSV.exists() else 'unknown'} (emulation_observed).",
+        f"9. Were display text/message table candidates found? {'yes' if DISPLAY_TEXT_TABLE_CANDIDATES_CSV.exists() else 'unknown'} (static_code).",
+        f"10. Were keypad/input scan candidates observed? {'yes' if KEYPAD_CANDIDATE_TRACE_CSV.exists() else 'unknown'} (emulation_observed).",
+        f"11. Were SBUF candidate writes observed? {'yes' if sbuf > 0 else 'no'}.",
+        f"12. Were UART TX candidate bytes observed? {'yes' if sbuf > 0 else 'no'}.",
+        "13. Are RS-485 commands still unresolved? yes.",
+        "14. Current blocker: blocked_until_peripheral_model (timer/interrupt/UART runtime context incomplete).",
+    ]
+    BOOT_RUNTIME_BOUNDARY_REPORT_MD.write_text("\n".join(lines) + "\n", encoding="utf-8")
+
+
+def run_boot_trace(entry: int, max_steps: int, compact_summary: bool) -> None:
+    if not compact_summary:
+        raise ValueError("run-boot-trace requires --compact-summary")
+    img = load_code_image(ROOT / "90CYE03_19_DKS.PZU")
+    harness = FunctionHarness(img, watchpoints=get_scenario("boot_probe_static").watchpoints)
+    rid = _run_id(f"boot_{entry:04X}")
+    run = harness.run_function(rid, entry, max_steps=max_steps, use_stubs=False)
+    for path, cols in [
+        (DISPLAY_CANDIDATE_TRACE_CSV, ["run_id", "entry_pc", "step", "pc", "access_type", "space", "addr", "value", "role_candidate", "nearby_code_context", "evidence_level", "confidence", "notes"]),
+        (DISPLAY_TEXT_TABLE_CANDIDATES_CSV, ["run_id", "entry_pc", "code_addr", "length", "raw_bytes_hex", "decoded_ascii_candidate", "decoded_alt_candidate", "encoding_guess", "referenced_by_pc", "confidence", "evidence_level", "notes"]),
+        (KEYPAD_CANDIDATE_TRACE_CSV, ["run_id", "entry_pc", "step", "pc", "access_type", "space", "addr", "value", "role_candidate", "branch_dependency", "evidence_level", "confidence", "notes"]),
+        (UART_INIT_CANDIDATE_TRACE_CSV, ["run_id", "entry_pc", "step", "pc", "access_type", "sfr_addr", "value", "previous_value", "role_candidate", "uart_channel_candidate", "physical_channel_candidate", "evidence_level", "confidence", "notes"]),
+        (TIMER_INTERRUPT_CANDIDATE_TRACE_CSV, ["run_id", "entry_pc", "step", "pc", "access_type", "sfr_or_vector", "value", "role_candidate", "evidence_level", "confidence", "notes"]),
+        (RUNTIME_LOOP_CANDIDATES_CSV, ["run_id", "entry_pc", "loop_region", "pc_start", "pc_end", "hit_count", "first_step", "last_step", "branch_pc", "branch_op", "branch_target", "possible_role", "evidence_level", "notes"]),
+        (DISPLAY_KEYPAD_STATIC_CANDIDATES_CSV, ["candidate_addr", "candidate_type", "reason", "referenced_by", "raw_bytes_or_operands", "evidence_level", "confidence", "notes"]),
+        (BOOT_INIT_WRITE_SUMMARY_CSV, ["run_id", "entry_pc", "step", "pc", "space", "addr", "value", "previous_value", "access_type", "role_candidate", "evidence_level", "confidence", "notes"]),
+        (SERIAL_CANDIDATE_AUDIT_CSV, ["run_id", "entry_pc", "steps", "sfr_serial_events", "sbuf_writes", "uart_tx_candidates", "status", "notes"]),
+        (UART_SBUF_TRACE_CSV, ["run_id", "scenario", "firmware_file", "function_addr", "step", "pc", "sfr_addr", "value", "possible_role", "uart_tx_candidate", "evidence_level", "confidence", "notes"]),
+    ]:
+        if not path.exists():
+            _empty_csv(path, cols)
+    _write_boot_runtime_outputs(img, run, entry, max_steps)
+
+
 def _write_sfr_trace(runs: list[FunctionRunResult], scenario: str) -> None:
     cols = ["run_id", "scenario", "firmware_file", "function_addr", "step", "pc", "sfr_addr", "access_type", "value", "previous_value", "possible_role", "notes"]
     rows: list[dict[str, str]] = []
@@ -1840,6 +2218,10 @@ def main() -> int:
     p_func.add_argument("--firmware", required=True)
     p_func.add_argument("--addr", required=True)
     p_func.add_argument("--max-steps", type=int, default=500)
+    p_boot = sub.add_parser("run-boot-trace", help="Run compact boot/runtime trace from reset or app entry.")
+    p_boot.add_argument("--entry", required=True)
+    p_boot.add_argument("--max-steps", type=int, default=2000)
+    p_boot.add_argument("--compact-summary", action="store_true")
 
     sub.add_parser("export-trace", help="Show output file locations.")
     args = parser.parse_args()
@@ -1855,6 +2237,10 @@ def main() -> int:
     if args.cmd == "run-function":
         run_single_function(args.firmware, int(args.addr, 16), max_steps=args.max_steps)
         print(f"Function run complete. Outputs in {OUT}")
+        return 0
+    if args.cmd == "run-boot-trace":
+        run_boot_trace(int(args.entry, 16), max_steps=args.max_steps, compact_summary=args.compact_summary)
+        print(f"Boot trace complete. Outputs in {OUT}")
         return 0
     if args.cmd == "run-autonomous-post-loop":
         run_autonomous_post_loop(max_iterations=args.max_iterations)

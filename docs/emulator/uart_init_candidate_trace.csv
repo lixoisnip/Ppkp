@@ -1,0 +1,1 @@
+run_id,entry_pc,step,pc,access_type,sfr_addr,value,previous_value,role_candidate,uart_channel_candidate,physical_channel_candidate,evidence_level,confidence,notes

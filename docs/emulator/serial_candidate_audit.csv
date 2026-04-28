@@ -1,0 +1,4 @@
+run_id,entry_pc,steps,sfr_serial_events,sbuf_writes,uart_tx_candidates,status,notes
+boot_4000_20260428T080929Z,0x4000,2000,0,0,0,rs485_commands_unresolved,no_confirmed_sbuf_payload_stream
+boot_4100_20260428T080932Z,0x4100,2000,0,0,0,rs485_commands_unresolved,no_confirmed_sbuf_payload_stream
+boot_4100_20260428T080933Z,0x4100,10000,0,0,0,rs485_commands_unresolved,no_confirmed_sbuf_payload_stream
