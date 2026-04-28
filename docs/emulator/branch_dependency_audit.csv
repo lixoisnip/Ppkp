@@ -1,0 +1,41 @@
+scenario,function_addr,branch_pc,op,condition_source,condition_value,target_pc,taken,count,depends_on_seed_addr,depends_on_seed_value,confidence,notes
+packet_bridge_seeded_context_base,0x55AD,0x5683,DJNZ,R3,,0x567F,yes,47,,,low,focus_region_branch
+packet_bridge_seeded_context_base,0x55AD,0x5683,DJNZ,R3,,0x567F,no,1,,,low,focus_region_branch
+packet_bridge_seeded_context_base,0x55AD,0x5729,JB,bit 0xE0,,0x572E,yes,56,,,low,focus_region_branch
+packet_bridge_seeded_context_base,0x55AD,0x5733,DJNZ,R3,,0x5715,yes,55,,,low,focus_region_branch
+packet_bridge_seeded_context_base,0x5602,0x5683,DJNZ,R3,,0x567F,yes,47,,,low,focus_region_branch
+packet_bridge_seeded_context_base,0x5602,0x5683,DJNZ,R3,,0x567F,no,1,,,low,focus_region_branch
+packet_bridge_seeded_context_base,0x5602,0x5729,JB,bit 0xE0,,0x572E,yes,51,,,low,focus_region_branch
+packet_bridge_seeded_context_base,0x5602,0x5733,DJNZ,R3,,0x5715,yes,51,,,low,focus_region_branch
+packet_bridge_seeded_context_ff,0x55AD,0x5683,DJNZ,R3,,0x567F,yes,47,,,low,focus_region_branch
+packet_bridge_seeded_context_ff,0x55AD,0x5683,DJNZ,R3,,0x567F,no,1,,,low,focus_region_branch
+packet_bridge_seeded_context_ff,0x55AD,0x5729,JB,bit 0xE0,,0x572E,yes,56,,,low,focus_region_branch
+packet_bridge_seeded_context_ff,0x55AD,0x5733,DJNZ,R3,,0x5715,yes,55,,,low,focus_region_branch
+packet_bridge_seeded_context_ff,0x5602,0x5683,DJNZ,R3,,0x567F,yes,47,,,low,focus_region_branch
+packet_bridge_seeded_context_ff,0x5602,0x5683,DJNZ,R3,,0x567F,no,1,,,low,focus_region_branch
+packet_bridge_seeded_context_ff,0x5602,0x5729,JB,bit 0xE0,,0x572E,yes,51,,,low,focus_region_branch
+packet_bridge_seeded_context_ff,0x5602,0x5733,DJNZ,R3,,0x5715,yes,51,,,low,focus_region_branch
+packet_bridge_seeded_context_zeroed,0x55AD,0x5683,DJNZ,R3,,0x567F,yes,47,,,low,focus_region_branch
+packet_bridge_seeded_context_zeroed,0x55AD,0x5683,DJNZ,R3,,0x567F,no,1,,,low,focus_region_branch
+packet_bridge_seeded_context_zeroed,0x55AD,0x5729,JB,bit 0xE0,,0x572E,yes,56,,,low,focus_region_branch
+packet_bridge_seeded_context_zeroed,0x55AD,0x5733,DJNZ,R3,,0x5715,yes,55,,,low,focus_region_branch
+packet_bridge_seeded_context_zeroed,0x5602,0x5683,DJNZ,R3,,0x567F,yes,47,,,low,focus_region_branch
+packet_bridge_seeded_context_zeroed,0x5602,0x5683,DJNZ,R3,,0x567F,no,1,,,low,focus_region_branch
+packet_bridge_seeded_context_zeroed,0x5602,0x5729,JB,bit 0xE0,,0x572E,yes,51,,,low,focus_region_branch
+packet_bridge_seeded_context_zeroed,0x5602,0x5733,DJNZ,R3,,0x5715,yes,51,,,low,focus_region_branch
+packet_bridge_seeded_context_mode_e1,0x55AD,0x5683,DJNZ,R3,,0x567F,yes,47,,,low,focus_region_branch
+packet_bridge_seeded_context_mode_e1,0x55AD,0x5683,DJNZ,R3,,0x567F,no,1,,,low,focus_region_branch
+packet_bridge_seeded_context_mode_e1,0x55AD,0x5729,JB,bit 0xE0,,0x572E,yes,214,,,low,focus_region_branch
+packet_bridge_seeded_context_mode_e1,0x55AD,0x5733,DJNZ,R3,,0x5715,yes,213,,,low,focus_region_branch
+packet_bridge_seeded_context_mode_e1,0x5602,0x5683,DJNZ,R3,,0x567F,yes,47,,,low,focus_region_branch
+packet_bridge_seeded_context_mode_e1,0x5602,0x5683,DJNZ,R3,,0x567F,no,1,,,low,focus_region_branch
+packet_bridge_seeded_context_mode_e1,0x5602,0x5729,JB,bit 0xE0,,0x572E,yes,209,,,low,focus_region_branch
+packet_bridge_seeded_context_mode_e1,0x5602,0x5733,DJNZ,R3,,0x5715,yes,209,,,low,focus_region_branch
+packet_bridge_seeded_context_bitmask_walk,0x55AD,0x5683,DJNZ,R3,,0x567F,yes,47,,,low,focus_region_branch
+packet_bridge_seeded_context_bitmask_walk,0x55AD,0x5683,DJNZ,R3,,0x567F,no,1,,,low,focus_region_branch
+packet_bridge_seeded_context_bitmask_walk,0x55AD,0x5729,JB,bit 0xE0,,0x572E,yes,214,,,low,focus_region_branch
+packet_bridge_seeded_context_bitmask_walk,0x55AD,0x5733,DJNZ,R3,,0x5715,yes,213,,,low,focus_region_branch
+packet_bridge_seeded_context_bitmask_walk,0x5602,0x5683,DJNZ,R3,,0x567F,yes,47,,,low,focus_region_branch
+packet_bridge_seeded_context_bitmask_walk,0x5602,0x5683,DJNZ,R3,,0x567F,no,1,,,low,focus_region_branch
+packet_bridge_seeded_context_bitmask_walk,0x5602,0x5729,JB,bit 0xE0,,0x572E,yes,209,,,low,focus_region_branch
+packet_bridge_seeded_context_bitmask_walk,0x5602,0x5733,DJNZ,R3,,0x5715,yes,209,,,low,focus_region_branch
