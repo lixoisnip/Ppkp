@@ -449,11 +449,16 @@ def _write_cpu_subset_coverage(runs: list[FunctionRunResult]) -> None:
     saw_div_ab = any(r.get("op") == "DIV" and r.get("args") == "AB" for r in instruction_rows)
     coverage_rows = [
         {"opcode": "0xF5", "mnemonic": "MOV direct,A", "implemented": "yes", "observed_in_runs": "yes" if "MOV" in observed_ops else "unknown", "notes": "issue_78_blocker"},
+        {"opcode": "0x42", "mnemonic": "ORL direct,A", "implemented": "yes", "observed_in_runs": "yes" if "ORL" in observed_ops else "no", "notes": "issue_78_next_blocker"},
         {"opcode": "0x75", "mnemonic": "MOV direct,#imm", "implemented": "yes", "observed_in_runs": "yes" if saw_mov_direct_imm else "no", "notes": "issue_81_blocker"},
         {"opcode": "0x84", "mnemonic": "DIV AB", "implemented": "yes", "observed_in_runs": "yes" if saw_div_ab else "no", "notes": "issue_82_blocker"},
         {"opcode": "0xB8..0xBF", "mnemonic": "CJNE Rn,#imm,rel", "implemented": "yes", "observed_in_runs": "yes" if "CJNE" in observed_ops else "no", "notes": "issue_78_blocker"},
         {"opcode": "0x23", "mnemonic": "RL A", "implemented": "yes", "observed_in_runs": "yes" if "RL" in observed_ops else "no", "notes": "issue_78_next_blocker"},
+        {"opcode": "0x04", "mnemonic": "INC A", "implemented": "yes", "observed_in_runs": "yes" if "INC" in observed_ops else "no", "notes": "issue_78_next_blocker"},
         {"opcode": "0x35", "mnemonic": "ADDC A,direct", "implemented": "yes", "observed_in_runs": "yes" if "ADDC" in observed_ops else "no", "notes": "issue_78_next_blocker"},
+        {"opcode": "0x45", "mnemonic": "ANL A,direct", "implemented": "yes", "observed_in_runs": "yes" if "ANL" in observed_ops else "no", "notes": "issue_78_next_blocker"},
+        {"opcode": "0x55", "mnemonic": "XRL A,direct", "implemented": "yes", "observed_in_runs": "yes" if "XRL" in observed_ops else "no", "notes": "issue_78_next_blocker"},
+        {"opcode": "0xE5", "mnemonic": "MOV A,direct", "implemented": "yes", "observed_in_runs": "yes" if "MOV" in observed_ops else "unknown", "notes": "issue_78_next_blocker"},
         {"opcode": "0xB4", "mnemonic": "CJNE A,#imm,rel", "implemented": "yes", "observed_in_runs": "yes" if "CJNE" in observed_ops else "no", "notes": "extended_support"},
         {"opcode": "0xB5", "mnemonic": "CJNE A,direct,rel", "implemented": "yes", "observed_in_runs": "yes" if "CJNE" in observed_ops else "no", "notes": "extended_support"},
         {"opcode": "0xB6/0xB7", "mnemonic": "CJNE @R0/@R1,#imm,rel", "implemented": "yes", "observed_in_runs": "yes" if "CJNE" in observed_ops else "no", "notes": "extended_support"},
