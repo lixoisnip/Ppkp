@@ -34,6 +34,9 @@ class CPU8051Subset:
         stub_calls: dict[int, Callable[[CPU8051State, TraceLog], None]] | None = None,
         allow_skip_unsupported: bool = False,
         sfr: SfrModel | None = None,
+        ret_mode: str = "stop_on_entry_ret",
+        visible_pc_range: tuple[int, int] = (0x4000, 0xBFFF),
+        seeded_idata_addrs: set[int] | None = None,
     ) -> None:
         self.code = code_image
         self.s = state
@@ -42,6 +45,9 @@ class CPU8051Subset:
         self.stub_calls = stub_calls or {}
         self.allow_skip_unsupported = allow_skip_unsupported
         self.sfr = sfr or SfrModel()
+        self.ret_mode = ret_mode
+        self.visible_pc_range = visible_pc_range
+        self.seeded_idata_addrs = seeded_idata_addrs or set()
 
     def fetch(self, addr: int) -> int:
         return self.code.get_byte(addr)
@@ -579,6 +585,58 @@ class CPU8051Subset:
                 s.pc = s.call_stack.pop()
                 self._log_instr("RET", "", pc, acc_before, dptr_before)
                 return True, None
+            if self.ret_mode == "hardware_stack_pop":
+                sp_before = s.sp & 0xFF
+                if sp_before < 1:
+                    self.trace.add(
+                        {
+                            "step": s.step_counter,
+                            "pc": pc,
+                            "op": "RET_STACK",
+                            "trace_type": "ret_stack_pop",
+                            "sp_before_ret": f"0x{sp_before:02X}",
+                            "notes": "ret_stack_underflow",
+                        }
+                    )
+                    self._log_instr("RET", "", pc, acc_before, dptr_before, notes="ret_mode=hardware_stack_pop;ret_stack_underflow")
+                    return False, "ret_stack_underflow"
+
+                hi_addr = sp_before & 0xFF
+                lo_addr = (sp_before - 1) & 0xFF
+                popped_high = self._pop_stack()
+                popped_low = self._pop_stack()
+                target = ((popped_high << 8) | popped_low) & 0xFFFF
+                in_visible = self.visible_pc_range[0] <= target <= self.visible_pc_range[1]
+                hi_seeded = hi_addr in self.seeded_idata_addrs
+                lo_seeded = lo_addr in self.seeded_idata_addrs
+                seed_note = "seeded" if (hi_seeded or lo_seeded) else "default"
+
+                if in_visible:
+                    s.pc = target
+                    ret_reason = "ret_target_visible_continued"
+                elif target == 0x0000 and not (hi_seeded or lo_seeded):
+                    ret_reason = "ret_target_unknown"
+                else:
+                    ret_reason = "ret_target_out_of_image"
+
+                self.trace.add(
+                    {
+                        "step": s.step_counter,
+                        "pc": pc,
+                        "op": "RET_STACK",
+                        "trace_type": "ret_stack_pop",
+                        "sp_before_ret": f"0x{sp_before:02X}",
+                        "popped_low": f"0x{popped_low:02X}",
+                        "popped_high": f"0x{popped_high:02X}",
+                        "continued_pc": f"0x{target:04X}",
+                        "continued_inside_image": str(in_visible),
+                        "notes": f"{ret_reason};stack_bytes={seed_note};seed_low={lo_seeded};seed_high={hi_seeded}",
+                    }
+                )
+                self._log_instr("RET", "", pc, acc_before, dptr_before, notes=f"ret_mode=hardware_stack_pop;{ret_reason}")
+                if in_visible:
+                    return True, None
+                return False, ret_reason
             s.pc = (pc + 1) & 0xFFFF
             self._log_instr("RET", "", pc, acc_before, dptr_before)
             return False, "ret_from_entry"

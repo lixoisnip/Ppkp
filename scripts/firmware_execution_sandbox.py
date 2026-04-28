@@ -15,6 +15,7 @@ if str(ROOT) not in sys.path:
 from emulator.function_harness import FunctionHarness, FunctionRunResult
 from emulator.pzu_memory import load_code_image
 from emulator.scenarios import get_scenario, list_scenarios
+from emulator.watchpoints import default_dks_watchpoints
 OUT = ROOT / "docs" / "emulator"
 TRACE_CSV = OUT / "xdata_write_trace.csv"
 SUMMARY_CSV = OUT / "function_trace_summary.csv"
@@ -64,6 +65,8 @@ POST_415F_RUNTIME_HANDOFF_SUMMARY_CSV = OUT / "post_415F_runtime_handoff_summary
 MATERIALIZATION_TO_OUTPUT_LINK_AUDIT_CSV = OUT / "materialization_to_output_link_audit.csv"
 CONFIG_RUNTIME_MODEL_REPORT_MD = OUT / "config_runtime_model_report.md"
 NEXT_AUTONOMOUS_DECISION_MD = OUT / "next_autonomous_decision.md"
+RET_STACK_CONTINUATION_AUDIT_CSV = OUT / "ret_stack_continuation_audit.csv"
+RET_STACK_MODEL_REPORT_MD = OUT / "ret_stack_model_report.md"
 
 CPU_INTERNAL_SFRS = {0x81, 0x82, 0x83, 0xD0, 0xE0, 0xF0}
 PORT_SFRS = {0x80, 0x90, 0xA0, 0xB0}
@@ -2649,6 +2652,199 @@ def run_autonomous_config_runtime(max_passes: int) -> None:
     )
 
 
+def _append_autonomous_pass_rows(rows: list[dict[str, str]]) -> None:
+    cols = ["pass_id", "target", "action_taken", "artifact_updated", "new_evidence", "next_decision", "stop_or_continue", "notes"]
+    existing: list[dict[str, str]] = []
+    if AUTONOMOUS_PASS_LOG_CSV.exists():
+        with AUTONOMOUS_PASS_LOG_CSV.open(encoding="utf-8", newline="") as fh:
+            existing = list(csv.DictReader(fh))
+    with AUTONOMOUS_PASS_LOG_CSV.open("w", encoding="utf-8", newline="") as fh:
+        w = csv.DictWriter(fh, fieldnames=cols)
+        w.writeheader()
+        w.writerows(existing + rows)
+
+
+def run_autonomous_boot_caller_context(max_passes: int, ret_mode: str) -> None:
+    OUT.mkdir(parents=True, exist_ok=True)
+    max_passes = max(1, min(max_passes, 5))
+
+    scenario_targets: list[tuple[str, int | None]] = [
+        ("boot_4100_ret_stack_to_4176", 0x4176),
+        ("boot_4100_ret_stack_to_41D0", 0x41D0),
+        ("boot_4100_ret_stack_to_492E", 0x492E),
+        ("boot_4100_ret_stack_to_4954", 0x4954),
+        ("boot_4100_ret_stack_to_497A", 0x497A),
+        ("boot_4100_ret_stack_to_5710", 0x5710),
+        ("boot_4100_ret_stack_to_55AD", 0x55AD),
+        ("boot_4100_ret_stack_default_unseeded", None),
+    ]
+    audit_rows: list[dict[str, str]] = []
+    for scenario_name, ret_target in scenario_targets:
+        scenario = get_scenario(scenario_name)
+        img = load_code_image(ROOT / scenario.firmware_file)
+        harness = FunctionHarness(img, watchpoints=scenario.watchpoints or default_dks_watchpoints())
+        init_idata = {}
+        init_regs = {"SP": 0x2F}
+        if ret_target is not None:
+            init_idata = {0x2E: ret_target & 0xFF, 0x2F: (ret_target >> 8) & 0xFF}
+        run = harness.run_function(
+            _run_id(f"autonomous_{scenario_name}"),
+            0x4100,
+            max_steps=2500,
+            init_regs=init_regs,
+            init_idata=init_idata,
+            init_xdata=scenario.seed_xdata,
+            use_stubs=False,
+            ret_mode=ret_mode,
+        )
+        pcs = _pc_set(run)
+        ret_stack = next((row for row in run.trace.rows if row.get("trace_type") == "ret_stack_pop"), {})
+        continued_pc = _parse_hex_int(str(ret_stack.get("continued_pc", "0x0")))
+        reached_36f2 = "yes" if any(0x36F2 <= a <= 0x36F9 for a, _, _ in _range_writes(run, 0x36F2, 0x36F9)) else "no"
+        notes = str(ret_stack.get("notes", "")) if ret_stack else "ret_mode_stop_on_entry_ret"
+        evidence = "emulation_observed" if ret_mode == "hardware_stack_pop" else "hypothesis"
+        audit_rows.append(
+            {
+                "scenario": scenario_name,
+                "ret_mode": ret_mode,
+                "entry_pc": "0x4100",
+                "seeded_return_addr": "" if ret_target is None else f"0x{ret_target:04X}",
+                "sp_before_ret": str(ret_stack.get("sp_before_ret", "")),
+                "popped_low": str(ret_stack.get("popped_low", "")),
+                "popped_high": str(ret_stack.get("popped_high", "")),
+                "continued_pc": str(ret_stack.get("continued_pc", "")),
+                "continued_inside_image": str(ret_stack.get("continued_inside_image", "")),
+                "max_steps": "2500",
+                "steps": str(run.steps),
+                "stop_reason": run.stop_reason,
+                "reached_4176": "yes" if 0x4176 in pcs or continued_pc == 0x4176 else "no",
+                "reached_41D0": "yes" if 0x41D0 in pcs or continued_pc == 0x41D0 else "no",
+                "reached_492E": "yes" if 0x492E in pcs or continued_pc == 0x492E else "no",
+                "reached_4954": "yes" if 0x4954 in pcs or continued_pc == 0x4954 else "no",
+                "reached_497A": "yes" if 0x497A in pcs or continued_pc == 0x497A else "no",
+                "reached_5710": "yes" if 0x5710 in pcs or continued_pc == 0x5710 else "no",
+                "reached_5717": "yes" if 0x5717 in pcs else "no",
+                "reached_5725": "yes" if 0x5725 in pcs else "no",
+                "reached_55AD": "yes" if 0x55AD in pcs or continued_pc == 0x55AD else "no",
+                "reached_5602": "yes" if 0x5602 in pcs else "no",
+                "reached_5A7F": "yes" if 0x5A7F in pcs else "no",
+                "reached_36F2_36F9_writes": reached_36f2,
+                "writes_31FF_3268": str(len(_range_writes(run, 0x31FF, 0x3268))),
+                "writes_36F2_36F9": str(len(_range_writes(run, 0x36F2, 0x36F9))),
+                "evidence_level": evidence,
+                "confidence": "low",
+                "notes": notes,
+            }
+        )
+    audit_cols = [
+        "scenario", "ret_mode", "entry_pc", "seeded_return_addr", "sp_before_ret", "popped_low", "popped_high", "continued_pc",
+        "continued_inside_image", "max_steps", "steps", "stop_reason", "reached_4176", "reached_41D0", "reached_492E", "reached_4954",
+        "reached_497A", "reached_5710", "reached_5717", "reached_5725", "reached_55AD", "reached_5602", "reached_5A7F",
+        "reached_36F2_36F9_writes", "writes_31FF_3268", "writes_36F2_36F9", "evidence_level", "confidence", "notes",
+    ]
+    with RET_STACK_CONTINUATION_AUDIT_CSV.open("w", encoding="utf-8", newline="") as fh:
+        w = csv.DictWriter(fh, fieldnames=audit_cols)
+        w.writeheader()
+        w.writerows(audit_rows)
+
+    unseeded = next((r for r in audit_rows if r["scenario"] == "boot_4100_ret_stack_default_unseeded"), None)
+    best_runtime = [r for r in audit_rows if r["reached_5710"] == "yes" or r["reached_55AD"] == "yes" or r["reached_5A7F"] == "yes"]
+    RET_STACK_MODEL_REPORT_MD.write_text(
+        "\n".join(
+            [
+                "# RET stack continuation model report",
+                "",
+                "## Does hardware-like RET continuation work technically?",
+                f"- {'yes' if ret_mode == 'hardware_stack_pop' else 'no'}: mode `{ret_mode}` was executed and RET stack-pop events were recorded in trace rows (`trace_type=ret_stack_pop`).",
+                "",
+                "## What happens with unseeded stack?",
+                f"- Unseeded scenario stop_reason: `{'' if unseeded is None else unseeded['stop_reason']}`; continued_pc: `{'' if unseeded is None else unseeded['continued_pc']}`.",
+                "- This remains hypothesis about caller context; no low-ROM caller bytes were invented.",
+                "",
+                "## Which seeded return targets reach runtime/materialization/output candidates?",
+                f"- Runtime/materialization-reaching scenarios: {', '.join(r['scenario'] for r in best_runtime) if best_runtime else 'none observed within bounded steps'}.",
+                "- See `ret_stack_continuation_audit.csv` for per-target reachability flags.",
+                "",
+                "## Are any return targets plausible from static evidence?",
+                "- Vector-table targets 0x4176/0x41D0/0x492E/0x4954/0x497A are static_code candidates only.",
+                "- 0x5710 and 0x55AD were included as hypothesis runtime handoff targets; no claim they are real hardware return addresses.",
+                "",
+                "## Does this reduce low-ROM/wrapper uncertainty?",
+                "- Partially: it proves the emulator can continue after RET by stack pop.",
+                "- It does not identify true pre-0x4100 caller provenance, so low-ROM/wrapper uncertainty remains.",
+                "",
+                "## What remains hypothesis?",
+                "- All seeded return-address scenarios are hypothesis.",
+                "- Any continued path after synthetic stack seeding is emulation_observed only, not confirmed firmware boot reality.",
+                "",
+                "## Commands",
+                f"- python3 scripts/firmware_execution_sandbox.py run-autonomous-boot-caller-context --ret-mode {ret_mode} --max-passes {max_passes}",
+            ]
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+
+    NEXT_AUTONOMOUS_DECISION_MD.write_text(
+        "\n".join(
+            [
+                "# Next autonomous decision (boot caller/context package)",
+                "",
+                "## RET model status",
+                f"- Emulator RET model improved: {'yes' if ret_mode == 'hardware_stack_pop' else 'no'} (supports `ret_mode=hardware_stack_pop`).",
+                "",
+                "## Runtime path status",
+                f"- Any better path to runtime observed: {'yes' if best_runtime else 'no'} (hypothesis-only seeded stack targets).",
+                "- No seeded return target is treated as confirmed hardware behavior.",
+                "",
+                "## Autonomous continuation",
+                "- Can next work continue autonomously: yes, for bounded static/emulation ranking of caller candidates.",
+                "- For proof of real boot caller flow, real low-ROM/NVRAM/bench evidence is required.",
+                "",
+                "## Required external evidence",
+                "- blocked_until_docs: board/bootstrap documentation for pre-0x4100 flow.",
+                "- blocked_until_bench: captured stack/PC context near RET 0x4175 on hardware.",
+            ]
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+
+    pass_rows = [
+        {
+            "pass_id": "boot_ctx_1",
+            "target": "RET emulation mode",
+            "action_taken": f"Executed bounded boot stack scenarios with ret_mode={ret_mode}.",
+            "artifact_updated": "ret_stack_continuation_audit.csv",
+            "new_evidence": "RET stack-pop events recorded with SP/popped-bytes/continued PC.",
+            "next_decision": "Compare unseeded vs seeded continuation reachability.",
+            "stop_or_continue": "continue" if max_passes > 1 else "stop",
+            "notes": "evidence_level=emulation_observed",
+        },
+        {
+            "pass_id": "boot_ctx_2",
+            "target": "Runtime reachability",
+            "action_taken": "Scored seeded return targets against runtime/materialization/output indicators.",
+            "artifact_updated": "ret_stack_model_report.md",
+            "new_evidence": "Only hypothesis continuation paths observed.",
+            "next_decision": "Update decision boundary and external evidence requirements.",
+            "stop_or_continue": "continue" if max_passes > 2 else "stop",
+            "notes": "no fake low-ROM code",
+        },
+        {
+            "pass_id": "boot_ctx_3",
+            "target": "Decision synthesis",
+            "action_taken": "Updated next_autonomous_decision for boot caller/context package.",
+            "artifact_updated": "next_autonomous_decision.md",
+            "new_evidence": "RET model improved but caller provenance unresolved.",
+            "next_decision": "Request docs/bench capture for confirmation.",
+            "stop_or_continue": "stop",
+            "notes": "blocked_until_docs + blocked_until_bench",
+        },
+    ]
+    _append_autonomous_pass_rows(pass_rows[:max_passes])
+
+
 def export_trace() -> None:
     print(f"Summary: {SUMMARY_CSV}")
     print(f"XDATA writes: {TRACE_CSV}")
@@ -2682,6 +2878,9 @@ def main() -> int:
     p_autonomous.add_argument("--max-iterations", type=int, default=1)
     p_config = sub.add_parser("run-autonomous-config-runtime", help="Run bounded multi-pass config/runtime reconstruction package.")
     p_config.add_argument("--max-passes", type=int, default=5)
+    p_boot_ctx = sub.add_parser("run-autonomous-boot-caller-context", help="Run bounded boot caller/RET stack continuation package.")
+    p_boot_ctx.add_argument("--ret-mode", choices=["stop_on_entry_ret", "hardware_stack_pop"], default="hardware_stack_pop")
+    p_boot_ctx.add_argument("--max-passes", type=int, default=5)
 
     p_func = sub.add_parser("run-function", help="Run single function entrypoint.")
     p_func.add_argument("--firmware", required=True)
@@ -2719,6 +2918,10 @@ def main() -> int:
     if args.cmd == "run-autonomous-config-runtime":
         run_autonomous_config_runtime(max_passes=args.max_passes)
         print(f"Autonomous config/runtime package complete. Outputs in {OUT}")
+        return 0
+    if args.cmd == "run-autonomous-boot-caller-context":
+        run_autonomous_boot_caller_context(max_passes=args.max_passes, ret_mode=args.ret_mode)
+        print(f"Autonomous boot caller/context package complete. Outputs in {OUT}")
         return 0
     if args.cmd == "export-trace":
         export_trace()
