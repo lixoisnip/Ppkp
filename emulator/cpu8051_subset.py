@@ -178,6 +178,12 @@ class CPU8051Subset:
             self._log_instr("RL", "A", pc, acc_before, dptr_before, notes="carry_unchanged=true")
             return True, None
 
+        if op == 0x04:  # INC A
+            s.acc = (s.acc + 1) & 0xFF
+            s.pc += 1
+            self._log_instr("INC", "A", pc, acc_before, dptr_before, notes="flags_unchanged=true")
+            return True, None
+
         if op in (0x54, 0x44, 0x64, 0x24):
             imm = self.fetch(pc + 1)
             if op == 0x54:
@@ -194,6 +200,22 @@ class CPU8051Subset:
                 opname = "ADD"
             s.pc += 2
             self._log_instr(opname, f"A,#0x{imm:02X}", pc, acc_before, dptr_before)
+            return True, None
+
+        if op == 0x45:  # ANL A,direct
+            direct = self.fetch(pc + 1)
+            value = self._read_direct(direct, pc=pc, notes="anl_direct")
+            s.acc = s.acc & value
+            s.pc += 2
+            self._log_instr("ANL", f"A,0x{direct:02X}", pc, acc_before, dptr_before, notes="direct_read_model=idata_or_sfr")
+            return True, None
+
+        if op == 0x55:  # XRL A,direct
+            direct = self.fetch(pc + 1)
+            value = self._read_direct(direct, pc=pc, notes="xrl_direct")
+            s.acc = s.acc ^ value
+            s.pc += 2
+            self._log_instr("XRL", f"A,0x{direct:02X}", pc, acc_before, dptr_before, notes="direct_read_model=idata_or_sfr")
             return True, None
 
         if op == 0x25:  # ADD A,direct
@@ -231,12 +253,28 @@ class CPU8051Subset:
             self._log_instr("MOV", f"0x{direct:02X},A", pc, acc_before, dptr_before, notes="direct_write_model=idata_or_sfr")
             return True, None
 
+        if op == 0xE5:  # MOV A,direct
+            direct = self.fetch(pc + 1)
+            s.acc = self._read_direct(direct, pc=pc, notes="mov_a_direct")
+            s.pc += 2
+            self._log_instr("MOV", f"A,0x{direct:02X}", pc, acc_before, dptr_before, notes="direct_read_model=idata_or_sfr")
+            return True, None
+
         if op == 0x75:  # MOV direct,#imm
             direct = self.fetch(pc + 1)
             imm = self.fetch(pc + 2)
             self._write_direct(direct, imm, pc=pc, notes="mov_direct_imm")
             s.pc += 3
             self._log_instr("MOV", f"0x{direct:02X},#0x{imm:02X}", pc, acc_before, dptr_before, notes="direct_write_model=idata_or_sfr")
+            return True, None
+
+        if op == 0x42:  # ORL direct,A
+            direct = self.fetch(pc + 1)
+            value = self._read_direct(direct, pc=pc, notes="orl_direct_a_read")
+            result = (value | s.acc) & 0xFF
+            self._write_direct(direct, result, pc=pc, notes="orl_direct_a_write")
+            s.pc += 2
+            self._log_instr("ORL", f"0x{direct:02X},A", pc, acc_before, dptr_before, notes="direct_read_write_model=idata_or_sfr")
             return True, None
 
         if op == 0x84:  # DIV AB
