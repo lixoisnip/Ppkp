@@ -1,0 +1,7 @@
+scenario,function_addr,max_steps,steps,stop_reason,loop_iterations,exit_observed,next_pc_after_loop,unsupported_ops,sbuf_writes,uart_tx_candidates,xdata_writes,notes
+packet_bridge_loop_force_r3_00,0x5715,2000,2000,max_steps,2000,no,,0,0,0,476,hypothesis; entry-register override only
+packet_bridge_loop_force_r3_01,0x5715,2000,24,unsupported_opcode 0x00 at 0x573C,21,yes,0x573C,1,0,0,5,hypothesis; entry-register override only
+packet_bridge_loop_force_acc0_clear,0x5715,2000,2000,max_steps,2000,no,,0,0,0,476,hypothesis; entry-register override only
+packet_bridge_loop_force_acc0_set,0x5715,2000,2000,max_steps,2000,no,,0,0,0,476,hypothesis; entry-register override only
+packet_bridge_loop_force_jb_not_taken_candidate,0x5715,2000,45,unsupported_opcode 0x00 at 0x573C,42,yes,0x573C,1,0,0,10,hypothesis; entry-register override only
+packet_bridge_loop_force_djnz_exit_candidate,0x5715,2000,24,unsupported_opcode 0x00 at 0x573C,21,yes,0x573C,1,0,0,5,hypothesis; entry-register override only

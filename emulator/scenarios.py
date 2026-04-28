@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 
 from emulator.watchpoints import default_dks_watchpoints, default_rtos_service_watchpoints, default_shifted_dks_watchpoints, expand_range
 
@@ -14,6 +14,7 @@ class Scenario:
     seed_xdata: dict[int, int]
     watchpoints: list[int]
     purpose: str
+    init_regs: dict[int, dict[str, int]] = field(default_factory=dict)
 
 
 def _seed_addrs(addrs: list[int], base: int = 1) -> dict[int, int]:
@@ -180,6 +181,61 @@ SCENARIOS = {
         seed_xdata={a: v for a, v in zip(expand_range("0x36F0..0x36FF"), [0x01, 0x02, 0x04, 0x08, 0x10, 0x20, 0x40, 0x80, 0x55, 0xAA, 0xFF, 0x00, 0x01, 0x02, 0x04, 0x08])},
         watchpoints=default_dks_watchpoints(),
         purpose="Bitmask walk across 0x36F0..0x36FF with deterministic seed set.",
+    ),
+
+    "packet_bridge_loop_force_r3_00": Scenario(
+        name="packet_bridge_loop_force_r3_00",
+        firmware_file="90CYE03_19_DKS.PZU",
+        functions=[0x5715],
+        seed_xdata={},
+        watchpoints=default_dks_watchpoints(),
+        purpose="Hypothesis experiment: force R3=0 at loop entry to test DJNZ behavior.",
+        init_regs={0x5715: {"R3": 0x00}},
+    ),
+    "packet_bridge_loop_force_r3_01": Scenario(
+        name="packet_bridge_loop_force_r3_01",
+        firmware_file="90CYE03_19_DKS.PZU",
+        functions=[0x5715],
+        seed_xdata={},
+        watchpoints=default_dks_watchpoints(),
+        purpose="Hypothesis experiment: force R3=1 at loop entry to test DJNZ behavior.",
+        init_regs={0x5715: {"R3": 0x01}},
+    ),
+    "packet_bridge_loop_force_acc0_clear": Scenario(
+        name="packet_bridge_loop_force_acc0_clear",
+        firmware_file="90CYE03_19_DKS.PZU",
+        functions=[0x5715],
+        seed_xdata={},
+        watchpoints=default_dks_watchpoints(),
+        purpose="Hypothesis experiment: force ACC.0 clear at loop entry to test JB bit 0xE0 path.",
+        init_regs={0x5715: {"A": 0x80}},
+    ),
+    "packet_bridge_loop_force_acc0_set": Scenario(
+        name="packet_bridge_loop_force_acc0_set",
+        firmware_file="90CYE03_19_DKS.PZU",
+        functions=[0x5715],
+        seed_xdata={},
+        watchpoints=default_dks_watchpoints(),
+        purpose="Hypothesis experiment: force ACC.0 set at loop entry to test JB bit 0xE0 path.",
+        init_regs={0x5715: {"A": 0x81}},
+    ),
+    "packet_bridge_loop_force_jb_not_taken_candidate": Scenario(
+        name="packet_bridge_loop_force_jb_not_taken_candidate",
+        firmware_file="90CYE03_19_DKS.PZU",
+        functions=[0x5715],
+        seed_xdata={},
+        watchpoints=default_dks_watchpoints(),
+        purpose="Hypothesis experiment: JB-not-taken candidate by forcing ACC.0 clear and R3 nonzero.",
+        init_regs={0x5715: {"A": 0x80, "R3": 0x02}},
+    ),
+    "packet_bridge_loop_force_djnz_exit_candidate": Scenario(
+        name="packet_bridge_loop_force_djnz_exit_candidate",
+        firmware_file="90CYE03_19_DKS.PZU",
+        functions=[0x5715],
+        seed_xdata={},
+        watchpoints=default_dks_watchpoints(),
+        purpose="Hypothesis experiment: DJNZ-exit candidate by forcing R3=1 at loop entry.",
+        init_regs={0x5715: {"R3": 0x01, "A": 0x80}},
     ),
 }
 
