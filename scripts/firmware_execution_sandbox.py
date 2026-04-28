@@ -700,6 +700,7 @@ def _write_cpu_subset_coverage(runs: list[FunctionRunResult]) -> None:
         {"opcode": "0x45", "mnemonic": "ANL A,direct", "implemented": "yes", "observed_in_runs": "yes" if "ANL" in observed_ops else "no", "notes": "issue_78_next_blocker"},
         {"opcode": "0x55", "mnemonic": "XRL A,direct", "implemented": "yes", "observed_in_runs": "yes" if "XRL" in observed_ops else "no", "notes": "issue_78_next_blocker"},
         {"opcode": "0xE5", "mnemonic": "MOV A,direct", "implemented": "yes", "observed_in_runs": "yes" if "MOV" in observed_ops else "unknown", "notes": "issue_78_next_blocker"},
+        {"opcode": "0x00", "mnemonic": "NOP", "implemented": "yes", "observed_in_runs": "yes" if "NOP" in observed_ops else "no", "notes": "forced_loop_exit_blocker"},
         {"opcode": "0xB4", "mnemonic": "CJNE A,#imm,rel", "implemented": "yes", "observed_in_runs": "yes" if "CJNE" in observed_ops else "no", "notes": "extended_support"},
         {"opcode": "0xB5", "mnemonic": "CJNE A,direct,rel", "implemented": "yes", "observed_in_runs": "yes" if "CJNE" in observed_ops else "no", "notes": "extended_support"},
         {"opcode": "0xB6/0xB7", "mnemonic": "CJNE @R0/@R1,#imm,rel", "implemented": "yes", "observed_in_runs": "yes" if "CJNE" in observed_ops else "no", "notes": "extended_support"},
