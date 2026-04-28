@@ -1,4 +1,4 @@
 run_id,scenario,firmware_file,function_addr,steps,stop_reason,calls_seen,returns_seen,xdata_reads,xdata_writes,unsupported_ops,confidence,notes
-packet_bridge_seeded_context_55AD_20260427T181932Z,packet_bridge_seeded_context,90CYE03_19_DKS.PZU,0x55AD,81,unsupported_opcode 0x75 at 0x5972,11,9,9,2,1,low,emulation_observed
-packet_bridge_seeded_context_5602_20260427T181932Z,packet_bridge_seeded_context,90CYE03_19_DKS.PZU,0x5602,18,unsupported_opcode 0x75 at 0x5972,4,2,1,1,1,low,emulation_observed
-packet_bridge_seeded_context_5A7F_20260427T181932Z,packet_bridge_seeded_context,90CYE03_19_DKS.PZU,0x5A7F,6,ret_from_entry,0,1,0,0,0,low,emulation_observed
+packet_bridge_seeded_context_55AD_20260428T032848Z,packet_bridge_seeded_context,90CYE03_19_DKS.PZU,0x55AD,82,unsupported_opcode 0x84 at 0x5975,11,9,9,2,1,low,emulation_observed
+packet_bridge_seeded_context_5602_20260428T032848Z,packet_bridge_seeded_context,90CYE03_19_DKS.PZU,0x5602,19,unsupported_opcode 0x84 at 0x5975,4,2,1,1,1,low,emulation_observed
+packet_bridge_seeded_context_5A7F_20260428T032848Z,packet_bridge_seeded_context,90CYE03_19_DKS.PZU,0x5A7F,6,ret_from_entry,0,1,0,0,0,low,emulation_observed

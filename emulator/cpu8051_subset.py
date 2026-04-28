@@ -231,6 +231,14 @@ class CPU8051Subset:
             self._log_instr("MOV", f"0x{direct:02X},A", pc, acc_before, dptr_before, notes="direct_write_model=idata_or_sfr")
             return True, None
 
+        if op == 0x75:  # MOV direct,#imm
+            direct = self.fetch(pc + 1)
+            imm = self.fetch(pc + 2)
+            self._write_direct(direct, imm, pc=pc, notes="mov_direct_imm")
+            s.pc += 3
+            self._log_instr("MOV", f"0x{direct:02X},#0x{imm:02X}", pc, acc_before, dptr_before, notes="direct_write_model=idata_or_sfr")
+            return True, None
+
         if op == 0x93:  # MOVC A,@A+DPTR
             code_addr = (s.dptr + s.acc) & 0xFFFF
             s.acc = self.fetch(code_addr)

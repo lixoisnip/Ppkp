@@ -25,16 +25,15 @@ Functions: 0x55AD, 0x5602, 0x5A7F
 ## Candidate packet/event records
 See docs/emulator/candidate_packet_records.csv (contiguous observed writes only; no packet format invention).
 
-## Issue #78 progress checks
-Did 0x55AD pass 0x55AC (0x23 RL A)? yes
-Did 0x5602 pass 0x55E5 (0x23 RL A)? yes
-Did 0x5A7F pass 0x5A84 (0x35 ADDC A,direct)? yes
-Next unsupported opcode for 0x55AD: 0x75 at 0x5972
-Next unsupported opcode for 0x5602: 0x75 at 0x5972
-Next unsupported opcode for 0x5A7F: none observed
+## Current blocker pass checks (0x75 MOV direct,#imm)
+Did 0x55AD pass 0x5972 (0x75 MOV direct,#imm)? yes
+Did 0x5602 pass 0x5972 (0x75 MOV direct,#imm)? yes
+What is the next unsupported opcode for 0x55AD? 0x84 at 0x5975
+What is the next unsupported opcode for 0x5602? 0x84 at 0x5975
+Did 0x5A7F still return cleanly? yes (ret_from_entry)
 Were any SBUF candidate writes observed? no
 Were any UART TX candidate bytes observed? no
-Were any new candidate packet/event records observed? yes
+Were any new candidate packet/event records observed? yes (unknown_record only; low confidence)
 Are RS-485 commands still unresolved? yes
 
 No real RS-485 command is confirmed unless UART/SBUF writes or decoded packet bytes are observed.
