@@ -57,6 +57,7 @@ TIMER_INTERRUPT_CANDIDATE_TRACE_CSV = OUT / "timer_interrupt_candidate_trace.csv
 DISPLAY_KEYPAD_STATIC_CANDIDATES_CSV = OUT / "display_keypad_static_candidates.csv"
 BOOT_RUNTIME_BOUNDARY_REPORT_MD = OUT / "boot_runtime_boundary_report.md"
 SFR_ROLE_MAP_AUDIT_CSV = OUT / "sfr_role_map_audit.csv"
+BOOT_LOOP_XDATA_READ_AUDIT_CSV = OUT / "boot_loop_xdata_read_audit.csv"
 
 CPU_INTERNAL_SFRS = {0x81, 0x82, 0x83, 0xD0, 0xE0, 0xF0}
 PORT_SFRS = {0x80, 0x90, 0xA0, 0xB0}
@@ -1178,6 +1179,54 @@ def _collect_boot_init_writes(run: FunctionRunResult, entry: int) -> list[dict[s
     return rows[:200]
 
 
+def _collect_boot_loop_xdata_reads(run: FunctionRunResult, entry: int) -> list[dict[str, str]]:
+    watch_pcs = {0x4109, 0x410C, 0x4112, 0x411E, 0x4121, 0x4127, 0x4135, 0x413E, 0x4141, 0x4146, 0x4149}
+    rows: list[dict[str, str]] = []
+    trace_rows = run.trace.rows
+    for idx, r in enumerate(trace_rows):
+        if r.get("trace_type") != "xdata_read":
+            continue
+        pc_int = _parse_hex_int(r.get("pc", "0x0"))
+        if pc_int not in watch_pcs:
+            continue
+        compare_context = ""
+        branch_taken = ""
+        next_pc = ""
+        role_candidate = "boot_table_read_candidate"
+        for look in trace_rows[idx + 1 : idx + 8]:
+            if look.get("trace_type") != "instruction":
+                continue
+            op = look.get("op", "")
+            pc = look.get("pc", "")
+            if op == "CJNE":
+                compare_context = f"{pc} {op} {look.get('args', '')}".strip()
+                role_candidate = "boot_table_compare_operand"
+            if op in BRANCH_OPS and branch_taken == "":
+                notes = _parse_notes_kv(look.get("notes", ""))
+                if "taken" in notes:
+                    branch_taken = notes["taken"]
+                if "next_pc" in notes:
+                    next_pc = notes["next_pc"]
+                break
+        rows.append(
+            {
+                "run_id": run.run_id,
+                "entry_pc": f"0x{entry:04X}",
+                "step": r.get("step", ""),
+                "pc": r.get("pc", ""),
+                "dptr": r.get("xdata_addr", ""),
+                "value": r.get("xdata_value", ""),
+                "compare_context": compare_context,
+                "branch_taken": branch_taken,
+                "next_pc": next_pc,
+                "role_candidate": role_candidate,
+                "evidence_level": "emulation_observed",
+                "notes": "boot_4100_movx_read",
+            }
+        )
+    return rows[:200]
+
+
 def _detect_runtime_loops(run: FunctionRunResult) -> list[dict[str, str]]:
     ins = [r for r in run.trace.rows if r.get("trace_type") == "instruction"]
     pcs = [_parse_hex_int(r.get("pc", "0x0")) for r in ins if r.get("pc")]
@@ -1454,7 +1503,9 @@ def run_boot_trace(entry: int, max_steps: int, compact_summary: bool) -> None:
     if not compact_summary:
         raise ValueError("run-boot-trace requires --compact-summary")
     img = load_code_image(ROOT / "90CYE03_19_DKS.PZU")
-    harness = FunctionHarness(img, watchpoints=get_scenario("boot_probe_static").watchpoints)
+    scenario_name = "boot_probe_static"
+    scenario = get_scenario(scenario_name)
+    harness = FunctionHarness(img, watchpoints=scenario.watchpoints)
     rid = _run_id(f"boot_{entry:04X}")
     run = harness.run_function(rid, entry, max_steps=max_steps, use_stubs=False)
     for path, cols in [
@@ -1471,6 +1522,33 @@ def run_boot_trace(entry: int, max_steps: int, compact_summary: bool) -> None:
     ]:
         if not path.exists():
             _empty_csv(path, cols)
+    _write_boot_runtime_outputs(img, run, entry, max_steps)
+
+
+def run_boot_trace_with_scenario(entry: int, max_steps: int, compact_summary: bool, scenario_name: str | None) -> None:
+    if not scenario_name:
+        run_boot_trace(entry, max_steps=max_steps, compact_summary=compact_summary)
+        return
+    if not compact_summary:
+        raise ValueError("run-boot-trace requires --compact-summary")
+    scenario = get_scenario(scenario_name)
+    img = load_code_image(ROOT / scenario.firmware_file)
+    harness = FunctionHarness(img, watchpoints=scenario.watchpoints)
+    rid = _run_id(f"boot_{entry:04X}_{scenario_name}")
+    init_regs = scenario.init_regs.get(entry)
+    run = harness.run_function(rid, entry, max_steps=max_steps, use_stubs=False, init_regs=init_regs, init_xdata=scenario.seed_xdata)
+    for path, cols in [
+        (BOOT_LOOP_XDATA_READ_AUDIT_CSV, ["run_id", "entry_pc", "step", "pc", "dptr", "value", "compare_context", "branch_taken", "next_pc", "role_candidate", "evidence_level", "notes"]),
+    ]:
+        if not path.exists():
+            _empty_csv(path, cols)
+    _append_capped_csv(
+        BOOT_LOOP_XDATA_READ_AUDIT_CSV,
+        ["run_id", "entry_pc", "step", "pc", "dptr", "value", "compare_context", "branch_taken", "next_pc", "role_candidate", "evidence_level", "notes"],
+        _collect_boot_loop_xdata_reads(run, entry),
+        ("run_id", "step", "pc", "dptr"),
+        2000,
+    )
     _write_boot_runtime_outputs(img, run, entry, max_steps)
 
 
@@ -2345,6 +2423,7 @@ def main() -> int:
     p_boot.add_argument("--entry", required=True)
     p_boot.add_argument("--max-steps", type=int, default=2000)
     p_boot.add_argument("--compact-summary", action="store_true")
+    p_boot.add_argument("--scenario", help="Optional scenario name to seed XDATA/register context.")
 
     sub.add_parser("export-trace", help="Show output file locations.")
     args = parser.parse_args()
@@ -2362,7 +2441,7 @@ def main() -> int:
         print(f"Function run complete. Outputs in {OUT}")
         return 0
     if args.cmd == "run-boot-trace":
-        run_boot_trace(int(args.entry, 16), max_steps=args.max_steps, compact_summary=args.compact_summary)
+        run_boot_trace_with_scenario(int(args.entry, 16), max_steps=args.max_steps, compact_summary=args.compact_summary, scenario_name=args.scenario)
         print(f"Boot trace complete. Outputs in {OUT}")
         return 0
     if args.cmd == "run-autonomous-post-loop":

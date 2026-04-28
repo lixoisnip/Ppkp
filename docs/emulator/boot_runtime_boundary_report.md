@@ -24,3 +24,11 @@
 - Timer/interrupt candidates remaining: 0.
 - Early 0x4100..0x4165 loop likely represents boot pointer/copy initialization loop (DPTR + DPL/DPH rewrite) rather than peripheral wait loop.
 - Next blocker assessment: boot init loop with missing boundary into later runtime services.
+
+## Boot seed matrix addendum (hypothesis-only)
+- Seed scenarios tested: zero_pointer, self_pointer, to_0200_ff, to_0200_00, to_0200_02_record, to_0200_0a_record.
+- Zero/self pointer remained in stable 0x4100..0x4165 loop window.
+- Pointer-to-0x0200 variants exited early loop by returning near 0x4128 (did not reach 0x415F or >0x4165 runtime).
+- No UART/SBUF, display, or keypad evidence appeared in seeded runs.
+- RS-485 remains unresolved.
+
