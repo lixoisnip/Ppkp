@@ -1,0 +1,14 @@
+pc,operation,checked_value,source_addr_or_register,branch_target,valid_path,invalid_path,possible_validation_role,evidence_level,confidence,notes
+0x4109,MOVX A,@DPTR,,XDATA[0x0030],0x410A,load pointer low byte for table walk,unknown,boot_pointer_seed_load,emulation_observed,medium,Reads initial pointer seed from low XDATA.
+0x410C,MOVX A,@DPTR,,XDATA[0x0031],0x410D,load pointer high byte for table walk,unknown,boot_pointer_seed_load,emulation_observed,medium,Reads initial pointer seed from low XDATA.
+0x4112,MOVX A,@DPTR,,XDATA[DPTR],0x4113,feed compare chain,unknown,record_header_or_tag_read,hypothesis,medium,Primary byte under validation.
+0x4113,CJNE A,#0xFF,0xFF,ACC from XDATA[DPTR],0x4119/0x4116,A!=0xFF continues scan,A==0xFF jumps 0x415F,terminator_or_invalid_marker_check,hypothesis,medium,FF likely sentinel/invalid/end marker candidate.
+0x4119,CJNE A,#0x02,0x02,ACC (same byte),0x411C/0x4151,A==0x02 enters structured sub-parse,A!=0x02 advances by +8 (0x4151 path),record_type_filter,hypothesis,medium,0x02 may denote one record/class among many.
+0x4127,MOVX A,@DPTR,,XDATA[DPTR],0x4128,read secondary field for validation,unknown,secondary_field_check,hypothesis,low,Occurs after pointer indirection through record bytes.
+0x4128,CJNE A,#0x00,0x00,ACC from XDATA[DPTR],0x412E/0x412B,A!=0x00 continue,A==0x00 jumps 0x415F,null_pointer_or_empty_record_check,hypothesis,medium,Zero likely treated as stop/invalid for this branch.
+0x412E,CJNE A,#0x0A,0x0A,ACC from XDATA[DPTR],0x413C/0x4131,A==0x0A executes special patch/write path,A!=0x0A follows pointer-chain path,special_record_type_or_version_check,hypothesis,medium,0x0A branch sets ACC.0 then writes back (0x4138).
+0x4138,MOVX @DPTR,A,,XDATA[DPTR],0x4139,applies in-record bit update,unknown,config_valid_flag_candidate,hypothesis,low,Could set processed/validated bit; exact semantics unknown.
+0x414F,SJMP -42,,PC-relative,0x4127,loop through chained pointers,unknown,chained_record_walk_candidate,static_decode,medium,Indicates iterative pointer traversal inside non-0x0A branch.
+0x4151,ADD A,#0x08 effective stride,0x08,DPL/DPH via ADD+ADDC,0x415D,advance to next candidate slot,unknown,fixed_stride_record_scan,hypothesis,medium,Strong evidence of table stride scanning.
+0x415D,SJMP -77,,PC-relative,0x4112,re-enter top validator for next slot,unknown,table_walk_loop_back,emulation_observed,high,Core back-edge in boot validation loop.
+0x415F,SETB bits 0..3,,bit-addressable RAM 0x00..0x03,0x4161+,boot stage complete path,n/a,boot_validation_exit_flags,hypothesis,medium,Likely marks completion/ready flags after validation exit.

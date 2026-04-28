@@ -84,3 +84,12 @@
 - Code evidence around `0x36F2..0x36F9` and `0x5984..0x598B` is consistent with an 8-output/action structure in the DKS aerosol-role images.
 - Exact physical relay/channel mapping remains unconfirmed and is explicitly blocked until terminal documents and bench traces are available.
 - RS-485 frame bytes remain unresolved; however, byte-level protocol decoding is not required to show that internal output configuration/action structures exist in firmware.
+
+## Battery-backed configuration and menu-programmed object model
+
+- New **field evidence** indicates installation settings are configured from the front-panel keyboard/menu and may be retained/lost depending on battery-backed memory state.
+- Therefore, absence of direct display-text matches in currently scanned PZU images must **not** be interpreted as absence of configuration logic.
+- The main PZU is now treated as likely containing logic to read/validate/use (and possibly edit/commit) configuration records, even if the records themselves are not in CODE space.
+- Actual object/site configuration may reside in battery-backed RAM, NVRAM, or external memory; exact memory technology remains unknown without hardware inspection.
+- Early boot loop `0x4100..0x4165` is now a strong candidate for config table walk/validation (CJNE checks `0xFF/0x02/0x00/0x0A`, pointer stepping, branch to ready flags).
+- Immediate priority is reconstruction of the config memory model and config-to-runtime-object/output linkage, rather than additional SBUF-only string/transport hunts.
