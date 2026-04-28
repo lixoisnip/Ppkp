@@ -56,6 +56,11 @@ SERIAL_CANDIDATE_AUDIT_CSV = OUT / "serial_candidate_audit.csv"
 TIMER_INTERRUPT_CANDIDATE_TRACE_CSV = OUT / "timer_interrupt_candidate_trace.csv"
 DISPLAY_KEYPAD_STATIC_CANDIDATES_CSV = OUT / "display_keypad_static_candidates.csv"
 BOOT_RUNTIME_BOUNDARY_REPORT_MD = OUT / "boot_runtime_boundary_report.md"
+SFR_ROLE_MAP_AUDIT_CSV = OUT / "sfr_role_map_audit.csv"
+
+CPU_INTERNAL_SFRS = {0x81, 0x82, 0x83, 0xD0, 0xE0, 0xF0}
+PORT_SFRS = {0x80, 0x90, 0xA0, 0xB0}
+SERIAL_TIMER_INTERRUPT_SFRS = {0x87, 0x88, 0x89, 0x8A, 0x8B, 0x8C, 0x8D, 0x98, 0x99, 0x9A, 0xA8, 0xB8, 0xC8}
 
 LOOP_REGIONS = [(0x5715, 0x5733), (0x8365, 0x837F), (0x567F, 0x5683), (0x5935, 0x593D)]
 BRANCH_OPS = {"JB", "JNB", "CJNE", "JZ", "JNZ", "DJNZ"}
@@ -1004,6 +1009,8 @@ def _write_boot_runtime_outputs(img, run: FunctionRunResult, entry: int, max_ste
     loops = _detect_runtime_loops(run)
     display_candidates = _collect_display_candidates(run)
     keypad_candidates = _collect_keypad_candidates(run)
+    display_device_candidates = [r for r in display_candidates if r.get("role_candidate") not in {"cpu_internal_sfr"}]
+    keypad_device_candidates = [r for r in keypad_candidates if r.get("role_candidate") not in {"cpu_internal_sfr"}]
     uart_init = _collect_uart_init_candidates(run)
     timer_interrupt = _collect_timer_interrupt_candidates(run)
     display_tables = _scan_display_text_candidates(img, instruction_rows, run.run_id, entry)
@@ -1045,8 +1052,8 @@ def _write_boot_runtime_outputs(img, run: FunctionRunResult, entry: int, max_ste
                 "code_reads": str(code_reads),
                 "sbuf_writes": str(sbuf_writes),
                 "uart_tx_candidates": str(sbuf_writes),
-                "display_candidates": str(len(display_candidates)),
-                "keypad_candidates": str(len(keypad_candidates)),
+                "display_candidates": str(len(display_device_candidates)),
+                "keypad_candidates": str(len(keypad_device_candidates)),
                 "timer_candidates": str(sum(1 for r in timer_interrupt if "timer" in r["role_candidate"])),
                 "interrupt_candidates": str(sum(1 for r in timer_interrupt if "interrupt" in r["role_candidate"] or r["role_candidate"] == "reti_candidate")),
                 "notes": "emulation_observed_boot_runtime",
@@ -1150,6 +1157,7 @@ def _write_boot_runtime_outputs(img, run: FunctionRunResult, entry: int, max_ste
         ("run_id", "step", "pc"),
         200,
     )
+    _write_sfr_role_map_audit(run)
     _write_boot_boundary_report()
 
 
@@ -1216,10 +1224,11 @@ def _collect_display_candidates(run: FunctionRunResult) -> list[dict[str, str]]:
     for r in run.trace.rows:
         if r.get("trace_type") == "sfr_access" and r.get("notes", "").startswith("write"):
             addr = _parse_hex_int(r.get("sfr_addr", "0x0"))
-            if 0x80 <= addr <= 0xB7:
-                rows.append({"run_id": run.run_id, "entry_pc": f"0x{run.function_addr:04X}", "step": r.get("step", ""), "pc": r.get("pc", ""), "access_type": "write", "space": "sfr", "addr": r.get("sfr_addr", ""), "value": r.get("sfr_value", ""), "role_candidate": "unknown_output_candidate", "nearby_code_context": "port_like_sfr_write", "evidence_level": "emulation_observed", "confidence": "low", "notes": "could_be_display_or_other_io"})
-        if r.get("trace_type") == "code_read":
-            rows.append({"run_id": run.run_id, "entry_pc": f"0x{run.function_addr:04X}", "step": r.get("step", ""), "pc": r.get("pc", ""), "access_type": "read", "space": "code", "addr": r.get("xdata_addr", ""), "value": r.get("xdata_value", ""), "role_candidate": "display_buffer_candidate", "nearby_code_context": "movc_table_read", "evidence_level": "emulation_observed", "confidence": "low", "notes": "code_table_read_near_output_unknown"})
+            if addr in CPU_INTERNAL_SFRS:
+                rows.append({"run_id": run.run_id, "entry_pc": f"0x{run.function_addr:04X}", "step": r.get("step", ""), "pc": r.get("pc", ""), "access_type": "write", "space": "sfr", "addr": r.get("sfr_addr", ""), "value": r.get("sfr_value", ""), "role_candidate": "cpu_internal_sfr", "nearby_code_context": "register_state_update", "evidence_level": "emulation_observed", "confidence": "high", "notes": "internal_8051_sfr_not_display_evidence"})
+                continue
+            if addr in PORT_SFRS:
+                rows.append({"run_id": run.run_id, "entry_pc": f"0x{run.function_addr:04X}", "step": r.get("step", ""), "pc": r.get("pc", ""), "access_type": "write", "space": "sfr", "addr": r.get("sfr_addr", ""), "value": r.get("sfr_value", ""), "role_candidate": "unknown_io_candidate", "nearby_code_context": "port_sfr_write_no_path_to_display_confirmed", "evidence_level": "emulation_observed", "confidence": "low", "notes": "port_write_seen_but_display_unconfirmed"})
     return rows[:200]
 
 
@@ -1228,10 +1237,16 @@ def _collect_keypad_candidates(run: FunctionRunResult) -> list[dict[str, str]]:
     for r in run.trace.rows:
         if r.get("trace_type") == "sfr_access" and r.get("notes", "").startswith("read"):
             addr = _parse_hex_int(r.get("sfr_addr", "0x0"))
-            if 0x80 <= addr <= 0xB7:
-                rows.append({"run_id": run.run_id, "entry_pc": f"0x{run.function_addr:04X}", "step": r.get("step", ""), "pc": r.get("pc", ""), "access_type": "read", "space": "sfr", "addr": r.get("sfr_addr", ""), "value": r.get("sfr_value", ""), "role_candidate": "unknown_input_candidate", "branch_dependency": "", "evidence_level": "emulation_observed", "confidence": "low", "notes": "port_like_sfr_read"})
-        if r.get("trace_type") == "bit_access" and "port_bit_candidate" in r.get("notes", ""):
-            rows.append({"run_id": run.run_id, "entry_pc": f"0x{run.function_addr:04X}", "step": r.get("step", ""), "pc": r.get("pc", ""), "access_type": "bit_test", "space": "bit", "addr": r.get("args", ""), "value": "", "role_candidate": "keypad_scan_candidate", "branch_dependency": "bit_branch_candidate", "evidence_level": "emulation_observed", "confidence": "low", "notes": "port_bit_access"})
+            if addr in CPU_INTERNAL_SFRS:
+                rows.append({"run_id": run.run_id, "entry_pc": f"0x{run.function_addr:04X}", "step": r.get("step", ""), "pc": r.get("pc", ""), "access_type": "read", "space": "sfr", "addr": r.get("sfr_addr", ""), "value": r.get("sfr_value", ""), "role_candidate": "cpu_internal_sfr", "branch_dependency": "", "evidence_level": "emulation_observed", "confidence": "high", "notes": "internal_8051_sfr_not_keypad_evidence"})
+                continue
+            if addr in PORT_SFRS:
+                rows.append({"run_id": run.run_id, "entry_pc": f"0x{run.function_addr:04X}", "step": r.get("step", ""), "pc": r.get("pc", ""), "access_type": "read", "space": "sfr", "addr": r.get("sfr_addr", ""), "value": r.get("sfr_value", ""), "role_candidate": "unknown_io_candidate", "branch_dependency": "", "evidence_level": "emulation_observed", "confidence": "low", "notes": "port_read_seen_but_keypad_unconfirmed"})
+        if r.get("trace_type") == "bit_access":
+            bit_addr = _parse_hex_int(r.get("bit_addr", "0x0"))
+            byte_addr = _parse_hex_int(r.get("byte_addr", "0x0"))
+            if byte_addr in PORT_SFRS and ("branch_test=" in r.get("notes", "") or r.get("access_type", "").startswith("unknown")):
+                rows.append({"run_id": run.run_id, "entry_pc": f"0x{run.function_addr:04X}", "step": r.get("step", ""), "pc": r.get("pc", ""), "access_type": "bit_test", "space": "bit", "addr": f"0x{bit_addr:02X}", "value": "", "role_candidate": "unknown_io_candidate", "branch_dependency": "bit_branch_candidate", "evidence_level": "emulation_observed", "confidence": "low", "notes": "port_bit_branch_seen_but_keypad_unconfirmed"})
     return rows[:200]
 
 
@@ -1287,8 +1302,10 @@ def _scan_display_keypad_static_candidates(img) -> list[dict[str, str]]:
     for addr in range(0x4000, 0xC000):
         op = img.get_byte(addr)
         b1 = img.get_byte(addr + 1)
-        if op in {0x85, 0x75, 0xF5, 0xE5} and 0x80 <= b1 <= 0xB8:
-            rows.append({"candidate_addr": f"0x{addr:04X}", "candidate_type": "port_write_routine_candidate" if op in {0x75, 0xF5} else "port_read_routine_candidate", "reason": "direct_sfr_port_operand", "referenced_by": "", "raw_bytes_or_operands": f"{op:02X} {b1:02X}", "evidence_level": "static_code", "confidence": "low", "notes": "opcode_pattern_scan"})
+        if op in {0x85, 0x75, 0xF5, 0xE5} and b1 in CPU_INTERNAL_SFRS:
+            rows.append({"candidate_addr": f"0x{addr:04X}", "candidate_type": "cpu_internal_sfr", "reason": "direct_internal_sfr_operand", "referenced_by": "", "raw_bytes_or_operands": f"{op:02X} {b1:02X}", "evidence_level": "static_code", "confidence": "high", "notes": "internal_8051_sfr_not_display_keypad"})
+        elif op in {0x85, 0x75, 0xF5, 0xE5} and b1 in PORT_SFRS:
+            rows.append({"candidate_addr": f"0x{addr:04X}", "candidate_type": "unknown_io_candidate", "reason": "direct_port_sfr_operand_no_device_mapping", "referenced_by": "", "raw_bytes_or_operands": f"{op:02X} {b1:02X}", "evidence_level": "static_code", "confidence": "low", "notes": "port_operand_seen_but_display_keypad_unconfirmed"})
         if len(rows) >= 200:
             break
     return rows
@@ -1306,6 +1323,28 @@ def _write_boot_boundary_report() -> None:
         reset_jump = "yes (emulation_observed)" if int(ran_4000.get("steps", "0")) > 0 else "no"
     unsupported = next((r.get("stop_reason") for r in runs if "unsupported" in r.get("stop_reason", "")), "none_observed")
     sbuf = sum(int(r.get("sbuf_writes", "0")) for r in runs)
+    display_rows = []
+    keypad_rows = []
+    table_rows = []
+    uart_rows = []
+    timer_rows = []
+    if DISPLAY_CANDIDATE_TRACE_CSV.exists():
+        with DISPLAY_CANDIDATE_TRACE_CSV.open(encoding="utf-8", newline="") as fh:
+            display_rows = list(csv.DictReader(fh))
+    if KEYPAD_CANDIDATE_TRACE_CSV.exists():
+        with KEYPAD_CANDIDATE_TRACE_CSV.open(encoding="utf-8", newline="") as fh:
+            keypad_rows = list(csv.DictReader(fh))
+    if DISPLAY_TEXT_TABLE_CANDIDATES_CSV.exists():
+        with DISPLAY_TEXT_TABLE_CANDIDATES_CSV.open(encoding="utf-8", newline="") as fh:
+            table_rows = list(csv.DictReader(fh))
+    if UART_INIT_CANDIDATE_TRACE_CSV.exists():
+        with UART_INIT_CANDIDATE_TRACE_CSV.open(encoding="utf-8", newline="") as fh:
+            uart_rows = list(csv.DictReader(fh))
+    if TIMER_INTERRUPT_CANDIDATE_TRACE_CSV.exists():
+        with TIMER_INTERRUPT_CANDIDATE_TRACE_CSV.open(encoding="utf-8", newline="") as fh:
+            timer_rows = list(csv.DictReader(fh))
+    display_confirmed = [r for r in display_rows if r.get("role_candidate") not in {"cpu_internal_sfr"}]
+    keypad_confirmed = [r for r in keypad_rows if r.get("role_candidate") not in {"cpu_internal_sfr"}]
     lines = [
         "# Boot/runtime boundary report",
         "",
@@ -1313,18 +1352,102 @@ def _write_boot_boundary_report() -> None:
         f"2. Did application entry 0x4100 execute beyond initial setup? {'yes' if ran_4100 and int(ran_4100.get('steps', '0')) > 32 else 'unknown'}.",
         f"3. What was the first unsupported opcode, if any? {unsupported}.",
         "4. What SFRs were initialized? see docs/emulator/boot_init_write_summary.csv (emulation_observed).",
-        f"5. Were UART/SCON/SBUF candidates initialized? {'yes' if UART_INIT_CANDIDATE_TRACE_CSV.exists() else 'unknown'} (emulation_observed).",
-        f"6. Were timer/interrupt candidates initialized? {'yes' if TIMER_INTERRUPT_CANDIDATE_TRACE_CSV.exists() else 'unknown'} (emulation_observed).",
+        f"5. Were UART/SCON/SBUF candidates initialized? {'yes' if uart_rows else 'no'} (emulation_observed).",
+        f"6. Were timer/interrupt candidates initialized? {'yes' if timer_rows else 'no'} (emulation_observed).",
         f"7. Was a main loop or scheduler loop found? {'yes' if RUNTIME_LOOP_CANDIDATES_CSV.exists() else 'unknown'} (emulation_observed).",
-        f"8. Were display/LCD/output candidates observed? {'yes' if DISPLAY_CANDIDATE_TRACE_CSV.exists() else 'unknown'} (emulation_observed).",
-        f"9. Were display text/message table candidates found? {'yes' if DISPLAY_TEXT_TABLE_CANDIDATES_CSV.exists() else 'unknown'} (static_code).",
-        f"10. Were keypad/input scan candidates observed? {'yes' if KEYPAD_CANDIDATE_TRACE_CSV.exists() else 'unknown'} (emulation_observed).",
+        f"8. Were display/LCD/output candidates observed? {'yes' if display_confirmed else 'no'} (emulation_observed).",
+        f"9. Were display text/message table candidates found? {'yes' if table_rows else 'no'} (static_code).",
+        f"10. Were keypad/input scan candidates observed? {'yes' if keypad_confirmed else 'no'} (emulation_observed).",
         f"11. Were SBUF candidate writes observed? {'yes' if sbuf > 0 else 'no'}.",
         f"12. Were UART TX candidate bytes observed? {'yes' if sbuf > 0 else 'no'}.",
         "13. Are RS-485 commands still unresolved? yes.",
-        "14. Current blocker: blocked_until_peripheral_model (timer/interrupt/UART runtime context incomplete).",
+        "14. Current blocker: boot_init_loop_or_counter_boundary (early 0x4100..0x4165 loop persists without UART/SBUF/port-output proof).",
+        "",
+        "## Classifier correction and early boot-loop interpretation",
+        "- Previous display/keypad counts were contaminated by SP/DPL/DPH/PSW/ACC/B handling: confirmed.",
+        f"- Corrected display candidates remaining: {len(display_confirmed)} (all weak unknown_io_candidate unless promoted by stronger path evidence).",
+        f"- Corrected keypad candidates remaining: {len(keypad_confirmed)} (all weak unknown_io_candidate unless promoted by stronger path evidence).",
+        f"- Display text/message table candidates remaining: {len(table_rows)}.",
+        f"- UART/SCON/SBUF init candidates remaining: {len(uart_rows)}; SBUF writes observed: {sbuf}.",
+        f"- Timer/interrupt candidates remaining: {len(timer_rows)}.",
+        "- Early 0x4100..0x4165 loop likely represents boot pointer/copy initialization loop (DPTR + DPL/DPH rewrite) rather than peripheral wait loop.",
+        "- Next blocker assessment: boot init loop with missing boundary into later runtime services.",
     ]
     BOOT_RUNTIME_BOUNDARY_REPORT_MD.write_text("\n".join(lines) + "\n", encoding="utf-8")
+
+
+def _write_sfr_role_map_audit(run: FunctionRunResult) -> None:
+    cols = [
+        "sfr_addr", "known_8051_role", "ds80c320_role_candidate", "seen_in_boot", "access_count", "used_as_candidate_io",
+        "classification_before", "classification_after", "evidence_level", "notes",
+    ]
+    role_map = {
+        0x80: ("P0", "P0_candidate"),
+        0x81: ("SP", "cpu_internal_sfr"),
+        0x82: ("DPL", "cpu_internal_sfr"),
+        0x83: ("DPH", "cpu_internal_sfr"),
+        0x87: ("PCON", "power_control_or_baud_control_candidate"),
+        0x88: ("TCON", "timer_control_candidate"),
+        0x89: ("TMOD", "timer_mode_candidate"),
+        0x8A: ("TL0", "timer0_low_candidate"),
+        0x8B: ("TL1", "timer1_low_candidate"),
+        0x8C: ("TH0", "timer0_high_candidate"),
+        0x8D: ("TH1", "timer1_high_candidate"),
+        0x90: ("P1", "P1_candidate"),
+        0x98: ("SCON0", "SCON0_candidate"),
+        0x99: ("SBUF0", "SBUF0_candidate"),
+        0x9A: ("SBUF1/SCON1_alias", "UART1_candidate"),
+        0xA0: ("P2", "P2_candidate"),
+        0xA8: ("IE", "interrupt_enable_candidate"),
+        0xB0: ("P3", "P3_candidate"),
+        0xB8: ("IP", "interrupt_priority_candidate"),
+        0xC8: ("SCON1", "SCON1_candidate"),
+        0xD0: ("PSW", "cpu_internal_sfr"),
+        0xE0: ("ACC", "cpu_internal_sfr"),
+        0xF0: ("B", "cpu_internal_sfr"),
+    }
+    seen_counter: Counter[int] = Counter()
+    for r in run.trace.rows:
+        if r.get("trace_type") == "sfr_access":
+            seen_counter[_parse_hex_int(r.get("sfr_addr", "0x0"))] += 1
+    audit_rows: list[dict[str, str]] = []
+    for addr, (known_role, role_candidate) in sorted(role_map.items()):
+        count = seen_counter.get(addr, 0)
+        before = "display_or_keypad_candidate" if 0x80 <= addr <= 0xB8 else "not_candidate"
+        if addr in CPU_INTERNAL_SFRS:
+            after = "cpu_internal_sfr"
+            used_as_candidate_io = "no"
+            note = "excluded_from_display_keypad_classifier"
+        elif addr in PORT_SFRS:
+            after = "unknown_io_candidate"
+            used_as_candidate_io = "yes" if count else "no"
+            note = "port_sfr_needs_stronger_device_path_evidence"
+        elif addr in SERIAL_TIMER_INTERRUPT_SFRS:
+            after = "serial_timer_interrupt_candidate"
+            used_as_candidate_io = "yes" if count else "no"
+            note = "tracked_in_uart_timer_interrupt_audits"
+        else:
+            after = "unknown"
+            used_as_candidate_io = "no"
+            note = "reserved_or_unmapped_in_current_trace"
+        audit_rows.append(
+            {
+                "sfr_addr": f"0x{addr:02X}",
+                "known_8051_role": known_role,
+                "ds80c320_role_candidate": role_candidate,
+                "seen_in_boot": "yes" if count else "no",
+                "access_count": str(count),
+                "used_as_candidate_io": used_as_candidate_io,
+                "classification_before": before,
+                "classification_after": after,
+                "evidence_level": "emulation_observed" if count else "static_role_map",
+                "notes": note,
+            }
+        )
+    with SFR_ROLE_MAP_AUDIT_CSV.open("w", encoding="utf-8", newline="") as fh:
+        w = csv.DictWriter(fh, fieldnames=cols)
+        w.writeheader()
+        w.writerows(audit_rows)
 
 
 def run_boot_trace(entry: int, max_steps: int, compact_summary: bool) -> None:
