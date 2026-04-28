@@ -1,0 +1,225 @@
+# Boot config candidate static decode
+
+## 0x54C9
+- evidence tags used below: static_code, emulation_observed, hypothesis, unknown.
+- local window: 0x54B9..0x5508.
+- MOVX/MOVC/direct/SFR ops (compact):
+  - 0x54BE: MOV DPTR,#0x0001
+  - 0x54C1: LCALL 0x7922
+  - 0x54C6: MOV DPTR,#0x36D9
+  - 0x54C9: MOVX @DPTR,A
+  - 0x54CC: MOV DPTR,#0x36DA
+  - 0x54CF: LCALL 0x7928
+  - 0x54D2: MOV DPTR,#0x36D3
+  - 0x54D5: MOVX A,@DPTR
+  - 0x54D6: JNB 0xE7,+10
+  - 0x54D9: LJMP 0x859A
+  - 0x54DD: MOVX @DPTR,A
+  - 0x54DE: INC DPTR
+  - 0x54DF: DJNZ 0xF0,-5
+  - 0x54E5: MOVX @DPTR,A
+  - 0x54E6: JB 0xE0,+74
+  - 0x54E9: MOV DPTR,#0x3010
+- branch/call targets (compact):
+  - 0x54C1:LCALL->0x7922
+  - 0x54CF:LCALL->0x7928
+  - 0x54D6:JNB->0x54E3
+  - 0x54D9:LJMP->0x859A
+  - 0x54DF:DJNZ->0x54DD
+  - 0x54E6:JB->0x5533
+  - 0x54F9:CJNE->0x54F4
+  - 0x54FE:CJNE->0x54F4
+  - 0x5504:LCALL->0x6CFB
+- low-XDATA write status: emulation_observed.
+- per-function evidence label: emulation_observed (trace) + static_code (window decode).
+- verdict: low_xdata_init_candidate (confidence=medium).
+
+## 0x6ADA
+- evidence tags used below: static_code, emulation_observed, hypothesis, unknown.
+- local window: 0x6ACA..0x6B19.
+- MOVX/MOVC/direct/SFR ops (compact):
+  - 0x6ACB: LCALL 0x5E78
+  - 0x6ACE: MOV DPTR,#0x30FD
+  - 0x6AD2: MOVX @DPTR,A
+  - 0x6AD3: MOV DPTR,#0x0001
+  - 0x6AD6: MOVX A,@DPTR
+  - 0x6AD7: MOV DPTR,#0x30FB
+  - 0x6ADA: MOVX @DPTR,A
+  - 0x6AE2: MOV DPTR,#0x30FB
+  - 0x6AE5: MOVX A,@DPTR
+  - 0x6AE6: LCALL 0x7117
+  - 0x6AE9: CJNE A,#0x32,+0
+  - 0x6AEE: LCALL 0x5EA8
+  - 0x6AF3: LCALL 0x5D2E
+  - 0x6AF6: LCALL 0x5DB8
+  - 0x6AF9: MOV DPTR,#0x361A
+  - 0x6AFC: MOVX A,@DPTR
+- branch/call targets (compact):
+  - 0x6ACB:LCALL->0x5E78
+  - 0x6AE6:LCALL->0x7117
+  - 0x6AE9:CJNE->0x6AEC
+  - 0x6AEE:LCALL->0x5EA8
+  - 0x6AF3:LCALL->0x5D2E
+  - 0x6AF6:LCALL->0x5DB8
+  - 0x6B01:LCALL->0x6D0A
+  - 0x6B08:JNB->0x6B13
+  - 0x6B10:LJMP->0x5D93
+- low-XDATA write status: emulation_observed.
+- per-function evidence label: emulation_observed (trace) + static_code (window decode).
+- verdict: low_xdata_init_candidate (confidence=medium).
+
+## 0x6F5C
+- evidence tags used below: static_code, emulation_observed, hypothesis, unknown.
+- local window: 0x6F4C..0x6F9B.
+- MOVX/MOVC/direct/SFR ops (compact):
+  - 0x6F4E: MOV DPTR,#0x31A2
+  - 0x6F51: MOVX A,@DPTR
+  - 0x6F54: MOVX @DPTR,A
+  - 0x6F55: MOV DPTR,#0x0001
+  - 0x6F58: MOVX A,@DPTR
+  - 0x6F59: MOV DPTR,#0x31A3
+  - 0x6F5C: MOVX @DPTR,A
+  - 0x6F5E: MOV DPTR,#0x31A3
+  - 0x6F61: MOVX A,@DPTR
+  - 0x6F62: LCALL 0x7117
+  - 0x6F65: CJNE A,#0xC8,+0
+  - 0x6F6A: MOV DPTR,#0x31A2
+  - 0x6F6D: MOVX A,@DPTR
+  - 0x6F70: MOVX @DPTR,A
+  - 0x6F71: MOV DPTR,#0xFF91
+  - 0x6F77: MOVX A,@DPTR
+- branch/call targets (compact):
+  - 0x6F62:LCALL->0x7117
+  - 0x6F65:CJNE->0x6F68
+  - 0x6F93:LCALL->0x5A7F
+  - 0x6F9B:LCALL->0x7D38
+- low-XDATA write status: emulation_observed.
+- per-function evidence label: emulation_observed (trace) + static_code (window decode).
+- verdict: low_xdata_init_candidate (confidence=medium).
+
+## 0x7081
+- evidence tags used below: static_code, emulation_observed, hypothesis, unknown.
+- local window: 0x7071..0x70C0.
+- MOVX/MOVC/direct/SFR ops (compact):
+  - 0x7073: MOV DPTR,#0x30F4
+  - 0x7076: MOVX A,@DPTR
+  - 0x7079: MOVX @DPTR,A
+  - 0x707A: MOV DPTR,#0x0001
+  - 0x707D: MOVX A,@DPTR
+  - 0x707E: MOV DPTR,#0x30F5
+  - 0x7081: MOVX @DPTR,A
+  - 0x7083: MOV DPTR,#0x30F5
+  - 0x7086: MOVX A,@DPTR
+  - 0x7087: LCALL 0x7117
+  - 0x708A: CJNE A,#0xC8,+0
+  - 0x708F: MOV DPTR,#0x30F4
+  - 0x7092: MOVX A,@DPTR
+  - 0x7095: MOVX @DPTR,A
+  - 0x7096: MOV DPTR,#0xFF9B
+  - 0x709C: MOVX A,@DPTR
+- branch/call targets (compact):
+  - 0x7087:LCALL->0x7117
+  - 0x708A:CJNE->0x708D
+  - 0x70AC:JNB->0x709F
+  - 0x70B8:LCALL->0x5A7F
+  - 0x70C0:LCALL->0x7D38
+- low-XDATA write status: emulation_observed.
+- per-function evidence label: emulation_observed (trace) + static_code (window decode).
+- verdict: low_xdata_init_candidate (confidence=medium).
+
+## 0x76A1
+- evidence tags used below: static_code, emulation_observed, hypothesis, unknown.
+- local window: 0x7691..0x76E0.
+- MOVX/MOVC/direct/SFR ops (compact):
+  - 0x7691: CJNE A,0xF0,+17
+  - 0x7696: MOV DPTR,#0x31BA
+  - 0x7699: MOVX @DPTR,A
+  - 0x769A: MOV DPTR,#0x0001
+  - 0x769D: MOVX A,@DPTR
+  - 0x769E: MOV DPTR,#0x31BB
+  - 0x76A1: MOVX @DPTR,A
+  - 0x76A2: LJMP 0x76C4
+  - 0x76A5: MOV DPTR,#0x31BA
+  - 0x76A8: MOVX A,@DPTR
+  - 0x76A9: CJNE A,0xF0,-24
+  - 0x76AD: MOV DPTR,#0x31BB
+  - 0x76B0: MOVX A,@DPTR
+  - 0x76B3: CJNE A,#0x64,+0
+  - 0x76B8: MOV DPTR,#0x36F2
+  - 0x76BB: MOVX A,@DPTR
+- branch/call targets (compact):
+  - 0x7691:CJNE->0x76A5
+  - 0x76A2:LJMP->0x76C4
+  - 0x76A9:CJNE->0x7694
+  - 0x76B3:CJNE->0x76B6
+  - 0x76BF:LCALL->0x5A7F
+  - 0x76D2:LCALL->0x5A7F
+  - 0x76D6:CJNE->0x76E8
+- low-XDATA write status: emulation_observed.
+- per-function evidence label: emulation_observed (trace) + static_code (window decode).
+- verdict: low_xdata_init_candidate (confidence=medium).
+
+## 0x76E6
+- evidence tags used below: static_code, emulation_observed, hypothesis, unknown.
+- local window: 0x76D6..0x7725.
+- MOVX/MOVC/direct/SFR ops (compact):
+  - 0x76D6: CJNE A,0xF0,+15
+  - 0x76DB: MOV DPTR,#0x31BC
+  - 0x76DE: MOVX @DPTR,A
+  - 0x76DF: MOV DPTR,#0x0001
+  - 0x76E2: MOVX A,@DPTR
+  - 0x76E3: MOV DPTR,#0x31BD
+  - 0x76E6: MOVX @DPTR,A
+  - 0x76E8: MOV DPTR,#0x31BC
+  - 0x76EB: MOVX A,@DPTR
+  - 0x76EC: CJNE A,0xF0,-22
+  - 0x76F0: MOV DPTR,#0x31BD
+  - 0x76F3: MOVX A,@DPTR
+  - 0x76F6: CJNE A,#0x64,+0
+  - 0x76FB: MOV DPTR,#0x36F3
+  - 0x76FE: MOVX A,@DPTR
+  - 0x76FF: MOV DPTR,#0x31BF
+- branch/call targets (compact):
+  - 0x76D6:CJNE->0x76E8
+  - 0x76EC:CJNE->0x76D9
+  - 0x76F6:CJNE->0x76F9
+  - 0x7702:LCALL->0x5A7F
+  - 0x7711:LCALL->0x597F
+  - 0x7725:LCALL->0x5A7F
+- low-XDATA write status: emulation_observed.
+- per-function evidence label: emulation_observed (trace) + static_code (window decode).
+- verdict: low_xdata_init_candidate (confidence=medium).
+
+## 0x82EE
+- evidence tags used below: static_code, emulation_observed, hypothesis, unknown.
+- local window: 0x82DE..0x832D.
+- MOVX/MOVC/direct/SFR ops (compact):
+  - 0x82DE: MOV DPTR,#0x0010
+  - 0x82E1: MOVX A,@DPTR
+  - 0x82E2: JZ +24
+  - 0x82E4: MOV DPTR,#0x3648
+  - 0x82E7: LCALL 0x7D38
+  - 0x82EA: MOV DPTR,#0x0010
+  - 0x82EE: MOVX @DPTR,A
+  - 0x82EF: INC DPTR
+  - 0x82F0: MOVX @DPTR,A
+  - 0x82F1: INC DPTR
+  - 0x82F2: INC DPTR
+  - 0x82F3: MOVX @DPTR,A
+  - 0x82F4: MOV DPTR,#0x36D3
+  - 0x82F7: MOVX A,@DPTR
+  - 0x82FA: MOVX @DPTR,A
+  - 0x82FC: MOV DPTR,#0x0011
+- branch/call targets (compact):
+  - 0x82E2:JZ->0x82FC
+  - 0x82E7:LCALL->0x7D38
+  - 0x8300:JNZ->0x82E4
+  - 0x8306:JNZ->0x82E4
+  - 0x830C:JNB->0x831F
+  - 0x8312:LCALL->0x7D45
+  - 0x8315:CJNE->0x831F
+  - 0x8320:JZ->0x832C
+- low-XDATA write status: emulation_observed.
+- per-function evidence label: emulation_observed (trace) + static_code (window decode).
+- verdict: low_xdata_init_candidate (confidence=medium).
+

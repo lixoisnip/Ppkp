@@ -40,3 +40,11 @@
 4. Only run at most one new seed-to-`0x415F` and one config-source-follow scenario when justified by static evidence.
 
 > Warning: do **not** overfocus on additional `0x4100` seed variants unless global feature/call maps show no higher-value reachable targets.
+
+## Post-wide-map targeted audit results
+
+- Promising boot/config candidates: none high-confidence yet; 0x6F5C and 0x76E6 showed the most low-XDATA-touch potential in forced-entry traces, but still hypothesis-level without caller-context proof.
+- Promising runtime hubs: 0x5A7F (fan-in 142), 0x5935 (fan-in 20), 0x597F (fan-in 17), then 0x55AD/0x5602 as packet-bridge-adjacent probes.
+- Prioritized next path: runtime hub emulation with caller-context reconstruction first, then config-source reconstruction from upstream callers; static serial path search continues; bench capture after memory-mapped serial candidate isolation.
+- Continue 0x4100 seed brute force? No, not recommended now (except one evidence-driven follow-up if a boot candidate yields direct low-XDATA config-write evidence).
+- Updated understanding estimate: boot/config init path 35%, runtime/event hub map 60%, serial transport attribution 20%.
