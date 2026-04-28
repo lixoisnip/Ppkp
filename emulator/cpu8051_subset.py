@@ -5,7 +5,7 @@ from dataclasses import dataclass, field
 from typing import Callable
 
 from emulator.pzu_memory import CodeImage
-from emulator.sfr_model import SBUF_CANDIDATE_ADDRS, SfrModel
+from emulator.sfr_model import SBUF_CANDIDATE_ADDRS, SFR_ROLE_HINTS, SfrModel
 from emulator.trace import TraceLog
 
 
@@ -122,6 +122,14 @@ class CPU8051Subset:
             self._set_reg(n, s.acc)
             s.pc += 1
             self._log_instr("MOV", f"R{n},A", pc, acc_before, dptr_before)
+            return True, None
+
+        if 0x88 <= op <= 0x8F:  # MOV direct,Rn
+            n = op - 0x88
+            direct = self.fetch(pc + 1)
+            self._write_direct(direct, s.regs[n], pc=pc, notes=f"mov_direct_r{n}")
+            s.pc += 2
+            self._log_instr("MOV", f"0x{direct:02X},R{n}", pc, acc_before, dptr_before, notes="direct_write_model=idata_or_sfr")
             return True, None
 
         if 0x78 <= op <= 0x7F:  # MOV Rn,#imm
@@ -277,6 +285,26 @@ class CPU8051Subset:
             self._log_instr("ORL", f"0x{direct:02X},A", pc, acc_before, dptr_before, notes="direct_read_write_model=idata_or_sfr")
             return True, None
 
+        if op == 0x43:  # ORL direct,#imm
+            direct = self.fetch(pc + 1)
+            imm = self.fetch(pc + 2)
+            value = self._read_direct(direct, pc=pc, notes="orl_direct_imm_read")
+            result = (value | imm) & 0xFF
+            self._write_direct(direct, result, pc=pc, notes="orl_direct_imm_write")
+            s.pc += 3
+            self._log_instr("ORL", f"0x{direct:02X},#0x{imm:02X}", pc, acc_before, dptr_before, notes="direct_read_write_model=idata_or_sfr")
+            return True, None
+
+        if op == 0x53:  # ANL direct,#imm
+            direct = self.fetch(pc + 1)
+            imm = self.fetch(pc + 2)
+            value = self._read_direct(direct, pc=pc, notes="anl_direct_imm_read")
+            result = (value & imm) & 0xFF
+            self._write_direct(direct, result, pc=pc, notes="anl_direct_imm_write")
+            s.pc += 3
+            self._log_instr("ANL", f"0x{direct:02X},#0x{imm:02X}", pc, acc_before, dptr_before, notes="direct_read_write_model=idata_or_sfr")
+            return True, None
+
         if op == 0x84:  # DIV AB
             # Prefer SFR-backed B register when available to stay consistent with direct SFR writes.
             dividend = s.acc & 0xFF
@@ -360,6 +388,12 @@ class CPU8051Subset:
             self._log_instr("CLR", "A", pc, acc_before, dptr_before)
             return True, None
 
+        if op == 0xF4:  # CPL A
+            s.acc = (~s.acc) & 0xFF
+            s.pc += 1
+            self._log_instr("CPL", "A", pc, acc_before, dptr_before)
+            return True, None
+
         if op == 0xB4:  # CJNE A,#imm,rel
             imm = self.fetch(pc + 1)
             rel = self.fetch(pc + 2)
@@ -422,6 +456,57 @@ class CPU8051Subset:
             self._log_instr("DJNZ", f"R{n},{self._rel(rel)}", pc, acc_before, dptr_before)
             return True, None
 
+        if op == 0xD2:  # SETB bit
+            bit_addr = self.fetch(pc + 1)
+            space = self._bit_space(bit_addr)
+            byte_addr = self._bit_byte_addr(bit_addr)
+            bit_index = self._bit_index(bit_addr)
+            if space == "sfr_bit":
+                prev_byte = self.sfr.read(byte_addr, step=s.step_counter, pc=pc, notes="setb_bit_read")
+                new_byte = prev_byte | (1 << bit_index)
+                self.sfr.write(byte_addr, new_byte, step=s.step_counter, pc=pc, notes="setb_bit_write")
+            else:
+                prev_byte = s.idata[byte_addr] & 0xFF
+                new_byte = prev_byte | (1 << bit_index)
+                s.idata[byte_addr] = new_byte & 0xFF
+                self._sync_regs_from_idata()
+            prev_bit = (prev_byte >> bit_index) & 0x01
+            new_bit = (new_byte >> bit_index) & 0x01
+            self._emit_bit_trace(
+                pc=pc,
+                bit_addr=bit_addr,
+                access_type="setb_bit",
+                previous_bit=prev_bit,
+                new_bit=new_bit,
+                previous_byte=prev_byte,
+                new_byte=new_byte,
+            )
+            s.pc += 2
+            self._log_instr("SETB", f"bit 0x{bit_addr:02X}", pc, acc_before, dptr_before)
+            return True, None
+
+        if op == 0x20:  # JB bit,rel
+            bit_addr = self.fetch(pc + 1)
+            rel = self.fetch(pc + 2)
+            bit_value = self._read_bit_value(bit_addr, pc=pc, notes="branch_test=jb")
+            if bit_value == 1:
+                s.pc = (pc + 3 + self._rel(rel)) & 0xFFFF
+            else:
+                s.pc = (pc + 3) & 0xFFFF
+            self._log_instr("JB", f"bit 0x{bit_addr:02X},{self._rel(rel)}", pc, acc_before, dptr_before)
+            return True, None
+
+        if op == 0x30:  # JNB bit,rel
+            bit_addr = self.fetch(pc + 1)
+            rel = self.fetch(pc + 2)
+            bit_value = self._read_bit_value(bit_addr, pc=pc, notes="branch_test=jnb")
+            if bit_value == 0:
+                s.pc = (pc + 3 + self._rel(rel)) & 0xFFFF
+            else:
+                s.pc = (pc + 3) & 0xFFFF
+            self._log_instr("JNB", f"bit 0x{bit_addr:02X},{self._rel(rel)}", pc, acc_before, dptr_before)
+            return True, None
+
         if op in (0x60, 0x70, 0x80):
             rel = self.fetch(pc + 1)
             do_jump = (op == 0x80) or (op == 0x60 and s.acc == 0) or (op == 0x70 and s.acc != 0)
@@ -454,6 +539,30 @@ class CPU8051Subset:
             target = ((hi << 8) | lo) & 0xFFFF
             s.pc = target
             self._log_instr("LJMP", f"0x{target:04X}", pc, acc_before, dptr_before)
+            return True, None
+
+        if (op & 0x1F) == 0x01:  # AJMP addr11
+            imm = self.fetch(pc + 1)
+            target = (((pc + 2) & 0xF800) | ((op & 0xE0) << 3) | imm) & 0xFFFF
+            s.pc = target
+            self._log_instr("AJMP", f"0x{target:04X}", pc, acc_before, dptr_before)
+            return True, None
+
+        if (op & 0x1F) == 0x11:  # ACALL addr11
+            imm = self.fetch(pc + 1)
+            target = (((pc + 2) & 0xF800) | ((op & 0xE0) << 3) | imm) & 0xFFFF
+            ret = (pc + 2) & 0xFFFF
+            self.trace.add({"step": s.step_counter, "pc": pc, "op": "ACALL", "args": f"0x{target:04X}", "trace_type": "call"})
+            if target in self.stub_calls:
+                self.stub_calls[target](s, self.trace)
+                s.pc = ret
+                self.trace.add({"step": s.step_counter, "pc": s.pc, "op": "RET(stub)", "args": f"0x{target:04X}", "trace_type": "ret"})
+            else:
+                self._push_stack(ret & 0xFF)
+                self._push_stack((ret >> 8) & 0xFF)
+                s.call_stack.append(ret)
+                s.pc = target
+            self._log_instr("ACALL", f"0x{target:04X}", pc, acc_before, dptr_before)
             return True, None
 
         if op == 0x22:
@@ -535,3 +644,89 @@ class CPU8051Subset:
         carry = 1 if (lhs & 0xFF) < (rhs & 0xFF) else 0
         self.s.psw = ((self.s.psw & 0x7F) | (carry << 7)) & 0xFF
         self.sfr.write(0xD0, self.s.psw, step=self.s.step_counter, pc=self.s.pc, notes="cjne_carry_update")
+
+    def _bit_space(self, bit_addr: int) -> str:
+        return "idata_bit_ram" if (bit_addr & 0xFF) <= 0x7F else "sfr_bit"
+
+    def _bit_byte_addr(self, bit_addr: int) -> int:
+        b = bit_addr & 0xFF
+        if b <= 0x7F:
+            return (0x20 + (b >> 3)) & 0xFF
+        return b & 0xF8
+
+    def _bit_index(self, bit_addr: int) -> int:
+        return bit_addr & 0x07
+
+    def _possible_role_for_bit(self, byte_addr: int, space: str) -> str:
+        if space == "idata_bit_ram":
+            return "idata_bit_candidate"
+        if byte_addr in {0x98, 0x99, 0x9A}:
+            return "serial_control_bit_candidate"
+        if byte_addr in {0xA8, 0xB8}:
+            return "interrupt_control_bit_candidate"
+        if byte_addr in {0x88, 0x89, 0x8A, 0x8B, 0x8C, 0x8D, 0xC8}:
+            return "timer_control_bit_candidate"
+        if byte_addr in {0x80, 0x90, 0xA0, 0xB0}:
+            return "port_bit_candidate"
+        return "sfr_bit_candidate"
+
+    def _emit_bit_trace(
+        self,
+        *,
+        pc: int,
+        bit_addr: int,
+        access_type: str,
+        previous_bit: int,
+        new_bit: int,
+        previous_byte: int,
+        new_byte: int,
+        notes: str = "",
+    ) -> None:
+        space = self._bit_space(bit_addr)
+        byte_addr = self._bit_byte_addr(bit_addr)
+        bit_index = self._bit_index(bit_addr)
+        possible_role = self._possible_role_for_bit(byte_addr, space)
+        extra_notes = notes
+        if space == "sfr_bit":
+            role_hint = SFR_ROLE_HINTS.get(byte_addr)
+            if role_hint:
+                extra_notes = f"{extra_notes};sfr_role_hint={role_hint}".strip(";")
+            elif byte_addr not in {0x80, 0x90, 0xA0, 0xB0}:
+                extra_notes = f"{extra_notes};unknown_sfr_bit=true".strip(";")
+        self.trace.add(
+            {
+                "step": self.s.step_counter,
+                "pc": pc,
+                "op": "BIT",
+                "args": access_type,
+                "trace_type": "bit_access",
+                "notes": (
+                    f"bit_addr=0x{bit_addr & 0xFF:02X};byte_addr=0x{byte_addr:02X};bit_index={bit_index};"
+                    f"space={space};previous_bit={previous_bit};new_bit={new_bit};"
+                    f"previous_byte=0x{previous_byte:02X};new_byte=0x{new_byte:02X};"
+                    f"possible_role={possible_role};evidence_level=emulation_observed"
+                    + (f";{extra_notes}" if extra_notes else "")
+                ),
+            }
+        )
+
+    def _read_bit_value(self, bit_addr: int, *, pc: int, access_type: str = "unknown_bit_access", notes: str = "") -> int:
+        space = self._bit_space(bit_addr)
+        byte_addr = self._bit_byte_addr(bit_addr)
+        bit_index = self._bit_index(bit_addr)
+        if space == "sfr_bit":
+            byte_value = self.sfr.read(byte_addr, step=self.s.step_counter, pc=pc, notes="bit_read")
+        else:
+            byte_value = self.s.idata[byte_addr] & 0xFF
+        bit_value = (byte_value >> bit_index) & 0x01
+        self._emit_bit_trace(
+            pc=pc,
+            bit_addr=bit_addr,
+            access_type=access_type,
+            previous_bit=bit_value,
+            new_bit=bit_value,
+            previous_byte=byte_value,
+            new_byte=byte_value,
+            notes=notes,
+        )
+        return bit_value

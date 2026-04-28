@@ -3,7 +3,6 @@ opcode,mnemonic,implemented,observed_in_runs,notes
 0x42,"ORL direct,A",yes,yes,issue_78_next_blocker
 0x75,"MOV direct,#imm",yes,yes,issue_81_blocker
 0x84,DIV AB,yes,yes,issue_82_blocker
-0xA4,MUL AB,yes,yes,issue_84_next_blocker
 0xB8..0xBF,"CJNE Rn,#imm,rel",yes,yes,issue_78_blocker
 0x23,RL A,yes,yes,issue_78_next_blocker
 0x04,INC A,yes,yes,issue_78_next_blocker
@@ -15,3 +14,4 @@ opcode,mnemonic,implemented,observed_in_runs,notes
 0xB5,"CJNE A,direct,rel",yes,yes,extended_support
 0xB6/0xB7,"CJNE @R0/@R1,#imm,rel",yes,yes,extended_support
 0xD8..0xDF,"DJNZ Rn,rel",yes,yes,extended_support
+0xD2,SETB bit,yes,yes,autonomous_packet_bridge_blocker
