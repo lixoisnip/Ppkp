@@ -315,6 +315,29 @@ class CPU8051Subset:
             self._log_instr("DIV", "AB", pc, acc_before, dptr_before, notes=f"quotient=0x{s.acc:02X};remainder=0x{s.b:02X}")
             return True, None
 
+        if op == 0xA4:  # MUL AB
+            # Prefer SFR-backed B register when available to stay consistent with direct SFR writes.
+            lhs = s.acc & 0xFF
+            rhs = self.sfr.get(0xF0, s.b) & 0xFF
+            product = (lhs * rhs) & 0xFFFF
+            s.acc = product & 0xFF
+            s.b = (product >> 8) & 0xFF
+            self.sfr.write(0xF0, s.b, step=s.step_counter, pc=pc, notes="mul_ab_high_byte_write")
+            # CY cleared; OV set iff high byte is non-zero.
+            ov = 1 if s.b != 0 else 0
+            s.psw = ((s.psw & 0x7B) | (ov << 2)) & 0xFF
+            self.sfr.write(0xD0, s.psw, step=s.step_counter, pc=pc, notes="mul_ab_flag_update;cy_clear")
+            s.pc += 1
+            self._log_instr(
+                "MUL",
+                "AB",
+                pc,
+                acc_before,
+                dptr_before,
+                notes=f"product=0x{product:04X};ov={(ov == 1)};b_source=sfr_f0_or_state_b",
+            )
+            return True, None
+
         if op == 0x93:  # MOVC A,@A+DPTR
             code_addr = (s.dptr + s.acc) & 0xFFFF
             s.acc = self.fetch(code_addr)
