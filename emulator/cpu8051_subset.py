@@ -387,6 +387,18 @@ class CPU8051Subset:
             self._log_instr("CJNE", f"R{n},#0x{imm:02X},{self._rel(rel)}", pc, acc_before, dptr_before)
             return True, None
 
+        if 0xD8 <= op <= 0xDF:  # DJNZ Rn,rel
+            n = op - 0xD8
+            rel = self.fetch(pc + 1)
+            value = (s.regs[n] - 1) & 0xFF
+            self._set_reg(n, value)
+            if value != 0:
+                s.pc = (pc + 2 + self._rel(rel)) & 0xFFFF
+            else:
+                s.pc = (pc + 2) & 0xFFFF
+            self._log_instr("DJNZ", f"R{n},{self._rel(rel)}", pc, acc_before, dptr_before)
+            return True, None
+
         if op in (0x60, 0x70, 0x80):
             rel = self.fetch(pc + 1)
             do_jump = (op == 0x80) or (op == 0x60 and s.acc == 0) or (op == 0x70 and s.acc != 0)

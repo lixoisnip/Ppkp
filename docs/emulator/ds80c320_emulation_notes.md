@@ -35,3 +35,9 @@ External project notes mention `_58_3.prw` with `DevType=DS320 processor`. Curre
 
 ## Scope statement
 Current sandbox remains **function-level tracing**, not full hardware/device emulation.
+
+## RS-485 hardware observation update (2026-04-28)
+- Hardware evidence (`hardware_observed`) now includes board-photo marking `MAX1480ACPI` and PCB silkscreen `RS485`, with user report of two modules on one board.
+- Emulator UART tracing should therefore remain active but two-channel-aware: `SBUF0`/`SBUF1` are candidate mappings, and either could map to physical RS-485 channel candidate 0/1.
+- This raises confidence that UART/SFR tracing is relevant, but does not by itself decode protocol bytes or channel ownership.
+
