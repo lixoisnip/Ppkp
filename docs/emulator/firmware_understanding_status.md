@@ -77,3 +77,10 @@
 1. Compare against an external ХВО PZU (if available) using the same candidate ranges and function neighborhoods.
 2. Run bench capture to correlate real fire events with candidate XDATA transitions (`0x36F2..0x36F9`, `0x36ED..0x36FF`, `0x31BF`).
 3. Perform targeted emulation with richer caller context around `0x55AD/0x5602/0x5935/0x5A7F` to stabilize record-field interpretation.
+
+## Project-guided output module configuration status
+
+- Project evidence is now used to separate where output modules are present from where they are not (e.g., 90CYE02 damper outputs vs 90CYE03/04 aerosol-start outputs; MDS retained as discrete-input module under current evidence).
+- Code evidence around `0x36F2..0x36F9` and `0x5984..0x598B` is consistent with an 8-output/action structure in the DKS aerosol-role images.
+- Exact physical relay/channel mapping remains unconfirmed and is explicitly blocked until terminal documents and bench traces are available.
+- RS-485 frame bytes remain unresolved; however, byte-level protocol decoding is not required to show that internal output configuration/action structures exist in firmware.

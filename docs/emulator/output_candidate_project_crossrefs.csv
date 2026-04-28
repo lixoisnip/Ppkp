@@ -1,0 +1,7 @@
+candidate_addr_or_range,referenced_by_pc,referenced_by_function,project_function_candidates,evidence_level,confidence,notes
+0x5984..0x598B,0x59A7;0x5901,0x5935;0x597F,multi_output_selection_for_aerosol_or_warning_dispatch,project_documentation+static_code,medium,"Exact 8-bit mask ramp in 90CYE03/04 DKS; diverges in 90CYE02 DKS."
+0x36F2..0x36F9,0x56B0;0x56B5;0x56BA;0x56BF;0x56C4;0x56C9;0x56CE;0x56D3,0x55AD;0x5602,project_output_action_vector_for_fire_response,project_documentation+emulation_observed,medium,"Sequential 8-slot writes observed; physical relay mapping intentionally unclaimed."
+0x6833,project_guided_static_chain_anchor,0x6833,output_start_chain_entry_after_mode_and_delay_logic,project_documentation+static_code,medium,"Compact entry emulation truncated by unsupported opcode before full downstream observation."
+0x7DC2,project_guided_static_chain_downstream,0x7DC2,output_transition_after_start_marker,project_documentation+static_code,low,"Static chain support only in current evidence set."
+0x84A6,project_guided_mode_chain_refs,0x84A6,auto_manual_gate_for_aerosol_output_path,project_documentation+static_code,medium,"Project docs mention auto/manual behavior; variable-level mapping unresolved."
+0x728A,project_guided_interlock_chain_refs,0x728A,door_open_auto_disable_gate,project_documentation+static_code,medium,"Interlock role consistent with project docs; no terminal polarity claim."
