@@ -40,3 +40,10 @@
 4. Only run at most one new seed-to-`0x415F` and one config-source-follow scenario when justified by static evidence.
 
 > Warning: do **not** overfocus on additional `0x4100` seed variants unless global feature/call maps show no higher-value reachable targets.
+
+## Front-panel UI hardware evidence
+- Hardware photos confirm a front-panel LCD/text display, keypad, and labeled LED bank.
+- Real observed display messages include `УСТАНОВКА` and `АДР.МОДУЛЬ1.М2 300` / `ТИП2 НОРМА`.
+- This raises confidence in UI hardware existence and anchor vocabulary, but does **not** confirm display protocol, encoding, or key/LED bit mapping.
+- Firmware-level display routine and formatting path remain unconfirmed unless static/emulation evidence produces explicit code-path and decode matches.
+- Current state: hardware-level UI understanding increased; firmware mapping confidence remains low pending stronger code evidence.

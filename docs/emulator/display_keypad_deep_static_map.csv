@@ -11,11 +11,9 @@ candidate_addr,candidate_type,operation,nearby_bytes,nearby_decode,related_table
 0x4947,display_output_routine_candidate,UNK ,42 A0 D0 F0 D0 D0,UNK ,,0xA0,,low,static_code,port access only; device role unconfirmed
 0x4969,display_output_routine_candidate,UNK ,52 A0 D0 E0 42 A0,UNK ,,0xA0,,low,static_code,port access only; device role unconfirmed
 0x496D,display_output_routine_candidate,UNK ,42 A0 D0 F0 D0 D0,UNK ,,0xA0,,low,static_code,port access only; device role unconfirmed
-0x53B8,display_output_routine_candidate,UNK ,43 A0 50 4F 43 FF,UNK ,,0xA0,,low,static_code,port access only; device role unconfirmed
 0x548D,keypad_scan_candidate,"JB 0x41,-96",20 41 A0 31 FF A8,"JB 0x41,-96",,0xA0,,low,static_code,port access only; device role unconfirmed
 0x549B,keypad_scan_candidate,"JB 0x41,-96",20 41 A0 32 FF A8,"JB 0x41,-96",,0xA0,,low,static_code,port access only; device role unconfirmed
 0x54A9,keypad_scan_candidate,"JB 0x41,-96",20 41 A0 33 FF A8,"JB 0x41,-96",,0xA0,,low,static_code,port access only; device role unconfirmed
-0x54B7,keypad_scan_candidate,"JB 0x41,-96",20 41 A0 34 FF C2,"JB 0x41,-96",,0xA0,,low,static_code,port access only; device role unconfirmed
 0x54BC,unknown_io_candidate,CLR 0xAF,C2 AF 90 00 01 12,CLR 0xAF,,0x90,,low,static_code,port access only; device role unconfirmed
 0x54C4,keypad_scan_candidate,"MOV A,0x8E",E5 8E 90 36 D9 F0,"MOV A,0x8E",,0x90,,low,static_code,port access only; device role unconfirmed
 0x54CA,unknown_io_candidate,SETB 0xAF,D2 AF 90 36 DA 12,SETB 0xAF,,0x90,,low,static_code,port access only; device role unconfirmed
@@ -94,3 +92,10 @@ candidate_addr,candidate_type,operation,nearby_bytes,nearby_decode,related_table
 0x8406,display_output_routine_candidate,"MOV 0xF0,A",F5 F0 90 36 12 74,"MOV 0xF0,A",,0x90,,low,static_code,port access only; device role unconfirmed
 0x8527,unknown_io_candidate,UNK ,85 58 90 31 B1 E0,UNK ,,0x90,,low,static_code,port access only; device role unconfirmed
 0x862D,unknown_io_candidate,CLR 0xAF,C2 AF 90 36 D9 E0,CLR 0xAF,,0x90,,low,static_code,port access only; device role unconfirmed
+0x6E7C,ui_text_table_candidate,MOVC table index to XDATA staging write,90 6D DD 93 90 31 5D F0,"MOVC(A,@A+DPTR)->xdata[0x315D]",0x6DDD,0x315D,,medium,static_code,table-driven UI-token candidate from static decode
+0x5D16,ui_format_routine_candidate,dual MOVC indirection,F5 F0 93 C0 E0 E5 F0 04 93,Dual MOVC read sequence,,0x82;0x83;0xF0,,medium,static_code,possible formatter/token resolver preceding output path
+0x315D,lcd_buffer_candidate,xdata byte sink from table-selected output,,,,0x315D,0x6E7D;0x613C;0x7ACC,low,static_code,candidate display staging slot only; not confirmed framebuffer
+0x54B7,front_panel_keypad_candidate,existing bit-test loop aligned with physical keypad existence,20 41 A0 34 FF C2,JB bit test loop,,0xA0,,medium,static_code,hardware photos confirm keypad exists but key-code map remains unknown
+0x53B8,led_status_output_candidate,port-bit mask update in UI-related cluster,43 A0 50 4F 43 FF,ORL port mask around status logic,,0xA0,,low,static_code,hardware LEDs observed; mapping of labels to bits still unknown
+0xHW_PANEL,front_panel_keypad_candidate,photo-observed keypad matrix present,NA,"1..9,*0#,arrows,РЕЖИМ,ВВОД,ПУСК,ОТБОЙ,ОТКЛ. ЗВУКА,СБРОС",,,,high,hardware_observed,physical evidence anchor for static code search
+0xHW_LED,led_status_output_candidate,photo-observed LED label bank present,NA,"ПУСК,ПОЖАР,ВНИМАНИЕ,НЕИСПР.,ПРОГРАММА,КОНТРОЛЬ,СВЯЗЬ,ТЕСТ,РУЧНОЙ,АВТ.,ОСНОВНОЕ,РЕЗЕРВНОЕ",,,,high,hardware_observed,physical evidence anchor only
