@@ -1,0 +1,24 @@
+sfr_addr,known_8051_role,ds80c320_role_candidate,read_count_static,write_count_static,bit_access_count_static,observed_in_boot,observed_in_function_runs,first_static_pc,top_static_pcs,possible_role,evidence_level,confidence,notes
+0x80,P0,P0_candidate,3,3,0,no,no,0x7F19,0x7F19;0x7F27;0x7F38,port_io_candidate,static_code,medium,boot_observed only for early loop trace
+0x81,SP,cpu_internal_sfr,0,0,0,yes,yes,,,cpu_internal,emulation_observed,high,boot_observed only for early loop trace
+0x82,DPL,cpu_internal_sfr,78,92,0,yes,yes,0x4110,0x4110;0x4123;0x4142;0x414B;0x4153,cpu_internal,emulation_observed,high,boot_observed only for early loop trace
+0x83,DPH,cpu_internal_sfr,75,82,0,yes,yes,0x410E,0x410E;0x4125;0x4144;0x414D;0x4159,cpu_internal,emulation_observed,high,boot_observed only for early loop trace
+0x87,PCON,PCON_candidate,0,0,0,no,no,,,serial_timer_interrupt_candidate,static_code,low,boot_observed only for early loop trace
+0x88,TCON,TCON_candidate,0,0,0,no,no,,,serial_timer_interrupt_candidate,static_code,low,boot_observed only for early loop trace
+0x89,TMOD,TMOD_candidate,0,0,0,no,no,,,serial_timer_interrupt_candidate,static_code,low,boot_observed only for early loop trace
+0x8A,TL0,TL0_candidate,0,0,0,no,no,,,serial_timer_interrupt_candidate,static_code,low,boot_observed only for early loop trace
+0x8B,TL1,TL1_candidate,0,0,0,no,no,,,serial_timer_interrupt_candidate,static_code,low,boot_observed only for early loop trace
+0x8C,TH0,TH0_candidate,0,0,0,no,no,,,serial_timer_interrupt_candidate,static_code,low,boot_observed only for early loop trace
+0x8D,TH1,TH1_candidate,0,0,0,no,no,,,serial_timer_interrupt_candidate,static_code,low,boot_observed only for early loop trace
+0x90,P1,P1_candidate,1,2,1,no,no,0x5A1A,0x5A1A;0x62C9;0x8527,port_io_candidate,static_code,medium,boot_observed only for early loop trace
+0x98,SCON0,SCON0_candidate,0,0,1,no,no,0x6013,0x6013,serial_timer_interrupt_candidate,static_code,medium,boot_observed only for early loop trace
+0x99,SBUF0,SBUF0_candidate,0,0,0,no,no,,,serial_timer_interrupt_candidate,static_code,low,boot_observed only for early loop trace
+0x9A,SBUF1/SCON1_alias,UART1_candidate,0,0,0,no,no,,,serial_timer_interrupt_candidate,static_code,low,boot_observed only for early loop trace
+0xA0,P2,P2_candidate,6,8,3,no,no,0x46DF,0x46DF;0x4722;0x4742;0x4943;0x4947,port_io_candidate,static_code,medium,boot_observed only for early loop trace
+0xA8,IE,IE_candidate,6,1,41,no,no,0x41A6,0x41A6;0x41AD;0x41B6;0x41CD;0x41F7,serial_timer_interrupt_candidate,static_code,medium,boot_observed only for early loop trace
+0xB0,P3,P3_candidate,0,0,0,no,no,,,port_io_candidate,static_code,low,boot_observed only for early loop trace
+0xB8,IP,IP_candidate,3,2,0,no,no,0x533C,0x533C;0x5BD9;0x6AE0,serial_timer_interrupt_candidate,static_code,medium,boot_observed only for early loop trace
+0xC8,SCON1,SCON1_candidate,0,0,0,no,no,,,serial_timer_interrupt_candidate,static_code,low,boot_observed only for early loop trace
+0xD0,PSW,cpu_internal_sfr,1,0,3,yes,yes,0x4624,0x4624;0x462D;0x4630;0x624E,cpu_internal,emulation_observed,high,boot_observed only for early loop trace
+0xE0,ACC,cpu_internal_sfr,0,0,100,no,no,0x4136,0x4136;0x41CA;0x4633;0x4637;0x467E,cpu_internal,static_code,high,boot_observed only for early loop trace
+0xF0,B,cpu_internal_sfr,153,182,9,no,no,0x417C,0x417C;0x41D9;0x4256;0x425B;0x42AA,cpu_internal,static_code,high,boot_observed only for early loop trace

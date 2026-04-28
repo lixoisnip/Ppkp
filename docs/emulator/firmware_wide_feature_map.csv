@@ -1,0 +1,11 @@
+feature_type,addr_start,addr_end,entry_or_reference,reason,evidence_level,confidence,related_sfrs,related_xdata,callers_or_refs,notes
+reset_entry,0x4000,0x4002,entry,reset LJMP to 0x4100,emulation_observed,high,,,,confirmed reset vector
+application_entry,0x4100,0x4100,entry,boot starts at 0x4100,emulation_observed,high,,xdata[0x0030..0x0031],,confirmed by boot trace
+boot_config_loop,0x410A,0x4165,reference,stable repeating loop writes DPL/DPH and reads XDATA via pointer,emulation_observed,medium,0x82;0x83;0xD0,0x0030..0x0031,,early boot loop only
+runtime_loop_candidate,0x5715,0x5733,reference,previous runtime loop candidate hotspot,static_code,low,,,,not reached from boot
+scheduler_candidate,0x5935,0x593D,reference,loop shape and call density,static_code,low,,,,function-level probe only
+packet_event_candidate,0x55AD,0x5A7F,entry_or_reference,packet bridge function traces exist,emulation_observed,medium,,xdata staging rows observed,,from function harness traces
+interrupt_vector_candidate,0x4000,0x401F,reference,vector table region,static_code,medium,,,,contains entry vectors
+uart_init_candidate,,,,no observed uart init in boot; static scan found no direct SCON/SBUF writes,emulation_observed,low,0x98;0x99,,,unresolved
+display_output_candidate,,,,no confirmed display output path,emulation_observed,low,0x80;0x90;0xA0;0xB0,,,unresolved
+keypad_scan_candidate,,,,no confirmed keypad scan path,emulation_observed,low,0x80;0x90;0xA0;0xB0,,,unresolved

@@ -1,0 +1,22 @@
+candidate_addr,candidate_type,sfr_addr,operation,nearby_bytes,nearby_decode,caller_refs,confidence,evidence_level,notes
+0x4300,unknown_serial_candidate,0xAF,CLR 0xAF,C2 AF A8 8E 43 8E,CLR 0xAF,,low,static_code,unverified static pattern
+0x432C,unknown_serial_candidate,0xAF,CLR 0xAF,C2 AF A8 8E 43 8E,CLR 0xAF,,low,static_code,unverified static pattern
+0x434D,unknown_serial_candidate,0xAF,CLR 0xAF,C2 AF A8 8E 43 8E,CLR 0xAF,,low,static_code,unverified static pattern
+0x438F,unknown_serial_candidate,0xAF,CLR 0xAF,C2 AF A8 8E 43 8E,CLR 0xAF,,low,static_code,unverified static pattern
+0x43EC,unknown_serial_candidate,0xAF,CLR 0xAF,C2 AF A8 8E 43 8E,CLR 0xAF,,low,static_code,unverified static pattern
+0x4416,unknown_serial_candidate,0xAF,CLR 0xAF,C2 AF A8 8E 43 8E,CLR 0xAF,,low,static_code,unverified static pattern
+0x4445,unknown_serial_candidate,0xAF,CLR 0xAF,C2 AF A8 8E 43 8E,CLR 0xAF,,low,static_code,unverified static pattern
+0x4494,unknown_serial_candidate,0xAF,CLR 0xAF,C2 AF A8 8E 43 8E,CLR 0xAF,,low,static_code,unverified static pattern
+0x44B9,unknown_serial_candidate,0x82,"MOV 0x82,A",F5 82 88 83 E5 83,"MOV 0x82,A",,low,static_code,unverified static pattern
+0x450C,unknown_serial_candidate,0x82,"MOV 0x82,A",F5 82 88 83 E5 83,"MOV 0x82,A",,low,static_code,unverified static pattern
+0x4528,unknown_serial_candidate,0x82,"MOV 0x82,A",F5 82 88 83 E5 83,"MOV 0x82,A",,low,static_code,unverified static pattern
+0x5289,unknown_serial_candidate,0xA8,UNK ,43 A8 50 41 42 48,UNK ,,low,static_code,unverified static pattern
+0x5382,serial_status_poll_candidate,0xA8,"JB 0xA8,-88",20 A8 A8 FF A8 79,"JB 0xA8,-88",,low,static_code,unverified static pattern
+0x53E2,serial_status_poll_candidate,0xA8,"JB 0xA8,-87",20 A8 A9 FF 54 65,"JB 0xA8,-87",,low,static_code,unverified static pattern
+0x5BD9,unknown_serial_candidate,0xB8,UNK ,53 B8 90 52 1C 12,UNK ,,low,static_code,unverified static pattern
+0x6AE0,unknown_serial_candidate,0xB8,UNK ,53 B8 90 30 FB E0,UNK ,,low,static_code,unverified static pattern
+0x6CBB,unknown_serial_candidate,0x82,"MOV 0x82,A",F5 82 8D 83 EA 93,"MOV 0x82,A",,low,static_code,unverified static pattern
+0x8361,unknown_serial_candidate,0x83,"MOV 0x83,A",F5 83 88 82 E0 B5,"MOV 0x83,A",,low,static_code,unverified static pattern
+0x8388,unknown_serial_candidate,0x83,"MOV 0x83,A",F5 83 88 82 E0 B5,"MOV 0x83,A",,low,static_code,unverified static pattern
+0x8396,unknown_serial_candidate,0x82,"MOV 0x82,A",F5 82 88 83 48 22,"MOV 0x82,A",,low,static_code,unverified static pattern
+0x83B1,unknown_serial_candidate,0x82,"MOV 0x82,A",F5 82 88 83 E0 F8,"MOV 0x82,A",,low,static_code,unverified static pattern
