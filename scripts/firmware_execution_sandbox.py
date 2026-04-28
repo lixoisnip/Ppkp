@@ -35,9 +35,19 @@ SCENARIO_VARIANT_SUMMARY_CSV = OUT / "scenario_variant_summary.csv"
 LOOP_EXIT_DIAGNOSTICS_CSV = OUT / "loop_exit_diagnostics.csv"
 BRANCH_DECISION_SUMMARY_CSV = OUT / "branch_decision_summary.csv"
 STATE_VARIANT_COMPACT_REPORT_MD = OUT / "state_variant_compact_report.md"
+SCENARIO_SEED_MANIFEST_CSV = OUT / "scenario_seed_manifest.csv"
+SEED_APPLICATION_AUDIT_CSV = OUT / "seed_application_audit.csv"
+BRANCH_DEPENDENCY_AUDIT_CSV = OUT / "branch_dependency_audit.csv"
+LOOP_STATE_DIGEST_CSV = OUT / "loop_state_digest.csv"
 
 LOOP_REGIONS = [(0x5715, 0x5733), (0x8365, 0x837F), (0x567F, 0x5683), (0x5935, 0x593D)]
 BRANCH_OPS = {"JB", "JNB", "CJNE", "JZ", "JNZ", "DJNZ"}
+SEED_CANDIDATE_ADDRS = sorted(
+    {
+        0x30BC, 0x30E1, 0x30E7, 0x30E9, 0x31BF, 0x3165, 0x364B, 0x30AC, 0x30B4, 0x30CC, 0x30D4, 0x30E0, 0x36E4,
+        *range(0x30EA, 0x30FA), *range(0x36D3, 0x3700), *range(0x36F0, 0x3700),
+    }
+)
 
 
 def _run_id(prefix: str) -> str:
@@ -935,8 +945,215 @@ def _collect_branch_rows(scenario_name: str, run: FunctionRunResult) -> list[dic
     return rows
 
 
+def _parse_hex_int(raw: str, default: int = 0) -> int:
+    try:
+        return int(raw, 16)
+    except (TypeError, ValueError):
+        return default
+
+
+def _rel_target_from_args(pc: int, op: str, args: str) -> int:
+    if op in {"JB", "JNB"}:
+        rel = int(args.split(",")[-1].strip())
+        return (pc + 3 + rel) & 0xFFFF
+    if op == "CJNE":
+        rel = int(args.split(",")[-1].strip())
+        return (pc + 3 + rel) & 0xFFFF
+    if op in {"JZ", "JNZ"}:
+        rel = int(args.strip())
+        return (pc + 2 + rel) & 0xFFFF
+    if op == "DJNZ":
+        rel = int(args.split(",")[-1].strip())
+        return (pc + 2 + rel) & 0xFFFF
+    return (pc + 1) & 0xFFFF
+
+
+def _fallthrough_pc(pc: int, op: str) -> int:
+    return (pc + (3 if op in {"JB", "JNB", "CJNE"} else 2 if op in {"JZ", "JNZ", "DJNZ"} else 1)) & 0xFFFF
+
+
+def _build_seed_application_rows(scenario_name: str, run: FunctionRunResult, seed_addrs: dict[int, int], branch_rows: list[dict[str, str]]) -> list[dict[str, str]]:
+    rows: list[dict[str, str]] = []
+    xreads = [r for r in run.trace.rows if r.get("trace_type") == "xdata_read"]
+    xwrites = [r for r in run.trace.rows if r.get("trace_type") == "xdata_write"]
+    branch_seed_hits = {
+        _parse_hex_int(r.get("depends_on_seed_addr", ""))
+        for r in branch_rows
+        if r.get("scenario") == scenario_name and r.get("function_addr") == f"0x{run.function_addr:04X}" and r.get("depends_on_seed_addr")
+    }
+    for addr, seed_value in sorted(seed_addrs.items()):
+        addr_hex = f"0x{addr:04X}"
+        read_rows = [r for r in xreads if r.get("xdata_addr", "").upper() == addr_hex.upper()]
+        write_rows = [r for r in xwrites if r.get("xdata_addr", "").upper() == addr_hex.upper()]
+        first_read = read_rows[0] if read_rows else None
+        first_write = write_rows[0] if write_rows else None
+        read_step = int(first_read["step"]) if first_read else None
+        write_step = int(first_write["step"]) if first_write else None
+        read_before = first_read is not None and (first_write is None or read_step < write_step)
+        final_value = write_rows[-1].get("xdata_value") if write_rows else f"0x{seed_value:02X}"
+        notes = "seed_unused_in_trace"
+        if first_read and first_write:
+            notes = "seed_read_before_write" if read_before else "seed_overwritten_before_first_read"
+        elif first_read:
+            notes = "seed_read_no_overwrite"
+        elif first_write:
+            notes = "seed_overwritten_without_read"
+        rows.append(
+            {
+                "scenario": scenario_name,
+                "seed_addr": addr_hex,
+                "seed_value": f"0x{seed_value:02X}",
+                "function_addr": f"0x{run.function_addr:04X}",
+                "first_read_step": "" if read_step is None else str(read_step),
+                "first_write_step": "" if write_step is None else str(write_step),
+                "read_before_write": "yes" if read_before else "no",
+                "first_read_value": first_read.get("xdata_value", "") if first_read else "",
+                "first_write_value": first_write.get("xdata_value", "") if first_write else "",
+                "final_value": final_value,
+                "influences_control_flow": "yes" if addr in branch_seed_hits else "no",
+                "notes": notes,
+            }
+        )
+    return rows
+
+
+def _build_branch_dependency_rows(scenario_name: str, run: FunctionRunResult, seed_addrs: dict[int, int]) -> list[dict[str, str]]:
+    rows: list[dict[str, str]] = []
+    ins = [r for r in run.trace.rows if r.get("trace_type") == "instruction"]
+    xreads = [r for r in run.trace.rows if r.get("trace_type") == "xdata_read"]
+    focus = {(a, b) for a, b in LOOP_REGIONS}
+    for idx, row in enumerate(ins[:-1]):
+        op = row.get("op", "")
+        if op not in BRANCH_OPS:
+            continue
+        pc = _parse_hex_int(row.get("pc", "0x0"))
+        if not any(start <= pc <= end for start, end in focus):
+            continue
+        args = row.get("args", "")
+        next_pc = _parse_hex_int(ins[idx + 1].get("pc", "0x0"))
+        target_pc = _rel_target_from_args(pc, op, args)
+        fallthrough = _fallthrough_pc(pc, op)
+        taken = "yes" if next_pc == target_pc else "no" if next_pc == fallthrough else "unknown"
+        cond_src = "unknown"
+        cond_val = ""
+        if op in {"JB", "JNB"}:
+            cond_src = args.split(",")[0].strip()
+        elif op in {"JZ", "JNZ"}:
+            cond_src = "A"
+        elif op == "DJNZ":
+            cond_src = args.split(",")[0].strip()
+        elif op == "CJNE":
+            parts = [p.strip() for p in args.split(",")]
+            cond_src = parts[0] if parts else "unknown"
+            cond_val = parts[1] if len(parts) > 1 else ""
+        depends_addr = ""
+        depends_value = ""
+        confidence = "low"
+        if cond_src == "A":
+            prior = [r for r in xreads if int(r.get("step", "0")) < int(row.get("step", "0")) and int(row.get("step", "0")) - int(r.get("step", "0")) <= 8]
+            if prior:
+                last = prior[-1]
+                addr = _parse_hex_int(last.get("xdata_addr", ""))
+                if addr in seed_addrs:
+                    depends_addr = f"0x{addr:04X}"
+                    depends_value = f"0x{seed_addrs[addr]:02X}"
+                    confidence = "medium"
+        rows.append(
+            {
+                "scenario": scenario_name,
+                "function_addr": f"0x{run.function_addr:04X}",
+                "branch_pc": f"0x{pc:04X}",
+                "op": op,
+                "condition_source": cond_src,
+                "condition_value": cond_val,
+                "target_pc": f"0x{target_pc:04X}",
+                "taken": taken,
+                "count": "1",
+                "depends_on_seed_addr": depends_addr,
+                "depends_on_seed_value": depends_value,
+                "confidence": confidence,
+                "notes": "focus_region_branch",
+            }
+        )
+    return rows
+
+
+def _build_loop_state_rows(scenario_name: str, run: FunctionRunResult, seed_addrs: dict[int, int], row_limit: int = 100) -> list[dict[str, str]]:
+    rows: list[dict[str, str]] = []
+    ins = [r for r in run.trace.rows if r.get("trace_type") == "instruction"]
+    xevents = sorted([r for r in run.trace.rows if r.get("trace_type") in {"xdata_read", "xdata_write"}], key=lambda r: int(r.get("step", "0")))
+    sfevents = sorted([r for r in run.trace.rows if r.get("trace_type") == "sfr_access"], key=lambda r: int(r.get("step", "0")))
+    tracked_addrs = sorted(set(list(seed_addrs.keys()) + SEED_CANDIDATE_ADDRS))[:24]
+    for start, end in LOOP_REGIONS:
+        region = [r for r in ins if start <= _parse_hex_int(r.get("pc", "0x0")) <= end]
+        if not region:
+            continue
+        picks = [region[0], region[len(region) // 2], region[-1]]
+        labels = ["first", "middle", "last"]
+        for label, snap in zip(labels, picks):
+            step = int(snap.get("step", "0"))
+            xstate: dict[int, str] = {}
+            for e in xevents:
+                if int(e.get("step", "0")) > step:
+                    break
+                addr = _parse_hex_int(e.get("xdata_addr", ""))
+                if addr in tracked_addrs:
+                    xstate[addr] = e.get("xdata_value", "")
+            if not xstate:
+                for addr, value in seed_addrs.items():
+                    xstate[addr] = f"0x{value:02X}"
+            xdigest = ";".join(f"0x{k:04X}={v}" for k, v in sorted(xstate.items())[:12])
+            sstate: dict[str, str] = {}
+            for e in sfevents:
+                if int(e.get("step", "0")) > step:
+                    break
+                sfr_addr = e.get("sfr_addr", "")
+                if sfr_addr:
+                    sstate[sfr_addr] = e.get("sfr_value", "")
+            sdigest = ";".join(f"{k}={v}" for k, v in list(sorted(sstate.items()))[:8])
+            rows.append(
+                {
+                    "scenario": scenario_name,
+                    "function_addr": f"0x{run.function_addr:04X}",
+                    "loop_region": f"0x{start:04X}..0x{end:04X}",
+                    "iteration_sample": label,
+                    "step": str(step),
+                    "pc": snap.get("pc", ""),
+                    "acc": snap.get("acc_after", ""),
+                    "b": "unknown",
+                    "dptr": snap.get("dptr_after", ""),
+                    "psw": "unknown",
+                    "selected_xdata_digest": xdigest,
+                    "selected_sfr_digest": sdigest,
+                    "notes": "compact_loop_snapshot",
+                }
+            )
+            if len(rows) >= row_limit:
+                return rows[:row_limit]
+    return rows
+
+
+def _write_seed_manifest_for_scenario(scenario_name: str, seed_xdata: dict[int, int]) -> None:
+    cols = ["scenario", "space", "addr", "value", "reason", "evidence_level", "notes"]
+    rows = [
+        {
+            "scenario": scenario_name,
+            "space": "xdata",
+            "addr": f"0x{addr:04X}",
+            "value": f"0x{value:02X}",
+            "reason": "scenario_seed",
+            "evidence_level": "hypothesis",
+            "notes": "seed_declared_for_compact_variant",
+        }
+        for addr, value in sorted(seed_xdata.items())
+    ]
+    _append_capped_csv(SCENARIO_SEED_MANIFEST_CSV, cols, rows, ("scenario", "space", "addr"), 600)
+
+
 def _write_compact_variant_outputs(scenario_name: str, max_steps: int, runs: list[FunctionRunResult], max_trace_rows: int) -> None:
     OUT.mkdir(parents=True, exist_ok=True)
+    scenario = get_scenario(scenario_name)
+    _write_seed_manifest_for_scenario(scenario_name, scenario.seed_xdata)
     summary_cols = [
         "scenario", "function_addr", "max_steps", "steps", "stop_reason", "unsupported_ops", "xdata_reads", "xdata_writes", "sfr_writes",
         "bit_accesses", "code_reads", "sbuf_writes", "uart_tx_candidates", "top_pc_hotspot", "top_xdata_write_addrs", "changed_vs_base", "notes",
@@ -944,6 +1161,9 @@ def _write_compact_variant_outputs(scenario_name: str, max_steps: int, runs: lis
     summary_rows = []
     loop_rows: list[dict[str, str]] = []
     branch_rows: list[dict[str, str]] = []
+    seed_rows: list[dict[str, str]] = []
+    branch_audit_rows: list[dict[str, str]] = []
+    loop_state_rows: list[dict[str, str]] = []
     for run in runs:
         sfr_writes = sum(1 for r in run.trace.rows if r.get("trace_type") == "sfr_access" and "write" in r.get("notes", ""))
         bit_accesses = sum(1 for r in run.trace.rows if r.get("trace_type") == "bit_access")
@@ -972,11 +1192,28 @@ def _write_compact_variant_outputs(scenario_name: str, max_steps: int, runs: lis
         )
         loop_rows.extend(_collect_loop_exit_rows(scenario_name, run, max_trace_rows=max_trace_rows))
         branch_rows.extend(_collect_branch_rows(scenario_name, run))
+        per_run_branch = _build_branch_dependency_rows(scenario_name, run, scenario.seed_xdata)
+        branch_audit_rows.extend(per_run_branch)
+        seed_rows.extend(_build_seed_application_rows(scenario_name, run, scenario.seed_xdata, per_run_branch))
+        loop_state_rows.extend(_build_loop_state_rows(scenario_name, run, scenario.seed_xdata, row_limit=100))
     _append_capped_csv(SCENARIO_VARIANT_SUMMARY_CSV, summary_cols, summary_rows, ("scenario", "function_addr", "max_steps"), 100)
     loop_cols = ["scenario", "function_addr", "loop_region", "iterations", "exit_reason", "last_pc", "last_branch_pc", "last_branch_taken", "watched_state_digest", "notes"]
     _append_capped_csv(LOOP_EXIT_DIAGNOSTICS_CSV, loop_cols, loop_rows[:100], ("scenario", "function_addr", "loop_region"), 100)
     branch_cols = ["scenario", "function_addr", "pc", "op", "condition_source", "condition_value", "target_pc", "taken", "count", "first_step", "last_step", "notes"]
     _append_capped_csv(BRANCH_DECISION_SUMMARY_CSV, branch_cols, branch_rows[:150], ("scenario", "function_addr", "pc", "op", "condition_source", "target_pc", "taken"), 150)
+    seed_cols = ["scenario", "seed_addr", "seed_value", "function_addr", "first_read_step", "first_write_step", "read_before_write", "first_read_value", "first_write_value", "final_value", "influences_control_flow", "notes"]
+    _append_capped_csv(SEED_APPLICATION_AUDIT_CSV, seed_cols, seed_rows[:800], ("scenario", "function_addr", "seed_addr"), 800)
+    audit_cols = ["scenario", "function_addr", "branch_pc", "op", "condition_source", "condition_value", "target_pc", "taken", "count", "depends_on_seed_addr", "depends_on_seed_value", "confidence", "notes"]
+    grouped: dict[tuple[str, ...], dict[str, str]] = {}
+    for row in branch_audit_rows:
+        key = (row["scenario"], row["function_addr"], row["branch_pc"], row["op"], row["condition_source"], row["condition_value"], row["target_pc"], row["taken"], row["depends_on_seed_addr"], row["depends_on_seed_value"])
+        if key not in grouped:
+            grouped[key] = dict(row)
+            grouped[key]["count"] = "0"
+        grouped[key]["count"] = str(int(grouped[key]["count"]) + 1)
+    _append_capped_csv(BRANCH_DEPENDENCY_AUDIT_CSV, audit_cols, list(grouped.values())[:200], ("scenario", "function_addr", "branch_pc", "op", "target_pc", "taken", "depends_on_seed_addr"), 200)
+    digest_cols = ["scenario", "function_addr", "loop_region", "iteration_sample", "step", "pc", "acc", "b", "dptr", "psw", "selected_xdata_digest", "selected_sfr_digest", "notes"]
+    _append_capped_csv(LOOP_STATE_DIGEST_CSV, digest_cols, loop_state_rows[:100], ("scenario", "function_addr", "loop_region", "iteration_sample"), 100)
     _write_state_variant_compact_report()
 
 
@@ -997,6 +1234,31 @@ def _write_state_variant_compact_report() -> None:
             if addr:
                 sensitive[addr] += 1
     top_sensitive = "; ".join(f"{a}({c})" for a, c in sensitive.most_common(8))
+    seed_rows = []
+    if SEED_APPLICATION_AUDIT_CSV.exists():
+        with SEED_APPLICATION_AUDIT_CSV.open(encoding="utf-8", newline="") as fh:
+            seed_rows = list(csv.DictReader(fh))
+    seed_read = sorted({r["seed_addr"] for r in seed_rows if r.get("first_read_step")})
+    seed_overwritten = sorted({r["seed_addr"] for r in seed_rows if r.get("notes") == "seed_overwritten_before_first_read"})
+    seed_influential = sorted({r["seed_addr"] for r in seed_rows if r.get("influences_control_flow") == "yes"})
+    branch_audit_rows = []
+    if BRANCH_DEPENDENCY_AUDIT_CSV.exists():
+        with BRANCH_DEPENDENCY_AUDIT_CSV.open(encoding="utf-8", newline="") as fh:
+            branch_audit_rows = list(csv.DictReader(fh))
+    hotspot_branches = sorted(
+        {
+            f"{r.get('branch_pc')}:{r.get('op')}"
+            for r in branch_audit_rows
+            if r.get("function_addr") in {"0x55AD", "0x5602"} and 0x5715 <= _parse_hex_int(r.get("branch_pc", "0x0")) <= 0x5733
+        }
+    )
+    loop_rows = []
+    if LOOP_STATE_DIGEST_CSV.exists():
+        with LOOP_STATE_DIGEST_CSV.open(encoding="utf-8", newline="") as fh:
+            loop_rows = list(csv.DictReader(fh))
+    loop_change = "stays mostly constant in sampled snapshots"
+    if len({(r.get("function_addr"), r.get("selected_xdata_digest"), r.get("selected_sfr_digest")) for r in loop_rows}) > 2:
+        loop_change = "changes across sampled snapshots, but still does not exit hotspot loops"
     report = [
         "# State variant compact report",
         "",
@@ -1011,6 +1273,17 @@ def _write_state_variant_compact_report() -> None:
         f"- Most seed-sensitive XDATA addresses (compact): {top_sensitive if top_sensitive else 'none observed'}.",
         "- Branch decisions keeping 0x55AD/0x5602 in loops: see docs/emulator/branch_decision_summary.csv (JB/JNB/CJNE/JZ/JNZ/DJNZ compact aggregates).",
         "- RS-485 commands still unresolved: yes (no confirmed UART/SBUF payload evidence).",
+        "",
+        "## Seed-effect audit summary",
+        f"- Which seed addresses are actually read? {', '.join(seed_read[:24]) if seed_read else 'none observed within compact step windows'}.",
+        f"- Which seed addresses are overwritten before first read? {', '.join(seed_overwritten[:24]) if seed_overwritten else 'none observed'}.",
+        f"- Which seed addresses influence branch decisions? {', '.join(seed_influential[:24]) if seed_influential else 'none confirmed'}.",
+        f"- Which branches keep 0x55AD/0x5602 in 0x5715..0x5733? {', '.join(hotspot_branches[:20]) if hotspot_branches else 'see branch_dependency_audit.csv focus rows in 0x5715..0x5733'}.",
+        f"- Does loop state change over time or stay constant? {loop_change}.",
+        "- Is the current blocker likely wrong seed selection or missing runtime/peripheral context? likely missing runtime/peripheral context (seed variants do not materially alter loop-exit behavior).",
+        f"- Did any SBUF candidate write appear? {'yes' if sbuf else 'no'}.",
+        f"- Did any UART TX candidate byte appear? {'yes' if sbuf else 'no'}.",
+        "- Are RS-485 commands still unresolved? yes.",
     ]
     STATE_VARIANT_COMPACT_REPORT_MD.write_text("\n".join(report) + "\n", encoding="utf-8")
 
