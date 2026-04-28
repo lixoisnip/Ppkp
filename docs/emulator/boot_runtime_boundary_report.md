@@ -4,13 +4,23 @@
 2. Did application entry 0x4100 execute beyond initial setup? yes.
 3. What was the first unsupported opcode, if any? none_observed.
 4. What SFRs were initialized? see docs/emulator/boot_init_write_summary.csv (emulation_observed).
-5. Were UART/SCON/SBUF candidates initialized? yes (emulation_observed).
-6. Were timer/interrupt candidates initialized? yes (emulation_observed).
+5. Were UART/SCON/SBUF candidates initialized? no (emulation_observed).
+6. Were timer/interrupt candidates initialized? no (emulation_observed).
 7. Was a main loop or scheduler loop found? yes (emulation_observed).
-8. Were display/LCD/output candidates observed? yes (emulation_observed).
-9. Were display text/message table candidates found? yes (static_code).
-10. Were keypad/input scan candidates observed? yes (emulation_observed).
+8. Were display/LCD/output candidates observed? no (emulation_observed).
+9. Were display text/message table candidates found? no (static_code).
+10. Were keypad/input scan candidates observed? no (emulation_observed).
 11. Were SBUF candidate writes observed? no.
 12. Were UART TX candidate bytes observed? no.
 13. Are RS-485 commands still unresolved? yes.
-14. Current blocker: blocked_until_peripheral_model (timer/interrupt/UART runtime context incomplete).
+14. Current blocker: boot_init_loop_or_counter_boundary (early 0x4100..0x4165 loop persists without UART/SBUF/port-output proof).
+
+## Classifier correction and early boot-loop interpretation
+- Previous display/keypad counts were contaminated by SP/DPL/DPH/PSW/ACC/B handling: confirmed.
+- Corrected display candidates remaining: 0 (all weak unknown_io_candidate unless promoted by stronger path evidence).
+- Corrected keypad candidates remaining: 0 (all weak unknown_io_candidate unless promoted by stronger path evidence).
+- Display text/message table candidates remaining: 0.
+- UART/SCON/SBUF init candidates remaining: 0; SBUF writes observed: 0.
+- Timer/interrupt candidates remaining: 0.
+- Early 0x4100..0x4165 loop likely represents boot pointer/copy initialization loop (DPTR + DPL/DPH rewrite) rather than peripheral wait loop.
+- Next blocker assessment: boot init loop with missing boundary into later runtime services.
