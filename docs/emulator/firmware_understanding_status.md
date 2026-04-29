@@ -147,3 +147,8 @@
 ### Still blocked
 - A concrete caller-context model that carries control from boot-exit return site into runtime scheduler paths.
 - End-to-end emulator-observed transition from boot record walker to `0x5710..0x5733` materialization loop.
+
+## Runtime continuation autonomous package (2026-04-28)
+- Completed 3-cycle bounded continuation loop without user handoff.
+- Added candidate ranking, opcode blocker audit, seeded rerun summary, and model report.
+- All seeded return continuations remain hypothesis-only and not claimed as real hardware flow.

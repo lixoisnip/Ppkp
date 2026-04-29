@@ -1,0 +1,8 @@
+scenario,candidate_addr,max_steps,steps,stop_reason,reached_4176,reached_41D0,reached_492E,reached_4954,reached_497A,reached_5710,reached_5717,reached_5725,reached_55AD,reached_5602,reached_5A7F,reached_36F2_36F9_writes,writes_31FF_3268,writes_36F2_36F9,sbuf_writes,uart_tx_candidates,evidence_level,confidence,notes
+boot_4100_ret_stack_to_4176,0x4176,4000,50,unsupported_opcode 0x95 at 0x4184,yes,no,no,no,no,no,no,no,no,no,no,no,0,0,0,no,emulation_observed,low,seeded_return_hypothesis_only
+boot_4100_ret_stack_to_41D0,0x41D0,4000,43,unsupported_opcode 0x50 at 0x41EA,no,yes,no,no,no,no,no,no,no,no,no,no,0,0,0,no,emulation_observed,low,seeded_return_hypothesis_only
+boot_4100_ret_stack_to_492E,0x492E,4000,50,unsupported_opcode 0x95 at 0x493C,no,no,yes,no,no,no,no,no,no,no,no,no,0,0,0,no,emulation_observed,low,seeded_return_hypothesis_only
+boot_4100_ret_stack_to_4954,0x4954,4000,50,unsupported_opcode 0x95 at 0x4962,no,no,no,yes,no,no,no,no,no,no,no,no,0,0,0,no,emulation_observed,low,seeded_return_hypothesis_only
+boot_4100_ret_stack_to_497A,0x497A,4000,50,unsupported_opcode 0x95 at 0x4988,no,no,no,no,yes,no,no,no,no,no,no,no,0,0,0,no,emulation_observed,low,seeded_return_hypothesis_only
+boot_4100_ret_stack_to_5710,0x5710,4000,4000,max_steps,no,no,no,no,no,yes,yes,yes,no,no,yes,no,177,0,0,no,emulation_observed,low,seeded_return_hypothesis_only
+boot_4100_ret_stack_to_55AD,0x55AD,4000,4000,max_steps,no,no,no,no,no,yes,yes,yes,yes,no,yes,yes,248,8,0,no,emulation_observed,low,seeded_return_hypothesis_only

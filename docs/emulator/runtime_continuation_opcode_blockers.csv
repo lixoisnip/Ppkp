@@ -1,0 +1,6 @@
+candidate_addr,stop_pc,opcode,likely_8051_mnemonic,implementation_complexity,expected_value,priority,evidence_level,notes
+0x4176,0x4183,0xC3,CLR C,small,unblocks_vector_candidate_path,high,emulation_observed,standard_8051_safe
+0x41D0,0x41E8,0xA2,"MOV C,bit",small,unblocks_branch_condition_setup,high,emulation_observed,standard_8051_safe
+0x492E,0x493B,0xC3,CLR C,small,unblocks_vector_candidate_path,high,emulation_observed,standard_8051_safe
+0x4954,0x4961,0xC3,CLR C,small,unblocks_vector_candidate_path,high,emulation_observed,standard_8051_safe
+0x497A,0x4987,0xC3,CLR C,small,unblocks_vector_candidate_path,high,emulation_observed,standard_8051_safe
