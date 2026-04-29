@@ -394,6 +394,13 @@ class CPU8051Subset:
             self._log_instr("CLR", "A", pc, acc_before, dptr_before)
             return True, None
 
+        if op == 0xC3:  # CLR C
+            s.psw = s.psw & 0x7F
+            self.sfr.write(0xD0, s.psw, step=s.step_counter, pc=pc, notes="clr_c")
+            s.pc += 1
+            self._log_instr("CLR", "C", pc, acc_before, dptr_before, notes="carry_cleared=true")
+            return True, None
+
         if op == 0x00:  # NOP
             s.pc += 1
             self._log_instr("NOP", "", pc, acc_before, dptr_before, notes="flags_unchanged=true;memory_unchanged=true")
@@ -516,6 +523,15 @@ class CPU8051Subset:
             else:
                 s.pc = (pc + 3) & 0xFFFF
             self._log_instr("JNB", f"bit 0x{bit_addr:02X},{self._rel(rel)}", pc, acc_before, dptr_before)
+            return True, None
+
+        if op == 0xA2:  # MOV C,bit
+            bit_addr = self.fetch(pc + 1)
+            bit_value = self._read_bit_value(bit_addr, pc=pc, access_type="mov_c_bit", notes="mov_c_bit_read")
+            s.psw = ((s.psw & 0x7F) | ((bit_value & 0x01) << 7)) & 0xFF
+            self.sfr.write(0xD0, s.psw, step=s.step_counter, pc=pc, notes="mov_c_bit_psw_carry_update")
+            s.pc += 2
+            self._log_instr("MOV", f"C,bit 0x{bit_addr:02X}", pc, acc_before, dptr_before, notes=f"carry_set_to={bit_value}")
             return True, None
 
         if op in (0x60, 0x70, 0x80):
